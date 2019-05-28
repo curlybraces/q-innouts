@@ -1,11 +1,23 @@
+const ID = () => import('pages/ID.vue')
 
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      {
+        path: 'players/:id',
+        component: ID,
+      },
     ]
+  },
+  {
+    path: '/test',
+    component: () => import('layouts/Test.vue'),
+    // children: [
+    //   { path: '', component: () => import('pages/Index.vue') },
+    // ]
   }
 ]
 
