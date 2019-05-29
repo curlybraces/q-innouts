@@ -1,15 +1,20 @@
 <template>
   <q-page padding class="flex flex-center">
-    <player :player="player" />
+    <player :player="activePlayer" />
     <q-drawer
       v-model="rightDrawerOpen"
+      :mini="$q.screen.lt.md"
       content-class="bg-grey-2"
+      :breakpoint="300"
       side="right"
       elevated
     >
       <teammates :teammates="companions" @newPlayer="setPlayer"/>
       <!-- Fantasticie! I love my beatiful, kind, forgiving God -->
     </q-drawer>
+    <!-- <q-page-sticky v-if="$q.platform.is.mobile" position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="arrow_left" color="accent" @click="miniState = true" />
+    </q-page-sticky> -->
   </q-page>
 </template>
 
@@ -28,10 +33,12 @@ export default {
   data () {
     return {
       player: null,
+      activePlayer: null,
       companions: [],
       error: null,
       // leftDrawerOpen: this.$q.platform.is.desktop,
-      rightDrawerOpen: this.$q.platform.is.desktop,
+      rightDrawerOpen: true,
+      // miniState: this.$q.screen.lt.md,
       // leftDrawerOpen: true
       // view: 'hHh lpr fff'
     }
@@ -52,6 +59,7 @@ export default {
           next(vm => {
             // vm.setData(response.data)
             vm.player = response.data.data
+            vm.activePlayer = vm.player
           })
         })
         .catch(error => {
@@ -63,11 +71,12 @@ export default {
 
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, true])
+    // alert(this.$q.platform.is.mobile)
   },
 
   methods: {
     setPlayer (idx) {
-      this.player = this.player.team.players[idx]
+      this.activePlayer = this.player.team.players[idx]
       // let newp = this.player.team.players[id]
       // alert(id)
     }

@@ -10,6 +10,9 @@ const routes = [
         path: 'players/:id',
         component: ID,
       },
+      {
+        path: '/leagues/:league', component: () => import('pages/League.vue')
+      }
     ]
   },
   {
@@ -18,7 +21,8 @@ const routes = [
     // children: [
     //   { path: '', component: () => import('pages/Index.vue') },
     // ]
-  }
+  },
+
 ]
 
 // Always leave this as last one

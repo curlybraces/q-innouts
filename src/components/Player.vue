@@ -2,14 +2,16 @@
   <div>
     <q-card inline>
       <div class="row">  <!-- use 'row' class to define a container / parent -->
-        <div class="col-sm-4">
+        <div class="col-sm-4 q-mx-auto">
           <div class="row">
-            <img alt="Quasar logo" :src="player.picture" class="q-mx-auto fit" >
+            <div style="width: 300px; height: 300px">
+              <img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" >
+            </div>
           </div>
           <div class="row">
             <q-rating
               color="orange"
-              class="q-mx-auto q-mt-lg"
+              class="q-mx-auto q-mt-sm"
               size="1.5rem"
               v-model="ratingModel"
               :max="5"
@@ -79,7 +81,7 @@ export default {
         align: 'left',
         field: 'attribute',
         classes: 'my-class',
-        style: 'width: 300px'
+        style: 'width: 200px'
       },
       {
         name: 'desc',
@@ -101,7 +103,7 @@ export default {
   }),
 
   props: {
-    player: Object,
+    player: null,
   },
 
   watch: {

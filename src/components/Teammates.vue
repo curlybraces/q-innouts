@@ -7,6 +7,7 @@
         dense
         inset-delimiter
       >
+      <q-item-label header>Club Teammates</q-item-label>
         <!-- <q-list-header>Teammates</q-list-header> -->
         <div v-for="(mate, index) in teammates" :key="mate.id">
           <q-item @click="setPlayer(index)"  clickable v-ripple>

@@ -27,6 +27,7 @@ module.exports = function (ctx) {
       components: [
         'QAjaxBar',
         'QAvatar',
+        'QBtnDropdown',
         'QCard',
         'QFooter',
         'QLayout',
@@ -34,8 +35,10 @@ module.exports = function (ctx) {
         'QDrawer',
         'QPageContainer',
         'QPage',
+        'QPageSticky',
         'QRating',
         'QSeparator',
+        'QSpace',
         'QTable',
         'QToolbar',
         'QToolbarTitle',

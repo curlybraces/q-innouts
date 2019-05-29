@@ -1,23 +1,134 @@
 <template>
   <q-layout :view="view" >
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
+    <q-header reveal elevated class="glossy q-pa-xs">
+      <div class="row no-wrap shadow-1">
+        <q-toolbar>
+          <q-btn
+            flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu"
+            class="q-mr-md"
+          >
+            <q-icon name="menu" />
+          </q-btn>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-avatar>
+          <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+        </q-avatar>
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
+          <q-toolbar-title>
+            Innouts
+          </q-toolbar-title>
+
+          <q-btn-dropdown
+            split color="green" push dense size="md" glossy no-caps
+            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+            class="q-mx-sm"
+            to="/leagues/premier-league"
+          >
+            <q-list dense>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="folder" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Photos</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="assignment" color="secondary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Vacation</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
+          <q-btn-dropdown
+            split color="green" push dense size="md" glossy no-caps
+            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+            @click="onMainClick" class="q-mx-sm"
+          >
+            <q-list dense>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="folder" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Photos</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="assignment" color="secondary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Vacation</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
+          <q-btn-dropdown
+            split color="green" push dense size="md" glossy no-caps
+            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+            @click="onMainClick" class="q-mx-sm"
+          >
+            <q-list dense>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="folder" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Photos</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="assignment" color="secondary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Vacation</q-item-label>
+                  <q-item-label caption>February 22, 2016</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon name="info" color="amber" />
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <!-- <div>Quasar v{{ $q.version }}</div> -->
+        </q-toolbar>
+
+        <q-toolbar class="col-4 text-white">
+          <q-space />
+          <q-btn flat round dense icon="bluetooth" class="q-mr-sm" />
+          <q-btn flat round dense icon="more_vert" />
+        </q-toolbar>
+      </div>
     </q-header>
 
     <q-drawer
