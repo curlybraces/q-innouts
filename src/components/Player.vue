@@ -4,7 +4,7 @@
       <div class="row">  <!-- use 'row' class to define a container / parent -->
         <div class="col-sm-4 q-mx-auto">
           <div class="row">
-            <div style="width: 300px; height: 300px">
+            <div style="width: 300px;">
               <img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" >
             </div>
           </div>
@@ -29,7 +29,43 @@
           </div>
         </div>  <!-- children will default to 'col'  -->
         <div class="col-sm-8">
-            <q-table
+          <q-markup-table separator="none">
+            <tbody>
+              <tr>
+                <td class="text-left">First Name</td>
+                <td class="text-right">{{player.firstName}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Last Name</td>
+                <td class="text-right">{{player.lastName}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Nationality</td>
+                <td class="text-right">{{player.nationality}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Birth</td>
+                <td class="text-right">{{player.birth}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Height</td>
+                <td class="text-right">{{player.height}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Weight</td>
+                <td class="text-right">{{player.weight}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Foot</td>
+                <td class="text-right">{{player.foot}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Position</td>
+                <td class="text-right">{{player.broadPosition}}</td>
+              </tr>
+            </tbody>
+          </q-markup-table>
+            <!-- <q-table
               :pagination.sync="pagination"
                title="ID Card"
                :data="tableData"
@@ -39,7 +75,7 @@
                hide-header
                hide-bottom
                rows-per-page='10'
-            />
+            /> -->
         </div>
       </div>
       <!-- <q-card-media>
@@ -73,33 +109,7 @@ export default {
   name: 'Player',
 
   data: () => ({
-    columns: [
-      {
-        name: 'desc',
-        required: true,
-        label: 'Dessert (100g serving)',
-        align: 'left',
-        field: 'attribute',
-        classes: 'my-class',
-        style: 'width: 200px'
-      },
-      {
-        name: 'desc',
-        required: true,
-        label: 'Dessert (100g serving)',
-        align: 'left',
-        field: 'info',
-        classes: 'my-class',
-        style: 'width: 300px'
-      }
-
-    ],
     ratingModel: 1,
-    tableData: [],
-    pagination: {
-      rowsPerPage: 8,
-    }
-
   }),
 
   props: {
@@ -110,43 +120,6 @@ export default {
     // '$route' (to, from) {
     //   this.fetchData(to.params.id)
     // }
-    'player' () {
-      this.tableData = [
-        {
-          attribute: 'First Name',
-          info: this.player.firstName,
-        },
-        {
-          attribute: 'Last Name',
-          info: this.player.lastName,
-        },
-        {
-          attribute: 'Nationality',
-          info: this.player.nationality,
-        },
-        {
-          attribute: 'Birth',
-          info: this.player.birthday.date,
-        },
-        {
-          attribute: 'Height',
-          info: this.player.height,
-        },
-        {
-          attribute: 'Weight',
-          info: this.player.weight,
-        },
-        {
-          attribute: 'Foot',
-          info: this.player.foot,
-        },
-        {
-          attribute: 'Position',
-          info: this.player.broadPosition,
-        },
-      ]
-    }
-
   },
 
   mounted: function () {
