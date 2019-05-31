@@ -27,7 +27,7 @@
             <q-tab-panel name="mails">
               <!-- <div class="text-h6">Mails</div> -->
               <q-card>
-                <div class="row q-my-md bg-primary justify-center">
+                <div class="row q-my-md bg-primary justify-center text-white">
                   <div class="col">
                     <q-markup-table  flat dense separator="none" class="bg-primary no-border">
                       <tbody>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                   <div class="col q-ma-sm">
-                    <q-markup-table square flat bordered separator="none" class="rounded-borders">
+                    <q-markup-table square flat bordered separator="none" class="rounded-borders bg-secondary">
                       <tbody>
                         <tr>
                           <td class="text-left">Internationalization</td>
@@ -81,7 +81,14 @@
                       </tbody>
                     </q-markup-table>
                   </div>
-                  <div class="col text-center">teams</div>
+                  <div class="col text-center">
+                    <h5 class="text-center">Teams</h5>
+                    <ul id="league-teams">
+                       <li class="picture-wrapper">
+                          <img class="full-width" alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+                       </li>
+                    </ul>
+                  </div>
                 </div>
               </q-card>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
