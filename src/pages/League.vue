@@ -28,20 +28,20 @@
               <!-- <div class="text-h6">Mails</div> -->
               <q-card>
                 <div class="row q-my-md bg-primary justify-center text-white">
-                  <div class="col">
-                    <q-markup-table  flat dense separator="none" class="bg-primary no-border">
+                  <div class="col text-center">
+                    <q-markup-table  flat dense separator="none" class="bg-primary text-white no-border">
                       <tbody>
                         <tr>
-                          <td class="text-left">Country</td>
-                          <td class="text-right">159</td>
+                          <td class="">Country</td>
+                          <td class="">159</td>
                         </tr>
                         <tr>
-                          <td class="text-left">Formation</td>
-                          <td class="text-right">237</td>
+                          <td class="">Formation</td>
+                          <td class="">237</td>
                         </tr>
                         <tr>
-                          <td class="text-left"># of Teams</td>
-                          <td class="text-right">237</td>
+                          <td class=""># of Teams</td>
+                          <td class="">237</td>
                         </tr>
                       </tbody>
                     </q-markup-table>
@@ -51,7 +51,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col q-ma-sm">
+                  <div class="col q-ma-md">
                     <q-markup-table square flat bordered separator="none" class="rounded-borders bg-secondary">
                       <tbody>
                         <tr>
@@ -82,10 +82,12 @@
                     </q-markup-table>
                   </div>
                   <div class="col text-center">
-                    <h5 class="text-center">Teams</h5>
+                    <!-- <h5 class="text-center">Teams</h5> -->
+                    <h5 class="text-center q-my-xs"><span>⚔</span></h5>
+                    <!-- Teams⚔ -->
                     <ul id="league-teams">
-                       <li class="picture-wrapper">
-                          <img class="full-width" alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+                       <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
+                          <img class="full-height" alt="Quasar logo" :src="team.logo">
                        </li>
                     </ul>
                   </div>
@@ -111,18 +113,41 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  // name: 'PageName',
+  name: 'League',
   data () {
     return {
-      tab: 'mails'
+      tab: 'mails',
+      league: null,
     }
+  },
+
+  beforeRouteEnter (to, from, next) {
+    // if (from.name === 'player') {
+    //   next()
+    // } else {
+    axios.get('http://innouts.test/api/leagues/' + to.params.league)
+      .then(response => {
+        next(vm => {
+          // vm.setData(response.data)
+          vm.league = response.data.data
+          // vm.activePlayer = vm.player
+        })
+      })
+      .catch(error => {
+        from.error = error
+        next(false)
+      })
+    // }
   },
 
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
     // alert(this.$q.platform.is.mobile)
   },
+
 }
 </script>
 
