@@ -12,7 +12,10 @@ const routes = [
       },
       {
         path: '/leagues/:league', component: () => import('pages/League.vue')
-      }
+      },
+      {
+        path: '/rumours', component: () => import('pages/Rumours.vue')
+      },
     ]
   },
   {

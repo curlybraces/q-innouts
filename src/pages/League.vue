@@ -1,15 +1,16 @@
 <template>
   <q-page padding>
-    <div class="row no-wrap">
-      <div class="col-sm-3 offset-sm-2">
-        <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+    <div class="row no-wap">
+      <div class="col-sm-3 offset-sm-1">
+        <img alt="Quasar logo" :src="league.logo">
       </div>
-      <div class="col-sm-9 align-self-end">
-        <h4 class="align-self-end">Premier League</h4>
+      <div class="col-auto self-end">
+        <h4 class="bg-primar">{{league.name}}</h4>
+        <!-- <div class="order-first">h</div> -->
       </div>
     </div>
     <div class="row justify-center q-gutter-y-md">
-      <div class="col q-gutter-y-md" style="max-width: 1000px">
+      <div class="col q-gutter-y-md" style="max-widh: 1000px">
         <q-tabs
           v-model="tab" dense
           inline-label
@@ -23,25 +24,25 @@
     </div>
     <div class="row justify-center">
       <!-- <div class="col"> -->
-          <q-tab-panels v-model="tab" animated class="q-mx-auto">
+          <q-tab-panels v-model="tab" animated class="col q-mx-aut">
             <q-tab-panel name="mails">
               <!-- <div class="text-h6">Mails</div> -->
               <q-card>
                 <div class="row q-my-md bg-primary justify-center text-white">
-                  <div class="col text-center">
+                  <div class="col text-center q-pa-sm">
                     <q-markup-table  flat dense separator="none" class="bg-primary text-white no-border">
                       <tbody>
                         <tr>
                           <td class="">Country</td>
-                          <td class="">159</td>
+                          <td class="">{{league.country}}</td>
                         </tr>
                         <tr>
                           <td class="">Formation</td>
-                          <td class="">237</td>
+                          <td class="">{{league.formed}}</td>
                         </tr>
                         <tr>
                           <td class=""># of Teams</td>
-                          <td class="">237</td>
+                          <td class="">{{league.noOfTeams}}</td>
                         </tr>
                       </tbody>
                     </q-markup-table>
@@ -50,8 +51,8 @@
                     Holders
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col q-ma-md">
+                <div class="row q-ma-md">
+                  <div class="col-sm-6 q-pa-sm">
                     <q-markup-table square flat bordered separator="none" class="rounded-borders bg-secondary">
                       <tbody>
                         <tr>
@@ -81,7 +82,7 @@
                       </tbody>
                     </q-markup-table>
                   </div>
-                  <div class="col text-center">
+                  <div class="col-sm-6 text-center">
                     <!-- <h5 class="text-center">Teams</h5> -->
                     <h5 class="text-center q-my-xs"><span>⚔</span></h5>
                     <!-- Teams⚔ -->
@@ -93,8 +94,8 @@
                   </div>
                 </div>
               </q-card>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
             </q-tab-panel>
 
             <q-tab-panel name="alarms">
@@ -114,6 +115,7 @@
 
 <script>
 import axios from 'axios'
+// import { date } from 'quasar'
 
 export default {
   name: 'League',
@@ -145,6 +147,7 @@ export default {
 
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
+    // this.league.formed = new Date(this.league.formed)
     // alert(this.$q.platform.is.mobile)
   },
 

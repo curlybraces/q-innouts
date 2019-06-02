@@ -10,7 +10,7 @@
             <q-icon name="menu" />
           </q-btn>
 
-        <q-avatar>
+        <q-avatar clickable link to="/">
           <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
         </q-avatar>
 
@@ -22,10 +22,10 @@
             split color="green" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
             class="q-mx-sm"
-            to="/leagues/premier-league"
+            to="/leagues/1"
           >
             <q-list dense>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="folder" color="primary" text-color="white" />
                 </q-item-section>
@@ -38,7 +38,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="assignment" color="secondary" text-color="white" />
                 </q-item-section>
@@ -56,10 +56,10 @@
           <q-btn-dropdown
             split color="green" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
-            @click="onMainClick" class="q-mx-sm"
+             class="q-mx-sm"
           >
             <q-list dense>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="folder" color="primary" text-color="white" />
                 </q-item-section>
@@ -72,7 +72,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="assignment" color="secondary" text-color="white" />
                 </q-item-section>
@@ -90,10 +90,10 @@
           <q-btn-dropdown
             split color="green" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
-            @click="onMainClick" class="q-mx-sm"
+             class="q-mx-sm"
           >
             <q-list dense>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="folder" color="primary" text-color="white" />
                 </q-item-section>
@@ -106,7 +106,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup >
                 <q-item-section avatar>
                   <q-avatar icon="assignment" color="secondary" text-color="white" />
                 </q-item-section>
@@ -125,7 +125,7 @@
 
         <q-toolbar class="col-4 text-white">
           <q-space />
-          <q-btn flat round dense icon="bluetooth" class="q-mr-sm" />
+          <q-btn flat to="/rumours" round dense icon="bluetooth" class="q-mr-sm" />
           <q-btn flat round dense icon="more_vert" />
         </q-toolbar>
       </div>

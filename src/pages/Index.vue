@@ -9,6 +9,10 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+
+  created: function () {
+    this.$emit('sendView', ['hhh lpR fff', true, true])
+  }
 }
 </script>
