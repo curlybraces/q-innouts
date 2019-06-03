@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-sm-6">
-        <h4 class="text-center q-my-md">Rumour Mill</h4>
+        <h4 id="title" class="text-center q-my-md">Rumour Mill</h4>
         <div v-for="rumour in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
           <q-card>
             <h5 class="text-center bg-primary text-secondary q-mb-sm q-pa-md">{{rumour.title}}</h5>
@@ -45,7 +45,14 @@
 
 <script>
 import axios from 'axios'
+import { scroll } from 'quasar'
 
+const { getScrollTarget, setScrollPosition } = scroll
+// const { offset } = dom
+
+// Offset on screen
+// console.log(offset(document.getElementById('title')))
+// { top: 10, left: 100 }
 export default {
   name: 'Rumours',
 
@@ -72,6 +79,22 @@ export default {
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
   },
+
+  methods: {
+    scrollToElement (el) {
+      let target = getScrollTarget(el)
+      let offset = el.offsetTop
+      let duration = 1000
+      setScrollPosition(target, offset, duration)
+    },
+
+  },
+
+  watch: {
+    current () {
+      this.scrollToElement(document.getElementById('title'))
+    }
+  }
 
 }
 </script>

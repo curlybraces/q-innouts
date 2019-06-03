@@ -19,7 +19,7 @@
           </q-toolbar-title>
 
           <q-btn-dropdown
-            split color="green" push dense size="md" glossy no-caps
+            split color="accent" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
             class="q-mx-sm"
             to="/leagues/1"
@@ -54,7 +54,7 @@
           </q-btn-dropdown>
 
           <q-btn-dropdown
-            split color="green" push dense size="md" glossy no-caps
+            split color="secondary" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
              class="q-mx-sm"
           >
@@ -88,7 +88,7 @@
           </q-btn-dropdown>
 
           <q-btn-dropdown
-            split color="green" push dense size="md" glossy no-caps
+            split color="secondary" push dense size="md" glossy no-caps
             icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
              class="q-mx-sm"
           >
@@ -147,12 +147,12 @@
             <q-item-label caption>quasar.dev</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="b" to="test">
+        <q-item clickable tag="b" to="/transfers">
           <q-item-section avatar>
-            <q-icon name="code" />
+            <q-icon name="compare_arrows" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Github</q-item-label>
+            <q-item-label>Transfers</q-item-label>
             <q-item-label caption>github.com/quasarframework</q-item-label>
           </q-item-section>
         </q-item>

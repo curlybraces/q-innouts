@@ -16,6 +16,9 @@ const routes = [
       {
         path: '/rumours', component: () => import('pages/Rumours.vue')
       },
+      {
+        path: '/transfers', component: () => import('pages/Transfers.vue')
+      },
     ]
   },
   {

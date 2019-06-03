@@ -48,15 +48,18 @@ module.exports = function (ctx) {
         'QPagination',
         'QRating',
         'QRouteTab',
+        'QSelect',
         'QSeparator',
         'QSpace',
         'QTable',
+        'QTd',
         'QTabs',
         'QTab',
         'QTabPanels',
         'QTabPanel',
         'QToolbar',
         'QToolbarTitle',
+        'QTooltip'
       ],
 
       directives: [
