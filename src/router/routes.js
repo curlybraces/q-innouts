@@ -19,6 +19,9 @@ const routes = [
       {
         path: '/transfers', component: () => import('pages/Transfers.vue')
       },
+      {
+        path: '/teams/:team', component: () => import('pages/Team.vue')
+      },
     ]
   },
   {

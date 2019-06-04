@@ -89,7 +89,7 @@ export default {
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating (mg)', field: row => row.rating, sortable: true },
+        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
         // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
       ],
@@ -105,23 +105,12 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/transfers')
-      .then(response => {
-        next(vm => {
-          vm.transfers = response.data.data
-          vm.loading = false
-          alert('h')
-        })
-      })
-      .catch(error => {
-        from.error = error
-        next(false)
-      })
-
     axios.get('http://innouts.test/api/windows')
       .then(response => {
         next(vm => {
           vm.windows = response.data.data
+          vm.window = vm.windows[0]
+          vm.transfers = vm.window.transfers
           vm.loading = false
         })
       })
@@ -138,15 +127,16 @@ export default {
   watch: {
     window () {
       this.loading = true
-      axios.get('http://innouts.test/api/windows/' + this.window)
-        .then(response => {
-          this.transfers = response.data.data
-          this.loading = false
-          alert(response.data[0])
-        })
-        .catch(error => {
-          alert(error)
-        })
+      // axios.get('http://innouts.test/api/windows/' + this.window.id)
+      //   .then(response => {
+      //     this.transfers = response.data.data
+      //     this.loading = false
+      //   })
+      //   .catch(error => {
+      //     alert(error)
+      //   })
+      this.transfers = this.window.transfers
+      this.loading = false
     }
   }
 }
