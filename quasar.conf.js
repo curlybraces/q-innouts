@@ -35,6 +35,7 @@ module.exports = function (ctx) {
         'QFooter',
         'QHeader',
         'QIcon',
+        'QImg',
         'QItem',
         'QItemSection',
         'QItemLabel',
@@ -68,7 +69,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Loading'
       ]
 
       // iconSet: 'ionicons-v4'

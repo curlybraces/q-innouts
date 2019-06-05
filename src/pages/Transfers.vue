@@ -30,7 +30,7 @@
 
             <q-td slot="body-cell-from" slot-scope="value" :props="value">
               <div id="team-thumbnail" class="q-mx-auto">
-                <img :src="value.value.logo" :alt="value.value.name" class="full-height">
+                <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                     {{value.value.name}}
                 </q-tooltip>
@@ -39,7 +39,7 @@
 
             <q-td slot="body-cell-to" slot-scope="value" :props="value">
               <div id="team-thumbnail" class="q-mx-auto">
-                <img :src="value.value.logo" :alt="value.value.name" class="full-height">
+                <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                     {{value.value.name}}
                 </q-tooltip>
@@ -127,14 +127,6 @@ export default {
   watch: {
     window () {
       this.loading = true
-      // axios.get('http://innouts.test/api/windows/' + this.window.id)
-      //   .then(response => {
-      //     this.transfers = response.data.data
-      //     this.loading = false
-      //   })
-      //   .catch(error => {
-      //     alert(error)
-      //   })
       this.transfers = this.window.transfers
       this.loading = false
     }
