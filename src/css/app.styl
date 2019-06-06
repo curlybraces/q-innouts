@@ -30,12 +30,12 @@ text-shadow()
    border-left: 1px solid #dee2e6 !important;
 
 .border-x
-   border-left: 1px solid #dee2e6 !important;
-   border-right: 1px solid #dee2e6 !important;
+   border-left: 1px solid $primary !important;
+   border-right: 1px solid $primary !important;
 
 .border-y
-   border-top: 1px solid #dee2e6 !important;
-   border-bottom: 1px solid #dee2e6 !important;
+   border-top: 1px solid $primary !important;
+   border-bottom: 1px solid $primary !important;
    
 .border-dark
    border-color: #343a40 !important;
@@ -46,13 +46,14 @@ text-shadow()
 .bg-t-dark
    background-color: rgba(55,71,175,.4);
 
+.bg-t-darker
+  background-color: rgba(0, 31, 65, 0.55);
+
+.bg-grass
+   background-color: #008c0e;
+
 .d-inline-block
    display: inline-block!important;
-
-// .text-truncate
-//    overflow: hidden;
-//    text-overflow: ellipsis;
-//    white-space: nowrap;
 
 #team-thumbnail
   width: 25px;
@@ -62,3 +63,19 @@ text-shadow()
    min-height: 375px;
    background-size: cover;
    text-shadow();
+
+.w-75
+   width: 75%!important;
+.w-50
+   width: 50%!important;
+
+// some Bootstrap CSS!
+
+.table
+   width: 100%;
+   max-width: 100%;
+   // margin-bottom: 1rem;
+   background-color: transparent;
+
+   thead th
+      vertical-align: bottom;

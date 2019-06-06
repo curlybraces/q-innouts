@@ -5,59 +5,115 @@
         <div class="col relative-position">
           <div class="d-inline-block q-ml-sm">
             <div class="rope border-right border-left border-dark"></div>
-            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white">Seats {{team.stadium.capacity}}</div>
+            <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption">Seats {{team.stadium.capacity}}</div>
           </div>
         </div>
         <div class="col relative-position">
           <div class="d-inline-block absolute-center">
             <div class="rope border-right border-left border-dark"></div>
-            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white"> {{team.stadium.name}}</div>
+            <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption"> {{team.stadium.name}}</div>
           </div>
         </div>
         <div class="col relative-position">
           <div class="d-inline-block absolute-right q-mr-sm">
             <div class="rope border-right border-left border-dark"></div>
-            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white">Built {{team.stadium.built}}</div>
+            <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption">Built {{team.stadium.built}}</div>
           </div>
         </div>
       </div>
-      <div class="row justify-center q-pa-md">
-        <div class="col-sm-3">
-          <div id="team-card" class="rounded-borders">
+      <div class="row q-pa-md q-mt-sm">
+        <div class="col-sm-3 q-ml-auto">
+          <div id="team-card" class="rounded-borders bg-t-darker">
             <div id="team-logo-wrapper">
-              <img :src="'statics/'+team.logo" alt="logo" class="full-height m-auto">
+              <q-img contain  :src="'statics/'+team.logo" alt="logo" class="fit" />
             </div>
-            <h4 class="text-uppercase q-mt-sm q-mb-none" :style="{backgroundColor: team.color}"> <span>{{team.name}} </span></h4>
+            <p class="text-h5 text-uppercase q-mt-sm q-mb-none" :style="{backgroundColor: team.color}"> <span>{{team.name}} </span></p>
             <!-- <p><button id="url-button" class="border-0 w-100 text-light p-1"> <i class="fas fa-globe"></i> <a href="http://" target="_blank"></a></button></p> -->
           </div>
         </div>
-        <div class="col-sm-3">
-          <q-markup-table flat dense id="team-info" separator="none">
-            <tbody>
-              <tr>
-                <td class="text-left">Founded</td>
-                <td class="text-right">{{team.founded}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Internationalization</td>
-                <td class="text-right">34</td>
-              </tr>
-              <tr>
-                <td class="text-left">Average Squad Age</td>
-                <td class="text-right">27</td>
-              </tr>
-              <tr>
-                <td class="text-left">Averge Squad Score</td>
-                <td class="text-right">7</td>
-              </tr>
-              <tr>
-                <td class="text-left">Major Trophies Won</td>
-                <td class="text-right">10</td>
-              </tr>
-            </tbody>
-          </q-markup-table>
+        <div class="col-sm-4 q-mr-auto">
+          <div class="row">
+            <div id="team-info" class="col-sm-6 rounded-borders bg-t-darker">
+              <!-- <div class="table-responsive-sm"> -->
+                <table  class="table table-borderless q-mb-xs rounded-borders text-subtitle2 q-mx-sm-none">
+                  <tbody>
+                    <tr>
+                      <td>Founded</td>
+                      <td>{{team.founded}}</td>
+                    </tr>
+                    <tr>
+                      <td>Internationalization</td>
+                      <td>
+                        <!-- <span @if($inter<30) class="text-success" @elseif($inter>=30 && $inter<50) class="text-warning" @elseif($inter>=50 && $inter<70) style="color: orange" @else class="text-danger" @endif>
+                          {{$inter}}% </span> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Average squad age</td>
+                      <!-- <td @if($avgAge<=28) class="text-success" @elseif($avgAge>28 && $avgAge<30) class="text-warning" @else class="text-danger" @endif>{{$avgAge}}</td> -->
+                    </tr>
+                    <tr>
+                      <td>Average squad score</td>
+                      <!-- <td @if($avgRating>=7) class="col-sm-6 text-success" @elseif($avgRating>=5 && $avgRating
+                        <7) class="col-sm-6 text-warning" @elseif($avgRating>=3.5 && $avgRating
+                          <5) class="col-sm-6" style="color: orange" @else class="col-sm-6 text-danger" @endif>{{$avgRating}}</td> -->
+                    </tr>
+                    <tr>
+                      <td>Major trophies won</td>
+                      <td>{{team.trophiesWon}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              <!-- </div> -->
+            </div>
+          </div>
+
+          <div v-if="team.trophiesWon" class="row">
+            <div id="trophiesCol" class="col-sm-8 col-md-7 col-lg-6 rounded-borders bg-t-darker">
+              <!-- <div class="table-responsive-sm"> -->
+                <table id="trophy-table" class="table table-sm table-borderless mx-auto mx-sm-0 q-mb-sm">
+                  <thead>
+                    <tr id="trophy-cabinet">
+                      <th v-if="team.trophyCabinet.cls" class="trophy ">
+                        <q-img class="full-height" title="Champions League" :src="'statics/images/trophies/champions-league.png'" alt="champions league trophy thumbnail"
+                          position="50% 100%" sizes="280px, 440px"
+                        />
+                        <q-badge align="bottom" :style="{backgroundColor: team.color}" text-color="blac" :label="team.trophyCabinet.cls+'x'" />
+                      </th>
+                      <th v-if="team.trophyCabinet.ls" class="trophy ">
+                        <q-img class="full-height" :title="team.league.name" :src="'statics/' + team.league.leagueTrophyPic" :alt="team.league.name + 'trophy thumbnail'"/>
+                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ls+'x'" />
+                      </th>
+                      <th v-if="team.trophyCabinet.ffts" class="trophy ">
+                        <q-img class="full-height" :title="team.league.fftName" :src="'statics/' + team.league.fftTrophyPic" :alt="team.league.fftName + 'trophy thumbnail'"/>
+                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ffts+'x'" />
+                      </th>
+                      <th v-if="team.trophyCabinet.els" class="trophy ">
+                        <q-img class="full-height" title="Europa League" :src="'statics/images/trophies/europa-league.png'" alt="europa league trophy thumbnail"/>
+                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.els+'x'" />
+                      </th>
+                      <th v-if="team.trophyCabinet.cs" class="trophy ">
+                        <q-img class="full-height" :title="team.league.cupName" :src="'statics/' + team.league.cupTrophyPic" :alt="team.league.cupName + 'trophy thumbnail'"/>
+                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.cs+'x'" />
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              <!-- </div> -->
+            </div>
+          </div>
         </div>
-        <div class="col-sm-3">third</div>
+        <div class="col-sm-3">
+          <div id="fans" class="q-mb-lg q-mb-md-none rounded-borders">
+
+            <div id="fans-line" class="row heading m-auto">
+                <div class="col text-center text-md-left">Fanbase</div>
+                <div class="col text-center text-md-right">{{fansTotal}}</div>
+            </div>
+
+            <hr id="fan-border">
+          </div>
+        </div>
       </div>
     </div>
     <q-tabs
@@ -70,7 +126,7 @@
       <q-tab name="news" icon="info" label="News" />
     </q-tabs>
 
-    <q-tab-panels v-model="tab" swipeable animated @before-transition="panelChange"
+    <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
      class="shadow-2 rounded-borders"
      >
       <q-tab-panel name="home">
@@ -91,7 +147,7 @@
                     </a>
                   </div>
                   <div class="text-center bg-t-dark">
-                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                    <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
                   </div>
                 </div>
               </div>
@@ -383,140 +439,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="innouts">
-        <div class="row justify-center">
-          <div class="col-sm-11">
-            <div class="row justify-center q-pa-md">
-              <div class="col-sm-2">
-                <q-select dense rounded standout v-model="window" :options="windows"
-                      option-value="id" option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
-                      dark bg-color="primary"
-                />
-              </div>
-            </div>
-            <h6 class="text-center q-my-md">Official Transfers</h6>
-            <div class="row">
-              <div class="col">
-                <div class="q-pa-md">
-                  <q-table
-                    class="my-sticky-header-table"
-                    title="Ins"
-                    :data="inTransfers"
-                    :columns="transferInColumns"
-                    row-key="id"
-                    rows-per-page-label="Transfers per page"
-                    :pagination.sync="myPagination"
-                    :rows-per-page-options="[5,10,15]"
-                    :loading="loading"
-                    color="primary"
-                    table-header-class="bg-primary text-white"
-                  >
-                    <q-td slot="body-cell-from" slot-scope="value" :props="value">
-                      <div id="team-thumbnail" class="q-mx-auto">
-                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                            {{value.value.name}}
-                        </q-tooltip>
-                      </div>
-                    </q-td>
-                    <q-td slot="body-cell-rating" slot-scope="value" :props="value">
-                      <q-rating
-                        color="primary"
-                        class="q-mx-auto q-mt-sm"
-                        size="1.5rem"
-                        icon="thumb_up"
-                        :value="3"
-                        :max="5"
-                      />
-                    </q-td>
-                  </q-table>
-                </div>
-              </div>
-              <div class="col">
-                <div class="q-pa-md">
-                  <q-table
-                    class="my-sticky-header-table"
-                    title="Outs"
-                    :data="outTransfers"
-                    :columns="transferOutColumns"
-                    row-key="id"
-                    rows-per-page-label="Transfers per page"
-                    :pagination.sync="myPagination"
-                    :rows-per-page-options="[5,10,15]"
-                    :loading="loading"
-                    color="primary"
-                    table-header-class="bg-primary text-white"
-                  >
-                    <q-td slot="body-cell-to" slot-scope="value" :props="value">
-                      <div id="team-thumbnail" class="q-mx-auto">
-                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                            {{value.value.name}}
-                        </q-tooltip>
-                      </div>
-                    </q-td>
-                    <q-td slot="body-cell-rating" slot-scope="value" :props="value">
-                      <q-rating
-                        color="primary"
-                        class="q-mx-auto q-mt-sm"
-                        size="1.5rem"
-                        icon="thumb_up"
-                        :value="3"
-                        :max="5"
-                      />
-                    </q-td>
-                  </q-table>
-                </div>
-              </div>
-            </div>
-            <q-separator spaced />
-            <h6 class="text-center q-my-md">Fans' Transfers!</h6>
-            <div class="row">
-              <div class="col">
-                <div class="q-pa-md">
-                  <q-table
-                    class="my-sticky-header-table"
-                    title="Ins"
-                    :data="wanteds"
-                    :columns="wantedColumns"
-                    row-key="id"
-                    rows-per-page-label="Transfers per page"
-                    :pagination.sync="myPagination"
-                    :rows-per-page-options="[5,10,15]"
-                    :loading="loading"
-                    color="primary"
-                    table-header-class="bg-primary text-white"
-                  >
-                    <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                      <div id="team-thumbnail" class="q-mx-auto">
-                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                            {{value.value.name}}
-                        </q-tooltip>
-                      </div>
-                    </q-td>
-                  </q-table>
-                </div>
-              </div>
-              <div class="col">
-                <div class="q-pa-md">
-                  <q-table
-                    class="my-sticky-header-table"
-                    title="Outs"
-                    :data="unwanteds"
-                    :columns="unwantedColumns"
-                    row-key="id"
-                    rows-per-page-label="Transfers per page"
-                    :pagination.sync="myPagination"
-                    :rows-per-page-options="[5,10,15]"
-                    :loading="loading"
-                    color="primary"
-                    table-header-class="bg-primary text-white"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <innouts :team="team" />
       </q-tab-panel>
 
       <q-tab-panel name="chat">
@@ -658,9 +581,14 @@
 
 <script>
 import axios from 'axios'
+const Innouts = () => import('components/Innouts.vue')
 
 export default {
   name: 'Team',
+
+  components: {
+    Innouts,
+  },
 
   data () {
     return {
@@ -681,68 +609,6 @@ export default {
       tab: 'home',
       panel: 'home',
       headerStyle: {},
-      transferInColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: 'from', align: 'center', label: 'From', field: row => row.from },
-        { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
-      ],
-      transferOutColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: 'to', align: 'center', label: 'To', field: row => row.to },
-        { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
-      ],
-      wantedColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
-      ],
-      unwantedColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: 'position', align: 'center', label: 'Position', field: row => row.broadPosition },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
-      ],
-      windows: [],
-      window: null,
-      inTransfers: [],
-      outTransfers: [],
-      wanteds: [],
-      unwanteds: []
     }
   },
 
@@ -822,58 +688,15 @@ export default {
     },
 
     panelChange: function (newVal, oldVal) {
-      if (newVal === 'innouts' && this.windows.length === 0) {
-        this.$q.loading.show()
-        axios.get('http://innouts.test/api/windows')
-          .then(response => {
-            this.windows = response.data.data
-            this.window = this.windows[0]
-            this.transfers = this.window.transfers
-            this.windowChange()
-            this.loading = false
-            this.$q.loading.hide()
-          })
-          .catch(error => {
-            this.error = error
-          })
-      }
+      // if (newVal === 'innouts' && this.windows.length === 0) {
+
+      // }
     },
 
-    windowChange: function () {
-      this.inTransfers = []
-      this.outTransfers = []
-      this.wanteds = []
-      this.unwanteds = []
-
-      this.transfers.forEach(elem => {
-        if (elem.from.id === this.team.id) {
-          this.outTransfers.push(elem)
-        } else if (elem.to.id === this.team.id) {
-          this.inTransfers.push(elem)
-        }
-      })
-
-      this.window.wanteds.forEach(elem => {
-        if (elem.suitor.id === this.team.id) {
-          this.wanteds.push(elem)
-        }
-      })
-
-      this.window.unwanteds.forEach(elem => {
-        if (elem.player.team_id === this.team.id) {
-          this.unwanteds.push(elem)
-        }
-      })
-    }
   },
 
   watch: {
-    window () {
-      this.loading = true
-      this.transfers = this.window.transfers
-      this.windowChange()
-      this.loading = false
-    }
+
   }
 }
 </script>
@@ -887,12 +710,11 @@ export default {
   text-align: center;
   font-family: arial;
   margin: 0;
-  background-color: rgba(0, 31, 65, 0.55);
 
   #team-logo-wrapper
       height: 215px;
-      max-width: 60%;
-      margin: auto;
+      // max-width: 60%;
+      // margin: auto;
 
   h1
     font-size: 2em;
@@ -902,11 +724,9 @@ export default {
 
   table
     color: white;
-    background-color: rgba(0, 31, 63, 0.3);
-    width: 60%;
 
     th, td
-      padding: 0.2rem;
+      // padding: 0.2rem;
 
 .player-card
   margin-bottom: 1rem;
@@ -930,5 +750,14 @@ export default {
 #team-field
   background-image: url(/statics/images/pitch.png);
   background-size: cover;
+
+#trophy-table th
+  max-width: 3rem;
+
+.trophy img
+  // display: block;
+  // max-width: 100%;
+  // max-height: 100%;
+  // margin: auto;
 
 </style>
