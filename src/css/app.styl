@@ -1,4 +1,10 @@
 // app global css
+
+text-shadow()
+   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+   -moz-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+   -webkit-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
 #league-teams
    list-style-type: none; 
    columns: 4;
@@ -11,17 +17,48 @@
       max-width: 50px;
       height: 50px;
 
+.rope
+   height: 5px;
 // order of following two classes matters for the color of border
 .border-bottom
    border-bottom: 1px solid #dee2e6 !important;
 
+.border-right
+   border-right: 1px solid #dee2e6 !important;
+
+.border-left
+   border-left: 1px solid #dee2e6 !important;
+
+.border-x
+   border-left: 1px solid #dee2e6 !important;
+   border-right: 1px solid #dee2e6 !important;
+
+.border-y
+   border-top: 1px solid #dee2e6 !important;
+   border-bottom: 1px solid #dee2e6 !important;
+   
 .border-dark
    border-color: #343a40 !important;
+
+.border-primary
+   border: 1px solid $primary !important;
 
 .bg-t-dark
    background-color: rgba(55,71,175,.4);
 
-.text-truncate
-   overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
+.d-inline-block
+   display: inline-block!important;
+
+// .text-truncate
+//    overflow: hidden;
+//    text-overflow: ellipsis;
+//    white-space: nowrap;
+
+#team-thumbnail
+  width: 25px;
+  height: 25px;
+
+#team-header
+   min-height: 375px;
+   background-size: cover;
+   text-shadow();

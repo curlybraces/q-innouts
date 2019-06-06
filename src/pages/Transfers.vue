@@ -47,7 +47,6 @@
             </q-td>
 
             <q-td slot="body-cell-rating" slot-scope="value" :props="value">
-              <!-- <div class="q-mx-auto"> -->
                 <q-rating
                   color="primary"
                   class="q-mx-auto q-mt-sm"
@@ -56,7 +55,6 @@
                   :value="3"
                   :max="5"
                 />
-              <!-- </div> -->
             </q-td>
 
           </q-table>
@@ -135,10 +133,6 @@ export default {
 </script>
 
 <style lang="stylus">
-
-#team-thumbnail
-  width: 25px;
-  height: 25px;
 
 .my-sticky-header-table
   /* max height is important */

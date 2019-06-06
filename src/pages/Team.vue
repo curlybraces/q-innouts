@@ -1,7 +1,27 @@
 <template>
   <q-page >
-    <div id="team-header" class="bg-secondry q-pa-sm" :style="headerStyle">
+    <div id="team-header" class="bg-secondry q-pa-s text-white" :style="headerStyle">
       <div class="row justify-center">
+        <div class="col relative-position">
+          <div class="d-inline-block q-ml-sm">
+            <div class="rope border-right border-left border-dark"></div>
+            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white">Seats {{team.stadium.capacity}}</div>
+          </div>
+        </div>
+        <div class="col relative-position">
+          <div class="d-inline-block absolute-center">
+            <div class="rope border-right border-left border-dark"></div>
+            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white"> {{team.stadium.name}}</div>
+          </div>
+        </div>
+        <div class="col relative-position">
+          <div class="d-inline-block absolute-right q-mr-sm">
+            <div class="rope border-right border-left border-dark"></div>
+            <div class="border-x border-y border-dark q-pa-xs bg-positive text-white">Built {{team.stadium.built}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-center q-pa-md">
         <div class="col-sm-3">
           <div id="team-card" class="rounded-borders">
             <div id="team-logo-wrapper">
@@ -61,7 +81,7 @@
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
                 <div class="player-card">
                   <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                  <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                  <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                     <a href="">
                       <!-- <b title="{{ $player->fullName()}}">{{ $player->nickname}}</b> -->
                       {{player.nickname}}
@@ -84,7 +104,7 @@
                   <div v-for="player in rbs" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -105,7 +125,7 @@
                   <div v-for="player in cbs" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -126,7 +146,7 @@
                   <div v-for="player in lbs" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -147,7 +167,7 @@
               <div v-for="player in dms" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
                 <div class="player-card">
                   <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                  <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                  <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                     <a href="">
                       <!-- <b title="{{ $player->fullName()}}">{{ $player->nickname}}</b> -->
                       {{player.nickname}}
@@ -170,7 +190,7 @@
                   <div v-for="player in rms" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -191,7 +211,7 @@
                   <div v-for="player in cms" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -212,7 +232,7 @@
                   <div v-for="player in lms" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -233,7 +253,7 @@
               <div v-for="player in ams" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
                 <div class="player-card">
                   <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                  <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                  <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                     <a href="">
                       <!-- <b title="{{ $player->fullName()}}">{{ $player->nickname}}</b> -->
                       {{player.nickname}}
@@ -256,7 +276,7 @@
                   <div v-for="player in rws" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -277,7 +297,7 @@
                   <div v-for="player in sss" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -298,7 +318,7 @@
                   <div v-for="player in lws" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
                     <div class="player-card">
                       <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                      <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                      <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                         <a href="">
                           {{player.nickname}}
                           <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -319,7 +339,7 @@
               <div v-for="player in cfs" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
                 <div class="player-card">
                   <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
-                  <div class="text-center bg-t-dark border-bottom border-dark text-truncate text-weight-bold">
+                  <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
                     <a href="">
                       <!-- <b title="{{ $player->fullName()}}">{{ $player->nickname}}</b> -->
                       {{player.nickname}}
@@ -346,7 +366,7 @@
               <q-card-section class="q-mt-sm">
                 <div>
                   <q-img :src="'statics/' + team.manager.picture" alt="" class="img-thumbnail" />
-                    <div class="text-center text-black border-bottom border-dark text-truncate text-weight-bold">
+                    <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
                       {{team.manager.displayName}}
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{team.manager.firstName}} {{team.manager.lastName}}
@@ -380,16 +400,35 @@
                   <q-table
                     class="my-sticky-header-table"
                     title="Ins"
-                    :data="transfers"
+                    :data="inTransfers"
                     :columns="transferInColumns"
                     row-key="id"
                     rows-per-page-label="Transfers per page"
                     :pagination.sync="myPagination"
-                    :rows-per-page-options="[10,15,20,0]"
+                    :rows-per-page-options="[5,10,15]"
                     :loading="loading"
                     color="primary"
                     table-header-class="bg-primary text-white"
-                  />
+                  >
+                    <q-td slot="body-cell-from" slot-scope="value" :props="value">
+                      <div id="team-thumbnail" class="q-mx-auto">
+                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
+                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                            {{value.value.name}}
+                        </q-tooltip>
+                      </div>
+                    </q-td>
+                    <q-td slot="body-cell-rating" slot-scope="value" :props="value">
+                      <q-rating
+                        color="primary"
+                        class="q-mx-auto q-mt-sm"
+                        size="1.5rem"
+                        icon="thumb_up"
+                        :value="3"
+                        :max="5"
+                      />
+                    </q-td>
+                  </q-table>
                 </div>
               </div>
               <div class="col">
@@ -397,20 +436,39 @@
                   <q-table
                     class="my-sticky-header-table"
                     title="Outs"
-                    :data="transfers"
+                    :data="outTransfers"
                     :columns="transferOutColumns"
                     row-key="id"
                     rows-per-page-label="Transfers per page"
                     :pagination.sync="myPagination"
-                    :rows-per-page-options="[10,15,20,0]"
+                    :rows-per-page-options="[5,10,15]"
                     :loading="loading"
                     color="primary"
                     table-header-class="bg-primary text-white"
-                  />
+                  >
+                    <q-td slot="body-cell-to" slot-scope="value" :props="value">
+                      <div id="team-thumbnail" class="q-mx-auto">
+                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
+                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                            {{value.value.name}}
+                        </q-tooltip>
+                      </div>
+                    </q-td>
+                    <q-td slot="body-cell-rating" slot-scope="value" :props="value">
+                      <q-rating
+                        color="primary"
+                        class="q-mx-auto q-mt-sm"
+                        size="1.5rem"
+                        icon="thumb_up"
+                        :value="3"
+                        :max="5"
+                      />
+                    </q-td>
+                  </q-table>
                 </div>
               </div>
             </div>
-            <hr>
+            <q-separator spaced />
             <h6 class="text-center q-my-md">Fans' Transfers!</h6>
             <div class="row">
               <div class="col">
@@ -418,16 +476,25 @@
                   <q-table
                     class="my-sticky-header-table"
                     title="Ins"
-                    :data="transfers"
+                    :data="wanteds"
                     :columns="wantedColumns"
                     row-key="id"
                     rows-per-page-label="Transfers per page"
                     :pagination.sync="myPagination"
-                    :rows-per-page-options="[10,15,20,0]"
+                    :rows-per-page-options="[5,10,15]"
                     :loading="loading"
                     color="primary"
                     table-header-class="bg-primary text-white"
-                  />
+                  >
+                    <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                      <div id="team-thumbnail" class="q-mx-auto">
+                        <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
+                          <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                            {{value.value.name}}
+                        </q-tooltip>
+                      </div>
+                    </q-td>
+                  </q-table>
                 </div>
               </div>
               <div class="col">
@@ -435,12 +502,12 @@
                   <q-table
                     class="my-sticky-header-table"
                     title="Outs"
-                    :data="transfers"
+                    :data="unwanteds"
                     :columns="unwantedColumns"
                     row-key="id"
                     rows-per-page-label="Transfers per page"
                     :pagination.sync="myPagination"
-                    :rows-per-page-options="[10,15,20,0]"
+                    :rows-per-page-options="[5,10,15]"
                     :loading="loading"
                     color="primary"
                     table-header-class="bg-primary text-white"
@@ -453,13 +520,137 @@
       </q-tab-panel>
 
       <q-tab-panel name="chat">
-        <div class="text-h6">Movies</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <div class="row justify-center">
+          <div class="col-sm-9 bg-secondary border-primary rounded-borders">
+            <div class="row q-pa-md">
+              <div class="col-sm-9">
+                <q-chat-message
+                  name="me"
+                  avatar="https://cdn.quasar.dev/img/avatar3.jpg"
+                  :text="['hey, how are you?']"
+                  stamp="7 minutes ago"
+                  sent
+                  bg-color="amber-7"
+                />
+                <q-chat-message
+                  name="Jane"
+                  avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+                  :text="[
+                    'doing fine, how r you?',
+                    'I just feel like typing a really, really, REALY long message to annoy you...'
+                  ]"
+                  size="6"
+                  stamp="4 minutes ago"
+                  text-color="white"
+                  bg-color="primary"
+                />
+                <q-chat-message
+                  name="Jane"
+                  avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+                  :text="['Did it work?']"
+                  stamp="1 minutes ago"
+                  size="6"
+                  text-color="white"
+                  bg-color="primary"
+                />
+                <q-chat-message
+                  name="Jane"
+                  avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+                  text-color="white"
+                  bg-color="primary"
+                >
+                  <q-spinner-dots size="2rem" />
+                </q-chat-message>
+              </div>
+              <div class="col-sm-3 bg-primary text-white">
+                <div class="q-pa-sm" style="max-width: 350px">
+                  <q-list bordered separator>
+                    <q-item clickable v-ripple>
+                      <q-item-section>Single line item</q-item-section>
+                    </q-item>
+
+                    <q-item clickable v-ripple>
+                      <q-item-section>
+                        <q-item-label>Item with caption</q-item-label>
+                        <q-item-label caption>Caption</q-item-label>
+                      </q-item-section>
+                    </q-item>
+
+                    <q-item clickable v-ripple>
+                      <q-item-section avatar>
+                        <q-avatar>
+                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+                      </q-item-section>
+                      <q-item-section>Image avatar</q-item-section>
+                    </q-item>
+
+                    <q-item clickable v-ripple>
+                      <q-item-section>
+                        <q-item-label overline>OVERLINE</q-item-label>
+                        <q-item-label>Item with caption</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </q-tab-panel>
 
       <q-tab-panel name="news">
-        <div class="text-h6">Movies</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <div class="row justify-center">
+          <div class="col-sm-5 bg-primary text-white border-primary rounded-borders">
+            <q-list bordered separator dark>
+              <q-item clickable to="/">
+                <q-item-section to thumbnail class="q-ml-non">
+                  <img src="https://cdn.footballghana.com/2018/07/5b5b25b6c1dc9.jpg">
+                </q-item-section>
+
+                <q-item-section top>
+                  <q-item-label header class="text-h6" >Chelsea Considering Goloving</q-item-label>
+                  <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
+                </q-item-section>
+
+                <q-item-section side >
+                  <q-item-label caption>11:56</q-item-label>
+                  <q-item-label caption>share</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable to="/">
+                <q-item-section to thumbnail class="q-ml-non">
+                  <img src="https://cdn.quasar.dev/img/mountains.jpg">
+                </q-item-section>
+
+                <q-item-section top>
+                  <q-item-label header class="text-h6" >Single line item</q-item-label>
+                </q-item-section>
+
+                <q-item-section side >
+                  <q-item-label caption>11:56</q-item-label>
+                  <!-- <q-item-label caption></q-item-label> -->
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable to="/">
+                <q-item-section to thumbnail class="q-ml-non">
+                  <img src="https://cdn.quasar.dev/img/mountains.jpg">
+                </q-item-section>
+
+                <q-item-section top>
+                  <q-item-label header class="text-h6" >Single line item</q-item-label>
+                </q-item-section>
+
+                <q-item-section side >
+                  <q-item-label caption>11:56</q-item-label>
+                  <q-item-label caption>share</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+        </div>
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -489,10 +680,7 @@ export default {
       cfs: [],
       tab: 'home',
       panel: 'home',
-      headerStyle: {
-        // backgroundImage: null,
-        // backgroundPosition: this.team.stadium.position
-      },
+      headerStyle: {},
       transferInColumns: [
         {
           name: 'name',
@@ -533,7 +721,7 @@ export default {
           format: val => `${val}`,
           sortable: true
         },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.team.name },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],
       unwantedColumns: [
@@ -551,17 +739,12 @@ export default {
       ],
       windows: [],
       window: null,
+      inTransfers: [],
+      outTransfers: [],
+      wanteds: [],
+      unwanteds: []
     }
   },
-
-  // computed: {
-  //   headerStyle: function () {
-  //     return {
-  //       backgroundImage: this.team.stadium.picture,
-  //       backgroundPosition: this.team.stadium.position
-  //     }
-  //   }
-  // },
 
   beforeRouteEnter (to, from, next) {
     axios.get('http://innouts.test/api/teams/' + to.params.team)
@@ -637,6 +820,7 @@ export default {
     tabChange: function (value) {
       // alert('hey')
     },
+
     panelChange: function (newVal, oldVal) {
       if (newVal === 'innouts' && this.windows.length === 0) {
         this.$q.loading.show()
@@ -645,6 +829,7 @@ export default {
             this.windows = response.data.data
             this.window = this.windows[0]
             this.transfers = this.window.transfers
+            this.windowChange()
             this.loading = false
             this.$q.loading.hide()
           })
@@ -652,6 +837,33 @@ export default {
             this.error = error
           })
       }
+    },
+
+    windowChange: function () {
+      this.inTransfers = []
+      this.outTransfers = []
+      this.wanteds = []
+      this.unwanteds = []
+
+      this.transfers.forEach(elem => {
+        if (elem.from.id === this.team.id) {
+          this.outTransfers.push(elem)
+        } else if (elem.to.id === this.team.id) {
+          this.inTransfers.push(elem)
+        }
+      })
+
+      this.window.wanteds.forEach(elem => {
+        if (elem.suitor.id === this.team.id) {
+          this.wanteds.push(elem)
+        }
+      })
+
+      this.window.unwanteds.forEach(elem => {
+        if (elem.player.team_id === this.team.id) {
+          this.unwanteds.push(elem)
+        }
+      })
     }
   },
 
@@ -659,6 +871,7 @@ export default {
     window () {
       this.loading = true
       this.transfers = this.window.transfers
+      this.windowChange()
       this.loading = false
     }
   }
@@ -666,12 +879,6 @@ export default {
 </script>
 
 <style lang="stylus">
-
-#team-header
-  min-height: 385px;
-  background-size: cover;
-  // background-image: url("statics/images/stadia/stamford-bridge.jpg")
-  // color: white;
 
 #team-card
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
