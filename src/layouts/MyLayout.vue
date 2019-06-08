@@ -18,44 +18,97 @@
             Innouts
           </q-toolbar-title>
 
-          <q-btn-dropdown
-            split color="accent" push dense size="md" glossy no-caps
-            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
-            class="q-mx-sm"
-            to="/leagues/1"
-          >
-            <q-list dense>
-              <q-item clickable v-close-popup >
-                <q-item-section avatar>
-                  <q-avatar icon="folder" color="primary" text-color="white" />
-                </q-item-section>
+          <q-btn-dropdown  label="Transfers">
+            <q-list>
+              <q-item clickable v-close-popup>
                 <q-item-section>
                   <q-item-label>Photos</q-item-label>
-                  <q-item-label caption>February 22, 2016</q-item-label>
-                </q-item-section>
-                <q-item-section side>
-                  <q-icon name="info" color="amber" />
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup >
+              <q-item clickable v-close-popup>
+                <q-item-section>
+                  <q-item-label>Videos</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup>
+                <q-item-section>
+                  <q-item-label>Articles</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
+          <q-btn-dropdown color="" label="Leagues">
+            <q-list class="bg-secondary">
+              <q-item clickable dense v-close-popup to="/leagues/1" >
                 <q-item-section avatar>
-                  <q-avatar icon="assignment" color="secondary" text-color="white" />
+                  <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label>Vacation</q-item-label>
-                  <q-item-label caption>February 22, 2016</q-item-label>
+                  <q-item-label>Premier League</q-item-label>
                 </q-item-section>
-                <q-item-section side>
-                  <q-icon name="info" color="amber" />
+              </q-item>
+              <q-item clickable dense v-close-popup to="/leagues/2" >
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>La Liga</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable dense v-close-popup to="/leagues/3" >
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Serie A</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable dense v-close-popup to="/leagues/4" >
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Bundesliga</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
 
           <q-btn-dropdown
-            split color="secondary" push dense size="md" glossy no-caps
-            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+            split dark push dense size="md" glossy no-caps label="Premier League" type="a"
+            icon="img:statics/images/country_flags/england.png"
+            class="q-mx-sm"
+            to="/leagues/1"
+          >
+            <q-list dense bordered class="bg-secondary">
+              <q-item clickable dense v-close-popup to="/teams/1" >
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/club_logos/arsenal.png" color="primay" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Arsenal</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item  dense clickable v-close-popup >
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/club_logos/chelsea.png" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Chelsea</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
+          <q-btn-dropdown
+            split color="secondar" push dense size="md" glossy no-caps label="La Liga"
+            icon="img:statics/images/country_flags/spain.png"
              class="q-mx-sm"
           >
             <q-list dense>
@@ -88,8 +141,8 @@
           </q-btn-dropdown>
 
           <q-btn-dropdown
-            split color="secondary" push dense size="md" glossy no-caps
-            icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+            split push dense size="md" glossy no-caps label="Teams"
+            icon="img:statics/images/league_logos/serie-a.png"
              class="q-mx-sm"
           >
             <q-list dense>
@@ -217,6 +270,7 @@
 
 <script>
 import { openURL } from 'quasar'
+import axios from 'axios'
 
 export default {
   name: 'MyLayout',
@@ -230,7 +284,8 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop,
       rightDrawerOpen: this.$q.platform.is.desktop,
       // leftDrawerOpen: true
-      view: 'hHh lpr fff'
+      view: 'hHh lpr fff',
+      leagues: Array
     }
   },
   methods: {
@@ -243,7 +298,18 @@ export default {
       // alert('j')
     },
 
-  }
+  },
+
+  created: function () {
+    axios.get('http://innouts.test/api/leagues')
+      .then(response => {
+        this.leagues = response.data.data
+        // this.$q.loading.hide()
+      })
+      .catch(error => {
+        this.error = error
+      })
+  },
 }
 </script>
 
