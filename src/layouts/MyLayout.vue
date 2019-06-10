@@ -5,7 +5,7 @@
         <q-toolbar class="q-gutter-x-sm">
           <q-btn
             flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu"
-            class="q-mr-md"
+            class="q-mr-sm"
           >
             <q-icon name="menu" />
           </q-btn>
@@ -18,7 +18,9 @@
             Innouts
           </q-toolbar-title>
 
-          <q-btn-dropdown  label="Transfers">
+          <q-btn class="glossy" color="blue-grey-14" label="News" />
+
+          <q-btn-dropdown no-caps label="Transfers">
             <q-list dark dense class="bg-primary">
               <q-item clickable v-close-popup to="transfers">
                 <q-item-section>
@@ -34,7 +36,7 @@
             </q-list>
           </q-btn-dropdown>
 
-          <q-btn-dropdown label="Leagues" menu-self="top middle" menu-anchor="bottom middle">
+          <q-btn-dropdown no-caps label="Leagues" menu-self="top middle" menu-anchor="bottom middle">
             <q-list dark class="bg-primary">
               <q-item clickable dense v-close-popup to="/leagues/1" >
                 <q-item-section avatar>
@@ -202,7 +204,7 @@
             </div>
           </q-btn-dropdown>
 
-          <q-btn-dropdown
+          <!-- <q-btn-dropdown
             split color="secondar" push dense size="md" glossy no-caps label="La Liga"
             icon="img:statics/images/country_flags/spain.png"
              class="q-mx-sm"
@@ -234,9 +236,9 @@
                 </q-item-section>
               </q-item>
             </q-list>
-          </q-btn-dropdown>
+          </q-btn-dropdown> -->
 
-          <q-btn-dropdown label="Rankings">
+          <q-btn-dropdown no-caps label="Rankings">
             <q-list dark dense class="bg-primary">
               <q-item clickable v-close-popup to="Rankings">
                 <q-item-section>
