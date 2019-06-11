@@ -23,7 +23,17 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
-        path: '/:user', component: () => import('pages/Profile.vue')
+        path: '/login', component: () => import('pages/Login.vue')
+      },
+      {
+        path: '/register', component: () => import('pages/Register.vue')
+      },
+      {
+        path: '/settings', component: () => import('pages/Profile.vue')
+      },
+      // keep as last route
+      {
+        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')
       },
     ]
   },

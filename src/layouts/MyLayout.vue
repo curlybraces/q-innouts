@@ -296,45 +296,42 @@
               <div class="column">
                 <q-form
                   @submit="onSubmit"
-                  @reset="onReset"
-                  class="q-gutter-md"
+                  class="q-gutter-sm"
                 >
                   <q-input
                     filled
-                    v-model="name"
-                    label="Your name *"
-                    hint="Name and surname"
+                    type="email"
+                    v-model="email"
+                    label="Email *"
                     lazy-rules
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    :rules="[
+                      val => val !== '' || 'Please type a valid email',
+                      val => val.includes('@') && val.includes('.') || 'Please type a valid email'
+                    ]"
                   />
 
                   <q-input
                     filled
-                    type="number"
-                    v-model="age"
-                    label="Your age *"
+                    type="password"
+                    v-model="password"
+                    label="Password *"
                     lazy-rules
                     :rules="[
-                      val => val !== null && val !== '' || 'Please type your age',
-                      val => val > 0 && val < 100 || 'Please type a real age'
+                      val => val.length >= 6 || 'Please use minimum 6 characters'
                     ]"
                   />
 
-                  <q-toggle v-model="accept" label="Remember me?" class="q-mt-sm" />
+                  <q-checkbox v-model="remember" label="Remember Me?" />
 
                   <div>
                     <q-btn label="Submit" type="submit" color="primary" size="sm"/>
-                    <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" size="sm" />
+                    <q-btn label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
                   </div>
+
+                  <q-btn size="sm" push type="a" label="New Around? Register" to="/register" />
                 </q-form>
                 <q-separator/>
               </div>
-            </div>
-            <div class="row no-wrap q-pa-sm">
-              <q-btn-group push>
-                <q-btn size="sm" push @click="first = !first" label="Register" to="register" />
-                <q-btn size="sm" push label="Forgot Password?" />
-              </q-btn-group>
             </div>
           </q-btn-dropdown>
         </q-toolbar>
@@ -444,6 +441,9 @@ export default {
       view: 'hHh lpr fff',
       leagues: Array,
       user: null,
+      email: null,
+      password: null,
+      remember: false,
     }
   },
   methods: {
@@ -454,6 +454,15 @@ export default {
       this.leftDrawerOpen = view[1]
       this.rightDrawerOpen = view[2]
       // alert('j')
+    },
+
+    onSubmit () {
+      this.$q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'fas fa-check-circle',
+        message: 'Submitted'
+      })
     },
 
   },
