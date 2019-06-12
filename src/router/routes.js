@@ -33,7 +33,7 @@ const routes = [
       },
       // keep as last route
       {
-        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')
+        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
       },
     ]
   },

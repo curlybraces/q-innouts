@@ -88,21 +88,29 @@ export default {
 
   methods: {
     onSubmit () {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'fas fa-exclamation-triangle',
-          message: 'You need to accept the license and terms first'
-        })
-      } else {
-        this.$q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'fas fa-check-circle',
-          message: 'Submitted'
-        })
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
       }
+      this.$store.dispatch('register', data)
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err))
+      // if (this.accept !== true) {
+      //   this.$q.notify({
+      //     color: 'red-5',
+      //     textColor: 'white',
+      //     icon: 'fas fa-exclamation-triangle',
+      //     message: 'You need to accept the license and terms first'
+      //   })
+      // } else {
+      //   this.$q.notify({
+      //     color: 'green-4',
+      //     textColor: 'white',
+      //     icon: 'fas fa-check-circle',
+      //     message: 'Submitted'
+      //   })
+      // }
     },
 
     onReset () {
