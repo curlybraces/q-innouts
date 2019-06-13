@@ -1,8 +1,8 @@
-export function someGetter (/* state */) {
-}
+// export function someGetter (/* state */) {
+// }
 
 export function isLoggedIn (state) {
-  return state => !!state.token
+  return !!state.token
 }
 
 export function authStatus (state) {

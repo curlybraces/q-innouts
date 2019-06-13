@@ -1,21 +1,21 @@
 export function someMutation (/* state */) {
 }
 
-export function authRequest (state) {
+export const authRequest = (state) => {
   state.status = 'loading'
 }
 
-export function authSuccess (state, token, user) {
+export const authSuccess = (state, token, user) => {
   state.status = 'success'
   state.token = token
   state.user = user
 }
 
-export function authError (state) {
+export const authError = (state) => {
   state.status = 'error'
 }
 
-export function logout (state) {
+export const logout = (state) => {
   state.status = ''
   state.token = ''
 }

@@ -285,7 +285,7 @@
                 <q-btn
                   color="primary"
                   label="Logout"
-                  to="/logout"
+                  @click="logout"
                   push
                   size="sm"
                   v-close-popup
@@ -456,6 +456,12 @@ export default {
         message: 'Submitted'
       })
     },
+
+    logout: function () {
+      this.$store.dispatch('logout').then(() => {
+        this.$router.push('/')
+      })
+    }
 
   },
 

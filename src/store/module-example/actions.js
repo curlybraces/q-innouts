@@ -2,20 +2,21 @@ import axios from 'axios'
 // export function someAction (/* context */) {
 
 // }
-export function login ({ commit }, user) {
+export const login = ({ commit }, user) => {
   return new Promise((resolve, reject) => {
-    commit('auth_request')
-    axios({ url: 'http://localhost:3000/login', data: user, method: 'POST' })
+    commit('authRequest')
+    axios({ url: 'http://innouts.test/api/login', data: user, method: 'POST' })
       .then(resp => {
         const token = resp.data.token
         const user = resp.data.user
+        // console.log(user)
         localStorage.setItem('token', token)
         axios.defaults.headers.common['Authorization'] = token
-        commit('auth_success', token, user)
+        commit('authSuccess', token, user)
         resolve(resp)
       })
       .catch(err => {
-        commit('auth_error')
+        commit('authError')
         localStorage.removeItem('token')
         reject(err)
       })

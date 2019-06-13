@@ -67,7 +67,7 @@ export default {
       let email = this.email
       let password = this.password
       let remember = this.remember
-      this.$store.dispatch('login', { email, password, remember })
+      this.$store.dispatch('example/login', { email, password, remember })
         .then(() => this.$router.push({ name: 'profile', params: { user: '123' } }))
         .catch(err => console.log(err))
       // this.$axios.post('http://innouts.test/api/login', {
