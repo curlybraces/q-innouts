@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-sm-8">
+      <div class="col col-md-8">
         <div class="row justify-center q-pa-md">
           <div class="col-sm-3">
             <q-select dense rounded standout v-model="window" :options="windows"
@@ -13,9 +13,12 @@
         <div class="q-pa-md">
           <q-table
             class="my-sticky-header-table"
-            title="Treats"
+            title="Transfers"
+            :dense="$q.screen.lt.md"
+            :grid="$q.screen.xs"
             :data="transfers"
             :columns="columns"
+            :filter="filter"
             row-key="id"
             rows-per-page-label="Transfers per page"
             :pagination.sync="myPagination"
@@ -24,9 +27,37 @@
             color="primary"
             table-header-class="bg-primary text-white"
           >
-            <!-- <q-td slot="body-cell-name" slot-scope="value" :props="value">
-              <img :src="value.value" width="20" height="20" alt="hi">
-            </q-td> -->
+            <template v-slot:top-right>
+              <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+                <template v-slot:append>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </template>
+            <!-- customization for small devices -->
+            <template v-slot:item="props">
+              <div
+                class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
+                :style="props.selected ? 'transform: scale(0.95);' : ''"
+              >
+                <q-card>
+                  <!-- <q-card-section>
+                    <q-checkbox dense v-model="props.selected" :label="props.row.name" />
+                  </q-card-section> -->
+                  <!-- <q-separator /> -->
+                  <q-list dense>
+                    <q-item v-for="col in props.cols.filter(col => col.name !== 'desc')" :key="col.id">
+                      <q-item-section>
+                        <q-item-label>{{ col.label }} {{props.cols[0].label}}</q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label caption>{{ col.value }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-card>
+              </div>
+            </template>
 
             <q-td slot="body-cell-from" slot-scope="value" :props="value">
               <div id="team-thumbnail" class="q-mx-auto">
@@ -75,6 +106,7 @@ export default {
 
   data () {
     return {
+      filter: '',
       columns: [
         {
           name: 'name',
@@ -143,7 +175,7 @@ export default {
   methods: {
     submitRating: function (value, id) {
       if (this.loggedIn) {
-        axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, val: value }, method: 'PUT' })
+        axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             // this.rumours[key - 1].upVotes = response.data.ups
             // this.rumours[key - 1].downVotes = response.data.downs
