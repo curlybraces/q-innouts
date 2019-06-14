@@ -204,40 +204,6 @@
             </div>
           </q-btn-dropdown>
 
-          <!-- <q-btn-dropdown
-            split color="secondar" push dense size="md" glossy no-caps label="La Liga"
-            icon="img:statics/images/country_flags/spain.png"
-             class="q-mx-sm"
-          >
-            <q-list dense>
-              <q-item clickable v-close-popup >
-                <q-item-section avatar>
-                  <q-avatar icon="folder" color="primary" text-color="white" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>Photos</q-item-label>
-                  <q-item-label caption>February 22, 2016</q-item-label>
-                </q-item-section>
-                <q-item-section side>
-                  <q-icon name="info" color="amber" />
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup >
-                <q-item-section avatar>
-                  <q-avatar icon="assignment" color="secondary" text-color="white" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>Vacation</q-item-label>
-                  <q-item-label caption>February 22, 2016</q-item-label>
-                </q-item-section>
-                <q-item-section side>
-                  <q-icon name="info" color="amber" />
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown> -->
-
           <q-btn-dropdown no-caps label="Rankings">
             <q-list dark dense class="bg-primary">
               <q-item clickable v-close-popup to="Rankings">
@@ -266,21 +232,44 @@
           <q-space />
           <q-btn-dropdown icon="more_vert" class="gloss" rounded dense
           >
-            <div v-if="user" class="row no-wrap q-pa-md">
+            <div v-if="loggedIn" class="row no-wrap q-pa-sm">
               <div class="column">
-                <div class="text-h6 q-mb-md">Settings</div>
-                <q-toggle v-model="mobileData" label="Use Mobile Data" />
-                <q-toggle v-model="bluetooth" label="Bluetooth" />
+                <q-list class="bg-primar">
+                  <q-item clickable  v-close-popup to="/123" >
+                    <q-item-section avatar>
+                      <q-avatar icon="home" color="secondar" size="2.1rem" text-color="" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label>Home</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable  v-close-popup to="/leagues/1" >
+                    <q-item-section avatar>
+                      <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" size="2.1rem" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label>{{user.team_id}}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable  v-close-popup to="/leagues/1" >
+                    <q-item-section avatar>
+                      <q-avatar icon="settings" color="" size="2.1rem" text-color="" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label>Settings</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
               </div>
 
-              <q-separator vertical inset class="q-mx-lg" />
+              <q-separator vertical inset class="q-mx-md" />
 
               <div class="column items-center">
                 <q-avatar size="72px">
                   <img src="https://cdn.quasar.dev/img/boy-avatar.png">
                 </q-avatar>
 
-                <div class="text-subtitle1 q-mt-md q-mb-xs">John Doe</div>
+                <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize">{{user.name}}</div>
 
                 <q-btn
                   color="primary"
@@ -416,7 +405,7 @@
 
 <script>
 import { openURL } from 'quasar'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'MyLayout',
@@ -432,12 +421,23 @@ export default {
       // leftDrawerOpen: true
       view: 'hHh lpr fff',
       leagues: Array,
-      user: null,
+      // user: null,
       email: null,
       password: null,
       remember: false,
     }
   },
+
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+
+    user: function () {
+      return this.$store.state.user
+    }
+  },
+
   methods: {
     openURL,
 
@@ -449,12 +449,18 @@ export default {
     },
 
     onSubmit () {
-      this.$q.notify({
-        color: 'green-4',
-        textColor: 'white',
-        icon: 'fas fa-check-circle',
-        message: 'Submitted'
-      })
+      let email = this.email
+      let password = this.password
+      let remember = this.remember
+      this.$store.dispatch('login', { email, password, remember })
+        .then(() => this.$router.push({ name: 'profile', params: { user: '123' } }))
+        .catch(err => console.log(err))
+      // this.$q.notify({
+      //   color: 'green-4',
+      //   textColor: 'white',
+      //   icon: 'fas fa-check-circle',
+      //   message: 'Submitted'
+      // })
     },
 
     logout: function () {
@@ -466,7 +472,7 @@ export default {
   },
 
   created: function () {
-    axios.get('http://innouts.test/api/leagues')
+    this.$axios.get('http://innouts.test/api/leagues')
       .then(response => {
         this.leagues = response.data.data
         // this.$q.loading.hide()
@@ -474,6 +480,7 @@ export default {
       .catch(error => {
         this.error = error
       })
+    // console.log(this.$store)
   },
 }
 </script>

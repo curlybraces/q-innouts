@@ -2,28 +2,26 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-sm-6">
-        <h4 id="title" class="text-center q-my-md">Rumour Mill</h4>
+        <h4 id="title" class="text-center q-my-md bg-primary q-pa-lg text-white rounded-borders">Rumour Mill</h4>
         <div v-for="rumour in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
-          <q-card>
-            <h5 class="text-center bg-primary text-secondary q-mb-sm q-pa-md">{{rumour.title}}</h5>
+          <q-card class="bg-secondary">
+            <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md">{{rumour.title}}</h6>
             <q-card-section class="text-center">
-              <img :src="rumour.picture" :alt="rumour.title" class="" width="145" height="90">
+              <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
             </q-card-section>
-            <q-card-section>
-              {{rumour.body}}
-            </q-card-section>
+            <q-card-section class="text-body1 text-justify" v-html="rumour.body" />
             <q-card-section>
               <div class="row justify-center">
-                <div class="col-sm-1">
-                 <q-btn round color="primary" icon="thumb_up" size="sm" class="float-right q-mr-sm" />
+                <div class="col col-sm-1">
+                 <q-btn @click="submitVote(1, rumour.id)" round color="primary" text-color="green-3" icon="thumb_up" size="sm" class="float-right q-mr-sm" />
                 </div>
-                <div class="col-sm-8">
+                <div class="col col-sm-8">
                   <q-linear-progress :value="rumour.upVotes/(rumour.upVotes+rumour.downVotes)" class="q-mt-md"
                   color="positive" track-color="negative"
                   />
                 </div>
-                <div class="col-sm-1">
-                 <q-btn round color="primary" icon="thumb_down" size="sm" class="q-ml-sm" />
+                <div class="col col-sm-1">
+                 <q-btn @click="submitVote(-1, rumour.id)" round text-color="red-3" color="primary" icon="thumb_down" size="sm" class="q-ml-sm" />
                 </div>
               </div>
             </q-card-section>
@@ -63,6 +61,16 @@ export default {
     }
   },
 
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+
+    user: function () {
+      return this.$store.state.user
+    }
+  },
+
   beforeRouteEnter (to, from, next) {
     axios.get('http://innouts.test/api/rumours')
       .then(response => {
@@ -87,6 +95,31 @@ export default {
       let duration = 1000
       setScrollPosition(target, offset, duration)
     },
+
+    submitVote: function (val, key) {
+      if (this.loggedIn) {
+        axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
+          .then(response => {
+            this.rumours[key - 1].upVotes = response.data.ups
+            this.rumours[key - 1].downVotes = response.data.downs
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    }
 
   },
 

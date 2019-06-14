@@ -5,10 +5,10 @@ export const authRequest = (state) => {
   state.status = 'loading'
 }
 
-export const authSuccess = (state, token, user) => {
+export const authSuccess = (state, token, userVar) => {
   state.status = 'success'
   state.token = token
-  state.user = user
+  state.user = userVar
 }
 
 export const authError = (state) => {

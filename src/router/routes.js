@@ -29,7 +29,7 @@ const routes = [
         path: '/register', component: () => import('pages/Register.vue')
       },
       {
-        path: '/settings', component: () => import('pages/Profile.vue')
+        path: '/settings', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
       },
       // keep as last route
       {

@@ -48,12 +48,14 @@
 
             <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                 <q-rating
+                  class=""
                   color="primary"
-                  class="q-mx-auto q-mt-sm"
                   size="1.5rem"
                   icon="thumb_up"
-                  :value="3"
+                  :id="value.value.id"
+                  :value="value.value.rating"
                   :max="5"
+                  @input="submitRating($event, value.value.id)"
                 />
             </q-td>
 
@@ -87,9 +89,7 @@ export default {
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
-        // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-        // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+        { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
 
       transfers: [],
@@ -99,6 +99,16 @@ export default {
       loading: true,
       window: null,
       windows: [],
+    }
+  },
+
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+
+    user: function () {
+      return this.$store.state.user
     }
   },
 
@@ -128,7 +138,34 @@ export default {
       this.transfers = this.window.transfers
       this.loading = false
     }
-  }
+  },
+
+  methods: {
+    submitRating: function (value, id) {
+      if (this.loggedIn) {
+        axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, val: value }, method: 'PUT' })
+          .then(response => {
+            // this.rumours[key - 1].upVotes = response.data.ups
+            // this.rumours[key - 1].downVotes = response.data.downs
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    }
+  },
 }
 </script>
 

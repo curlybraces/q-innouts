@@ -18,9 +18,9 @@
         />
       </div>
       <div class="col-sm-3 bg-secondary text-center">
-        <p class="text-h5 text-capitalize">Mr. hamfred</p>
+        <p class="text-h5 text-capitalize">{{user.name}}</p>
         <q-separator color="primary"/>
-        <p class="text-subtitle1">I'm a great fan of CFC.</p>
+        <p class="text-subtitle1">{{user.intro}}</p>
       </div>
       <div class="col-sm-3 bg-secondary">
         <div class="column">
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'Profile',
@@ -64,9 +63,15 @@ export default {
     }
   },
 
+  computed: {
+    user: function () {
+      return this.$store.state.user
+    }
+  },
+
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
-    axios.get('http://innouts.test/api/windows')
+    this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data
         this.window = this.windows[0]
