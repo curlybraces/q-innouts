@@ -18,13 +18,17 @@ export default function (/* { ssrContext } */) {
     state: {
       status: '',
       token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
-      user: Object
+      user: Object,
+      // view: 'hHh lpr fff',
+      // leftDrawer: true,
+      // rightDrawer: true,
     },
 
     getters: {
       loggedIn: state => !!state.token,
       authStatus: state => state.status,
       user: state => state.user
+      // view: state => state.view
     },
 
     mutations: {

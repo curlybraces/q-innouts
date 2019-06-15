@@ -357,7 +357,11 @@ export default {
         this.error = error
       })
     if (this.loggedIn) {
-      this.$store.dispatch('getUser', localStorage.getItem('token'))
+      if (localStorage.getItem('token')) {
+        this.$store.dispatch('getUser', localStorage.getItem('token'))
+      } else {
+        this.$store.dispatch('getUser', sessionStorage.getItem('token'))
+      }
     }
   },
 

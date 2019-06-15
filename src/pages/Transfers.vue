@@ -12,7 +12,7 @@
         </div>
         <div class="q-pa-md">
           <q-table
-            class="my-sticky-header-table"
+            class="my-sticky-header-table bg-secondary"
             title="Transfers"
             :dense="$q.screen.lt.md"
             :grid="$q.screen.xs"
@@ -40,18 +40,37 @@
                 class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
                 :style="props.selected ? 'transform: scale(0.95);' : ''"
               >
-                <q-card>
-                  <!-- <q-card-section>
-                    <q-checkbox dense v-model="props.selected" :label="props.row.name" />
-                  </q-card-section> -->
-                  <!-- <q-separator /> -->
+                <q-card class="bg-secondary">
                   <q-list dense>
-                    <q-item v-for="col in props.cols.filter(col => col.name !== 'desc')" :key="col.id">
+                    <q-item v-for="(col, idx) in props.cols" :key="col.id">
                       <q-item-section>
-                        <q-item-label>{{ col.label }} {{props.cols[0].label}}</q-item-label>
+                        <q-item-label>{{ col.label }}</q-item-label>
                       </q-item-section>
-                      <q-item-section side>
+                      <q-item-section v-if="idx === 0" side>
+                        <router-link :to="'/players/' + col.value.id" class="no-decor">
+                          <q-item-label caption>{{ col.value.nickname }}</q-item-label>
+                        </router-link>
+                      </q-item-section>
+                      <q-item-section v-else-if="[3,4].includes(idx)" side>
                         <q-item-label caption>{{ col.value }}</q-item-label>
+                      </q-item-section>
+                      <q-item-section v-else-if="[1,2].includes(idx)" side>
+                        <router-link :to="'/teams/' + col.value.id" class="no-decor">
+                          <q-item-label caption>{{ col.value.name }}</q-item-label>
+                        </router-link>
+                      </q-item-section>
+                      <q-item-section v-else side>
+                        <q-rating
+                          class=""
+                          color="primary"
+                          size="1.5rem"
+                          icon="thumb_up"
+                          :id="col.value.id"
+                          :value="col.value.rating"
+                          :max="5"
+                          @input="submitRating($event, col.value.id, col.value.__index)"
+                        />
+                        <!-- <q-item-label caption>{{ col.value.name }}</q-item-label> -->
                       </q-item-section>
                     </q-item>
                   </q-list>
@@ -59,34 +78,44 @@
               </div>
             </template>
 
+            <q-td slot="body-cell-name" slot-scope="value" :props="value">
+              <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                {{value.value.nickname}}
+              </router-link>
+            </q-td>
+
             <q-td slot="body-cell-from" slot-scope="value" :props="value">
-              <div id="team-thumbnail" class="q-mx-auto">
-                <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                  <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                    {{value.value.name}}
-                </q-tooltip>
-              </div>
+              <router-link :to="'/teams/' + value.value.id" >
+                <div id="" class="q-mx-auto team-thumbnail">
+                  <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                    <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                      {{value.value.name}}
+                    </q-tooltip>
+                </div>
+              </router-link>
             </q-td>
 
             <q-td slot="body-cell-to" slot-scope="value" :props="value">
-              <div id="team-thumbnail" class="q-mx-auto">
-                <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                  <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                    {{value.value.name}}
-                </q-tooltip>
-              </div>
+              <router-link :to="'/teams/' + value.value.id" >
+                <div id="" class="q-mx-auto team-thumbnail">
+                  <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                    <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                      {{value.value.name}}
+                    </q-tooltip>
+                </div>
+              </router-link>
             </q-td>
 
             <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                 <q-rating
                   class=""
-                  color="primary"
+                  :style="{color: value.value.color}"
                   size="1.5rem"
                   icon="thumb_up"
                   :id="value.value.id"
                   :value="value.value.rating"
                   :max="5"
-                  @input="submitRating($event, value.value.id)"
+                  @input="submitRating($event, value.value.id, value.value.__index)"
                 />
             </q-td>
 
@@ -113,8 +142,8 @@ export default {
           required: true,
           label: 'Player',
           align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
+          field: row => row.player,
+          // format: val => `${val}`,
           sortable: true
         },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
@@ -173,12 +202,12 @@ export default {
   },
 
   methods: {
-    submitRating: function (value, id) {
+    submitRating: function (value, id, index) {
       if (this.loggedIn) {
+        // alert(index)
         axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
-            // this.rumours[key - 1].upVotes = response.data.ups
-            // this.rumours[key - 1].downVotes = response.data.downs
+            this.transfers[index].rating = value
           })
           .catch(error => {
             this.$q.notify({

@@ -99,6 +99,12 @@ export default {
     }
   },
 
+  // computed: {
+  //   view: function () {
+  //     return this.$store.getters.view
+  //   },
+  // }
+
   methods: {
     openURL,
 

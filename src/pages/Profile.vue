@@ -60,6 +60,7 @@ export default {
     return {
       window: Object,
       windows: Array,
+      headerStyle: {},
     }
   },
 
