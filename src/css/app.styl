@@ -20,6 +20,9 @@ text-shadow()
 .rope
    height: 5px;
 // order of following two classes matters for the color of border
+.bordered
+   border: 1px solid black!important;
+
 .border-bottom
    border-bottom: 1px solid #dee2e6 !important;
 
@@ -41,7 +44,7 @@ text-shadow()
    border-color: #343a40 !important;
 
 .border-primary
-   border: 1px solid $primary !important;
+   border-color: $primary !important;
 
 .bg-t-dark
    background-color: rgba(55,71,175,.4);
@@ -78,6 +81,10 @@ text-shadow()
 
    thead th
       vertical-align: bottom;
+
+   td, th
+      padding: .75rem;
+      vertical-align: top;
 
 .w-75
    width: 75%!important;

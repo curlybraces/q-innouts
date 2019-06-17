@@ -70,7 +70,6 @@
                           :max="5"
                           @input="submitRating($event, col.value.id, col.value.__index)"
                         />
-                        <!-- <q-item-label caption>{{ col.value.name }}</q-item-label> -->
                       </q-item-section>
                     </q-item>
                   </q-list>

@@ -30,7 +30,6 @@ export default function ({ store }) {
 
   Router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      // alert(store.example.getters.isLoggedIn)
       if (store.getters.loggedIn) {
         next()
         return

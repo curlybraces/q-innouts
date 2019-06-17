@@ -16,9 +16,9 @@
           inline-label
           class="bg-primary text-white shadow-2"
         >
-          <q-tab name="mails" icon="mail" label="Mails" />
-          <q-tab name="alarms" icon="alarm" label="Alarms" />
-          <q-tab name="movies" icon="movie" label="Movies" />
+          <q-tab name="mails" icon="description" label="Overview" />
+          <q-tab name="alarms" icon="table_chart" label="Table" />
+          <q-tab name="movies" icon="info" label="News" />
         </q-tabs>
       </div>
     </div>
@@ -27,10 +27,10 @@
           <q-tab-panels v-model="tab" animated class="col q-mx-aut">
             <q-tab-panel name="mails">
               <!-- <div class="text-h6">Mails</div> -->
-              <q-card>
-                <div class="row q-my-md bg-primary justify-center text-white">
+              <q-card class="text-subtitle1">
+                <div class="row q-mb-md bg-primary justify-center text-white">
                   <div class="col text-center q-pa-sm">
-                    <q-markup-table  flat dense separator="none" class="bg-primary text-white no-border">
+                    <table  flat dens separator="none" class="table bg-primary text-white no-border">
                       <tbody>
                         <tr>
                           <td class="">Country</td>
@@ -45,15 +45,15 @@
                           <td class="">{{league.noOfTeams}}</td>
                         </tr>
                       </tbody>
-                    </q-markup-table>
+                    </table>
                   </div>
                   <div class="col text-center self-center">
                     Holders
                   </div>
                 </div>
                 <div class="row q-ma-md">
-                  <div class="col-sm-6 q-pa-sm">
-                    <q-markup-table square flat bordered separator="none" class="rounded-borders bg-secondary">
+                  <div class="col col-sm-6 q-pa-sm">
+                    <table square flat bordered separator="none" class="table bordered border-primary rounded-borders bg-secondary">
                       <tbody>
                         <tr>
                           <td class="text-left">Internationalization</td>
@@ -80,7 +80,7 @@
                           <td class="text-right">237</td>
                         </tr>
                       </tbody>
-                    </q-markup-table>
+                    </table>
                   </div>
                   <div class="col-sm-6 text-center">
                     <!-- <h5 class="text-center">Teams</h5> -->
@@ -88,7 +88,7 @@
                     <!-- Teams⚔ -->
                     <ul id="league-teams">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
-                          <img class="full-height" alt="Quasar logo" :src="team.logo">
+                          <img class="full-height" alt="Quasar logo" :src="'statics/' + team.logo">
                        </li>
                     </ul>
                   </div>
