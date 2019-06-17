@@ -439,57 +439,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="news">
-        <div class="row justify-center">
-          <div class="col-sm-5 bg-primary text-white border-primary rounded-borders">
-            <q-list bordered separator dark>
-              <q-item clickable to="/">
-                <q-item-section to thumbnail class="q-ml-non">
-                  <img src="https://cdn.footballghana.com/2018/07/5b5b25b6c1dc9.jpg">
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label header class="text-h6" >Chelsea Considering Goloving</q-item-label>
-                  <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
-                </q-item-section>
-
-                <q-item-section side >
-                  <q-item-label caption>11:56</q-item-label>
-                  <q-item-label caption>share</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable to="/">
-                <q-item-section to thumbnail class="q-ml-non">
-                  <img src="https://cdn.quasar.dev/img/mountains.jpg">
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label header class="text-h6" >Single line item</q-item-label>
-                </q-item-section>
-
-                <q-item-section side >
-                  <q-item-label caption>11:56</q-item-label>
-                  <!-- <q-item-label caption></q-item-label> -->
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable to="/">
-                <q-item-section to thumbnail class="q-ml-non">
-                  <img src="https://cdn.quasar.dev/img/mountains.jpg">
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label header class="text-h6" >Single line item</q-item-label>
-                </q-item-section>
-
-                <q-item-section side >
-                  <q-item-label caption>11:56</q-item-label>
-                  <q-item-label caption>share</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </div>
-        </div>
+        <news :news="news" />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -500,6 +450,7 @@ import axios from 'axios'
 const Innouts = () => import('components/Innouts.vue')
 const Chat = () => import('components/Chat.vue')
 const Fans = () => import('components/Fans.vue')
+const News = () => import('components/News.vue')
 
 export default {
   name: 'Team',
@@ -508,6 +459,7 @@ export default {
     Innouts,
     Chat,
     Fans,
+    News,
   },
 
   data () {
@@ -526,6 +478,7 @@ export default {
       rws: [],
       sss: [],
       cfs: [],
+      news: [],
       tab: 'home',
       panel: 'home',
       headerStyle: {},
@@ -609,7 +562,7 @@ export default {
 
     panelChange: function (newVal, oldVal) {
       // if (newVal === 'innouts' && this.windows.length === 0) {
-
+      // fetch the news and fill the array
       // }
     },
 

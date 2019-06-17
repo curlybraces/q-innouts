@@ -18,7 +18,7 @@
         >
           <q-tab name="mails" icon="description" label="Overview" />
           <q-tab name="alarms" icon="table_chart" label="Table" />
-          <q-tab name="movies" icon="info" label="News" />
+          <q-tab name="news" icon="info" label="News" />
         </q-tabs>
       </div>
     </div>
@@ -26,11 +26,10 @@
       <!-- <div class="col"> -->
           <q-tab-panels v-model="tab" animated class="col q-mx-aut">
             <q-tab-panel name="mails">
-              <!-- <div class="text-h6">Mails</div> -->
               <q-card class="text-subtitle1">
-                <div class="row q-mb-md bg-primary justify-center text-white">
-                  <div class="col text-center q-pa-sm">
-                    <table  flat dens separator="none" class="table bg-primary text-white no-border">
+                <div class="row bg-primary justify-center text-white">
+                  <div class="col text-center q-pa-s">
+                    <table  flat dens separator="none" class="table text-white no-border">
                       <tbody>
                         <tr>
                           <td class="">Country</td>
@@ -51,7 +50,7 @@
                     Holders
                   </div>
                 </div>
-                <div class="row q-ma-md">
+                <div class="row q-pa-sm">
                   <div class="col col-sm-6 q-pa-sm">
                     <table square flat bordered separator="none" class="table bordered border-primary rounded-borders bg-secondary">
                       <tbody>
@@ -103,9 +102,8 @@
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </q-tab-panel>
 
-            <q-tab-panel name="movies">
-              <div class="text-h6">Movies</div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <q-tab-panel name="news">
+              <news />
             </q-tab-panel>
           </q-tab-panels>
         </div>
@@ -115,14 +113,21 @@
 
 <script>
 import axios from 'axios'
+const News = () => import('components/News.vue')
 // import { date } from 'quasar'
 
 export default {
   name: 'League',
+
+  components: {
+    News,
+  },
+
   data () {
     return {
       tab: 'mails',
       league: null,
+      news: []
     }
   },
 

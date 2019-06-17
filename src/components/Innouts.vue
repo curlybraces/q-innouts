@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'Innouts',
@@ -213,7 +213,7 @@ export default {
 
   created: function () {
     this.$q.loading.show()
-    axios.get('http://innouts.test/api/windows')
+    this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data
         this.window = this.windows[0]
