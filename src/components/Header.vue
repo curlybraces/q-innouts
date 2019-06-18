@@ -20,13 +20,13 @@
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
-          <q-item clickable v-close-popup to="transfers">
+          <q-item clickable v-close-popup to="/transfers">
             <q-item-section>
               <q-item-label>Done</q-item-label>
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-close-popup to="rumours">
+          <q-item clickable v-close-popup to="/rumours">
             <q-item-section>
               <q-item-label>Rumours</q-item-label>
             </q-item-section>

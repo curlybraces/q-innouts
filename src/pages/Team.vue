@@ -34,8 +34,58 @@
         <div class="col-sm-4 q-mr-auto">
           <div class="row">
             <div id="team-info" class="col-sm-6 rounded-borders bg-t-darker">
-              <!-- <div class="table-responsive-sm"> -->
-                <table  class="table table-borderless q-mb-xs rounded-borders text-subtitle2 q-mx-sm-none">
+              <q-list dense paddin class="bg-seconday rounded-borders" bordered>
+                <q-item>
+                  <q-item-section>
+                    <q-item-label>Founded</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-item-label >{{team.founded}}</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item >
+                  <q-item-section>
+                    <q-item-label>Internationalization</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-item-label >30%</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section>
+                    <q-item-label >Average squad age</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-item-label >20</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section>
+                    <q-item-label >Average squad score</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-item-label >5.5/10</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item>
+                  <q-item-section>
+                    <q-item-label >Major trophies won</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-item-label >12</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <!-- <q-item>
+                  <q-item-section>
+                  </q-item-section>
+                </q-item> -->
+              </q-list>
+                <!-- <table  class="table table-borderless q-mb-xs rounded-borders text-subtitle2 q-mx-sm-none">
                   <tbody>
                     <tr>
                       <td>Founded</td>
@@ -44,27 +94,21 @@
                     <tr>
                       <td>Internationalization</td>
                       <td>
-                        <!-- <span @if($inter<30) class="text-success" @elseif($inter>=30 && $inter<50) class="text-warning" @elseif($inter>=50 && $inter<70) style="color: orange" @else class="text-danger" @endif>
-                          {{$inter}}% </span> -->
+                          {{$inter}}% </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Average squad age</td>
-                      <!-- <td @if($avgAge<=28) class="text-success" @elseif($avgAge>28 && $avgAge<30) class="text-warning" @else class="text-danger" @endif>{{$avgAge}}</td> -->
                     </tr>
                     <tr>
                       <td>Average squad score</td>
-                      <!-- <td @if($avgRating>=7) class="col-sm-6 text-success" @elseif($avgRating>=5 && $avgRating
-                        <7) class="col-sm-6 text-warning" @elseif($avgRating>=3.5 && $avgRating
-                          <5) class="col-sm-6" style="color: orange" @else class="col-sm-6 text-danger" @endif>{{$avgRating}}</td> -->
                     </tr>
                     <tr>
                       <td>Major trophies won</td>
                       <td>{{team.trophiesWon}}</td>
                     </tr>
                   </tbody>
-                </table>
-              <!-- </div> -->
+                </table> -->
             </div>
           </div>
 

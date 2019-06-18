@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-sm-6">
-        <h4 id="title" class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">Rumour Mill</h4>
+        <h4 id="title" class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4>
         <div v-for="(rumour, idx) in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
           <q-card class="bg-secondary">
             <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md">{{rumour.title}}</h6>
@@ -97,7 +97,6 @@ export default {
     },
 
     submitVote: function (val, key, index) {
-      alert(index)
       if (this.loggedIn) {
         axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
           .then(response => {
