@@ -1,7 +1,7 @@
 <template>
   <q-page >
     <div id="team-header" class="bg-secondry q-pa-s text-white" :style="headerStyle">
-      <div class="row justify-center">
+      <div v-if="$q.screen.gt.md" class="row justify-center">
         <div class="col relative-position">
           <div class="d-inline-block q-ml-sm">
             <div class="rope border-right border-left border-dark"></div>
@@ -22,25 +22,24 @@
         </div>
       </div>
       <div class="row q-pa-md q-mt-sm">
-        <div class="col-sm-3 q-ml-auto">
+        <div class="col-12 col-grow col-sm-4 col-md-3 q-ml-auto">
           <div id="team-card" class="rounded-borders bg-t-darker">
             <div id="team-logo-wrapper">
               <q-img contain  :src="'statics/'+team.logo" alt="logo" class="fit" />
             </div>
             <p class="text-h5 text-uppercase q-mt-sm q-mb-none" :style="{backgroundColor: team.color}"> <span>{{team.name}} </span></p>
-            <!-- <p><button id="url-button" class="border-0 w-100 text-light p-1"> <i class="fas fa-globe"></i> <a href="http://" target="_blank"></a></button></p> -->
           </div>
         </div>
-        <div class="col-sm-4 q-mr-auto">
+        <div class="col-grow col-sm-6 col-md-5 q-mr-auto">
           <div class="row">
-            <div id="team-info" class="col-sm-6 rounded-borders bg-t-darker">
-              <q-list dense paddin class="bg-seconday rounded-borders" bordered>
+            <div id="team-info" class="col-grow col-md-8 col-lg-6 rounded-borders bg-t-darker">
+              <q-list dense dark class="">
                 <q-item>
                   <q-item-section>
                     <q-item-label>Founded</q-item-label>
                   </q-item-section>
                   <q-item-section side>
-                    <q-item-label >{{team.founded}}</q-item-label>
+                    <q-item-label>{{team.founded}}</q-item-label>
                   </q-item-section>
                 </q-item>
 
@@ -79,75 +78,44 @@
                     <q-item-label >12</q-item-label>
                   </q-item-section>
                 </q-item>
-
-                <!-- <q-item>
-                  <q-item-section>
-                  </q-item-section>
-                </q-item> -->
               </q-list>
-                <!-- <table  class="table table-borderless q-mb-xs rounded-borders text-subtitle2 q-mx-sm-none">
-                  <tbody>
-                    <tr>
-                      <td>Founded</td>
-                      <td>{{team.founded}}</td>
-                    </tr>
-                    <tr>
-                      <td>Internationalization</td>
-                      <td>
-                          {{$inter}}% </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Average squad age</td>
-                    </tr>
-                    <tr>
-                      <td>Average squad score</td>
-                    </tr>
-                    <tr>
-                      <td>Major trophies won</td>
-                      <td>{{team.trophiesWon}}</td>
-                    </tr>
-                  </tbody>
-                </table> -->
             </div>
           </div>
 
           <div v-if="team.trophiesWon" class="row">
-            <div id="trophiesCol" class="col-sm-8 col-md-7 col-lg-6 rounded-borders bg-t-darker">
-              <!-- <div class="table-responsive-sm"> -->
-                <table id="trophy-table" class="table table-sm table-borderless mx-auto mx-sm-0 q-mb-sm">
-                  <thead>
-                    <tr id="trophy-cabinet">
-                      <th v-if="team.trophyCabinet.cls" class="trophy ">
-                        <q-img class="full-height" title="Champions League" :src="'statics/images/trophies/champions-league.png'" alt="champions league trophy thumbnail"
-                          position="50% 100%" sizes="280px, 440px"
-                        />
-                        <q-badge align="bottom" :style="{backgroundColor: team.color}" text-color="blac" :label="team.trophyCabinet.cls+'x'" />
-                      </th>
-                      <th v-if="team.trophyCabinet.ls" class="trophy ">
-                        <q-img class="full-height" :title="team.league.name" :src="'statics/' + team.league.leagueTrophyPic" :alt="team.league.name + 'trophy thumbnail'"/>
-                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ls+'x'" />
-                      </th>
-                      <th v-if="team.trophyCabinet.ffts" class="trophy ">
-                        <q-img class="full-height" :title="team.league.fftName" :src="'statics/' + team.league.fftTrophyPic" :alt="team.league.fftName + 'trophy thumbnail'"/>
-                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ffts+'x'" />
-                      </th>
-                      <th v-if="team.trophyCabinet.els" class="trophy ">
-                        <q-img class="full-height" title="Europa League" :src="'statics/images/trophies/europa-league.png'" alt="europa league trophy thumbnail"/>
-                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.els+'x'" />
-                      </th>
-                      <th v-if="team.trophyCabinet.cs" class="trophy ">
-                        <q-img class="full-height" :title="team.league.cupName" :src="'statics/' + team.league.cupTrophyPic" :alt="team.league.cupName + 'trophy thumbnail'"/>
-                        <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.cs+'x'" />
-                      </th>
-                    </tr>
-                  </thead>
-                </table>
-              <!-- </div> -->
+            <div id="trophiesCol" class="col-grow col-lg-6 col-md-8 rounded-borders bg-t-darker">
+              <table id="trophy-table" class="table table-sm table-borderless mx-auto mx-sm-0 q-mb-sm">
+                <thead>
+                  <tr id="trophy-cabinet">
+                    <th v-if="team.trophyCabinet.cls" class="trophy ">
+                      <q-img class="full-height" title="Champions League" :src="'statics/images/trophies/champions-league.png'" alt="champions league trophy thumbnail"
+                        position="50% 100%" sizes="280px, 440px"
+                      />
+                      <q-badge align="bottom" :style="{backgroundColor: team.color}" text-color="blac" :label="team.trophyCabinet.cls+'x'" />
+                    </th>
+                    <th v-if="team.trophyCabinet.ls" class="trophy ">
+                      <q-img class="full-height" :title="team.league.name" :src="'statics/' + team.league.leagueTrophyPic" :alt="team.league.name + 'trophy thumbnail'"/>
+                      <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ls+'x'" />
+                    </th>
+                    <th v-if="team.trophyCabinet.ffts" class="trophy ">
+                      <q-img class="full-height" :title="team.league.fftName" :src="'statics/' + team.league.fftTrophyPic" :alt="team.league.fftName + 'trophy thumbnail'"/>
+                      <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ffts+'x'" />
+                    </th>
+                    <th v-if="team.trophyCabinet.els" class="trophy ">
+                      <q-img class="full-height" title="Europa League" :src="'statics/images/trophies/europa-league.png'" alt="europa league trophy thumbnail"/>
+                      <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.els+'x'" />
+                    </th>
+                    <th v-if="team.trophyCabinet.cs" class="trophy ">
+                      <q-img class="full-height" :title="team.league.cupName" :src="'statics/' + team.league.cupTrophyPic" :alt="team.league.cupName + 'trophy thumbnail'"/>
+                      <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.cs+'x'" />
+                    </th>
+                  </tr>
+                </thead>
+              </table>
             </div>
           </div>
         </div>
-        <div class="col-sm-3 q-mr-auto">
+        <div v-if="$q.screen.gt.md" class="col-sm-3 q-mr-auto">
           <fans :team="team" />
         </div>
       </div>
@@ -167,7 +135,7 @@
      >
       <q-tab-panel name="home">
         <div class="row justify-center q-mx-auto">
-          <div id="team-field" class="col-md-11 q-px-sm">
+          <div id="team-field" class="col-md-11 q-px-sm" :style="fieldStyle">
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
@@ -183,7 +151,7 @@
                     </a>
                   </div>
                   <div class="text-center bg-t-dark">
-                    <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                    <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                   </div>
                 </div>
               </div>
@@ -205,7 +173,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -226,7 +194,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -247,7 +215,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -269,7 +237,7 @@
                     </a>
                   </div>
                   <div class="text-center bg-t-dark">
-                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                   </div>
                 </div>
               </div>
@@ -291,7 +259,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -312,7 +280,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -333,7 +301,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -355,7 +323,7 @@
                     </a>
                   </div>
                   <div class="text-center bg-t-dark">
-                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                   </div>
                 </div>
               </div>
@@ -377,7 +345,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -398,7 +366,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -419,7 +387,7 @@
                         </a>
                       </div>
                       <div class="text-center bg-t-dark">
-                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                        <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                       </div>
                     </div>
                   </div>
@@ -441,7 +409,7 @@
                     </a>
                   </div>
                   <div class="text-center bg-t-dark">
-                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="player.rating" :max="5" />
+                    <q-rating color="blue" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
                   </div>
                 </div>
               </div>
@@ -450,7 +418,7 @@
         </div>
         <!-- manager -->
         <div class="row q-my-sm">
-          <div class="col-sm-4 col-md-3 col-lg-2 offset-sm-1">
+          <div class="col-grow col-sm-4 col-md-3 col-lg-2 offset-sm-1">
             <q-card dark class="">
               <q-card-section class="bg-primary text-center">
                 Manager
@@ -526,6 +494,7 @@ export default {
       tab: 'home',
       panel: 'home',
       headerStyle: {},
+      fieldStyle: {},
     }
   },
 
@@ -597,6 +566,11 @@ export default {
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
     this.$q.loading.hide()
+    if (this.$q.screen.lt.md) {
+      this.fieldStyle.backgroundColor = '#21BA45'
+    } else {
+      this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
+    }
   },
 
   methods: {
@@ -626,7 +600,7 @@ export default {
   margin: auto;
   text-align: center;
   font-family: arial;
-  margin: 0;
+  // margin: 0;
 
   #team-logo-wrapper
       height: 215px;
@@ -665,7 +639,7 @@ export default {
     border-radius: .25rem;
 
 #team-field
-  background-image: url(/statics/images/pitch.png);
+  // background-image: url(/statics/images/pitch.png);
   background-size: cover;
 
 #trophy-table

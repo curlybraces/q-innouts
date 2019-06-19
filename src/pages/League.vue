@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="row bg-secondary">
-      <div class="col-12 col-sm-5 col-md-3 offset-sm-1">
+      <div class="col-6 col-sm-5 col-md-3 offset-sm-1">
         <q-img alt="Quasar logo" :src="league.logo" class="q-mx-aut" />
       </div>
       <div class="col-grow col-md-auto self-end">
@@ -29,26 +29,36 @@
               <q-card class="text-subtitle1">
                 <div class="row bg-primary justify-center text-white">
                   <div class="col-grow col-sm-6 text-center q-pa-s">
-                    <table  flat dens separator="none" class="table text-white no-border">
-                      <tbody>
-                        <tr>
-                          <td class="">Country</td>
-                          <td class="">{{league.country}}</td>
-                        </tr>
-                        <tr>
-                          <td class="">Formation</td>
-                          <td class="">{{league.formed}}</td>
-                        </tr>
-                        <tr>
-                          <td class=""># of Teams</td>
-                          <td class="">{{league.noOfTeams}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <q-list :dense="$q.screen.lt.md" dark >
+                      <q-item>
+                        <q-item-section>
+                          <q-item-label>Country</q-item-label>
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label >{{league.country}}</q-item-label>
+                        </q-item-section>
+                      </q-item>
+                      <q-item>
+                        <q-item-section>
+                          <q-item-label>Formation</q-item-label>
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label >{{league.formed}}</q-item-label>
+                        </q-item-section>
+                      </q-item>
+                      <q-item>
+                        <q-item-section>
+                          <q-item-label># of Teams</q-item-label>
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label >{{league.noOfTeams}}</q-item-label>
+                        </q-item-section>
+                      </q-item>
+                    </q-list>
                   </div>
                   <div class="col-grow col-sm-6 text-center self-center">
-                    <div class="team-thumbnail q-mx-auto">
-                      <q-img :src="'statics/' + stats.recordWinner.logo" :alt="stats.recordWinner.name" class="full-height" />
+                    <div id="defending-champs" class="q-mx-auto">
+                      <q-img :src="'statics/' + league.holders.logo" :alt="league.holders.name" class="full-height" />
                     </div>
                     <h5 class="text-center q-my-none">
                       <span>
@@ -61,9 +71,9 @@
                     <!-- <p class="text-center">Defending Champions</p> -->
                   </div>
                 </div>
-                <div class="row q-pa-sm">
+                <div class="row q-pa-sm bg-secondary">
                   <div class="col-grow col-sm-6 q-pa-sm">
-                    <q-list padding class="bg-secondary rounded-borders" bordered>
+                    <q-list :dense="$q.screen.lt.md" padding class="rounded-borders" bordered>
                       <q-item>
                         <q-item-section>
                           <q-item-label>Internationalization</q-item-label>
@@ -106,7 +116,7 @@
                       <q-item>
                         <q-item-section>
                           <q-item-label >Major European Trophies Won</q-item-label>
-                          <q-item-label caption >By present teams</q-item-label>
+                          <q-item-label caption >by present teams</q-item-label>
                         </q-item-section>
                         <q-item-section side>
                           <q-item-label >{{stats.intTrophies}}</q-item-label>
@@ -124,46 +134,12 @@
                                 {{stats.recordWinner.name}}
                               </q-tooltip>
                           </q-item-label>
+                          <div class="q-mx-auto">{{stats.recordWinner.trophy_cabinet.ls}}</div>
                         </q-item-section>
                       </q-item>
                     </q-list>
-                    <!-- <table square flat bordered separator="none" class="table bordered border-primary rounded-borders bg-secondary">
-                      <tbody>
-                        <tr>
-                          <td class="text-left">Internationalization</td>
-                          <td class="text-right">{{stats.inter}}</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left">Average Player Rating</td>
-                          <td class="text-right">{{stats.playersAvgRating}}</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left">Average Player Age</td>
-                          <td class="text-right">{{stats.playersAvgAge}}</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left">Average Manager Rating</td>
-                          <td class="text-right">{{stats.managersAvgRating}}</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left">Major European Trophies Won</td>
-                          <td class="text-right">{{stats.intTrophies}}</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left">Record Title Winners</td>
-                          <td class="text-right team-thumbnail">
-                            <q-img :src="'statics/' + stats.recordWinner.logo" :alt="stats.recordWinner.name" class="full-height" />
-                              <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                                {{stats.recordWinner.name}}
-                              </q-tooltip>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> -->
                   </div>
-                  <div class="col-grow col-sm-6 text-center">
-                    <!-- <h5 class="text-center">Teams</h5> -->
-
+                  <div class="col-grow col-sm-6 text-center self-center">
                     <!-- Teams⚔ -->
                     <ul id="league-teams" class="q-pa-md q-my-none">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
@@ -222,15 +198,13 @@ export default {
     axios.get('http://innouts.test/api/leagues/' + to.params.league)
       .then(response => {
         next(vm => {
-          // vm.setData(response.data)
           vm.league = response.data.league
           vm.stats = response.data.stats
-          vm.league.teams.forEach(element => {
-            if (element.id === vm.stats.recordWinner) {
-              vm.stats.recordWinner = element
-            }
-          })
-          // vm.activePlayer = vm.player
+          // vm.league.teams.forEach(element => {
+          //   if (element.id === vm.stats.recordWinner) {
+          //     vm.stats.recordWinner = element
+          //   }
+          // })
         })
       })
       .catch(error => {

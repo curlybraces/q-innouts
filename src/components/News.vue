@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-center">
     <div class="col-grow col-sm-10 col-md-8 bg-primary text-white border-primary rounded-borders">
-      <q-list bordered padding separato dark>
+      <q-list :dense="$q.screen.lt.md" bordered padding separato dark>
         <q-item clickable to="/">
           <q-item-section to thumbnail class="q-ml-non">
             <img src="https://cdn.footballghana.com/2018/07/5b5b25b6c1dc9.jpg">
