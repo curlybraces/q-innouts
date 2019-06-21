@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="row q-pa-md q-mt-sm">
-        <div class="col-12 col-grow col-sm-4 col-md-3 q-ml-auto">
+        <div class="col-4 col-grow col-sm-4 col-md-3 q-ml-auto">
           <div id="team-card" class="rounded-borders bg-t-darker">
             <div id="team-logo-wrapper">
               <q-img contain  :src="'statics/'+team.logo" alt="logo" class="fit" />
@@ -126,7 +126,7 @@
     >
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <q-tab name="chat" icon="chat" label="Chat" />
+      <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Chat" />
       <q-tab name="news" icon="info" label="News" />
     </q-tabs>
 
@@ -135,7 +135,7 @@
      >
       <q-tab-panel name="home">
         <div class="row justify-center q-mx-auto">
-          <div id="team-field" class="col-md-11 q-px-sm" :style="fieldStyle">
+          <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-11 q-px-sm" :style="fieldStyle">
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
@@ -180,7 +180,7 @@
                 </div>
               </div>
               <!-- CB -->
-              <div class="col-lg-6 order-lg-2 order-1">
+              <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in cbs" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
@@ -266,7 +266,7 @@
                 </div>
               </div>
               <!-- CM -->
-              <div class="col-lg-6 order-lg-2 order-1">
+              <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in cms" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
@@ -352,7 +352,7 @@
                 </div>
               </div>
               <!-- SS -->
-              <div class="col-lg-6 order-lg-2 order-1">
+              <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in sss" :key="player.id" class="col-sm-2 q-px-sm">
                     <div class="player-card">
@@ -415,10 +415,26 @@
               </div>
             </div>
           </div>
+          <q-list v-else bordered padding link dense class="col bg-secondary" >
+          <!-- <q-item-label header>Club Teammates</q-item-label> -->
+            <!-- <q-list-header>Teammates</q-list-header> -->
+            <div v-for="(player, index) in team.players" :key="player.id">
+              <q-item :to="'/players/'+player.id" @click="setPlayer(index)"  clickable v-ripple>
+                <q-item-section avatar>
+                  <q-avatar rounded>
+                    <img :src="player.picture">
+                  </q-avatar>
+                </q-item-section>
+                <q-item-section>{{player.firstName}} {{player.lastName}}</q-item-section>
+                <q-item-section side>{{player.specificPosition}}</q-item-section>
+              </q-item>
+              <q-separator />
+            </div>
+          </q-list>
         </div>
         <!-- manager -->
         <div class="row q-my-sm">
-          <div class="col-grow col-sm-4 col-md-3 col-lg-2 offset-sm-1">
+          <div v-if="$q.screen.gt.sm" class="col-grow col-sm-4 col-md-3 col-lg-2 offset-sm-1">
             <q-card dark class="">
               <q-card-section class="bg-primary text-center">
                 Manager
@@ -439,6 +455,15 @@
               </q-card-section>
             </q-card>
           </div>
+          <q-item v-else class="col bg-t-dar bordered rounded-borders">
+            <q-item-section avatar>
+              <q-avatar rounded>
+                <img :src="'/statics/' + team.manager.picture">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>{{team.manager.firstName}} {{team.manager.lastName}}</q-item-section>
+            <q-item-section side>Manager</q-item-section>
+          </q-item>
         </div>
       </q-tab-panel>
 
@@ -568,6 +593,7 @@ export default {
     this.$q.loading.hide()
     if (this.$q.screen.lt.md) {
       this.fieldStyle.backgroundColor = '#21BA45'
+      this.fieldStyle.border = '3px solid white'
     } else {
       this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
     }

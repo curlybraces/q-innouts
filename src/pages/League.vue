@@ -5,7 +5,7 @@
         <q-img alt="Quasar logo" :src="league.logo" class="q-mx-aut" />
       </div>
       <div class="col-grow col-md-auto self-end">
-        <h4 class="text-center q-my-md">{{league.name}}</h4>
+        <h4 class="text-center q-my-md text-uppercase">{{league.name}}</h4>
         <!-- <div class="order-first">h</div> -->
       </div>
     </div>
@@ -200,11 +200,6 @@ export default {
         next(vm => {
           vm.league = response.data.league
           vm.stats = response.data.stats
-          // vm.league.teams.forEach(element => {
-          //   if (element.id === vm.stats.recordWinner) {
-          //     vm.stats.recordWinner = element
-          //   }
-          // })
         })
       })
       .catch(error => {

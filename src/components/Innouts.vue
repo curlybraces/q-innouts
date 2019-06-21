@@ -10,15 +10,16 @@
             />
           </div>
         </div>
-        <h6 class="text-center q-my-md">Official Transfers</h6>
+        <h6 class="text-center q-my-md bg-primary text-secondary">Official Transfers</h6>
         <div class="row">
-          <div class="col">
+          <div class="col-12 col-sm">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table"
                 title="Ins"
                 :data="inTransfers"
                 :columns="transferInColumns"
+                :dense="$q.screen.lt.md"
                 row-key="id"
                 rows-per-page-label="Transfers per page"
                 :rows-per-page-options="[5,10,15]"
@@ -26,34 +27,43 @@
                 color="primary"
                 table-header-class="bg-primary text-white"
               >
+                <q-td slot="body-cell-name" slot-scope="value" :props="value">
+                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                    {{value.value.nickname}}
+                  </router-link>
+                </q-td>
                 <q-td slot="body-cell-from" slot-scope="value" :props="value">
-                  <div id="team-thumbnail" class="q-mx-auto">
-                    <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                        {{value.value.name}}
-                    </q-tooltip>
-                  </div>
+                  <router-link :to="'/teams/' + value.value.id" >
+                    <div id="" class="q-mx-auto team-thumbnail">
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </div>
+                  </router-link>
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
-                    color="primary"
                     class="q-mx-auto q-mt-sm"
                     size="1.5rem"
                     icon="thumb_up"
-                    :value="3"
+                    :style="{color: value.value.color}"
+                    :value="value.value.rating"
                     :max="5"
+                    @input="submitRating($event, value.value.id, value.value.__index, 'ins')"
                   />
                 </q-td>
               </q-table>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-sm">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table"
                 title="Outs"
                 :data="outTransfers"
                 :columns="transferOutColumns"
+                :dense="$q.screen.lt.md"
                 row-key="id"
                 rows-per-page-label="Transfers per page"
                 :rows-per-page-options="[5,10,15]"
@@ -61,22 +71,30 @@
                 color="primary"
                 table-header-class="bg-primary text-white"
               >
+                <q-td slot="body-cell-name" slot-scope="value" :props="value">
+                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                    {{value.value.nickname}}
+                  </router-link>
+                </q-td>
                 <q-td slot="body-cell-to" slot-scope="value" :props="value">
-                  <div id="team-thumbnail" class="q-mx-auto">
-                    <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                        {{value.value.name}}
-                    </q-tooltip>
-                  </div>
+                  <router-link :to="'/teams/' + value.value.id" >
+                    <div id="" class="q-mx-auto team-thumbnail">
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </div>
+                  </router-link>
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
-                    color="primary"
                     class="q-mx-auto q-mt-sm"
                     size="1.5rem"
                     icon="thumb_up"
-                    :value="3"
+                    :style="{color: value.value.color}"
+                    :value="value.value.rating"
                     :max="5"
+                    @input="submitRating($event, value.value.id, value.value.__index, 'outs')"
                   />
                 </q-td>
               </q-table>
@@ -84,12 +102,12 @@
           </div>
         </div>
         <q-separator spaced />
-        <h6 class="text-center q-my-md">Fans' Transfers!</h6>
+        <h6 class="text-center q-my-md bg-primary text-secondary">Fans' Wishlist!</h6>
         <div class="row">
-          <div class="col">
+          <div class="col-grow col-sm">
             <div class="q-pa-md">
               <q-table
-                class="my-sticky-header-table"
+                class="my-sticky-header-table bg-green-2"
                 title="Ins"
                 :data="wanteds"
                 :columns="wantedColumns"
@@ -100,21 +118,33 @@
                 color="primary"
                 table-header-class="bg-primary text-white"
               >
+                <q-td slot="body-cell-name" slot-scope="value" :props="value">
+                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                    {{value.value.nickname}}
+                  </router-link>
+                </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <div id="team-thumbnail" class="q-mx-auto">
-                    <img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height">
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                        {{value.value.name}}
-                    </q-tooltip>
-                  </div>
+                  <router-link :to="'/teams/' + value.value.id" >
+                    <div id="" class="q-mx-auto team-thumbnail">
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </div>
+                  </router-link>
+                </q-td>
+                <q-td slot="body-cell-cards" slot-scope="value" :props="value">
+                  <q-linear-progress :value="6/10" class="q-mt-md"
+                  color="positive" track-color=""
+                  />
                 </q-td>
               </q-table>
             </div>
           </div>
-          <div class="col">
+          <div class="col-grow col-sm">
             <div class="q-pa-md">
               <q-table
-                class="my-sticky-header-table"
+                class="my-sticky-header-table bg-red-2"
                 title="Outs"
                 :data="unwanteds"
                 :columns="unwantedColumns"
@@ -124,7 +154,18 @@
                 :loading="loading"
                 color="primary"
                 table-header-class="bg-primary text-white"
-              />
+              >
+                <q-td slot="body-cell-name" slot-scope="value" :props="value">
+                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                    {{value.value.nickname}}
+                  </router-link>
+                </q-td>
+                <q-td slot="body-cell-cards" slot-scope="value" :props="value">
+                  <q-linear-progress :value="4/10" class="q-mt-md"
+                  color="negative" track-color=""
+                  />
+                </q-td>
+              </q-table>
             </div>
           </div>
         </div>
@@ -134,7 +175,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 
 export default {
   name: 'Innouts',
@@ -152,14 +192,14 @@ export default {
           required: true,
           label: 'Player',
           align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
+          field: row => row.player,
+          // format: val => `${val}`,
           sortable: true
         },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
+        { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       transferOutColumns: [
         {
@@ -167,14 +207,13 @@ export default {
           required: true,
           label: 'Player',
           align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
+          field: row => row.player,
           sortable: true
         },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row.rating, sortable: true },
+        { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       wantedColumns: [
         {
@@ -182,8 +221,7 @@ export default {
           required: true,
           label: 'Player',
           align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
+          field: row => row.player,
           sortable: true
         },
         { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
@@ -195,11 +233,10 @@ export default {
           required: true,
           label: 'Player',
           align: 'left',
-          field: row => row.player.nickname,
-          format: val => `${val}`,
+          field: row => row.player,
           sortable: true
         },
-        { name: 'position', align: 'center', label: 'Position', field: row => row.broadPosition },
+        { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],
       windows: [],
@@ -208,6 +245,16 @@ export default {
       outTransfers: [],
       wanteds: [],
       unwanteds: []
+    }
+  },
+
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+
+    user: function () {
+      return this.$store.state.user
     }
   },
 
@@ -253,6 +300,34 @@ export default {
           this.unwanteds.push(elem)
         }
       })
+    },
+
+    submitRating: function (value, id, index, inOut) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+          .then(response => {
+            if (inOut === 'ins') {
+              this.inTransfers[index].rating = value
+            } else {
+              this.outTransfers[index].rating = value
+            }
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
     }
   },
 
