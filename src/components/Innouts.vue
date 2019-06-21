@@ -12,13 +12,14 @@
         </div>
         <h6 class="text-center q-my-md bg-primary text-secondary">Official Transfers</h6>
         <div class="row">
-          <div class="col-12 col-sm">
+          <div class="col-12 col-md">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table"
                 title="Ins"
                 :data="inTransfers"
                 :columns="transferInColumns"
+                :visible-columns="inVisibleColumns"
                 :dense="$q.screen.lt.md"
                 row-key="id"
                 rows-per-page-label="Transfers per page"
@@ -56,13 +57,14 @@
               </q-table>
             </div>
           </div>
-          <div class="col-12 col-sm">
+          <div class="col-12 col-md">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table"
                 title="Outs"
                 :data="outTransfers"
                 :columns="transferOutColumns"
+                :visible-columns="outVisibleColumns"
                 :dense="$q.screen.lt.md"
                 row-key="id"
                 rows-per-page-label="Transfers per page"
@@ -104,7 +106,7 @@
         <q-separator spaced />
         <h6 class="text-center q-my-md bg-primary text-secondary">Fans' Wishlist!</h6>
         <div class="row">
-          <div class="col-grow col-sm">
+          <div class="col-grow col-md">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table bg-green-2"
@@ -141,7 +143,7 @@
               </q-table>
             </div>
           </div>
-          <div class="col-grow col-sm">
+          <div class="col-grow col-md">
             <div class="q-pa-md">
               <q-table
                 class="my-sticky-header-table bg-red-2"
@@ -215,6 +217,8 @@ export default {
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
+      inVisibleColumns: [],
+      outVisibleColumns: [],
       wantedColumns: [
         {
           name: 'name',
@@ -260,6 +264,13 @@ export default {
 
   created: function () {
     this.$q.loading.show()
+    if (this.$q.platform.is.mobile) {
+      this.inVisibleColumns = ['name', 'from', 'date', 'fee']
+      this.outVisibleColumns = ['name', 'to', 'date', 'fee']
+    } else {
+      this.inVisibleColumns = ['name', 'from', 'date', 'fee', 'rating']
+      this.outVisibleColumns = ['name', 'to', 'date', 'fee', 'rating']
+    }
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data

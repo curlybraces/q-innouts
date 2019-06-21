@@ -1,107 +1,104 @@
 <template>
-  <div>
-    <q-card inline>
-      <div class="row">  <!-- use 'row' class to define a container / parent -->
-        <div class="col-sm-4 q-mx-auto">
-          <div class="row">
-            <div style="width: 300px;">
-              <img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" >
-            </div>
+  <div class="row justify-center bordered">
+    <div class="col-sm-4 col">  <!-- use 'row' class to define a container / parent -->
+      <div class="col-grow col-sm-4 col-md-3 q-mx-auto">
+        <div class="row">
+          <div style="width: 200px;">
+            <q-img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" />
           </div>
-          <div class="row">
-            <q-rating
-              color="orange"
-              class="q-mx-auto q-mt-sm"
-              size="1.5rem"
-              v-model="ratingModel"
-              :max="5"
-            />
-          </div>
-         <div class="row">
-            <q-rating
-              color="red"
-              icon="favorite"
-              class="q-mx-auto q-my-md"
-              size="1.5rem"
-              v-model="ratingModel"
-              :max="5"
-            />
-          </div>
-        </div>  <!-- children will default to 'col'  -->
-        <div class="col-sm-8">
-          <q-markup-table separator="none">
-            <tbody>
-              <tr>
-                <td class="text-left">First Name</td>
-                <td class="text-right">{{player.firstName}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Last Name</td>
-                <td class="text-right">{{player.lastName}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Nationality</td>
-                <td class="text-right">{{player.nationality}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Birth</td>
-                <td class="text-right">{{player.birth}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Height</td>
-                <td class="text-right">{{player.height}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Weight</td>
-                <td class="text-right">{{player.weight}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Foot</td>
-                <td class="text-right">{{player.foot}}</td>
-              </tr>
-              <tr>
-                <td class="text-left">Position</td>
-                <td class="text-right">{{player.broadPosition}}</td>
-              </tr>
-            </tbody>
-          </q-markup-table>
-            <!-- <q-table
-              :pagination.sync="pagination"
-               title="ID Card"
-               :data="tableData"
-               :columns="columns"
-               separator="none"
-               row-key="name"
-               hide-header
-               hide-bottom
-               rows-per-page='10'
-            /> -->
         </div>
-      </div>
-      <!-- <q-card-media>
-        <img src="~assets/quasar-logo-full.svg">
-      </q-card-media>
-      <q-card-title>
-        Cafe Basilico
-        <q-rating slot="subtitle" v-model="stars" :max="5" />
-        <div slot="right" class="row items-center">
-          <q-icon name="place" /> 250 ft
+        <div class="row">
+          <q-rating
+            color="orange"
+            class="q-mx-auto q-mt-sm"
+            size="1.5rem"
+            v-model="ratingModel"
+            :max="5"
+          />
         </div>
-      </q-card-title>
-      <q-card-main>
-        <p>$・Italian, Cafe</p>
-        <p class="text-faded">Small plates, salads & sandwiches in an intimate setting.</p>
-      </q-card-main>
-      <q-card-separator />
-      <q-card-actions>
-        <q-btn flat round dense icon="event" />
-        <q-btn flat label="5:30PM" />
-        <q-btn flat label="7:30PM" />
-        <q-btn flat label="9:00PM" />
-        <q-btn flat color="primary" label="Reserve" />
-      </q-card-actions> -->
-    </q-card>
+        <div class="row">
+          <q-rating
+            color="red"
+            icon="favorite"
+            class="q-mx-auto q-my-md"
+            size="1.5rem"
+            v-model="ratingModel"
+            :max="5"
+          />
+        </div>
+      </div>  <!-- children will default to 'col'  -->
+    </div>
+    <div class="col-sm-8 q-pa-md bg-secondary">
+      <q-list :dense="$q.screen.lt.md"  class="rounded-borders bg-primary" bordere dark>
+        <q-item>
+          <q-item-section>
+            <q-item-label>First Name</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.firstName}}</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item >
+          <q-item-section>
+            <q-item-label>Last Name</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.lastName}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Nationality</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.nationality}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Birth</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.birth}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Height</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.height}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Weight</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.weight}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Foot</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.foot}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item >
+          <q-item-section>
+            <q-item-label>Position</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-item-label >{{player.broadPosition}}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
   </div>
+
 </template>
 
 <script>

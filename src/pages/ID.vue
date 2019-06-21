@@ -1,6 +1,10 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <player :player="activePlayer" />
+  <q-page padding class="">
+    <div class="row justify-center self-center">
+      <div class="col-sm-10 col-md-8 col-lg-6 bordered rounded-borders">
+        <player :player="activePlayer" />
+      </div>
+    </div>
     <q-drawer
       v-model="rightDrawerOpen"
       :mini="$q.screen.lt.md"

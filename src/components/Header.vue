@@ -202,28 +202,16 @@
         </div>
       </q-btn-dropdown>
 
-      <q-btn-dropdown no-caps label="Rankings">
+      <q-btn to="/rankings" no-caps class="" color="" label="Rankings" />
+      <!-- <q-btn-dropdown no-caps label="Rankings">
         <q-list dark dense class="bg-primary">
           <q-item clickable v-close-popup to="Rankings">
             <q-item-section>
               <q-item-label>Teams</q-item-label>
             </q-item-section>
           </q-item>
-
-          <q-item clickable v-close-popup to="rumours">
-            <q-item-section>
-              <q-item-label>Players</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable v-close-popup to="rumours">
-            <q-item-section>
-              <q-item-label>Managers</q-item-label>
-            </q-item-section>
-          </q-item>
         </q-list>
-      </q-btn-dropdown>
-      <!-- <div>Quasar v{{ $q.version }}</div> -->
+      </q-btn-dropdown> -->
     </q-toolbar>
 
     <q-toolbar class="col-8 text-white">

@@ -23,6 +23,9 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
+        path: '/rankings', component: () => import('pages/Rankings.vue')
+      },
+      {
         path: '/login', component: () => import('pages/Login.vue')
       },
       {
