@@ -1,24 +1,36 @@
 <template>
   <q-page padding class="">
     <div class="row justify-center self-center">
-      <div class="col-sm-10 col-md-8 col-lg-6 bordered rounded-borders">
+      <div class="col-grow col-sm-10 col-lg-7 col-xl-5 bordered rounded-borders">
         <player :player="activePlayer" />
+      </div>
+    </div>
+    <div class="row justify-center">
+      <div v-if="$q.screen.lt.sm" class="col-grow bordered rounded-borders">
+        <ul id="teammates" class="q-px-sm">
+          <li v-for="(mate, idx) in companions" :key="mate.id">
+            <q-item dense @click="setPlayer(idx)" exact :to="'/players/' + mate.id" class="q-pa-xs text-capitalize ellipsis" >
+              {{mate.nickname}}
+              <!-- <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                  {{player.firstName}} {{player.lastName}}
+              </q-tooltip> -->
+            </q-item>
+          </li>
+        </ul>
       </div>
     </div>
     <q-drawer
       v-model="rightDrawerOpen"
       :mini="$q.screen.lt.md"
       content-class="bg-grey-2"
-      :breakpoint="300"
+      :breakpoint="600"
       side="right"
       elevated
     >
       <teammates :teammates="companions" @newPlayer="setPlayer"/>
-      <!-- Fantasticie! I love my beatiful, kind, forgiving God -->
     </q-drawer>
-    <!-- <q-page-sticky v-if="$q.platform.is.mobile" position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="arrow_left" color="accent" @click="miniState = true" />
-    </q-page-sticky> -->
+    <!-- <div >
+    </div> -->
   </q-page>
 </template>
 
@@ -74,8 +86,10 @@ export default {
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, true])
-    // alert(this.$q.platform.is.mobile)
+    if (this.$q.screen.gt.sm) {
+      this.$emit('sendView', ['hhh lpR fff', false, true])
+    }
+    this.$emit('sendView', ['hhh lpR fff', false, false])
   },
 
   methods: {
@@ -88,5 +102,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+
+#teammates
+  columns: 4;
+  list-style-type: none;
+
 </style>

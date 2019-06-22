@@ -52,7 +52,7 @@
 
     <q-ajax-bar size="4px" color="warning" />
 
-    <q-drawer side="right" v-model="leftDrawerOpen" content-class="bg-grey-2" elevated>
+    <q-drawer side="right" v-model="rightDrawerOpen" content-class="bg-grey-2" elevated>
       babe
     </q-drawer>
 

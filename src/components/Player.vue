@@ -1,8 +1,8 @@
 <template>
   <div class="row justify-center bordered">
-    <div class="col-sm-4 col">  <!-- use 'row' class to define a container / parent -->
+    <div class="col-12 col-sm-4 col">  <!-- use 'row' class to define a container / parent -->
       <div class="col-grow col-sm-4 col-md-3 q-mx-auto">
-        <div class="row">
+        <div class="row justify-center">
           <div style="width: 200px;">
             <q-img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" />
           </div>
@@ -28,7 +28,7 @@
         </div>
       </div>  <!-- children will default to 'col'  -->
     </div>
-    <div class="col-sm-8 q-pa-md bg-secondary">
+    <div class="col-grow col-sm-8 q-pa-md bg-secondary">
       <q-list :dense="$q.screen.lt.md"  class="rounded-borders bg-primary" bordere dark>
         <q-item>
           <q-item-section>
