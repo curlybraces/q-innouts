@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <q-scroll-area class="fit q-pa-sm"> -->
       <q-list
         no-border
         link
@@ -8,7 +7,7 @@
         inset-delimiter
         class="bg-secondary"
       >
-      <q-item-label header>Club Teammates</q-item-label>
+      <q-item-label header>{{team}} Squad</q-item-label>
         <!-- <q-list-header>Teammates</q-list-header> -->
         <div v-for="(mate, index) in teammates" :key="mate.id">
           <q-item :to="'/players/'+mate.id" @click="setPlayer(index)" active-class="text-primar bg-accent"  clickable v-ripple>
@@ -23,7 +22,7 @@
           <q-separator />
         </div>
       </q-list>
-    <!-- </q-scroll-area> -->
+
   </div>
 </template>
 
@@ -36,7 +35,8 @@ export default {
   }),
 
   props: {
-    teammates: Array
+    teammates: Array,
+    team: String,
   },
 
   methods: {

@@ -2,9 +2,9 @@
   <div>
     <div id="fans" class="q-mb-lg q-mb-md-none rounded-borders bg-t-darker">
 
-      <div id="fans-line" class="row heading m-auto">
-          <div class="col text-center text-h6 text-md-left">Fanbase</div>
-          <div class="col text-center text-md-right">{{fansTotal}}</div>
+      <div id="fans-line" class="row heading m-auto text-h6">
+          <div class="col text-center  text-md-left">Fanbase</div>
+          <div class="col text-center ">{{stats.fansTotal}}</div>
       </div>
 
       <hr id="fan-border">
@@ -63,7 +63,8 @@ export default {
   name: 'FansStats',
 
   props: {
-    team: Object
+    team: Object,
+    stats: Object,
   },
 
   data () {

@@ -133,6 +133,11 @@ export default {
     }
   },
 
+  created: function () {
+    this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
+    this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
+  },
+
   watch: {
     'player' () {
       this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
@@ -143,7 +148,6 @@ export default {
   methods: {
     submitRating: function (value) {
       if (this.loggedIn) {
-        // alert(index)
         this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
@@ -166,10 +170,6 @@ export default {
       }
     }
   }
-
-  // mounted: function () {
-
-  // }
 
 }
 </script>

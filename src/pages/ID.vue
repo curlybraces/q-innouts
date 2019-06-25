@@ -26,7 +26,7 @@
         side="right"
         elevated
       >
-        <teammates :teammates="companions" @newPlayer="setPlayer"/>
+        <teammates :teammates="companions" :team="player.team.name" @newPlayer="setPlayer"/>
       </q-drawer>
     </div>
   </q-page>
@@ -56,12 +56,6 @@ export default {
     }
   },
 
-  // watch: {
-  //   'player' () {
-  //     this.companions = this.player.team.players
-  //   }
-  // },
-
   beforeRouteEnter (to, from, next) {
     if (from.name === 'player') {
       next()
@@ -69,7 +63,6 @@ export default {
       axios.get('http://innouts.test/api/players/' + to.params.id)
         .then(response => {
           next(vm => {
-            // vm.setData(response.data)
             vm.player = response.data.data
             vm.activePlayer = vm.player
             vm.companions = vm.player.teammates

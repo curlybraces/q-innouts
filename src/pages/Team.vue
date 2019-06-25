@@ -49,7 +49,7 @@
                       <q-item-label>Internationalization</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >30%</q-item-label>
+                      <q-item-label >{{stats.inter}}%</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -58,7 +58,7 @@
                       <q-item-label >Average squad age</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >20</q-item-label>
+                      <q-item-label >{{stats.avgAge}}</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -67,7 +67,7 @@
                       <q-item-label >Average squad score</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >5.5/10</q-item-label>
+                      <q-item-label >{{stats.avgRating}}/10</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -76,7 +76,7 @@
                       <q-item-label >Major trophies won</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >12</q-item-label>
+                      <q-item-label >{{team.trophiesWon}}</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-item>
@@ -120,13 +120,13 @@
             </div>
           </div>
           <div class="col-sm-3 q-mr-auto">
-            <fans :team="team" />
+            <fans :team="team" :stats="stats" />
           </div>
         </div>
       </div>
-      <div v-else class="column self-center">
+      <div v-else class="col self-center">
         <div class="row justify-center">
-          <q-card class="col-10 col-sm-8 bg-t-darker self-center">
+          <q-card class="col-11 col-sm-8 bg-t-darker self-center">
             <div class="row">
               <div class="column col-grow col-4 col-sm-3 self-center">
                 <q-img :src="'statics/' + team.logo" :alt="team.name" class="img-thumbnail" />
@@ -148,7 +148,7 @@
                       <q-item-label>Internationalization</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >30%</q-item-label>
+                      <q-item-label >{{stats.inter}}%</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -157,7 +157,7 @@
                       <q-item-label >Average squad age</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >20</q-item-label>
+                      <q-item-label >{{stats.avgAge}}</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -166,7 +166,7 @@
                       <q-item-label >Average squad score</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >5.5/10</q-item-label>
+                      <q-item-label >{{stats.avgRating}}/10</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -175,7 +175,7 @@
                       <q-item-label >Major trophies won</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >12</q-item-label>
+                      <q-item-label >{{team.trophiesWon}}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </q-list>
@@ -394,6 +394,7 @@ export default {
   data () {
     return {
       team: null,
+      // stats: {},
       gks: [],
       cbs: [],
       lbs: [],
@@ -419,7 +420,8 @@ export default {
     axios.get('http://innouts.test/api/teams/' + to.params.team)
       .then(response => {
         next(vm => {
-          vm.team = response.data.data
+          vm.team = response.data.team.info
+          vm.stats = response.data.team.stats
           vm.headerStyle.backgroundImage = 'url(statics/' + vm.team.stadium.picture + ')'
           vm.headerStyle.backgroundPosition = vm.team.stadium.position
           vm.team.players.forEach(element => {
@@ -487,6 +489,7 @@ export default {
       this.fieldStyle.backgroundColor = '#21BA45'
       this.fieldStyle.border = '3px solid white'
       this.headerStyle.minHeight = '200px'
+      this.headerStyle.display = 'flex'
     } else {
       this.headerStyle.minHeight = '375px'
       this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
