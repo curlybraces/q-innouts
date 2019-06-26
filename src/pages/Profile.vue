@@ -6,7 +6,7 @@
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/images/club_logos/atletico-madrid.png'" alt="logo" class="fit" />
+        <q-img contain :src="'statics/'+this.user.team.logo" :alt="this.user.team.name" class="fit" />
       </div>
     </div>
 
@@ -61,6 +61,7 @@ export default {
       window: Object,
       windows: Array,
       headerStyle: {},
+      team: Object,
     }
   },
 
@@ -70,8 +71,22 @@ export default {
     }
   },
 
+  // beforeRouteEnter (to, from, next) {
+  //   to.team = from.$store.state.user.team
+  //   next()
+  // },
+
   created: function () {
+    this.team = this.user.team
     this.$emit('sendView', ['hhh lpR fff', false, false])
+    if (this.$q.screen.lt.md) {
+      this.headerStyle.minHeight = '200px'
+      this.headerStyle.display = 'flex'
+    } else {
+      this.headerStyle.minHeight = '375px'
+    }
+    this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
+    this.headerStyle.backgroundPosition = this.team.stadium.position
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data

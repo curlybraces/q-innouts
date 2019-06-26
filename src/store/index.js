@@ -57,6 +57,7 @@ export default function (/* { ssrContext } */) {
 
       updateUser (state, payload) {
         state.user = payload.user
+        // alert('done')
       }
 
     },
