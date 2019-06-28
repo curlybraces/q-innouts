@@ -71,10 +71,11 @@ export default {
     }
   },
 
-  // beforeRouteEnter (to, from, next) {
-  //   to.team = from.$store.state.user.team
-  //   next()
-  // },
+  beforeRouteEnter (to, from, next) {
+    // to.team = from.$store.state.user.team
+    alert(from.$store.getters.loggedIn)
+    // next()
+  },
 
   created: function () {
     this.team = this.user.team

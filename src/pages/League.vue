@@ -215,6 +215,21 @@ export default {
     // alert(this.$q.platform.is.mobile)
   },
 
+  beforeRouteUpdate (to, from, next) {
+    axios.get('http://innouts.test/api/leagues/' + to.params.league)
+      .then(response => {
+        this.league = response.data.league
+        this.stats = response.data.stats
+        next()
+      })
+      .catch(error => {
+        console.log(error)
+        next(false)
+      })
+    // alert('hi')
+    next()
+  },
+
 }
 </script>
 
