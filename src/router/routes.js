@@ -8,6 +8,7 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       {
         path: 'players/:id',
+        name: 'player',
         component: ID,
       },
       {

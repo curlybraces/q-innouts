@@ -75,6 +75,19 @@ export default {
     }
   },
 
+  beforeRouteUpdate (to, from, next) {
+    alert(to.params.id)
+    this.companions.forEach(element => {
+      console.log(element.id)
+      if (parseInt(element.id) === to.params.id) {
+        alert('match')
+        this.activePlayer = element
+        // this.$router.push({ name: 'player', params: { user: to.params.id } })
+        // next({ name: 'player', params: { user: to.params.id } })
+      }
+    })
+  },
+
   created: function () {
     if (this.$q.screen.gt.sm) {
       this.$emit('sendView', ['hhh lpR fff', false, true])

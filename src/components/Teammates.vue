@@ -9,8 +9,8 @@
       >
       <q-item-label header>{{team}} Squad</q-item-label>
         <!-- <q-list-header>Teammates</q-list-header> -->
-        <div v-for="(mate, index) in teammates" :key="mate.id">
-          <q-item :to="'/players/'+mate.id" @click="setPlayer(index)" active-class="text-primar bg-accent"  clickable v-ripple>
+        <div v-for="(mate) in teammates" :key="mate.id">
+          <q-item :to="'/players/'+mate.id" active-class="text-primar bg-accent"  clickable v-ripple>
             <q-item-section avatar>
               <q-avatar rounded>
                 <img :src="mate.picture">

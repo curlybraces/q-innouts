@@ -73,8 +73,8 @@ export default {
 
   beforeRouteEnter (to, from, next) {
     // to.team = from.$store.state.user.team
-    alert(from.$store.getters.loggedIn)
-    // next()
+    // alert(from.$store.getters.loggedIn)
+    next()
   },
 
   created: function () {
