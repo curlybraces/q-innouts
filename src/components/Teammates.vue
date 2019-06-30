@@ -40,9 +40,9 @@ export default {
   },
 
   methods: {
-    setPlayer (id) {
-      this.$emit('newPlayer', id)
-    }
+    // setPlayer (id) {
+    //   this.$emit('newPlayer', id)
+    // }
   }
 }
 </script>
