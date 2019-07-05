@@ -213,14 +213,23 @@ export default {
       })
   },
 
+  beforeCreate: function () {
+    // this.$q.loading.show({
+    //   delay: 400 // ms
+    // })
+  },
+
   created: function () {
     this.$emit('sendView', ['hhh lpR fff', false, false])
+    // this.$q.loading.hide()
   },
 
   methods: {
     panelChange: function (newVal, oldVal) {
       if (newVal === 'managers' && this.managers.length === 0) {
-        this.$q.loading.show()
+        this.$q.loading.show({
+          delay: 400
+        })
         axios.get('http://innouts.test/api/managers')
           .then(response => {
             this.managers = response.data

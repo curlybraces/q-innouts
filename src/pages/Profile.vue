@@ -74,7 +74,10 @@ export default {
   beforeRouteEnter (to, from, next) {
     // to.team = from.$store.state.user.team
     // alert(from.$store.getters.loggedIn)
-    next()
+    next(vm => {
+      vm.headerStyle.backgroundImage = 'url(statics/' + this.$store.state.user.team.stadium.picture + ')'
+      vm.headerStyle.backgroundPosition = vm.team.stadium.position
+    })
   },
 
   created: function () {
@@ -86,8 +89,8 @@ export default {
     } else {
       this.headerStyle.minHeight = '375px'
     }
-    this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
-    this.headerStyle.backgroundPosition = this.team.stadium.position
+    // this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
+    // this.headerStyle.backgroundPosition = this.team.stadium.position
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data
