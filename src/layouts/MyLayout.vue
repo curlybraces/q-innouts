@@ -1,7 +1,8 @@
 <template>
   <q-layout :view="view" >
     <q-header reveal elevated class="glossy q-pa-xs">
-      <custom-header></custom-header>
+      <desktop-header v-if="$q.platform.is.desktop" />
+      <mobile-header v-else />
     </q-header>
 
     <q-drawer
@@ -80,22 +81,34 @@
 </template>
 
 <script>
-import CustomHeader from 'components/Header.vue'
+import DesktopHeader from 'components/Header.vue'
+import MobileHeader from 'components/MobileHeader.vue'
 import { openURL } from 'quasar'
 
 export default {
   name: 'MyLayout',
 
   components: {
-    CustomHeader,
+    DesktopHeader,
+    MobileHeader
   },
 
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop,
-      rightDrawerOpen: this.$q.platform.is.desktop,
+      // leftDrawerOpen: this.$q.platform.is.desktop,
+      // rightDrawerOpen: this.$q.platform.is.desktop,
       // leftDrawerOpen: true
       view: 'hHh lpr fff',
+    }
+  },
+
+  computed: {
+    leftDrawerOpen: function () {
+      return this.$store.getters.leftDrawer
+    },
+
+    rightDrawerOpen: function () {
+      return this.$store.getters.rightDrawer
     }
   },
 

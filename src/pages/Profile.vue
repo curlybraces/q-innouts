@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div id="team-header" class="row relative-position justify-around bg-primary" :style="headerStyle">
+    <div id="team-header" class="row relative-position justify-around bg-accent" :style="headerStyle">
       <div id="profile-pic" class="ph-thumbs bg-secondary">
         <q-img contain :src="'statics/images/anonymous-user.png'" alt="logo" class="fit" />
       </div>
@@ -10,42 +10,107 @@
       </div>
     </div>
 
-    <div class="row justify-center bg-secondary">
-      <div class="col-sm-2 order-sm-first self-center bg-secondary offset-1">
+    <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordered">
+      <q-card class="col-grow col-md-3 order-sm-first self-center bg-primar bordered rounded-borders">
+        <q-list dense dar >
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="" name="perm_identity" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label > {{user.name}} </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="" name="calendar_today" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label >
+                Joined Mar, 2019
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="" name="schedule" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label >Juve fan since yesterday</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section avatar>
+              <q-icon color="" name="remove_red_eye" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label >Seen </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card>
+      <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
+        <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
+        <q-separator color="secondary"/>
+        <p class="text-subtitle1 q-pa-sm">{{user.intro}}</p>
+      </div>
+      <div class="col-grow col-md-3  self-center">
+        <q-card class="column q-pa-m bg-secondary bordered self-cente">
+          <div class="">
+            <div class="text-h6 text-center bg-primary q-pa-sm">
+              <span style='font-size:2rem;'>&#127941;</span>
+            </div>
+            <div class="q-pa-md">
+              <div class="text-center q-mb-sm q-gutter-x-xs">
+                <q-avatar v-for="el in 4" :key="el" color="red" size="1.5rem" text-color="white" icon="stars" />
+              </div>
+              <div class="q-mt-md">
+                Till next level
+                <q-linear-progress :value="4/5" color="primary" class="q-mt-sm" />
+              </div>
+            </div>
+          </div>
+        </q-card>
+      </div>
+    </div>
+
+    <div class="row justify-center q-my-lg">
+      <div class="col-sm-2">
         <q-select dense rounded standout v-model="window" :options="windows"
           option-value="id" option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
           dark bg-color="primary"
         />
       </div>
-      <div class="col-sm-3 bg-secondary text-center">
-        <p class="text-h5 text-capitalize">{{user.name}}</p>
-        <q-separator color="primary"/>
-        <p class="text-subtitle1">{{user.intro}}</p>
-      </div>
-      <div class="col-sm-3 bg-secondary">
-        <div class="column">
-          <div class="text-h6 text-center">Level: 6</div>
-          <div class="text-center">
-            <q-avatar v-for="el in 4" :key="el" color="red" size="1.5rem" text-color="white" icon="stars" />
-          </div>
-          <div>
-            <q-linear-progress :value="4/5" color="primary" class="q-mt-sm" />
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- <div class="row justify-center q-my-sm">
-      <div class="col-sm-2">
+    <div class="row justify-center q-mb-lg q-gutter-x-md">
+      <div class="col-5">
+        <q-table
+          class="my-sticky-header-table bg-green-2"
+          title="Ins"
+          :data="wanteds"
+          :columns="wantedColumns"
+          row-key="id"
+          rows-per-page-label="Transfers per page"
+          :rows-per-page-options="[5,10,15]"
+          :loading="loading"
+          color="primary"
+          table-header-class="bg-primary text-white"
+        />
       </div>
-    </div> -->
-
-    <div class="row justify-center bg-primary">
-      <div class="col-5  bg-primary">
-        in
-      </div>
-      <div class="col-5 bg-primary">
-        outs
+      <div class="col-5">
+        <q-table
+          class="my-sticky-header-table bg-red-2"
+          title="Outs"
+          :data="unwanteds"
+          :columns="unwantedColumns"
+          row-key="id"
+          rows-per-page-label="Transfers per page"
+          :rows-per-page-options="[5,10,15]"
+          :loading="loading"
+          color="primary"
+          table-header-class="bg-primary text-white"
+        />
       </div>
     </div>
   </q-page>
@@ -62,6 +127,30 @@ export default {
       windows: Array,
       headerStyle: {},
       team: Object,
+      wantedColumns: [
+        {
+          name: 'name',
+          required: true,
+          label: 'Player',
+          align: 'left',
+          field: row => row.player,
+          sortable: true
+        },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+      ],
+      unwantedColumns: [
+        {
+          name: 'name',
+          required: true,
+          label: 'Player',
+          align: 'left',
+          field: row => row.player,
+          sortable: true
+        },
+        { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+      ]
     }
   },
 
@@ -90,7 +179,7 @@ export default {
     } else {
       this.headerStyle.minHeight = '375px'
     }
-    this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
+    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
     this.headerStyle.backgroundPosition = this.team.stadium.position
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {

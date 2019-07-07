@@ -8,3 +8,11 @@ export function isLoggedIn (state) {
 export function authStatus (state) {
   return state.status
 }
+
+export function leftDrawer (state) {
+  return state.leftDrawer
+}
+
+export function rightDrawer (state) {
+  return state.rightDrawer
+}

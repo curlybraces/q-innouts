@@ -19,3 +19,7 @@ export const logout = (state) => {
   state.status = ''
   state.token = ''
 }
+
+export const setLeftDrawer = (state, ld) => {
+  state.leftDrawer = ld
+}

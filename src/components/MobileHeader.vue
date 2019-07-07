@@ -2,7 +2,7 @@
   <div class="row inlin no-wrap shadow-1">
     <q-toolbar class="q-gutter-x-sm">
       <q-btn
-        flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu"
+        flat dense round @click="commit('setLeftDrawer', true)" aria-label="Menu"
         class="q-mr-sm"
       >
         <q-icon name="menu" />
@@ -16,7 +16,7 @@
         Innouts
       </q-toolbar-title>
 
-      <q-btn class="glossy" color="blue-grey-14" label="News" />
+      <!-- <q-btn class="glossy" color="blue-grey-14" label="News" />
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
@@ -202,12 +202,8 @@
         </div>
       </q-btn-dropdown>
 
-      <q-btn to="/rankings" no-caps class="" color="" label="Rankings" />
+      <q-btn to="/rankings" no-caps class="" color="" label="Rankings" /> -->
 
-      <q-space />
-      <q-space />
-      <q-space />
-      <q-space />
       <q-btn-dropdown icon="more_vert" class="gloss" rounded dense
       >
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
@@ -305,15 +301,12 @@
 
     </q-toolbar>
 
-    <!-- <q-toolbar class="col-8 text-white">
-
-    </q-toolbar> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header',
+  name: 'MobileHeader',
   data () {
     return {
       leagues: Array,
