@@ -380,6 +380,30 @@ const Fans = () => import('components/Fans.vue')
 const News = () => import('components/News.vue')
 const PlayerCard = () => import('components/PlayerCard.vue')
 
+const initialState = () => {
+  return {
+    team: Object,
+    gks: [],
+    cbs: [],
+    lbs: [],
+    rbs: [],
+    dms: [],
+    cms: [],
+    lms: [],
+    rms: [],
+    ams: [],
+    lws: [],
+    rws: [],
+    sss: [],
+    cfs: [],
+    news: [],
+    tab: 'home',
+    panel: 'home',
+    headerStyle: {},
+    fieldStyle: {},
+  }
+}
+
 export default {
   name: 'Team',
 
@@ -391,87 +415,32 @@ export default {
     PlayerCard
   },
 
-  data () {
-    return {
-      team: null,
-      // stats: {},
-      gks: [],
-      cbs: [],
-      lbs: [],
-      rbs: [],
-      dms: [],
-      cms: [],
-      lms: [],
-      rms: [],
-      ams: [],
-      lws: [],
-      rws: [],
-      sss: [],
-      cfs: [],
-      news: [],
-      tab: 'home',
-      panel: 'home',
-      headerStyle: {},
-      fieldStyle: {},
-    }
+  data: () => {
+    return initialState()
   },
 
   beforeRouteEnter (to, from, next) {
     axios.get('http://innouts.test/api/teams/' + to.params.team)
       .then(response => {
         next(vm => {
-          vm.team = response.data.team.info
-          vm.stats = response.data.team.stats
-          vm.headerStyle.backgroundImage = 'url(statics/' + vm.team.stadium.picture + ')'
-          vm.headerStyle.backgroundPosition = vm.team.stadium.position
-          vm.team.players.forEach(element => {
-            // alert(element)
-            switch (element.specificPosition) {
-              case 'GK':
-                vm.gks.push(element)
-                break
-              case 'CB':
-                vm.cbs.push(element)
-                break
-              case 'LB':
-                vm.lbs.push(element)
-                break
-              case 'RB':
-                vm.rbs.push(element)
-                break
-              case 'DM':
-                vm.dms.push(element)
-                break
-              case 'RM':
-                vm.rms.push(element)
-                break
-              case 'LM':
-                vm.lms.push(element)
-                break
-              case 'CM':
-                vm.cms.push(element)
-                break
-              case 'AM':
-                vm.ams.push(element)
-                break
-              case 'RW':
-                vm.rws.push(element)
-                break
-              case 'LW':
-                vm.lws.push(element)
-                break
-              case 'SS':
-                vm.sss.push(element)
-                break
-              case 'CF':
-                vm.cfs.push(element)
-                break
-            }
-          })
+          vm.setData(response)
         })
       })
       .catch(error => {
         from.error = error
+        next(false)
+      })
+  },
+
+  beforeRouteUpdate (to, from, next) {
+    axios.get('http://innouts.test/api/teams/' + to.params.team)
+      .then(response => {
+        this.reset()
+        this.setData(response)
+        next()
+      })
+      .catch(error => {
+        console.log(error)
         next(false)
       })
   },
@@ -483,7 +452,7 @@ export default {
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
+    this.$store.commit('setRightDrawer', false)
     this.$q.loading.hide()
     if (this.$q.screen.lt.md) {
       this.fieldStyle.backgroundColor = '#21BA45'
@@ -507,11 +476,72 @@ export default {
       // }
     },
 
+    setData: function (response) {
+      this.team = response.data.team.info
+      this.stats = response.data.team.stats
+      this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
+      this.headerStyle.backgroundPosition = this.team.stadium.position
+      this.team.players.forEach(element => {
+        // alert(element)
+        switch (element.specificPosition) {
+          case 'GK':
+            this.gks.push(element)
+            break
+          case 'CB':
+            this.cbs.push(element)
+            break
+          case 'LB':
+            this.lbs.push(element)
+            break
+          case 'RB':
+            this.rbs.push(element)
+            break
+          case 'DM':
+            this.dms.push(element)
+            break
+          case 'RM':
+            this.rms.push(element)
+            break
+          case 'LM':
+            this.lms.push(element)
+            break
+          case 'CM':
+            this.cms.push(element)
+            break
+          case 'AM':
+            this.ams.push(element)
+            break
+          case 'RW':
+            this.rws.push(element)
+            break
+          case 'LW':
+            this.lws.push(element)
+            break
+          case 'SS':
+            this.sss.push(element)
+            break
+          case 'CF':
+            this.cfs.push(element)
+            break
+        }
+      })
+      if (this.$q.screen.lt.md) {
+        this.fieldStyle.backgroundColor = '#21BA45'
+        this.fieldStyle.border = '3px solid white'
+        this.headerStyle.minHeight = '200px'
+        this.headerStyle.display = 'flex'
+      } else {
+        this.headerStyle.minHeight = '375px'
+        this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
+      }
+    },
+
+    reset () {
+      Object.assign(this.$data, this.$options.data.apply(this))
+    }
+
   },
 
-  // watch: {
-
-  // }
 }
 </script>
 

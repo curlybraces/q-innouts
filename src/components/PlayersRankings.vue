@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="row justify-center q-gutter-x-sm">
-      <div class="col-grow">
+    <div class="row justify-center q-gutter-sm">
+      <div class="col-12 col-sm-grow">
         <q-table
           title="Overall Top 20"
           :data="players.topOverall"
@@ -27,7 +27,7 @@
           </q-td>
         </q-table>
       </div>
-      <div class="col-auto">
+      <div class="col-12 col-sm-auto">
         <q-table
           title="U-23 Top 20"
           :data="players.topU23"

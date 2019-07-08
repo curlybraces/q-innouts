@@ -6,7 +6,6 @@
       </div>
       <div class="col-grow col-md-auto self-end">
         <h4 class="text-center q-my-md text-uppercase">{{league.name}}</h4>
-        <!-- <div class="order-first">h</div> -->
       </div>
     </div>
     <div padding class="row justify-center q-gutter-y-md">
@@ -73,7 +72,7 @@
                 </div>
                 <div class="row q-pa-sm bg-secondary">
                   <div class="col-grow col-sm-6 q-pa-sm">
-                    <q-list :dense="$q.screen.lt.md" padding class="rounded-borders" bordered>
+                    <q-list dark :dense="$q.screen.lt.md" padding class="rounded-borders bg-primary" bordered>
                       <q-item>
                         <q-item-section>
                           <q-item-label>Internationalization</q-item-label>
@@ -185,16 +184,13 @@ export default {
   data () {
     return {
       tab: 'mails',
-      league: null,
+      league: Object,
       stats: null,
       news: []
     }
   },
 
   beforeRouteEnter (to, from, next) {
-    // if (from.name === 'player') {
-    //   next()
-    // } else {
     axios.get('http://innouts.test/api/leagues/' + to.params.league)
       .then(response => {
         next(vm => {
@@ -206,13 +202,10 @@ export default {
         from.error = error
         next(false)
       })
-    // }
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
-    // this.league.formed = new Date(this.league.formed)
-    // alert(this.$q.platform.is.mobile)
+    this.$store.commit('setRightDrawer', false)
   },
 
   beforeRouteUpdate (to, from, next) {
@@ -226,8 +219,6 @@ export default {
         console.log(error)
         next(false)
       })
-    // alert('hi')
-    next()
   },
 
 }

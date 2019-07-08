@@ -19,16 +19,18 @@ export default function (/* { ssrContext } */) {
       status: '',
       token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
       user: Object,
-      // view: 'hHh lpr fff',
-      // leftDrawer: true,
-      // rightDrawer: true,
+      view: 'hHh lpr fff',
+      leftDrawer: false,
+      rightDrawer: false,
     },
 
     getters: {
       loggedIn: state => !!state.token,
       authStatus: state => state.status,
-      user: state => state.user
-      // view: state => state.view
+      user: state => state.user,
+      view: state => state.view,
+      leftDrawer: state => state.leftDrawer,
+      rightDrawer: state => state.rightDrawer
     },
 
     mutations: {
@@ -58,6 +60,22 @@ export default function (/* { ssrContext } */) {
       updateUser (state, payload) {
         state.user = payload.user
         // alert('done')
+      },
+
+      setView (state, payload) {
+        state.view = payload.view
+      },
+
+      setLeftDrawer (state, ld) {
+        state.leftDrawer = ld
+      },
+
+      setRightDrawer (state, rd) {
+        state.rightDrawer = rd
+      },
+
+      toggleLeftDrawer (state) {
+        state.leftDrawer = !state.leftDrawer
       }
 
     },

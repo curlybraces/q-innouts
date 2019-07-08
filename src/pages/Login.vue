@@ -52,14 +52,14 @@ export default {
 
   data () {
     return {
-      email: null,
-      password: null,
+      email: '',
+      password: '',
       remember: false,
     }
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
+    this.$store.commit('setRightDrawer', false)
   },
 
   methods: {

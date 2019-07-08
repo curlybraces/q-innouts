@@ -189,7 +189,7 @@ export default {
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
+    this.$store.commit('setRightDrawer', false)
   },
 
   watch: {

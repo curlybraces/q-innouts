@@ -74,16 +74,20 @@ export default {
 
   data () {
     return {
-      name: null,
-      email: null,
-      password: null,
-      passwordConfirm: null,
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
       accept: false,
     }
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
+    this.$store.commit('setView', {
+      view: 'hhh lpR fff'
+    })
+
+    this.$store.commit('setRightDrawer', false)
   },
 
   methods: {
@@ -114,10 +118,10 @@ export default {
     },
 
     onReset () {
-      this.name = null
-      this.email = null
-      this.password = null
-      this.passwordConfirm = null
+      this.name = ''
+      this.email = ''
+      this.password = ''
+      this.passwordConfirm = ''
       this.accept = false
     }
   },

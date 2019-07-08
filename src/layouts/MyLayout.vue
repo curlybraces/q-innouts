@@ -6,46 +6,166 @@
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      :value="leftDrawerOpen"
+      :breakpoint="250"
+      :width="220"
+      elevated
+      overlay
       bordered
-      content-class="bg-grey-2"
+      content-class="bg-secondary"
     >
       <q-list>
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" to="/players/1">
+        <q-item clickable tag="a" to="/">
           <q-item-section avatar>
-            <q-icon name="school" />
+            <q-icon name="announcement" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Player</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
+            <q-item-label>News</q-item-label>
           </q-item-section>
-        </q-item>
-        <q-item clickable tag="b" to="/transfers">
+        </q-item>        <q-item clickable tag="b" to="/transfers">
           <q-item-section avatar>
             <q-icon name="compare_arrows" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Transfers</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" to="/teams/1">
-          <q-item-section avatar>
-            <q-icon name="chat" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Team</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
+        <q-item clickable tag="a" to="/rumours">
           <q-item-section avatar>
             <q-icon name="record_voice_over" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Forum</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
+            <q-item-label>Rumours</q-item-label>
+          </q-item-section>
+        </q-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="group_work"
+        label="Leagues"
+        default-opene
+        header-class="text-primary"
+      >
+        <q-list >
+          <q-item clickable dense v-close-popup to="/leagues/1" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Premier League</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable dense v-close-popup to="/leagues/2" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>La Liga</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/leagues/3" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Serie A</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/leagues/4" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Bundesliga</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-expansion-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="explore"
+        label="Teams"
+        header-class="text-primary"
+      >
+        <q-list class="bg-secondary">
+          <q-item clickable dense v-close-popup to="/teams/22" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/real-madrid.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Real Madrid</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable dense v-close-popup to="/teams/21" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/barcelona.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Barcelona</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/teams/14" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/manchester-united.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Man. United</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/teams/62" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/bayern-munchen.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Bayern</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable dense v-close-popup to="/teams/6" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/chelsea.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Chelsea</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/teams/12" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/liverpool.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Liverpool</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/teams/41" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/juventus.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Juventus</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable dense v-close-popup to="/teams/13" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/club_logos/manchester-city.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Man. City</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-expansion-item>
+        <q-item clickable tag="a" to="/rankings">
+          <q-item-section avatar>
+            <q-icon name="assessment" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Rankings</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -53,12 +173,12 @@
 
     <q-ajax-bar size="4px" color="warning" />
 
-    <q-drawer side="right" v-model="rightDrawerOpen" content-class="bg-grey-2" elevated>
+    <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated>
       babe
     </q-drawer>
 
     <q-page-container>
-      <router-view @sendView="setView" />
+      <router-view />
     </q-page-container>
 
     <q-footer>
@@ -68,7 +188,6 @@
           round
           dense
           icon="menu"
-          @click="leftDrawer = !leftDrawer"
         />
         <q-toolbar-title>
           Footer
@@ -83,7 +202,7 @@
 <script>
 import DesktopHeader from 'components/Header.vue'
 import MobileHeader from 'components/MobileHeader.vue'
-import { openURL } from 'quasar'
+// import { openURL } from 'quasar'
 
 export default {
   name: 'MyLayout',
@@ -93,16 +212,16 @@ export default {
     MobileHeader
   },
 
-  data () {
-    return {
-      // leftDrawerOpen: this.$q.platform.is.desktop,
-      // rightDrawerOpen: this.$q.platform.is.desktop,
-      // leftDrawerOpen: true
-      view: 'hHh lpr fff',
-    }
-  },
+  // data: () => {
+  //   return {
+  //   }
+  // },
 
   computed: {
+    view: function () {
+      return this.$store.getters.view
+    },
+
     leftDrawerOpen: function () {
       return this.$store.getters.leftDrawer
     },
@@ -112,20 +231,14 @@ export default {
     }
   },
 
-  // computed: {
-  //   view: function () {
-  //     return this.$store.getters.view
-  //   },
-  // }
-
   methods: {
-    openURL,
+    // openURL,
 
-    setView: function (view) {
-      this.view = view[0]
-      this.leftDrawerOpen = view[1]
-      this.rightDrawerOpen = view[2]
-    },
+    // setView: function (view) {
+    //   this.view = view[0]
+    //   this.leftDrawerOpen = view[1]
+    //   this.rightDrawerOpen = view[2]
+    // },
 
   },
 

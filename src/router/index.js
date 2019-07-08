@@ -29,6 +29,7 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {
+    store.commit('setLeftDrawer', false)
     if (to.matched.some(record => record.meta.requiresAuth)) {
       if (store.getters.loggedIn) {
         next()

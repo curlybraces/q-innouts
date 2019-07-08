@@ -1,6 +1,7 @@
 <template>
   <q-page paddin>
     <q-splitter
+      v-if="$q.platform.is.desktop"
       v-model="splitterModel"
       class="bg-secondary"
     >
@@ -9,6 +10,7 @@
         <q-tabs
           v-model="tab"
           vertical
+          :dense="$q.platform.is.mobile"
           active-bg-color="secondary"
           class="bg-primary text-yellow-14"
 
@@ -130,6 +132,125 @@
       </template>
 
     </q-splitter>
+    <div v-else>
+      <q-tabs
+        v-model="tab"
+        dense
+        no-caps
+        class="bg-orange text-white shadow-2"
+      >
+        <q-tab name="teams" label="Teams" />
+        <q-tab name="players"  label="Players" />
+        <q-tab name="managers"  label="Managers" />
+        <q-tab name="fans"  label="Fans" />
+      </q-tabs>
+        <q-tab-panels
+          v-model="tab"
+          animated
+          transition-prev="jump-up"
+          transition-next="jump-up"
+          @before-transition="panelChange"
+        >
+          <q-tab-panel name="teams">
+            <div class="column">
+              <q-table
+                title="Teams Ranking"
+                :data="teams"
+                :columns="columns"
+                :dense="$q.screen.lt.md"
+                :rows-per-page-options="[10,20,0]"
+                :pagination.sync="myPagination"
+                row-key="name"
+                class="bg-secondary"
+              >
+                <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                  <router-link :to="'/teams/' + value.value.id" >
+                    <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </div>
+                  </router-link>
+                </q-td>
+              </q-table>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel name="players">
+            <players-rankings :players="players" />
+          </q-tab-panel>
+
+          <q-tab-panel name="managers">
+            <div class="column">
+              <q-table
+                title="Managers Ranking"
+                :data="managers"
+                :columns="managerColumns"
+                :dense="$q.screen.lt.md"
+                :pagination.sync="managersPagination"
+                :rows-per-page-options="[10,20,0]"
+                row-key="name"
+                class="bg-secondary"
+              >
+                <q-td slot="body-cell-manager" slot-scope="value" :props="value">
+                  <div id="" class="row inline person-thumbnail no-decor ellipsis">
+                    <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                  </div>
+                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
+                    {{value.value.firstName}} {{value.value.lastName}}
+                  </router-link>
+                </q-td>
+
+                <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                  <div id="" class="q-mx-aut  no-decor ellipsis">
+                    <router-link :to="'/teams/' + value.value.id" >
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </router-link>
+                  </div>
+                </q-td>
+              </q-table>
+            </div>
+          </q-tab-panel>
+          <q-tab-panel name="fans">
+            <div class="column">
+              <q-table
+                title="Fans Ranking"
+                :data="fans"
+                :columns="fansColumns"
+                :dense="$q.screen.lt.md"
+                :pagination.sync="fansPagination"
+                :rows-per-page-options="[10,20,0]"
+                row-key="name"
+                class="bg-secondary"
+              >
+                <q-td slot="body-cell-fan" slot-scope="value" :props="value">
+                  <div class="row inline person-thumbnail no-decor ellipsis">
+                    <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                  </div>
+                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
+                    {{value.value.name}}
+                  </router-link>
+                </q-td>
+
+                <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                  <div class="q-mx-aut  no-decor ellipsis">
+                    <router-link :to="'/teams/' + value.value.id" >
+                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                          {{value.value.name}}
+                        </q-tooltip>
+                    </router-link>
+                  </div>
+                </q-td>
+              </q-table>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
   </q-page>
 </template>
 
@@ -220,8 +341,11 @@ export default {
   },
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', false, false])
-    // this.$q.loading.hide()
+    this.$store.commit('setView', {
+      view: 'hhh lpR fff'
+    })
+
+    this.$store.commit('setRightDrawer', false)
   },
 
   methods: {

@@ -19,7 +19,7 @@
         </div>
       </div>
       <q-drawer
-        v-model="rightDrawerOpen"
+        :value="rightDrawerOpen"
         :mini="$q.screen.lt.md"
         content-class="bg-grey-2"
         :breakpoint="600"
@@ -52,7 +52,12 @@ export default {
       activePlayer: null,
       companions: [],
       error: null,
-      rightDrawerOpen: true,
+    }
+  },
+
+  computed: {
+    rightDrawerOpen: function () {
+      return this.$store.getters.rightDrawer
     }
   },
 
@@ -84,11 +89,14 @@ export default {
     })
   },
 
-  created: function () {
+  beforeCreate: function () {
+    this.$store.commit('setView', {
+      view: 'hhh lpR fff'
+    })
     if (this.$q.screen.gt.sm) {
-      this.$emit('sendView', ['hhh lpR fff', false, true])
+      this.$store.commit('setRightDrawer', true)
     } else {
-      this.$emit('sendView', ['hhh lpR fff', false, false])
+      this.$store.commit('setRightDrawer', false)
     }
   },
 

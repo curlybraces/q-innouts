@@ -9,10 +9,13 @@
 
 <script>
 export default {
-  name: 'PageIndex',
+  name: 'HomePage',
 
   created: function () {
-    this.$emit('sendView', ['hhh lpR fff', true, true])
-  }
+    this.$store.commit('setLeftDrawer', false)
+    if (this.$q.platform.is.desktop) {
+      this.$store.commit('setRightDrawer', true)
+    }
+  },
 }
 </script>
