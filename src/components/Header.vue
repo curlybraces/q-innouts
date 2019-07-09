@@ -223,15 +223,15 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup to="/leagues/1" >
+              <q-item clickable  v-close-popup :to="'/teams/'+user.team_id" >
                 <q-item-section avatar>
-                  <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" size="2.1rem" />
+                  <q-avatar :icon="'img:statics/'+user.team.logo" size="2.1rem" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label>{{user.team_id}}</q-item-label>
+                  <q-item-label>{{user.team.name}}</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup to="/leagues/1" >
+              <q-item clickable  v-close-popup to="/settings" >
                 <q-item-section avatar>
                   <q-avatar icon="settings" color="" size="2.1rem" text-color="" />
                 </q-item-section>
@@ -246,7 +246,7 @@
 
           <div class="column items-center">
             <q-avatar size="72px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+              <img :src="user.picture">
             </q-avatar>
 
             <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize">{{user.name}}</div>

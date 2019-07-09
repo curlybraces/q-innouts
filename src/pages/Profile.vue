@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div id="team-header" class="row relative-position justify-around bg-accent" :style="headerStyle">
+    <div id="team-header" class="row relative-position justify-around bg-accet" :style="headerStyle">
       <div id="profile-pic" class="ph-thumbs bg-secondary">
         <q-img contain :src="'statics/images/anonymous-user.png'" alt="logo" class="fit" />
       </div>
@@ -18,7 +18,7 @@
               <q-icon color="" name="perm_identity" />
             </q-item-section>
             <q-item-section>
-              <q-item-label > {{user.name}} </q-item-label>
+              <q-item-label class="text-capitalize" > {{user.name}} </q-item-label>
             </q-item-section>
           </q-item>
           <q-item>
@@ -52,7 +52,7 @@
       <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
         <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
         <q-separator color="secondary"/>
-        <p class="text-subtitle1 q-pa-sm">{{user.intro}}</p>
+        <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
       </div>
       <div class="col-grow col-md-3  self-center">
         <q-card class="column q-pa-m bg-secondary bordered self-cente">
@@ -83,10 +83,10 @@
       </div>
     </div>
 
-    <div class="row justify-center q-mb-lg q-gutter-x-md">
-      <div class="col-5">
+    <div class="row justify-center q-mb-lg q-gutter-md">
+      <div class="col-12 col-md-5">
         <q-table
-          class="my-sticky-header-table bg-green-2"
+          class="my-sticky-header-table"
           title="Ins"
           :data="wanteds"
           :columns="wantedColumns"
@@ -95,12 +95,12 @@
           :rows-per-page-options="[5,10,15]"
           :loading="loading"
           color="primary"
-          table-header-class="bg-primary text-white"
+          table-header-class="bg-green-2"
         />
       </div>
-      <div class="col-5">
+      <div class="col-grow col-md-5">
         <q-table
-          class="my-sticky-header-table bg-red-2"
+          class="my-sticky-header-table"
           title="Outs"
           :data="unwanteds"
           :columns="unwantedColumns"
@@ -109,7 +109,7 @@
           :rows-per-page-options="[5,10,15]"
           :loading="loading"
           color="primary"
-          table-header-class="bg-primary text-white"
+          table-header-class="bg-red-2"
         />
       </div>
     </div>
@@ -171,16 +171,20 @@ export default {
   },
 
   created: function () {
+    this.$store.commit('setRightDrawer', false)
     this.team = this.user.team
-    this.$emit('sendView', ['hhh lpR fff', false, false])
+    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+    this.headerStyle.backgroundPosition = this.team.stadium.position
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
       this.headerStyle.display = 'flex'
     } else {
       this.headerStyle.minHeight = '375px'
+      // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+      // this.headerStyle.backgroundPosition = this.team.stadium.position
     }
-    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-    this.headerStyle.backgroundPosition = this.team.stadium.position
+    // alert('he')
+
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
         this.windows = response.data.data
@@ -221,5 +225,30 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
+
+@media screen and (max-width: 700px)
+  .ph-thumbs
+    // overflow: hidden;
+    width: 55px;
+    height: 55px;
+    // position:absolute;
+    // bottom: -5%;
+    // border-radius: 10%;
+    // border: solid black;
+
+    // img
+    //   display: block;
+    //   margin: auto;
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
+
+  #profile-pic
+    left: 30%;
+
+  #team-logo
+    right: 30%;
 
 </style>

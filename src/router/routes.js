@@ -33,11 +33,14 @@ const routes = [
         path: '/register', component: () => import('pages/Register.vue')
       },
       {
-        path: '/settings', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
+        path: '/home', name: 'home', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
+      },
+      {
+        path: '/settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true }
       },
       // keep as last route
       {
-        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
+        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')
       },
     ]
   },
