@@ -56,7 +56,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="players">
+          <q-tab-panel name="players" class="q-pa-s">
             <players-rankings :players="players" />
           </q-tab-panel>
 
@@ -197,9 +197,6 @@
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
                     <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
-                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
-                    {{value.value.firstName}} {{value.value.lastName}}
-                  </router-link>
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -231,9 +228,9 @@
                   <div class="row inline person-thumbnail no-decor ellipsis">
                     <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
-                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
+                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
                     {{value.value.name}}
-                  </router-link>
+                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -294,6 +291,7 @@ export default {
       teams: [],
       managerColumns: [
         { name: 'manager', required: true, label: 'Manager', align: 'left', field: row => row },
+        { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.firstName + ' ' + row.lastName },
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
@@ -308,6 +306,7 @@ export default {
       players: null,
       fansColumns: [
         { name: 'fan', required: true, label: 'Fan', align: 'left', field: row => row },
+        { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
         { name: 'level', align: 'left', label: 'Level', field: 'fanLevel', format: val => `${val.toFixed(2)}`, sortable: true },

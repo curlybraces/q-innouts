@@ -6,19 +6,19 @@
           <div class="col relative-position">
             <div class="d-inline-block q-ml-sm">
               <div class="rope border-right border-left border-dark"></div>
-              <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption">Seats {{team.stadium.capacity}}</div>
+              <div class="border-x border-y border-dark q-pa-xs bg-primary text-white text-caption">Seats {{team.stadium.capacity}}</div>
             </div>
           </div>
           <div class="col relative-position">
             <div class="d-inline-block absolute-center">
               <div class="rope border-right border-left border-dark"></div>
-              <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption"> {{team.stadium.name}}</div>
+              <div class="border-x border-y border-dark q-pa-xs bg-primary text-white text-caption"> {{team.stadium.name}}</div>
             </div>
           </div>
           <div class="col relative-position">
             <div class="d-inline-block absolute-right q-mr-sm">
               <div class="rope border-right border-left border-dark"></div>
-              <div class="border-x border-y border-dark q-pa-xs bg-grass text-white text-caption">Built {{team.stadium.built}}</div>
+              <div class="border-x border-y border-dark q-pa-xs bg-primary text-white text-caption">Built {{team.stadium.built}}</div>
             </div>
           </div>
         </div>

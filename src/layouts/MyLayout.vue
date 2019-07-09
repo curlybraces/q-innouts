@@ -80,6 +80,14 @@
               <q-item-label>Bundesliga</q-item-label>
             </q-item-section>
           </q-item>
+          <q-item clickable dense v-close-popup to="/leagues/5" >
+            <q-item-section avatar>
+              <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Ligue 1</q-item-label>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-expansion-item>
       <q-expansion-item

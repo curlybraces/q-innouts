@@ -54,17 +54,17 @@
         </q-table>
       </div>
     </div>
-    <div class="row justify-center q-gutter-md q-pa-md">
-      <div class="col-grow ">
+    <div class="row justify-cente q-gutter-y-sm q-pt-md">
+      <div class="col-grow col-md-3 ">
         <q-table
-          title="Top 20 Goalkeepers"
+          title="Top 20 GKs"
           :data="players.topGKs"
           :columns="GKColumns"
           :dense="$q.screen.lt.md"
           :pagination.sync="pagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
-          class="bg-secondary"
+          class="bg-secondary q-mr-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
@@ -81,7 +81,7 @@
           </q-td>
         </q-table>
       </div>
-      <div class="col-grow ">
+      <div class="col-grow col-md-3 ">
         <q-table
           title="Top 20 Defenders"
           :data="players.topDFs"
@@ -90,7 +90,7 @@
           :pagination.sync="pagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
-          class="bg-secondary"
+          class="bg-secondary q-mx-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
@@ -107,7 +107,7 @@
           </q-td>
         </q-table>
       </div>
-      <div class="col-grow ">
+      <div class="col-grow col-md-3 ">
         <q-table
           title="Top 20 Midfielders"
           :data="players.topMDs"
@@ -116,7 +116,7 @@
           :pagination.sync="pagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
-          class="bg-secondary"
+          class="bg-secondary q-mx-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
@@ -133,7 +133,7 @@
           </q-td>
         </q-table>
       </div>
-      <div class="col-auto">
+      <div class="col-grow col-md-3">
         <q-table
           title="Top 20 Attackers"
           :data="players.topATs"
@@ -142,7 +142,7 @@
           :pagination.sync="pagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
-          class="bg-secondary"
+          class="bg-secondary q-ml-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >

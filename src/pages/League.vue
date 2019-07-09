@@ -2,7 +2,9 @@
   <q-page>
     <div class="row bg-secondary">
       <div class="col-6 col-sm-5 col-md-3 offset-sm-1">
-        <q-img alt="Quasar logo" :src="league.logo" class="q-mx-aut" />
+        <div style="width: 280px; height: 280px;">
+          <q-img alt="Quasar logo" :src="league.logo" class="q-mx-aut fit" />
+        </div>
       </div>
       <div class="col-grow col-md-auto self-end">
         <h4 class="text-center q-my-md text-uppercase">{{league.name}}</h4>
