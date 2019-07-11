@@ -1,7 +1,7 @@
 <template>
   <q-page >
     <div id="team-header" class="bg-secondry q-pa-s text-white" :style="headerStyle">
-      <div v-if="$q.screen.gt.md">
+      <div v-if="$q.screen.gt.sm">
         <div class="row justify-center">
           <div class="col relative-position">
             <div class="d-inline-block q-ml-sm">
@@ -203,7 +203,7 @@
           <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-11 q-px-sm" :style="fieldStyle">
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
-              <div v-for="player in gks" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
+              <div v-for="player in gks" :key="player.id" class="col-lg-1 col-md-2 col-sm-2 q-px-sm">
                 <player-card :player="player" :color="team.color" />
               </div>
             </div>

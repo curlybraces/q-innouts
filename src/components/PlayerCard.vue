@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="text-center bg-t-dark">
-      <q-rating :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="player.rating" :max="5" />
+      <q-rating :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="0.9rem" :value="player.rating" :max="5" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-sm-6">
+      <div class="col-lg-6 col-md-7 col-sm-8">
         <h4 id="title" class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4>
         <div v-for="(rumour, idx) in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
           <q-card class="bg-secondary">
