@@ -383,6 +383,7 @@ const PlayerCard = () => import('components/PlayerCard.vue')
 const initialState = () => {
   return {
     team: Object,
+    stats: Object,
     gks: [],
     cbs: [],
     lbs: [],

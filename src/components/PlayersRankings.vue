@@ -3,7 +3,7 @@
     <div class="row justify-center q-gutter-sm">
       <div class="col-12 col-sm-grow">
         <q-table
-          title="Overall Top 20"
+          title="World Best"
           :data="players.topOverall"
           :columns="overallColumns"
           :dense="$q.screen.lt.md"

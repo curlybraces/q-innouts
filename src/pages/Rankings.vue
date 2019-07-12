@@ -195,6 +195,7 @@
               >
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
+                    henlo
                     <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
                 </q-td>
