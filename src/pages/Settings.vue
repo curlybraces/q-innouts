@@ -73,7 +73,7 @@
                   <q-input
                     filled
                     v-model="name"
-                    label="New name"
+                    label="Name"
                     :placeholder="user.name"
                     hint="Name and surname recommended"
                     lazy-rules
@@ -104,14 +104,34 @@
               </q-tab-panel>
 
               <q-tab-panel name="team">
-                <div class="column">
-                  team
+                <div class="colu">
+                  <div v-if="user.team">
+                    <div class="row justify-center">
+                      <div class="col-md-2 col-3">
+                        <q-img :src="'statics/'+user.team.logo" class="full-width" />
+                      </div>
+                    </div>
+                    <div class="row justify-center q-my-md">
+                      <q-btn @click="change = !change" class="glossy" rounded color="deep-orange" label="Change Team" />
+                    </div>
+                  </div>
+                  <div v-else-if="!user.team || change">
+                    <div class="row justify-center q-gutter-sm">
+                      <div class="col">
+                        <q-select filled v-model="league" :options="leagues" label="League" />
+                      </div>
+                      <div class="col">
+                        <q-select filled v-model="team" :options="teams" label="Team" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </q-tab-panel>
 
               <q-tab-panel name="delete">
-                <div class="column">
-                  del
+                <div class="colum">
+                  Pressing the button below, will enlist your account for deletion. You will have a short period to reclaim it by just logging back in.
+                  <q-btn  class="glossy" rounded color="negative" label="Delete Account" />
                 </div>
               </q-tab-panel>
             </q-tab-panels>
@@ -144,6 +164,11 @@ export default {
       birthday: '',
       countries: [],
       country: '',
+      change: false,
+      leagues: [],
+      teams: [],
+      league: '',
+      team: '',
     }
   },
 

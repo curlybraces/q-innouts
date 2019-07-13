@@ -24,6 +24,9 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
+        path: '/news/:article', component: () => import('pages/Article.vue')
+      },
+      {
         path: '/rankings', component: () => import('pages/Rankings.vue')
       },
       {
@@ -33,7 +36,7 @@ const routes = [
         path: '/register', component: () => import('pages/Register.vue')
       },
       {
-        path: '/home', name: 'home', component: () => import('pages/Profile.vue'), meta: { requiresAuth: true }
+        path: '/home', name: 'home', component: () => import('pages/Home.vue'), meta: { requiresAuth: true }
       },
       {
         path: '/settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true }

@@ -9,15 +9,15 @@
 
       <hr id="fan-border">
 
-      <div class="text-cente">
-        <q-btn-group :style="{backgroundColor: team.color}" push>
-          <q-btn size="sm" push @click="country"  label="Country" />
-          <q-btn size="sm" push @click="gender" label="Gender" />
-          <q-btn size="sm" push @click="age" label="Age" />
+      <div class="text-center">
+        <q-btn-group :style="{backgroundColor: team.color}" push class="">
+          <q-btn size="sm" push @click="country" :disable="!stats.fansTotal" label="Country" />
+          <q-btn size="sm" push @click="gender" :disable="!stats.fansTotal" label="Gender" />
+          <q-btn size="sm" push @click="age" :disable="!stats.fansTotal" label="Age" />
         </q-btn-group>
 
         <transition name="fade">
-          <div v-show="stats.fansTotal && (first || second || third)" style="max-height: 190px">
+          <div v-show="first || second || third" style="max-height: 190px">
             <GChart
               type="PieChart"
               :data="chartData"

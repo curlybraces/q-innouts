@@ -16,7 +16,7 @@
         Innouts
       </q-toolbar-title>
 
-      <q-btn class="glossy" color="blue-grey-14" label="News" />
+      <q-btn to="/news/3" class="glossy" color="blue-grey-14" label="News" />
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
@@ -223,7 +223,7 @@
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
             <q-list class="bg-primar">
-              <q-item clickable  v-close-popup to="/123" >
+              <q-item clickable  v-close-popup to="/home" >
                 <q-item-section avatar>
                   <q-avatar icon="home" color="secondar" size="2.1rem" text-color="" />
                 </q-item-section>
@@ -231,7 +231,7 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup :to="'/teams/'+user.team_id" >
+              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
                 <q-item-section avatar>
                   <q-avatar :icon="'img:statics/'+user.team.logo" size="2.1rem" />
                 </q-item-section>

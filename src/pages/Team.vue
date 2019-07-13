@@ -421,10 +421,14 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
+    alert('beforeRouteEnter')
     axios.get('http://innouts.test/api/teams/' + to.params.team)
       .then(response => {
+        alert('here')
         next(vm => {
+          alert('here1')
           vm.setData(response)
+          next()
         })
       })
       .catch(error => {
@@ -453,6 +457,7 @@ export default {
   },
 
   created: function () {
+    alert('created')
     this.$store.commit('setRightDrawer', false)
     this.$q.loading.hide()
     if (this.$q.screen.lt.md) {

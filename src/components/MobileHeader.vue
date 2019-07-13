@@ -21,7 +21,7 @@
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
             <q-list class="bg-primar">
-              <q-item clickable  v-close-popup to="/123" >
+              <q-item clickable  v-close-popup to="/home" >
                 <q-item-section avatar>
                   <q-avatar icon="home" color="secondar" size="2.1rem" text-color="" />
                 </q-item-section>
@@ -29,7 +29,7 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup to="/leagues/1" >
+              <q-item v-if="user.team" clickable  v-close-popup to="/leagues/1" >
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" size="2.1rem" />
                 </q-item-section>

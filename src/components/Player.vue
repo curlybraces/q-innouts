@@ -19,18 +19,7 @@
             />
           </div>
           <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{player.votes}}</div>
-          <!-- <p class="text-right self-center">12</p> -->
         </div>
-        <!-- <div class="row">
-          <q-rating
-            color="red"
-            icon="favorite"
-            class="q-mx-auto q-my-md"
-            size="1.5rem"
-            v-model="ratingModel"
-            :max="5"
-          />
-        </div> -->
       </div>  <!-- children will default to 'col'  -->
     </div>
     <div class="col-grow col-sm-8 q-pa-md bg-secondary">
