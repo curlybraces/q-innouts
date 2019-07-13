@@ -33,7 +33,7 @@
           :data="players.topU23"
           :columns="U23Columns"
           :dense="$q.screen.lt.md"
-          :pagination.sync="pagination"
+          :pagination.sync="u23Pagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
           class="bg-secondary"
@@ -61,7 +61,7 @@
           :data="players.topGKs"
           :columns="GKColumns"
           :dense="$q.screen.lt.md"
-          :pagination.sync="pagination"
+          :pagination.sync="GKPagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
           class="bg-secondary q-mr-xs"
@@ -87,7 +87,7 @@
           :data="players.topDFs"
           :columns="DFColumns"
           :dense="$q.screen.lt.md"
-          :pagination.sync="pagination"
+          :pagination.sync="DFPagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
           class="bg-secondary q-mx-xs"
@@ -113,7 +113,7 @@
           :data="players.topMDs"
           :columns="MFColumns"
           :dense="$q.screen.lt.md"
-          :pagination.sync="pagination"
+          :pagination.sync="MDPagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
           class="bg-secondary q-mx-xs"
@@ -139,7 +139,7 @@
           :data="players.topATs"
           :columns="ATColumns"
           :dense="$q.screen.lt.md"
-          :pagination.sync="pagination"
+          :pagination.sync="ATPagination"
           :rows-per-page-options="[5,10,0]"
           row-key="name"
           class="bg-secondary q-ml-xs"
@@ -204,6 +204,31 @@ export default {
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
       ],
       pagination: {
+        rowsPerPage: 10,
+        sortBy: 'score',
+        descending: true,
+      },
+      u23Pagination: {
+        rowsPerPage: 10,
+        sortBy: 'score',
+        descending: true,
+      },
+      GKPagination: {
+        rowsPerPage: 10,
+        sortBy: 'score',
+        descending: true,
+      },
+      DFPagination: {
+        rowsPerPage: 10,
+        sortBy: 'score',
+        descending: true,
+      },
+      MDPagination: {
+        rowsPerPage: 10,
+        sortBy: 'score',
+        descending: true,
+      },
+      ATPagination: {
         rowsPerPage: 10,
         sortBy: 'score',
         descending: true,

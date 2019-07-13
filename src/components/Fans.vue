@@ -1,29 +1,30 @@
 <template>
   <div>
-    <div id="fans" class="q-mb-lg q-mb-md-none rounded-borders bg-t-darker">
+    <div id="fans" class="q-mb-lg rounded-borders bg-t-darker">
 
       <div id="fans-line" class="row heading m-auto text-h6">
-          <div class="col text-center  text-md-left">Fanbase</div>
+          <div class="col text-center">Fanbase</div>
           <div class="col text-center ">{{stats.fansTotal}}</div>
       </div>
 
       <hr id="fan-border">
 
-      <div class="text-center text-md-left">
-        <q-btn-group push>
-          <q-btn size="sm" push @click="first = !first" :style="{backgroundColor: team.color}" label="Country" icon="timeline" />
-          <q-btn size="sm" push :style="{backgroundColor: team.color}" label="Gender" icon="visibility" />
-          <q-btn size="sm" push :style="{backgroundColor: team.color}" label="Age" icon="update" />
+      <div class="text-cente">
+        <q-btn-group :style="{backgroundColor: team.color}" push>
+          <q-btn size="sm" push @click="country"  label="Country" />
+          <q-btn size="sm" push @click="gender" label="Gender" />
+          <q-btn size="sm" push @click="age" label="Age" />
         </q-btn-group>
 
-        <div v-if="first">
-          <!-- <div id="donutchart-country" class="chart m-auto" ></div> -->
-          <GChart
-            type="ColumnChart"
-            :data="chartData"
-            :options="chartOptions"
-          />
-        </div>
+        <transition name="fade">
+          <div v-show="stats.fansTotal && (first || second || third)" style="max-height: 190px">
+            <GChart
+              type="PieChart"
+              :data="chartData"
+              :options="chartOptions"
+            />
+          </div>
+        </transition>
             <!-- <q-expansion-item
               group="somegroup"
               icon="explore"
@@ -81,98 +82,82 @@ export default {
   data () {
     return {
       first: false,
+      second: false,
+      third: false,
       fansCountry: [],
       fansGender: [],
       fansAge: [],
-      chartData: [
-        ['Year', 'Sales', 'Expenses', 'Profit'],
-        ['2014', 1000, 400, 200],
-        ['2015', 1170, 460, 250],
-        ['2016', 660, 1120, 300],
-        ['2017', 1030, 540, 350]
-      ],
+      chartData: [],
       chartOptions: {
-        chart: {
-          title: 'Company Performance',
-          subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-        }
+        backgroundColor: 'transparent',
+        pieHole: 0.2,
+        is3D: true,
+        fontColor: 'white',
+        legend: { textStyle: { color: 'white' } },
+        fontSize: 12,
       }
     }
   },
 
-  // mounted: function () {
-  //   // let fansArray = JSON.parse(this.stats.fansByCountry)
-  //   const fansArray = this.stats.fansByCountry
-  //   let fiveCountrySum = Object.values(fansArray).reduce((a, b) => a + b, 0)
+  watch: {
+    stats: function () {
+      this.first = false
+      this.second = false
+      this.third = false
+      if (this.stats.fansTotal) {
+        this.setData()
+      } else {
+        this.fansCountry = []
+        this.fansGender = []
+        this.fansAge = []
+      }
+    }
+  },
 
-  //   this.fansCountry = Object.entries(fansArray)
+  mounted: function () {
+    if (this.stats.fansTotal) {
+      this.setData()
+    }
+  },
 
-  //   if (fiveCountrySum < this.stats.fansTotal) {
-  //     this.fansCountry.push(['other', this.fansTotal - fiveCountrySum])
-  //   }
+  methods: {
+    country: function () {
+      this.second = false
+      this.third = false
+      this.chartData = this.fansCountry
+      this.first = !this.first
+    },
 
-  //   this.fansCountry.splice(0, 0, ['country', 'fans'])
+    gender: function () {
+      this.first = false
+      this.third = false
+      this.chartData = this.fansGender
+      this.second = !this.second
+    },
 
-  //   this.fansGender = Object.entries(this.stats.fansByGender)
-  //   this.fansGender.splice(0, 0, ['gender', 'fans'])
-  //   this.fansAge = Object.entries(this.stats.fansByAge)
-  //   this.fansAge[0] = ['age', 'fans']
-  //   let self = this
-  //   google.charts.load('current', { packages: ['corechart'] })
-  //   google.charts.setOnLoadCallback(drawChart1)
-  //   function drawChart1 () {
-  //     var data = google.visualization.arrayToDataTable(self.fansCountry)
+    age: function () {
+      this.first = false
+      this.second = false
+      this.chartData = this.fansAge
+      this.third = !this.third
+    },
 
-  //     var options = {
-  //       // chartArea: {left: '10%', top: 7, width: '50%', height: '75%'},
-  //       is3D: true,
-  //       legend: { position: 'right', textStyle: { color: 'white' } },
-  //       backgroundColor: 'transparent',
-  //       pieHole: 0.6
-  //     }
+    setData: function () {
+      const fansArray = JSON.parse(this.stats.fansByCountry)
+      let fiveCountrySum = Object.values(fansArray).reduce((a, b) => a + b, 0)
+      this.fansCountry = Object.entries(fansArray)
 
-  //     var chart = new google.visualization.PieChart(
-  //       document.getElementById('donutchart-country')
-  //     )
-  //     chart.draw(data, options)
-  //   }
-  //   google.charts.setOnLoadCallback(drawChart2)
-  //   function drawChart2 () {
-  //     var data = google.visualization.arrayToDataTable(self.fansGender)
+      if (fiveCountrySum < this.stats.fansTotal) {
+        this.fansCountry.push(['other', this.fansTotal - fiveCountrySum])
+      }
+      this.fansCountry.splice(0, 0, ['country', 'fans'])
+      this.fansGender = Object.entries(JSON.parse(this.stats.fansByGender))
+      this.fansGender.splice(0, 0, ['gender', 'fans'])
+      this.fansAge = Object.entries(JSON.parse(this.stats.fansByAge))
+      this.fansAge[0] = ['age', 'fans']
+    }
 
-  //     var options = {
-  //       // chartArea: { left: 20, top: 7, width: '50%', height: '75%' },
-  //       legend: { position: 'right', textStyle: { color: 'white' } },
-  //       fontSize: 12,
-  //       fontColor: 'white',
-  //       backgroundColor: 'transparent',
-  //       pieHole: 0.5
-  //     }
-
-  //     var chart = new google.visualization.PieChart(
-  //       document.getElementById('donutchart-gender')
-  //     )
-  //     chart.draw(data, options)
-  //   }
-  //   google.charts.setOnLoadCallback(drawChart3)
-  //   function drawChart3 () {
-  //     var data = google.visualization.arrayToDataTable(self.fansAge)
-
-  //     var options = {
-  //       // chartArea: { left: 20, top: 7, width: "50%", height: "75%" },
-  //       legend: { position: 'right', textStyle: { color: 'white' } },
-  //       fontSize: 12,
-  //       fontColor: 'white',
-  //       backgroundColor: 'transparent',
-  //       pieHole: 0.5
-  //     }
-
-  //     var chart = new google.visualization.PieChart(
-  //       document.getElementById('donutchart-age')
-  //     )
-  //     chart.draw(data, options)
-  //   }
-  // }
+  }
 }
 </script>
 
@@ -180,5 +165,11 @@ export default {
 
 #fan-border
   border: 2px solid #f1f1f1;
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity 0.7s;
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+  opacity: 0;
 
 </style>

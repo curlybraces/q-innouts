@@ -15,10 +15,10 @@
           class="bg-primary text-yellow-14"
 
         >
-          <q-tab name="teams" icon="mail" label="Teams" />
-          <q-tab name="players" icon="alarm" label="Players" />
-          <q-tab name="managers" icon="movie" label="Managers" />
-          <q-tab name="fans" icon="movie" label="Fans" />
+          <q-tab name="teams" label="Teams" />
+          <q-tab name="players" label="Players" />
+          <q-tab name="managers" label="Managers" />
+          <q-tab name="fans" label="Fans" />
         </q-tabs>
       </template>
 
@@ -27,7 +27,7 @@
           v-model="tab"
           animated
           transition-prev="jump-up"
-          transition-next="jump-up"
+          transition-next="jump-down"
           @before-transition="panelChange"
         >
           <q-tab-panel name="teams">
@@ -335,9 +335,9 @@ export default {
   },
 
   beforeCreate: function () {
-    // this.$q.loading.show({
-    //   delay: 400 // ms
-    // })
+    this.$q.loading.show({
+      delay: 400 // ms
+    })
   },
 
   created: function () {
@@ -346,13 +346,14 @@ export default {
     })
 
     this.$store.commit('setRightDrawer', false)
+    this.$q.loading.hide()
   },
 
   methods: {
     panelChange: function (newVal, oldVal) {
       if (newVal === 'managers' && this.managers.length === 0) {
         this.$q.loading.show({
-          delay: 400
+          delay: 200
         })
         axios.get('http://innouts.test/api/managers')
           .then(response => {

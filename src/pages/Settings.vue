@@ -13,7 +13,7 @@
               v-model="tab"
               dense
               no-caps
-              class="bg-orange text-white shadow-2"
+              class="bg-orange text-white shadow-2 rounded-borders"
             >
               <q-tab name="account" label="Account" />
               <q-tab name="personal"  label="Personal Details" />
@@ -58,7 +58,7 @@
                     filled
                     type="password"
                     v-model="passwordConfirm"
-                    label="Password Confirmation *"
+                    label="Repeat new password"
                     lazy-rules
                     :rules="[
                       val => val === password || 'Passwords do not match!'
@@ -73,18 +73,18 @@
                   <q-input
                     filled
                     v-model="name"
-                    label="Change name *"
+                    label="New name"
                     :placeholder="user.name"
-                    hint="Name and surname"
+                    hint="Name and surname recommended"
                     lazy-rules
                     :rules="[ val => val.length > 1 || 'Name too short']"
                   />
-                  <div class="row q-gutter-sm">
+                  <div class="row q-gutter-sm q-my-sm">
                     <div v-if="user.nationality" class="col">
-                      <q-select filled v-model="country" :options="countries" label="Filled" />
+                      <q-select filled v-model="country" :options="countries" label="Nationality" />
                     </div>
                     <div v-if="user.birthday" class="col">
-                      <q-input  filled v-model="birthday" mask="date" :rules="['date']">
+                      <q-input  filled v-model="birthday" mask="date" :rules="['date']" label="Birthday">
                         <template v-slot:append>
                           <q-icon name="event" class="cursor-pointer">
                             <!-- <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -95,7 +95,7 @@
                       </q-input>
                     </div>
                   </div>
-                  <div v-if="user.gender" class="q-gutter-sm">
+                  <div v-if="user.gender" class="q-gutter-sm q-mx-auto">
                     <q-radio v-model="gender" val="female" label="Female" />
                     <q-radio v-model="gender" val="male" label="Male" />
                     <q-radio v-model="gender" val="other" label="Other" />
@@ -142,7 +142,7 @@ export default {
       name: '',
       gender: '',
       birthday: '',
-      countries: ['af', 'ae'],
+      countries: [],
       country: '',
     }
   },
@@ -156,7 +156,13 @@ export default {
   created: function () {
     this.$axios({ url: 'http://innouts.test/api/countries', method: 'GET' })
       .then(response => {
-        this.countries = response.data
+        for (let x in response.data) {
+          this.countries.push(response.data[x])
+        }
+        this.gender = this.user.gender
+        this.country = this.user.nationality
+        this.birthday = this.user.birthday
+        // this.countries = response.data
       })
       .catch(error => {
         this.$q.notify({
