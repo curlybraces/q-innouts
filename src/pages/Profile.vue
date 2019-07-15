@@ -6,12 +6,12 @@
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
-        <!-- <q-img contain :src="'statics/'+this.user.team.logo" :alt="this.user.team.name" class="fit" /> -->
+        <q-img contain :src="'statics/'+user.team.logo" :alt="user.team.name" class="fit" />
       </div>
     </div>
 
     <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordered">
-      <q-card class="col-grow col-md-3 order-sm-first self-center bg-primar bordered rounded-borders">
+      <q-card class="col-grow col-md-3 order-sm-first self-center bg-secondary bordered rounded-borders">
         <q-list dense dar >
           <q-item>
             <q-item-section avatar>
@@ -36,7 +36,7 @@
               <q-icon color="" name="schedule" />
             </q-item-section>
             <q-item-section>
-              <!-- <q-item-label >{{user.team.name}} fan since {{info.since}}</q-item-label> -->
+              <q-item-label >{{user.team.name}} fan since {{info.since}}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item>
@@ -49,25 +49,21 @@
           </q-item>
         </q-list>
       </q-card>
-      <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
+      <div class="col-12 col-md-3 bg-secondar text-center q-pt-sm self-center">
         <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
-        <q-separator color="secondary"/>
+        <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
         <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
       </div>
       <div class="col-grow col-md-3  self-center">
-        <q-card class="column q-pa-m bg-secondary bordered self-cente">
+        <q-card class="column q-pa-m bg-secondary bordered w-75 q-mx-auto">
           <div class="">
             <div class="text-h6 text-center bg-primary q-pa-sm">
-              <span style='font-size:2rem;'>&#127941;</span>
+              <span style='font-size:1.7rem;'>&#127941;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
-                <q-avatar v-for="el in 4" :key="el" color="red" size="1.5rem" text-color="white" icon="stars" />
+                <q-avatar v-for="el in 4" :key="el" color="primary" size="1.5rem" text-color="white" icon="stars" />
               </div>
-              <!-- <div class="q-mt-md">
-                Till next level
-                <q-linear-progress :value="4/5" color="primary" class="q-mt-sm" />
-              </div> -->
             </div>
           </div>
         </q-card>
@@ -90,6 +86,7 @@
           title="Ins"
           :data="wanteds"
           :columns="wantedColumns"
+          hide-bottom
           row-key="id"
           rows-per-page-label="Transfers per page"
           :rows-per-page-options="[5,10,15]"
@@ -104,7 +101,7 @@
           <q-td slot="body-cell-team" slot-scope="value" :props="value">
             <router-link :to="'/teams/' + value.value.id" >
               <div id="" class="q-mx-auto team-thumbnail">
-                <!-- <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" /> -->
+                <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                     {{value.value.name}}
                   </q-tooltip>
@@ -119,6 +116,7 @@
           title="Outs"
           :data="unwanteds"
           :columns="unwantedColumns"
+          hide-bottom
           row-key="id"
           rows-per-page-label="Transfers per page"
           :rows-per-page-options="[5,10,15]"
@@ -145,11 +143,10 @@ export default {
 
   data () {
     return {
-      user: {},
+      user: Object,
       window: Object,
       windows: Array,
       headerStyle: {},
-      team: Object,
       wantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
@@ -168,12 +165,12 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    alert('beforeRouteEnter')
+    // alert('beforeRouteEnter')
     axios.get('http://innouts.test/api/users/' + to.params.user)
       .then(response => {
-        alert('here')
+        // alert('here')
         next(vm => {
-          alert('here1')
+          // alert('here1')
           vm.setData(response)
           next()
         })
@@ -182,7 +179,22 @@ export default {
         console.log(error)
         next(false)
       })
-    next()
+    // next() // curse on you :)
+  },
+
+  beforeRouteUpdate (to, from, next) {
+    axios.get('http://innouts.test/api/users/' + to.params.user)
+      .then(response => {
+        // this.reset()
+        this.setData(response)
+        this.window = null
+        this.window = this.windows[0]
+        next()
+      })
+      .catch(error => {
+        console.log(error)
+        next(false)
+      })
   },
 
   created: function () {
@@ -196,7 +208,7 @@ export default {
       .catch(error => {
         this.error = error
       })
-    alert('end of created hook')
+    // alert('end of created hook')
   },
 
   watch: {
@@ -214,25 +226,19 @@ export default {
 
   methods: {
     setData: function (response) {
-      this.user = response.data
-      this.team = this.user.team
-      // this.team = this.user.team
-      // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-      // this.headerStyle.backgroundPosition = this.team.stadium.position
+      this.user = response.data.data
+      this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+      this.headerStyle.backgroundPosition = this.user.team.stadium.position
       if (this.$q.screen.lt.md) {
         this.headerStyle.minHeight = '200px'
         this.headerStyle.display = 'flex'
       } else {
         this.headerStyle.minHeight = '375px'
-        // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-        // this.headerStyle.backgroundPosition = this.team.stadium.position
       }
       this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
       this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
       let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
       this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
-      console.log(response.data)
-      alert('ran')
     }
   }
 }

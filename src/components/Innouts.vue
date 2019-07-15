@@ -11,9 +11,9 @@
           </div>
         </div>
         <h6 class="text-center q-my-md bg-primary text-secondary">Official Transfers</h6>
-        <div class="row">
-          <div class="col-12 col-md">
-            <div class="q-pa-md">
+        <div class="row q-gutter-md">
+          <div class="col-grow col-md">
+            <div>
               <q-table
                 class="my-sticky-header-table"
                 title="Ins"
@@ -57,8 +57,8 @@
               </q-table>
             </div>
           </div>
-          <div class="col-12 col-md">
-            <div class="q-pa-md">
+          <div class="col-grow col-md">
+            <div>
               <q-table
                 class="my-sticky-header-table"
                 title="Outs"
@@ -105,9 +105,9 @@
         </div>
         <q-separator spaced />
         <h6 class="text-center q-my-md bg-primary text-secondary">Fans' Wishlist!</h6>
-        <div class="row">
+        <div class="row q-gutter-md">
           <div class="col-grow col-md">
-            <div class="q-pa-md">
+            <div>
               <q-table
                 class="my-sticky-header-table bg-green-2"
                 title="Ins"
@@ -144,7 +144,7 @@
             </div>
           </div>
           <div class="col-grow col-md">
-            <div class="q-pa-md">
+            <div>
               <q-table
                 class="my-sticky-header-table bg-red-2"
                 title="Outs"

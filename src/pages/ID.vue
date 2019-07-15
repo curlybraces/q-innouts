@@ -62,12 +62,15 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
+    // alert('beforeRouteEnter')
     if (from.name === 'player') {
       next()
     } else {
       axios.get('http://innouts.test/api/players/' + to.params.id)
         .then(response => {
+          // alert('response')
           next(vm => {
+            // alert('next')
             vm.player = response.data.data
             vm.activePlayer = vm.player
             vm.companions = vm.player.teammates
@@ -88,6 +91,10 @@ export default {
       }
     })
   },
+
+  // created: () => {
+  //   alert('created')
+  // },
 
   beforeCreate: function () {
     this.$store.commit('setView', {
