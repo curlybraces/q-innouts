@@ -120,7 +120,7 @@
               </q-td>
               <q-td key="cards" :props="props">
                 {{ props.row.priority }}
-                <q-popup-edit :value="props.row.priority" @save="saveCards($event, props.row.id, 'ins')" @input="cancelCards($event, props.row.__index, 'ins')"   title="Update cards" buttons persisten>
+                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validate"  @save="saveCards($event, props.row.id, 'ins')" @input="cancelCards($event, props.row.__index, 'ins')"   title="Update cards" buttons persisten>
                   <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= 4 && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
                 </q-popup-edit>
               </q-td>
@@ -140,11 +140,24 @@
           color="primary"
           table-header-class="bg-red-2"
         >
-          <q-td slot="body-cell-name" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
-              {{value.value.nickname}}
-            </router-link>
-          </q-td>
+          <template v-slot:body="props">
+            <q-tr :props="props">
+              <q-td key="player" :props="props">
+                <router-link :to="'/players/' + props.row.player.id" class="no-decor" >
+                  {{props.row.player.nickname}}
+                </router-link>
+              </q-td>
+              <q-td key="position" :props="props">
+                {{props.row.player.broadPosition}}
+              </q-td>
+              <q-td key="cards" :props="props">
+                {{ props.row.priority }}
+                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validate"  @save="saveCards($event, props.row.id, 'outs')" @input="cancelCards($event, props.row.__index, 'outs')"   title="Update cards" buttons persisten>
+                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= 4 && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
+                </q-popup-edit>
+              </q-td>
+            </q-tr>
+          </template>
         </q-table>
       </div>
     </div>
@@ -152,7 +165,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import { date } from 'quasar'
 
 export default {
@@ -188,6 +200,7 @@ export default {
   },
 
   created: function () {
+    // alert('created')
     this.$store.commit('setRightDrawer', false)
     this.team = this.user.team
     this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
@@ -197,8 +210,6 @@ export default {
       this.headerStyle.display = 'flex'
     } else {
       this.headerStyle.minHeight = '375px'
-      // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-      // this.headerStyle.backgroundPosition = this.team.stadium.position
     }
 
     this.$axios.get('http://innouts.test/api/windows')
@@ -246,21 +257,67 @@ export default {
     },
 
     saveCards: function (event, id, insOuts) {
-      alert(event[0])
-      alert(event[1])
-      alert(id)
-      alert(insOuts)
+      if (insOuts === 'ins') {
+        if (this.sumCards('ins') <= 4) {
+          this.$axios({ url: 'http://innouts.test/api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
+            .then(response => {
+              console.log(response.data)
+            })
+            .catch(err => console.log(err))
+        } else {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'More than a total of 4 cards used!'
+          })
+        }
+      } else {
+        if (this.sumCards('outs') <= 4) {
+          this.$axios({ url: 'http://innouts.test/api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
+            .then(response => {
+              console.log(response.data)
+            })
+            .catch(err => console.log(err))
+        } else {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'More than a total of 4 cards used!'
+          })
+        }
+      }
     },
 
     cancelCards: function (initVal, idx, insOuts) {
       if (insOuts === 'ins') {
         this.wanteds[idx].priority = initVal
       } else {
-
+        this.unwanteds[idx].priority = initVal
       }
-      // alert(event)
-      // alert(idx)
+    },
+
+    sumCards: function (insOuts) {
+      if (insOuts === 'ins') {
+        let sum = 0
+        this.wanteds.forEach(el => {
+          sum += parseInt(el.priority)
+        })
+        return sum
+      } else {
+        let sum = 0
+        this.unwanteds.forEach(el => {
+          sum += parseInt(el.priority)
+        })
+        return sum
+      }
+    },
+
+    validate: (val) => {
+      return val >= 0 && val <= 4
     }
+
   }
 }
 </script>

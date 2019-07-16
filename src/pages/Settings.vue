@@ -3,11 +3,11 @@
     <div class="row justify-center">
       <div class="col col-sm-8 col-md-6">
         <q-card class="bg-secondary q-pa-md">
-          <q-form
+          <!-- <q-form
             @submit="onSubmit"
             @reset="onReset"
             class="q-gutter-sm"
-          >
+          > -->
           <q-card-section class="bg-primary text-white q-mb-md">
             <q-tabs
               v-model="tab"
@@ -32,39 +32,90 @@
             >
               <q-tab-panel name="account">
                 <div class="column">
-                  <q-input
-                    filled
-                    type="email"
-                    v-model="email"
-                    :placeholder="user.email"
-                    label="Change email *"
-                    lazy-rules
-                    :rules="[
-                      val => val !== '' || 'Please type a valid email',
-                      val => val.includes('@') && val.includes('.') || 'Please type a valid email'
-                    ]"
-                  />
-                  <q-input
-                    filled
-                    type="password"
-                    v-model="password"
-                    label="Change password *"
-                    lazy-rules
-                    :rules="[
-                      val => val.length >= 6 || 'Please use minimum 6 characters'
-                    ]"
-                  />
-                  <q-input
-                    filled
-                    type="password"
-                    v-model="passwordConfirm"
-                    label="Repeat new password"
-                    lazy-rules
-                    :rules="[
-                      val => val === password || 'Passwords do not match!'
-                    ]"
-                    class=""
-                  />
+                  <q-list>
+                    <q-item>
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Email
+                          <q-badge v-if="user.email_verified" color="positive">verified</q-badge>
+                          <q-badge v-else color="warning">unverified</q-badge>
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          {{user.email}}
+                          <q-popup-edit :value="user.email" @save="saveEmail" @cancel="cancelEmail" buttons title="New email address" persistent>
+                            <q-input
+                              filled
+                              type="email"
+                              v-model="user.email"
+                              :placeholder="user.email"
+                              label="Change email *"
+                              lazy-rules
+                              :rules="[
+                                val => val.includes('@') && val.includes('.') || 'Please type a valid email'
+                              ]"
+                            />
+                          </q-popup-edit>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Change Password
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          New password
+                          <q-popup-edit :value="password" @save="savePass" @cancel="cancelPass" :validate="validatePass" buttons title="New password" persistent>
+                            <q-input
+                              filled
+                              type="password"
+                              v-model="password"
+                              lazy-rules
+                              :rules="[
+                                val => val.length >= 6 || 'Please use minimum 6 characters'
+                              ]"
+                            />
+                          </q-popup-edit>
+                          <q-dialog v-model="newPassPrompt" persistent>
+                            <q-card style="min-width: 400px">
+                              <q-card-section>
+                                <div class="text-h6">Please repeat new password</div>
+                              </q-card-section>
+
+                              <q-card-section>
+                                <q-input type="password" dense v-model="newPass" autofocus @keyup.enter="newPassPrompt = false" />
+                              </q-card-section>
+
+                              <q-card-actions align="right" class="text-primary">
+                                <q-btn flat label="Cancel" v-close-popup />
+                                <q-btn flat label="Confirm" v-close-popup />
+                              </q-card-actions>
+                            </q-card>
+                          </q-dialog>
+                          <q-dialog v-model="oldPassPrompt" persistent>
+                            <q-card style="min-width: 400px">
+                              <q-card-section>
+                                <div class="text-h6">Please enter old password</div>
+                              </q-card-section>
+
+                              <q-card-section>
+                                <q-input type="password" dense v-model="oldPass" autofocus @keyup.enter="oldPassPrompt = false" />
+                              </q-card-section>
+
+                              <q-card-actions align="right" class="text-primary">
+                                <q-btn flat label="Cancel" v-close-popup />
+                                <q-btn flat label="Confirm" v-close-popup />
+                              </q-card-actions>
+                            </q-card>
+                          </q-dialog>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
                 </div>
               </q-tab-panel>
 
@@ -136,13 +187,13 @@
               </q-tab-panel>
             </q-tab-panels>
           </q-card-section>
-          <q-card-section>
+          <!-- <q-card-section>
             <div class="q-mb-md">
               <q-btn label="Submit" type="submit" color="primary" />
               <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
             </div>
-          </q-card-section>
-          </q-form>
+          </q-card-section> -->
+          <!-- </q-form> -->
         </q-card>
       </div>
     </div>
@@ -156,9 +207,12 @@ export default {
   data: () => {
     return {
       tab: 'account',
-      email: '',
+      // email: '',
       password: '',
-      passwordConfirm: '',
+      newPassPrompt: false,
+      newPass: '',
+      oldPassPrompt: false,
+      oldPass: '',
       name: '',
       gender: '',
       birthday: '',
@@ -232,6 +286,47 @@ export default {
           break
       }
     },
+
+    cancelEmail: function (val, initialVal) {
+      this.user.email = initialVal
+    },
+
+    saveEmail: function (val, initialVal) {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { email: val }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Email updated!'
+          })
+        })
+        .catch(err => console.log(err))
+    },
+
+    cancelPass: function (val, initialVal) {
+      this.password = ''
+    },
+
+    validatePass: function (val) {
+      return val.length >= 6
+    },
+
+    savePass: function (val, initialVal) {
+      this.newPassPrompt = true
+
+      this.oldPassPrompt = true
+      if (val === this.newPass) {
+        alert('submit')
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Passwords did not match!'
+        })
+      }
+    }
   }
 }
 </script>
