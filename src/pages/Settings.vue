@@ -3,11 +3,6 @@
     <div class="row justify-center">
       <div class="col col-sm-8 col-md-6">
         <q-card class="bg-secondary q-pa-md">
-          <!-- <q-form
-            @submit="onSubmit"
-            @reset="onReset"
-            class="q-gutter-sm"
-          > -->
           <q-card-section class="bg-primary text-white q-mb-md">
             <q-tabs
               v-model="tab"
@@ -29,6 +24,7 @@
               transition-prev="jump-up"
               transition-next="jump-up"
               @before-transition="panelChange"
+              class="bordered"
             >
               <q-tab-panel name="account">
                 <div class="column">
@@ -72,13 +68,21 @@
                           <q-popup-edit :value="password" @save="savePass" @cancel="cancelPass" :validate="validatePass" buttons title="New password" persistent>
                             <q-input
                               filled
-                              type="password"
+                              :type="isPwd ? 'password' : 'text'"
                               v-model="password"
                               lazy-rules
                               :rules="[
                                 val => val.length >= 6 || 'Please use minimum 6 characters'
                               ]"
-                            />
+                            >
+                              <template v-slot:append>
+                                <q-icon
+                                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                                  class="cursor-pointer"
+                                  @click="isPwd = !isPwd"
+                                />
+                              </template>
+                            </q-input>
                           </q-popup-edit>
                           <q-dialog v-model="newPassPrompt" persistent>
                             <q-card style="min-width: 400px">
@@ -121,36 +125,74 @@
 
               <q-tab-panel name="personal">
                 <div class="column">
-                  <q-input
-                    filled
-                    v-model="name"
-                    label="Name"
-                    :placeholder="user.name"
-                    hint="Name and surname recommended"
-                    lazy-rules
-                    :rules="[ val => val.length > 1 || 'Name too short']"
-                  />
-                  <div class="row q-gutter-sm q-my-sm">
-                    <div v-if="user.nationality" class="col">
-                      <q-select filled v-model="country" :options="countries" label="Nationality" />
-                    </div>
-                    <div v-if="user.birthday" class="col">
-                      <q-input  filled v-model="birthday" mask="date" :rules="['date']" label="Birthday">
-                        <template v-slot:append>
-                          <q-icon name="event" class="cursor-pointer">
-                            <!-- <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                              <q-date v-model="birthday" @input="() => $refs.qDateProxy.hide()" />
-                            </q-popup-proxy> -->
-                          </q-icon>
-                        </template>
-                      </q-input>
-                    </div>
-                  </div>
-                  <div v-if="user.gender" class="q-gutter-sm q-mx-auto">
-                    <q-radio v-model="gender" val="female" label="Female" />
-                    <q-radio v-model="gender" val="male" label="Male" />
-                    <q-radio v-model="gender" val="other" label="Other" />
-                  </div>
+                  <q-list>
+                    <q-item>
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Name
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          {{user.name}}
+                          <q-popup-edit :value="user.name" :validate="validateName" @save="saveName" @cancel="cancelName" buttons title="New name" persistent>
+                            <q-input filled v-model="user.name" label="Name" :placeholder="user.name" hint="Name and surname recommended" lazy-rules
+                              :rules="[ val => val.length > 1 || 'Name too short']"
+                            />
+                          </q-popup-edit>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item >
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Nationality
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          <span v-if="!user.nationality">Choose nationality</span>{{user.nationality}}
+                          <q-popup-edit :value="user.nationality" @save="saveCountry" @cancel="cancelCountry" buttons title="Choose nationality" persistent>
+                            <q-select filled v-model="user.nationality" :options="countries" label="Nationality" />
+                          </q-popup-edit>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Birthday
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          <span v-if="!user.birthday">Enter birthday</span> {{user.birthday}}
+                          <q-popup-edit :value="user.birthday" :validate="validateBirthday" @save="saveBirthday" @cancel="cancelBirthday" buttons title="Enter birthday" persistent>
+                            <!-- <q-input  filled v-model="user.birthday" mask="date" :rules="['date']" label="Birthday"> -->
+                              <q-input v-model="user.birthday" filled type="date" :rules="['date' || 'Not valid!']" lazy-rules >
+                            </q-input>
+                          </q-popup-edit>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section side class="bg-">
+                        <q-item-label>
+                          Gender
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section class="text-center">
+                        <q-item-label >
+                          <span v-if="!user.gender">Select gender</span> {{user.gender}}
+                          <q-popup-edit :value="user.gender" @save="saveGender" @cancel="cancelGender" buttons title="Choose gender" persistent>
+                            <q-radio v-model="user.gender" val="female" label="Female" />
+                            <q-radio v-model="user.gender" val="male" label="Male" />
+                            <q-radio v-model="user.gender" val="other" label="Other" />
+                          </q-popup-edit>
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
                 </div>
               </q-tab-panel>
 
@@ -166,13 +208,16 @@
                       <q-btn @click="change = !change" class="glossy" rounded color="deep-orange" label="Change Team" />
                     </div>
                   </div>
-                  <div v-else-if="!user.team || change">
+                  <div v-if="!user.team || change">
                     <div class="row justify-center q-gutter-sm">
                       <div class="col">
-                        <q-select filled v-model="league" :options="leagues" label="League" />
+                        <q-select filled v-model="league" :options="leagues" option-label="name" option-value="id" label="League" />
                       </div>
-                      <div class="col">
-                        <q-select filled v-model="team" :options="teams" label="Team" />
+                      <div class="col self-center text-center">
+                        Team
+                        <q-popup-edit :value="team" :validate="validateTeam" @save="saveTeam" @cancel="cancelTeam" buttons title="Change team" persistent label-set="SAVE">
+                          <q-select filled v-model="team" :options="teams" option-label="name" option-value="id" label="team" />
+                        </q-popup-edit>
                       </div>
                     </div>
                   </div>
@@ -187,13 +232,6 @@
               </q-tab-panel>
             </q-tab-panels>
           </q-card-section>
-          <!-- <q-card-section>
-            <div class="q-mb-md">
-              <q-btn label="Submit" type="submit" color="primary" />
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-            </div>
-          </q-card-section> -->
-          <!-- </q-form> -->
         </q-card>
       </div>
     </div>
@@ -207,15 +245,12 @@ export default {
   data: () => {
     return {
       tab: 'account',
-      // email: '',
       password: '',
+      isPwd: true,
       newPassPrompt: false,
       newPass: '',
       oldPassPrompt: false,
       oldPass: '',
-      name: '',
-      gender: '',
-      birthday: '',
       countries: [],
       country: '',
       change: false,
@@ -232,16 +267,19 @@ export default {
     }
   },
 
+  watch: {
+    league: function () {
+      this.teams = this.league.teams
+    }
+  },
+
   created: function () {
+    this.$store.commit('setRightDrawer', false)
     this.$axios({ url: 'http://innouts.test/api/countries', method: 'GET' })
       .then(response => {
         for (let x in response.data) {
           this.countries.push(response.data[x])
         }
-        this.gender = this.user.gender
-        this.country = this.user.nationality
-        this.birthday = this.user.birthday
-        // this.countries = response.data
       })
       .catch(error => {
         this.$q.notify({
@@ -251,40 +289,18 @@ export default {
           message: error.response.data.error
         })
       })
+    this.$axios.get('http://innouts.test/api/leagues')
+      .then(response => {
+        this.leagues = response.data
+      })
+      .catch(error => {
+        this.error = error
+      })
   },
 
   methods: {
     panelChange: () => {
 
-    },
-
-    onSubmit () {
-      let data = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      }
-      this.$store.dispatch('register', data)
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
-    },
-
-    onReset () {
-      switch (this.tab) {
-        case 'account':
-          this.email = ''
-          this.password = ''
-          this.passwordConfirm = ''
-          break
-        case 'personal':
-          this.name = ''
-          break
-        case 'team':
-          // this.email = ''
-          // this.password = ''
-          // this.passwordConfirm = ''
-          break
-      }
     },
 
     cancelEmail: function (val, initialVal) {
@@ -326,7 +342,116 @@ export default {
           message: 'Passwords did not match!'
         })
       }
-    }
+    },
+
+    cancelName: function (val, initialVal) {
+      this.user.name = initialVal
+    },
+
+    validateName: function (val) {
+      return val.length >= 2
+    },
+
+    saveName: function (val, initialVal) {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newName: val }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Name changed!'
+          })
+        })
+        .catch(err => console.log(err))
+    },
+
+    cancelCountry: function (val, initialVal) {
+      this.user.nationality = initialVal
+    },
+
+    saveCountry: function (val, initialVal) {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newNationality: val }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Nationality saved!'
+          })
+        })
+        .catch(err => console.log(err))
+    },
+
+    cancelBirthday: function (val, initialVal) {
+      this.user.birthday = initialVal
+    },
+
+    validateBirthday: function (val) {
+      let year = parseInt(val.split('-')[0])
+      return year > 1900 && year < 2019
+    },
+
+    saveBirthday: function (val, initialVal) {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newBirthday: val }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Birthday saved!'
+          })
+        })
+        .catch(err => console.log(err))
+    },
+
+    cancelGender: function (val, initialVal) {
+      this.user.gender = initialVal
+    },
+
+    saveGender: function (val, initialVal) {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newGender: val }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Gender saved!'
+          })
+        })
+        .catch(err => console.log(err))
+    },
+
+    cancelTeam: function (val, initialVal) {
+      this.team = initialVal
+    },
+
+    validateTeam: function (val) {
+      return this.user.nationality && this.user.birthday && this.user.gender
+    },
+
+    saveTeam: function (val, initialVal) {
+      if (this.user.nationality && this.user.birthday && this.user.gender) {
+        alert('submit')
+      } else {
+        this.$q.notify({
+          color: 'red-6',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please enter your nationality, birthday and gender from the "Personal Details" tab and choose your team again!'
+        })
+      }
+      // this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { team: val }, method: 'PUT' })
+      //   .then(response => {
+      //     this.$q.notify({
+      //       color: 'green-4',
+      //       textColor: 'white',
+      //       icon: 'fas fa-check-circle',
+      //       message: 'Gender updated!'
+      //     })
+      //   })
+      //   .catch(err => console.log(err))
+    },
+
   }
 }
 </script>

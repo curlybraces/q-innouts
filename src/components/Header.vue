@@ -344,13 +344,6 @@ export default {
   },
 
   created: function () {
-    this.$axios.get('http://innouts.test/api/leagues')
-      .then(response => {
-        this.leagues = response.data.data
-      })
-      .catch(error => {
-        this.error = error
-      })
     if (this.loggedIn) {
       if (localStorage.getItem('token')) {
         this.$store.dispatch('getUser', localStorage.getItem('token'))
