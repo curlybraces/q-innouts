@@ -8,7 +8,9 @@
               v-model="tab"
               dense
               no-caps
-              class="bg-orange text-white shadow-2 rounded-borders"
+              class="bg-secondary text-primary shadow-2 rounded-borders"
+              active-bg-color="accen"
+              active-color="accent"
             >
               <q-tab name="account" label="Account" />
               <q-tab name="personal"  label="Personal Details" />
@@ -168,8 +170,7 @@
                         <q-item-label >
                           <span v-if="!user.birthday">Enter birthday</span> {{user.birthday}}
                           <q-popup-edit :value="user.birthday" :validate="validateBirthday" @save="saveBirthday" @cancel="cancelBirthday" buttons title="Enter birthday" persistent>
-                            <!-- <q-input  filled v-model="user.birthday" mask="date" :rules="['date']" label="Birthday"> -->
-                              <q-input v-model="user.birthday" filled type="date" :rules="['date' || 'Not valid!']" lazy-rules >
+                              <q-input v-model="user.birthday" filled type="date" :rules="[val => validateBirthday(val) || 'That year sounds weird! :)']" lazy-rules >
                             </q-input>
                           </q-popup-edit>
                         </q-item-label>
@@ -205,7 +206,7 @@
                       </div>
                     </div>
                     <div class="row justify-center q-my-md">
-                      <q-btn @click="change = !change" class="glossy" rounded color="deep-orange" label="Change Team" />
+                      <q-btn @click="change = !change" class="glossy" size="sm" rounded color="blue-grey-3" label="Change Team" />
                     </div>
                   </div>
                   <div v-if="!user.team || change">
@@ -216,7 +217,7 @@
                       <div class="col self-center text-center">
                         Team
                         <q-popup-edit :value="team" :validate="validateTeam" @save="saveTeam" @cancel="cancelTeam" buttons title="Change team" persistent label-set="SAVE">
-                          <q-select filled v-model="team" :options="teams" option-label="name" option-value="id" label="team" />
+                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" option-value="id" label="team" />
                         </q-popup-edit>
                       </div>
                     </div>
@@ -225,9 +226,9 @@
               </q-tab-panel>
 
               <q-tab-panel name="delete">
-                <div class="colum">
+                <div class="column q-gutter-sm text-subtitle1">
                   Pressing the button below, will enlist your account for deletion. You will have a short period to reclaim it by just logging back in.
-                  <q-btn  class="glossy" rounded color="negative" label="Delete Account" />
+                  <q-btn @click="deleteAccount"  class="glossy col-auto q-mt-md q-mx-auto" size="sm" rounded color="negative" label="Delete Account" />
                 </div>
               </q-tab-panel>
             </q-tab-panels>
@@ -426,31 +427,42 @@ export default {
     },
 
     validateTeam: function (val) {
-      return this.user.nationality && this.user.birthday && this.user.gender
+      return (this.user.nationality && this.user.birthday && this.user.gender) !== null
     },
 
     saveTeam: function (val, initialVal) {
-      if (this.user.nationality && this.user.birthday && this.user.gender) {
-        alert('submit')
-      } else {
-        this.$q.notify({
-          color: 'red-6',
-          textColor: 'white',
-          icon: 'fas fa-exclamation-triangle',
-          message: 'Please enter your nationality, birthday and gender from the "Personal Details" tab and choose your team again!'
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { team: val.id }, method: 'PUT' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Team saved!'
+          })
+          if (localStorage.getItem('token')) {
+            this.$store.dispatch('getUser', localStorage.getItem('token'))
+          } else {
+            this.$store.dispatch('getUser', sessionStorage.getItem('token'))
+          }
         })
-      }
-      // this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { team: val }, method: 'PUT' })
-      //   .then(response => {
-      //     this.$q.notify({
-      //       color: 'green-4',
-      //       textColor: 'white',
-      //       icon: 'fas fa-check-circle',
-      //       message: 'Gender updated!'
-      //     })
-      //   })
-      //   .catch(err => console.log(err))
+        .catch(err => console.log(err))
     },
+
+    deleteAccount: function () {
+      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, method: 'DELETE' })
+        .then(response => {
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Account listed for deletion! We hope to welcome you back again!'
+          })
+          this.$store.dispatch('logout').then(() => {
+            this.$router.push('/')
+          })
+        })
+        .catch(err => console.log(err))
+    }
 
   }
 }
