@@ -1,12 +1,6 @@
 <template>
   <div class="row inlin no-wrap shadow-1">
     <q-toolbar class="q-gutter-x-sm">
-      <!-- <q-btn
-        flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu"
-        class="q-mr-sm"
-      >
-        <q-icon name="menu" />
-      </q-btn> -->
 
     <q-avatar clickable link to="/">
       <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
@@ -20,13 +14,13 @@
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
-          <q-item clickable v-close-popup to="/transfers">
+          <q-item clickable v-close-popup to="/transfers" active-class="text-accent">
             <q-item-section>
               <q-item-label>Finalised</q-item-label>
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-close-popup to="/rumours">
+          <q-item clickable v-close-popup to="/rumours" active-class="text-accent">
             <q-item-section>
               <q-item-label>Rumours</q-item-label>
             </q-item-section>
@@ -36,7 +30,7 @@
 
       <q-btn-dropdown no-caps label="Leagues" menu-self="top middle" menu-anchor="bottom middle">
         <q-list dark class="bg-primary">
-          <q-item clickable dense v-close-popup to="/leagues/1" >
+          <q-item clickable dense v-close-popup to="/leagues/1" active-class="text-accent">
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
@@ -44,7 +38,7 @@
               <q-item-label>Premier League</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/2" >
+          <q-item clickable dense v-close-popup to="/leagues/2" active-class="text-accent" >
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
@@ -53,7 +47,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable dense v-close-popup to="/leagues/3" >
+          <q-item clickable dense v-close-popup to="/leagues/3" active-class="text-accent">
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
@@ -62,7 +56,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable dense v-close-popup to="/leagues/4" >
+          <q-item clickable dense v-close-popup to="/leagues/4" active-class="text-accent">
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
@@ -70,7 +64,7 @@
               <q-item-label>Bundesliga</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/5" >
+          <q-item clickable dense v-close-popup to="/leagues/5" active-class="text-accent">
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
@@ -88,7 +82,7 @@
         <div class="row bg-primary no-wrap q-pa-md">
           <div class="column">
             <q-list class="bg-secondary">
-              <q-item clickable dense v-close-popup to="/teams/22" >
+              <q-item clickable dense v-close-popup to="/teams/22" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/real-madrid.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -96,7 +90,7 @@
                   <q-item-label>Real Madrid</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable dense v-close-popup to="/teams/21" >
+              <q-item clickable dense v-close-popup to="/teams/21" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/barcelona.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -105,7 +99,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/14" >
+              <q-item clickable dense v-close-popup to="/teams/14" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/manchester-united.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -114,7 +108,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/62" >
+              <q-item clickable dense v-close-popup to="/teams/62" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/bayern-munchen.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -129,7 +123,7 @@
 
           <div class="column items-center">
             <q-list class="bg-secondary">
-              <q-item clickable dense v-close-popup to="/teams/6" >
+              <q-item clickable dense v-close-popup to="/teams/6" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/chelsea.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -138,7 +132,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/12" >
+              <q-item clickable dense v-close-popup to="/teams/12" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/liverpool.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -147,7 +141,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/41" >
+              <q-item clickable dense v-close-popup to="/teams/41" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/juventus.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -156,7 +150,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/13" >
+              <q-item clickable dense v-close-popup to="/teams/13" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/manchester-city.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -171,7 +165,7 @@
 
           <div class="column items-center">
             <q-list class="bg-secondary">
-              <q-item clickable dense v-close-popup to="/teams/79" >
+              <q-item clickable dense v-close-popup to="/teams/79" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/psg.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -180,7 +174,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/1" >
+              <q-item clickable dense v-close-popup to="/teams/1" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/arsenal.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -189,7 +183,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/24" >
+              <q-item clickable dense v-close-popup to="/teams/24" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -198,7 +192,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable dense v-close-popup to="/teams/61" >
+              <q-item clickable dense v-close-popup to="/teams/61" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/borussia-dortmund.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -212,7 +206,7 @@
         </div>
       </q-btn-dropdown>
 
-      <q-btn to="/rankings" no-caps class="" color="" label="Rankings" />
+      <q-btn to="/rankings" no-caps class="" color="" label="Rankings"  />
 
       <q-space />
       <q-space />
@@ -223,7 +217,7 @@
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
             <q-list class="bg-primar">
-              <q-item clickable  v-close-popup to="/home" >
+              <q-item clickable  v-close-popup to="/home" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="home" color="secondar" size="2.1rem" text-color="" />
                 </q-item-section>
@@ -231,7 +225,7 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
+              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar :icon="'img:statics/'+user.team.logo" size="2.1rem" />
                 </q-item-section>
@@ -239,7 +233,7 @@
                   <q-item-label>{{user.team.name}}</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup to="/settings" >
+              <q-item clickable  v-close-popup to="/settings" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="settings" color="" size="2.1rem" text-color="" />
                 </q-item-section>

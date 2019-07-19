@@ -12,7 +12,8 @@
           vertical
           :dense="$q.platform.is.mobile"
           active-bg-color="secondary"
-          class="bg-primary text-yellow-14"
+          active-color="yellow-14"
+          class="bg-primary text-accent"
 
         >
           <q-tab name="teams" label="Teams" />

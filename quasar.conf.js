@@ -37,7 +37,7 @@ module.exports = function (ctx) {
         'QChatMessage',
         'QCheckbox',
         'QDate',
-        'QDialog',
+        // 'QDialog',
         'QDrawer',
         'QExpansionItem',
         'QFab',
@@ -78,7 +78,8 @@ module.exports = function (ctx) {
         'QToggle',
         'QToolbar',
         'QToolbarTitle',
-        'QTooltip'
+        'QTooltip',
+        'QUploader'
       ],
 
       directives: [
@@ -89,7 +90,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Loading'
+        'Loading',
+        'Dialog'
       ]
 
       // iconSet: 'ionicons-v4'

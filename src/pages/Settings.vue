@@ -86,39 +86,16 @@
                               </template>
                             </q-input>
                           </q-popup-edit>
-                          <q-dialog v-model="newPassPrompt" persistent>
-                            <q-card style="min-width: 400px">
-                              <q-card-section>
-                                <div class="text-h6">Please repeat new password</div>
-                              </q-card-section>
-
-                              <q-card-section>
-                                <q-input type="password" dense v-model="newPass" autofocus @keyup.enter="newPassPrompt = false" />
-                              </q-card-section>
-
-                              <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Cancel" v-close-popup />
-                                <q-btn flat label="Confirm" v-close-popup />
-                              </q-card-actions>
-                            </q-card>
-                          </q-dialog>
-                          <q-dialog v-model="oldPassPrompt" persistent>
-                            <q-card style="min-width: 400px">
-                              <q-card-section>
-                                <div class="text-h6">Please enter old password</div>
-                              </q-card-section>
-
-                              <q-card-section>
-                                <q-input type="password" dense v-model="oldPass" autofocus @keyup.enter="oldPassPrompt = false" />
-                              </q-card-section>
-
-                              <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Cancel" v-close-popup />
-                                <q-btn flat label="Confirm" v-close-popup />
-                              </q-card-actions>
-                            </q-card>
-                          </q-dialog>
                         </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item class="q-mt-lg">
+                      <q-item-section class="text-center">
+                        <q-uploader
+                          :url="'http://innouts.test/api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
+                          accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
+                          :headers="[{name: 'Authorization', value: 'Bearer ' + token}]"
+                        />
                       </q-item-section>
                     </q-item>
                   </q-list>
@@ -265,7 +242,10 @@ export default {
   computed: {
     user: function () {
       return this.$store.state.user
-    }
+    },
+    token: function () {
+      return this.$store.state.token
+    },
   },
 
   watch: {
@@ -330,19 +310,79 @@ export default {
     },
 
     savePass: function (val, initialVal) {
-      this.newPassPrompt = true
-
-      this.oldPassPrompt = true
-      if (val === this.newPass) {
-        alert('submit')
-      } else {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'fas fa-exclamation-triangle',
-          message: 'Passwords did not match!'
-        })
-      }
+      this.$q.dialog({
+        dark: true,
+        // color: 'secondary',
+        title: 'Password Confirmation',
+        message: 'Please confirm new password',
+        prompt: {
+          model: '',
+          type: 'password' // optional
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(data => {
+        if (data === this.password) {
+          this.$q.dialog({
+            dark: true,
+            title: 'Old Password',
+            message: 'Please enter old password',
+            prompt: {
+              model: '',
+              type: 'password' // optional
+            },
+            cancel: true,
+            persistent: true
+          }).onOk(data => {
+            if (data.length >= 6) {
+              this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
+                .then(response => {
+                  this.$q.notify({
+                    color: 'green-4',
+                    textColor: 'white',
+                    icon: 'fas fa-check-circle',
+                    message: 'Password updated!'
+                  })
+                })
+                .catch(err => {
+                  this.$q.notify({
+                    color: 'red-5',
+                    textColor: 'white',
+                    icon: 'fas fa-check-circle',
+                    message: err.response.data.error
+                  })
+                })
+              this.password = ''
+            } else {
+              this.$q.notify({
+                color: 'red-5',
+                textColor: 'white',
+                icon: 'fas fa-check-circle',
+                message: 'Old password not correct!'
+              })
+              this.password = ''
+            }
+            console.log('>>>> OK, received', data)
+          }).onCancel(() => {
+            console.log('>>>> Cancel')
+            this.password = ''
+          }).onDismiss(() => {
+            this.password = ''
+          })
+        } else {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Passwords did not match!'
+          })
+          this.password = ''
+        }
+      }).onCancel(() => {
+        this.password = ''
+      }).onDismiss(() => {
+        this.password = ''
+      })
     },
 
     cancelName: function (val, initialVal) {
@@ -452,7 +492,7 @@ export default {
       this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, method: 'DELETE' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'warning',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Account listed for deletion! We hope to welcome you back again!'

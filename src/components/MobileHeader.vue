@@ -29,15 +29,15 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item v-if="user.team" clickable  v-close-popup to="/leagues/1" >
+              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" size="2.1rem" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label>{{user.team_id}}</q-item-label>
+                  <q-item-label>{{user.team.name}}</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable  v-close-popup to="/leagues/1" >
+              <q-item clickable  v-close-popup to="/settings" >
                 <q-item-section avatar>
                   <q-avatar icon="settings" color="" size="2.1rem" text-color="" />
                 </q-item-section>
@@ -121,7 +121,7 @@ export default {
   name: 'MobileHeader',
   data () {
     return {
-      leagues: Array,
+      // leagues: Array,
       email: '',
       password: '',
       remember: false,
@@ -139,13 +139,6 @@ export default {
   },
 
   created: function () {
-    this.$axios.get('http://innouts.test/api/leagues')
-      .then(response => {
-        this.leagues = response.data.data
-      })
-      .catch(error => {
-        this.error = error
-      })
     if (this.loggedIn) {
       if (localStorage.getItem('token')) {
         this.$store.dispatch('getUser', localStorage.getItem('token'))
