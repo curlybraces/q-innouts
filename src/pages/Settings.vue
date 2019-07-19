@@ -94,7 +94,7 @@
                         <q-uploader
                           :url="'http://innouts.test/api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
                           accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
-                          :headers="[{name: 'Authorization', value: 'Bearer ' + token}]"
+                          :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
                         />
                       </q-item-section>
                     </q-item>
