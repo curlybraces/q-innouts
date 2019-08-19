@@ -18,8 +18,8 @@
           class="bg-primary text-white shadow-2"
         >
           <q-tab name="mails" icon="description" label="Overview" />
-          <q-tab name="alarms" icon="table_chart" label="Table" />
-          <q-tab name="news" icon="info" label="News" />
+          <!-- <q-tab name="alarms" icon="table_chart" label="Table" />
+          <q-tab name="news" icon="info" label="News" /> -->
         </q-tabs>
       </div>
     </div>

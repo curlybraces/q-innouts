@@ -191,8 +191,8 @@
     >
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Chat" />
-      <q-tab name="news" icon="info" label="News" />
+      <!-- <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Chat" />
+      <q-tab name="news" icon="info" label="News" /> -->
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"

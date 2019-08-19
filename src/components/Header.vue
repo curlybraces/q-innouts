@@ -10,7 +10,7 @@
         Innouts
       </q-toolbar-title>
 
-      <q-btn to="/news/3" class="glossy" color="blue-grey-14" label="News" />
+      <!-- <q-btn to="/news/3" class="glossy" color="blue-grey-14" label="News" /> -->
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
