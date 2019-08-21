@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="text-center bg-t-dark">
-      <q-rating :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="0.9rem" :value="player.rating" :max="5" />
+      <q-rating :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="0.9rem" :value="player.rating" :max="5" @input="submitRating" />
     </div>
   </div>
 </template>
@@ -22,10 +22,48 @@ export default {
   props: {
     player: Object,
     color: String,
+    loggedIn: Boolean,
+    user: Object,
   },
 
   data () {
     return {}
+  },
+
+  // computed: {
+  //   loggedIn: function () {
+  //     return this.$store.getters.loggedIn
+  //   },
+
+  //   user: function () {
+  //     return this.$store.state.user
+  //   }
+  // },
+
+  methods: {
+    submitRating: function (value) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+          .then(response => {
+            this.player.rating = value
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    }
   }
 }
 </script>

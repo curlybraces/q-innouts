@@ -2,7 +2,7 @@
   <q-page>
     <div id="team-header" class="row relative-position justify-around bg-accet" :style="headerStyle">
       <div id="profile-pic" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/images/anonymous-user.png'" alt="logo" class="fit" />
+        <q-img contain :src="user.picture" alt="logo" class="fit" />
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
@@ -50,9 +50,11 @@
         </q-list>
       </q-card>
       <div class="col-12 col-md-3 bg-secondar text-center q-pt-sm self-center">
-        <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
-        <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
-        <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
+        <div v-if="user.intro">
+          <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
+          <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
+          <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
+        </div>
       </div>
       <div class="col-grow col-md-3  self-center">
         <q-card class="column q-pa-m bg-secondary bordered w-75 q-mx-auto">

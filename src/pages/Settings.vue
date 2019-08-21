@@ -95,6 +95,7 @@
                           :url="'http://innouts.test/api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
                           accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
                           :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
+                          ref="profile" :factory="uploadFile"
                         />
                       </q-item-section>
                     </q-item>
@@ -502,6 +503,23 @@ export default {
           })
         })
         .catch(err => console.log(err))
+    },
+
+    uploadFile (files) {
+      let formData = new FormData()
+      formData.append('profile', files)
+      let headers = {
+        'Content-Type': 'multipart/form-data'
+      }
+      console.log(files)
+      console.log(this.$refs.profile.files[0])
+      this.$axios.put('http://innouts.test/api/users/' + this.user.id, { profile: files[0] }, headers)
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (response) {
+          console.log(response)
+        })
     }
 
   }

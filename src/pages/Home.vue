@@ -10,46 +10,8 @@
       </div>
     </div>
 
-    <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordered">
-      <q-card class="col-grow col-md-3 order-sm-first self-center bg-secondary bordered rounded-borders">
-        <q-list dense dar >
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="" name="perm_identity" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-capitalize" > {{user.name}} </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="" name="calendar_today" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label >
-                Joined {{info.joined}}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="" name="schedule" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label >{{user.team.name}} fan since {{info.since}}</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section avatar>
-              <q-icon color="" name="remove_red_eye" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label >Seen {{info.seen}} </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-card>
-      <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
+    <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordere">
+      <div class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders">
         <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
         <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
         <p class="text-subtitle1 q-pa-sm text-secondary">
@@ -58,6 +20,8 @@
             <q-input maxlength="100" type="textarea" v-model="user.intro" dense autofocus counter @keyup.enter.stop />
           </q-popup-edit>
         </p>
+      </div>
+      <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
       </div>
       <div class="col-grow col-md-3  self-center">
         <q-card class="column q-pa-m bg-secondary bordered self-cente w-75 q-mx-auto">

@@ -11,9 +11,9 @@
           v-model="tab"
           vertical
           :dense="$q.platform.is.mobile"
-          active-bg-color="secondary"
+          active-bg-color="primary"
           active-color="yellow-14"
-          class="bg-primary text-accent"
+          class="bg-primar"
 
         >
           <q-tab name="teams" label="Teams" />
@@ -77,9 +77,9 @@
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
                     <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
-                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
+                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
                     {{value.value.firstName}} {{value.value.lastName}}
-                  </router-link>
+                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -108,12 +108,14 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
-                  <div class="row inline person-thumbnail no-decor ellipsis">
-                    <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
-                  </div>
-                  <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
-                    {{value.value.name}}
+                  <router-link :to="'/' + value.value.id" class="no-decor" >
+                    <div class="row inline person-thumbnail no-decor ellipsis">
+                      <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    </div>
                   </router-link>
+                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
+                    {{value.value.name}}
+                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -138,7 +140,7 @@
         v-model="tab"
         dense
         no-caps
-        class="bg-orange text-white shadow-2"
+        class="bg-accent text-white shadow-2"
       >
         <q-tab name="teams" label="Teams" />
         <q-tab name="players"  label="Players" />
@@ -227,9 +229,11 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
-                  <div class="row inline person-thumbnail no-decor ellipsis">
-                    <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
-                  </div>
+                  <router-link :to="'/' + value.value.id" class="no-decor" >
+                    <div class="row inline person-thumbnail no-decor ellipsis">
+                      <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    </div>
+                  </router-link>
                   <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
                     {{value.value.name}}
                   </router-link> -->
@@ -308,7 +312,7 @@ export default {
       players: null,
       fansColumns: [
         { name: 'fan', required: true, label: 'Fan', align: 'left', field: row => row },
-        { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name },
+        { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name.replace(/\b\w/g, l => l.toUpperCase()) },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
         { name: 'level', align: 'left', label: 'Level', field: 'fanLevel', format: val => `${val.toFixed(2)}`, sortable: true },

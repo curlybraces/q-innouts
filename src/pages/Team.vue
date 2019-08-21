@@ -204,7 +204,7 @@
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-md-2 col-sm-2 q-px-sm">
-                <player-card :player="player" :color="team.color" />
+                <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
               </div>
             </div>
             <!-- Defenders -->
@@ -213,7 +213,7 @@
               <div class="col-lg-3 col-sm-4 order-lg-1 order-2">
                 <div class="row justify-center">
                   <div v-for="player in rbs" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -221,7 +221,7 @@
               <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in cbs" :key="player.id" class="col-sm-2 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -229,7 +229,7 @@
               <div class="col-lg-3 col-sm-4 order-sm-3 order-3">
                 <div class="row justify-center">
                   <div v-for="player in lbs" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -237,7 +237,7 @@
             <!-- Defensive Midfielders -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in dms" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
-                <player-card :player="player" :color="team.color" />
+                <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
               </div>
             </div>
             <!-- Midfielders -->
@@ -246,7 +246,7 @@
               <div class="col-lg-3 col-sm-4 order-lg-1 order-2">
                 <div class="row justify-center">
                   <div v-for="player in rms" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -254,7 +254,7 @@
               <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in cms" :key="player.id" class="col-sm-2 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -262,7 +262,7 @@
               <div class="col-lg-3 col-sm-4 order-sm-3 order-3">
                 <div class="row justify-center">
                   <div v-for="player in lms" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -270,7 +270,7 @@
             <!-- Attacking Midfielders -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in ams" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
-                <player-card :player="player" :color="team.color" />
+                <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
               </div>
             </div>
             <!-- first line attackers (LWF, SS, RWF) -->
@@ -279,7 +279,7 @@
               <div class="col-lg-3 col-sm-4 order-lg-1 order-2">
                 <div class="row justify-center">
                   <div v-for="player in rws" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -287,7 +287,7 @@
               <div class="col-12 col-lg-6 order-lg-2 order-1">
                 <div class="row justify-center">
                   <div v-for="player in sss" :key="player.id" class="col-sm-2 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -295,7 +295,7 @@
               <div class="col-lg-3 col-sm-4 order-sm-3 order-3">
                 <div class="row justify-center">
                   <div v-for="player in lws" :key="player.id" class="col-lg-4 col-sm-6 q-px-sm">
-                    <player-card :player="player" :color="team.color" />
+                    <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
                   </div>
                 </div>
               </div>
@@ -303,7 +303,7 @@
             <!-- second line attackers (CF) -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in cfs" :key="player.id" class="col-lg-1 col-sm-2 q-px-sm">
-                <player-card :player="player" :color="team.color" />
+                <player-card :player="player" :color="team.color" :loggedIn="loggedIn" :user="user" />
               </div>
             </div>
           </div>
@@ -339,7 +339,7 @@
                       </q-tooltip>
                     </div>
                     <div class="text-center bg-t-dark">
-                      <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" v-model="team.manager.rating" :max="5" />
+                      <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="team.manager.rating" :max="5" @input="submitRating" />
                     </div>
                 </div>
               </q-card-section>
@@ -418,6 +418,16 @@ export default {
 
   data: () => {
     return initialState()
+  },
+
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+
+    user: function () {
+      return this.$store.state.user
+    }
   },
 
   beforeRouteEnter (to, from, next) {
@@ -540,6 +550,30 @@ export default {
 
     reset () {
       Object.assign(this.$data, this.$options.data.apply(this))
+    },
+
+    submitRating: function (value) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+          .then(response => {
+            this.player.rating = value
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
     }
 
   },
