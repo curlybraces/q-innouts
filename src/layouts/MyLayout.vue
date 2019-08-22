@@ -182,7 +182,7 @@
     <q-ajax-bar size="4px" color="warning" />
 
     <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated>
-      babe
+hey
     </q-drawer>
 
     <q-page-container>

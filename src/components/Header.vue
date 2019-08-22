@@ -7,7 +7,9 @@
     </q-avatar>
 
       <q-toolbar-title>
-        Innouts
+        <router-link to="/" class="no-decor text-white">
+          Innouts
+        </router-link>
       </q-toolbar-title>
 
       <!-- <q-btn to="/news/3" class="glossy" color="blue-grey-14" label="News" /> -->
@@ -29,7 +31,68 @@
       </q-btn-dropdown>
 
       <q-btn-dropdown no-caps label="Leagues" menu-self="top middle" menu-anchor="bottom middle">
-        <q-list dark class="bg-primary">
+        <div class="row bg-primary no-wrap q-pa-md">
+          <div class="column">
+            <q-list class="bg-secondary">
+              <q-item clickable dense v-close-popup to="/leagues/1" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Premier League</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable dense v-close-popup to="/leagues/2" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>La Liga</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable dense v-close-popup to="/leagues/3" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Serie A</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+
+          <q-separator vertical inset class="q-mx-sm" />
+
+          <div class="column">
+            <q-list class="bg-secondary">
+              <q-item clickable dense v-close-popup to="/teams/22" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Bundesliga</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable dense v-close-popup to="/teams/21" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Ligue 1</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable dense v-close-popup to="/teams/21" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar icon="img:statics/images/club_logos/barcelona.png" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Eredivisie</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+        </div>
+        <!-- <q-list dark class="bg-primary">
           <q-item clickable dense v-close-popup to="/leagues/1" active-class="text-accent">
             <q-item-section avatar>
               <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
@@ -72,7 +135,7 @@
               <q-item-label>Ligue 1</q-item-label>
             </q-item-section>
           </q-item>
-        </q-list>
+        </q-list> -->
       </q-btn-dropdown>
 
       <q-btn-dropdown
