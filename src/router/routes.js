@@ -24,7 +24,7 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
-        path: '/news/:article', component: () => import('pages/Article.vue')
+        path: '/articles/:article', component: () => import('pages/Article.vue')
       },
       {
         path: '/rankings', component: () => import('pages/Rankings.vue')

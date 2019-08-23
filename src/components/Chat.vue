@@ -1,77 +1,42 @@
 <template>
   <div>
     <div class="row justify-center">
-      <div class="col-sm-9 bg-secondary border-primary rounded-borders">
-        <div class="row q-pa-md">
-          <div class="col-sm-9">
-            <q-chat-message
-              name="me"
-              avatar="https://cdn.quasar.dev/img/avatar3.jpg"
-              :text="['hey, how are you?']"
-              stamp="7 minutes ago"
-              sent
-              bg-color="amber-7"
-            />
-            <q-chat-message
-              name="Jane"
-              avatar="https://cdn.quasar.dev/img/avatar5.jpg"
-              :text="[
-                'doing fine, how r you?',
-                'I just feel like typing a really, really, REALY long message to annoy you...'
-              ]"
-              size="6"
-              stamp="4 minutes ago"
-              text-color="white"
-              bg-color="primary"
-            />
-            <q-chat-message
-              name="Jane"
-              avatar="https://cdn.quasar.dev/img/avatar5.jpg"
-              :text="['Did it work?']"
-              stamp="1 minutes ago"
-              size="6"
-              text-color="white"
-              bg-color="primary"
-            />
-            <q-chat-message
-              name="Jane"
-              avatar="https://cdn.quasar.dev/img/avatar5.jpg"
-              text-color="white"
-              bg-color="primary"
-            >
-              <q-spinner-dots size="2rem" />
-            </q-chat-message>
-          </div>
-          <div class="col-sm-3 bg-primary text-white">
-            <div class="q-pa-sm" style="max-width: 350px">
-              <q-list bordered separator>
-                <q-item clickable v-ripple>
-                  <q-item-section>Single line item</q-item-section>
-                </q-item>
-
-                <q-item clickable v-ripple>
-                  <q-item-section>
-                    <q-item-label>Item with caption</q-item-label>
-                    <q-item-label caption>Caption</q-item-label>
-                  </q-item-section>
-                </q-item>
-
-                <q-item clickable v-ripple>
-                  <q-item-section avatar>
-                    <q-avatar>
-                      <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>Image avatar</q-item-section>
-                </q-item>
-
-                <q-item clickable v-ripple>
-                  <q-item-section>
-                    <q-item-label overline>OVERLINE</q-item-label>
-                    <q-item-label>Item with caption</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-list>
+      <div class="col-sm-9 bg-secondar border-primary rounded-borders">
+        <div class="row justify-center">
+          <div class="col-lg-8 col-md-9 col-sm-10">
+            <h4 id="title" class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4>
+            <div v-for="(rumour, idx) in rumours.slice((current-1)*5, current*5)" :key="rumour.id">
+              <q-card class="bg-secondary">
+                <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md">{{rumour.title}}</h6>
+                <q-card-section class="text-center">
+                  <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
+                </q-card-section>
+                <q-card-section class="text-body1 text-justify" v-html="rumour.body" />
+                <q-card-section>
+                  <div class="row justify-center">
+                    <div class="col col-sm-1">
+                    <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" size="sm" class="float-right q-mr-sm" />
+                    </div>
+                    <div class="col-6 col-sm-8">
+                      <q-linear-progress :value="rumour.upVotes/(rumour.upVotes+rumour.downVotes)" class="q-mt-md"
+                      color="positive" track-color="negative"
+                      />
+                    </div>
+                    <div class="col col-sm-1">
+                    <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" size="sm" class="q-ml-sm" />
+                    </div>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
+            <div class="q-pa-lg q-my-md flex flex-center">
+                <q-pagination
+                  v-model="current"
+                  :max="Math.ceil(rumours.length/5)"
+                  :direction-links="true"
+                  size="15px"
+                >
+                </q-pagination>
             </div>
           </div>
         </div>
@@ -81,16 +46,89 @@
 </template>
 
 <script>
+import { scroll } from 'quasar'
+const { getScrollTarget, setScrollPosition } = scroll
+
 export default {
-  name: 'Chatroom',
+  name: 'Rumours',
+
+  props: {
+    team_id: Number
+  },
 
   data () {
-    return {}
+    return {
+      rumours: [],
+      current: 1,
+    }
   },
 
-  created () {
+  computed: {
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
 
+    user: function () {
+      return this.$store.state.user
+    }
   },
+
+  created: function () {
+    this.$q.loading.show()
+    this.$axios.get('http://innouts.test/api/rumours/teams/' + this.team_id)
+      .then(response => {
+        this.rumours = response.data
+        this.$q.loading.hide()
+      })
+      .catch(error => {
+        this.error = error
+      })
+  },
+
+  watch: {
+    current () {
+      this.scrollToElement(document.getElementById('title'))
+    }
+  },
+
+  methods: {
+    submitVote: function (val, key, index) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
+          .then(response => {
+            if (val === 1) {
+              this.rumours[index].vote = 'up'
+            } else {
+              this.rumours[index].vote = 'down'
+            }
+            this.rumours[index].upVotes = response.data.ups
+            this.rumours[index].downVotes = response.data.downs
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    },
+
+    scrollToElement (el) {
+      let target = getScrollTarget(el)
+      let offset = el.offsetTop
+      let duration = 1000
+      setScrollPosition(target, offset, duration)
+    },
+  }
 }
 </script>
 

@@ -191,8 +191,8 @@
     >
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <!-- <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Chat" />
-      <q-tab name="news" icon="info" label="News" /> -->
+      <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Rumours" />
+      <q-tab name="news" icon="info" label="Editorials" />
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
@@ -362,11 +362,11 @@
       </q-tab-panel>
 
       <q-tab-panel name="chat">
-        <chat />
+        <chat :team_id="team.id" />
       </q-tab-panel>
 
       <q-tab-panel name="news">
-        <news :news="news" />
+        <news :articles="articles" />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -397,7 +397,7 @@ const initialState = () => {
     rws: [],
     sss: [],
     cfs: [],
-    news: [],
+    articles: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},
@@ -491,6 +491,7 @@ export default {
     setData: function (response) {
       this.team = response.data.team.info
       this.stats = response.data.team.stats
+      this.articles = this.team.articles
       this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
       this.headerStyle.backgroundPosition = this.team.stadium.position
       this.team.players.forEach(element => {

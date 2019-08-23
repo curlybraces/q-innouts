@@ -7,134 +7,116 @@
         v-model="slide"
         height="600px"
       >
-        <q-carousel-slide v-for="bulletin in news" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
+        <q-carousel-slide v-for="bulletin in bulletins" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div class="text-h2" > Title</div>
+            <div class="text-h3" >{{bulletin.title}}</div>
             <div class="text-subtitle1" v-text="bulletin.body"></div>
           </div>
         </q-carousel-slide>
-        <!-- <q-carousel-slide name="second" img-src="https://innouts.com/images/news/DhNoDV0kde0lyi2cu9wUKxdUwmhG4cz4ssfGFrLh.jpeg">
-          <div class="absolute-bottom custom-caption">
-            <div class="text-h2">Second stop</div>
-            <div class="text-subtitle1">Famous City</div>
-          </div>
-        </q-carousel-slide>
-        <q-carousel-slide name="third" img-src="https://innouts.com/images/news/a4hqhDqvPVbcGASaUmxqC1iSiO5yAkwvtiU25kqu.jpeg">
-          <div class="absolute-bottom custom-caption">
-            <div class="text-h2">Third stop</div>
-            <div class="text-subtitle1">Famous Bridge</div>
-          </div>
-        </q-carousel-slide> -->
       </q-carousel>
-        <q-table
-          class="my-sticky-header-table bg-secondary"
-          title="Biggest Transfers Summer 2019"
-          :dense="$q.screen.lt.md"
-          :grid="$q.screen.xs"
-          :data="transfers"
-          :columns="columns"
-          :filter="filter"
-          row-key="id"
-          hide-bottom
-          rows-per-page-label="Transfers per page"
-          :pagination.sync="myPagination"
-          :rows-per-page-options="[10,15,20,0]"
-          :loading="loading"
-          color="primary"
-          table-header-class="bg-primary text-white"
-        >
-          <template v-slot:top-right>
-            <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-              <template v-slot:append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </template>
-          <!-- customization for small devices -->
-          <template v-slot:item="props">
-            <div
-              class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
-              :style="props.selected ? 'transform: scale(0.95);' : ''"
-            >
-              <q-card class="bg-secondary">
-                <q-list dense>
-                  <q-item v-for="(col, idx) in props.cols" :key="col.id">
-                    <q-item-section>
-                      <q-item-label>{{ col.label }}</q-item-label>
-                    </q-item-section>
-                    <q-item-section v-if="idx === 0" side>
-                      <router-link :to="'/players/' + col.value.id" class="no-decor">
-                        <q-item-label caption>{{ col.value.nickname }}</q-item-label>
-                      </router-link>
-                    </q-item-section>
-                    <q-item-section v-else-if="[3,4].includes(idx)" side>
-                      <q-item-label caption>{{ col.value }}</q-item-label>
-                    </q-item-section>
-                    <q-item-section v-else-if="[1,2].includes(idx)" side>
-                      <router-link :to="'/teams/' + col.value.id" class="no-decor">
-                        <q-item-label caption>{{ col.value.name }}</q-item-label>
-                      </router-link>
-                    </q-item-section>
-                    <q-item-section v-else side>
-                      <q-rating
-                        class=""
-                        color="primary"
-                        size="1.5rem"
-                        icon="thumb_up"
-                        :id="col.value.id"
-                        :value="col.value.rating"
-                        :max="5"
-                        @input="submitRating($event, col.value.id, col.value.__index)"
-                      />
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-card>
+
+      <q-table
+        class="my-sticky-header-table bg-secondary"
+        title="Biggest Transfers Summer 2019"
+        :dense="$q.screen.lt.md"
+        :grid="$q.screen.xs"
+        :data="transfers"
+        :columns="columns"
+        :filter="filter"
+        row-key="id"
+        hide-bottom
+        rows-per-page-label="Transfers per page"
+        :pagination.sync="myPagination"
+        :rows-per-page-options="[10,15,20,0]"
+        :loading="loading"
+        color="primary"
+        table-header-class="bg-primary text-white"
+      >
+        <!-- customization for small devices -->
+        <template v-slot:item="props">
+          <div
+            class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
+            :style="props.selected ? 'transform: scale(0.95);' : ''"
+          >
+            <q-card class="bg-secondary">
+              <q-list dense>
+                <q-item v-for="(col, idx) in props.cols" :key="col.id">
+                  <q-item-section>
+                    <q-item-label>{{ col.label }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section v-if="idx === 0" side>
+                    <router-link :to="'/players/' + col.value.id" class="no-decor">
+                      <q-item-label caption>{{ col.value.nickname }}</q-item-label>
+                    </router-link>
+                  </q-item-section>
+                  <q-item-section v-else-if="[3,4].includes(idx)" side>
+                    <q-item-label caption>{{ col.value }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section v-else-if="[1,2].includes(idx)" side>
+                    <router-link :to="'/teams/' + col.value.id" class="no-decor">
+                      <q-item-label caption>{{ col.value.name }}</q-item-label>
+                    </router-link>
+                  </q-item-section>
+                  <q-item-section v-else side>
+                    <q-rating
+                      class=""
+                      color="primary"
+                      size="1.5rem"
+                      icon="thumb_up"
+                      :id="col.value.id"
+                      :value="col.value.rating"
+                      :max="5"
+                      @input="submitRating($event, col.value.id, col.value.__index)"
+                    />
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-card>
+          </div>
+        </template>
+
+        <q-td slot="body-cell-name" slot-scope="value" :props="value">
+          <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            {{value.value.nickname}}
+          </router-link>
+        </q-td>
+
+        <q-td slot="body-cell-from" slot-scope="value" :props="value">
+          <router-link :to="'/teams/' + value.value.id" >
+            <div id="" class="q-mx-auto team-thumbnail">
+              <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                  {{value.value.name}}
+                </q-tooltip>
             </div>
-          </template>
+          </router-link>
+        </q-td>
 
-          <q-td slot="body-cell-name" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
-              {{value.value.nickname}}
-            </router-link>
-          </q-td>
+        <q-td slot="body-cell-to" slot-scope="value" :props="value">
+          <router-link :to="'/teams/' + value.value.id" >
+            <div id="" class="q-mx-auto team-thumbnail">
+              <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                  {{value.value.name}}
+                </q-tooltip>
+            </div>
+          </router-link>
+        </q-td>
 
-          <q-td slot="body-cell-from" slot-scope="value" :props="value">
-            <router-link :to="'/teams/' + value.value.id" >
-              <div id="" class="q-mx-auto team-thumbnail">
-                <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
-                  <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                    {{value.value.name}}
-                  </q-tooltip>
-              </div>
-            </router-link>
-          </q-td>
+        <q-td slot="body-cell-rating" slot-scope="value" :props="value">
+            <q-rating
+              class=""
+              :style="{color: value.value.color}"
+              size="1.5rem"
+              icon="thumb_up"
+              :id="value.value.id"
+              :value="value.value.rating"
+              :max="5"
+              @input="submitRating($event, value.value.id, value.value.__index)"
+            />
+        </q-td>
 
-          <q-td slot="body-cell-to" slot-scope="value" :props="value">
-            <router-link :to="'/teams/' + value.value.id" >
-              <div id="" class="q-mx-auto team-thumbnail">
-                <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
-                  <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                    {{value.value.name}}
-                  </q-tooltip>
-              </div>
-            </router-link>
-          </q-td>
-
-          <q-td slot="body-cell-rating" slot-scope="value" :props="value">
-              <q-rating
-                class=""
-                :style="{color: value.value.color}"
-                size="1.5rem"
-                icon="thumb_up"
-                :id="value.value.id"
-                :value="value.value.rating"
-                :max="5"
-                @input="submitRating($event, value.value.id, value.value.__index)"
-              />
-          </q-td>
-
-        </q-table>
+      </q-table>
       <div class="row q-gutter-md">
         <div class="col-grow col-md">
           <div>
@@ -210,19 +192,19 @@
       side="right"
       elevated
     >
-      <q-list bordered padding link dense class="col bg-secondary" >
+      <q-list padding link dense class="col bg-secondary" >
         <q-item-label header>Latest</q-item-label>
-        <div v-for="(bulletin) in news" :key="bulletin.id">
-          <q-item :to="'/news/'+bulletin.id"  clickable v-ripple>
+        <div v-for="(article) in articles" :key="article.id">
+          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <!-- <q-item-section avatar>
               <q-avatar rounded>
                 <img :src="player.picture">
               </q-avatar>
             </q-item-section> -->
-            <q-item-section class="text-subtitle1">{{bulletin.body}}</q-item-section>
-            <q-item-section side top>
+            <q-item-section class="text-subtitle1 ellipsis" no-wrap>{{article.title}}</q-item-section>
+            <q-item-section side >
               <q-item-label caption>5 min ago</q-item-label>
-              <q-item-label caption>by BB</q-item-label>
+              <!-- <q-item-label caption>BB</q-item-label> -->
               <!-- <q-icon name="star" color="yellow" /> -->
             </q-item-section>
             <!-- <q-item-section side>{{player.specificPosition}}</q-item-section> -->
@@ -300,7 +282,8 @@ export default {
       ],
       wanteds: [],
       unwanteds: [],
-      news: []
+      bulletins: [],
+      articles: [],
     }
   },
 
@@ -353,7 +336,8 @@ export default {
   methods: {
     setData: function (response) {
       this.transfers = response.data.transfers
-      this.news = response.data.news
+      this.bulletins = response.data.bulletins
+      this.articles = response.data.articles
       this.wanteds = response.data.wanteds
       this.unwanteds = response.data.unwanteds
     },
