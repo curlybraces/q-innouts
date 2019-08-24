@@ -195,7 +195,6 @@ export default {
           label: 'Player',
           align: 'left',
           field: row => row.player,
-          // format: val => `${val}`,
           sortable: true
         },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
@@ -276,7 +275,7 @@ export default {
         this.windows = response.data.data
         this.window = this.windows[0]
         this.transfers = this.window.transfers
-        this.windowChange()
+        // this.windowChange()
         this.loading = false
         this.$q.loading.hide()
       })
@@ -287,27 +286,30 @@ export default {
 
   methods: {
     windowChange: function () {
+      // alert('inside windowChange() ' + this.$route.params.team)
+      // alert(typeof (this.transfers[0].from.id))
+      // alert(typeof (this.$route.params.team))
       this.inTransfers = []
       this.outTransfers = []
       this.wanteds = []
       this.unwanteds = []
 
       this.transfers.forEach(elem => {
-        if (elem.from.id === this.team.id) {
+        if (elem.from.id === parseInt(this.$route.params.team)) {
           this.outTransfers.push(elem)
-        } else if (elem.to.id === this.team.id) {
+        } else if (elem.to.id === parseInt(this.$route.params.team)) {
           this.inTransfers.push(elem)
         }
       })
 
       this.window.wanteds.forEach(elem => {
-        if (elem.suitor.id === this.team.id) {
+        if (elem.suitor.id === parseInt(this.$route.params.team)) {
           this.wanteds.push(elem)
         }
       })
 
       this.window.unwanteds.forEach(elem => {
-        if (elem.player.team_id === this.team.id) {
+        if (elem.player.team_id === parseInt(this.$route.params.team)) {
           this.unwanteds.push(elem)
         }
       })
@@ -348,6 +350,11 @@ export default {
       this.transfers = this.window.transfers
       this.windowChange()
       this.loading = false
+    },
+
+    $route () {
+      // alert('route change')
+      this.windowChange()
     }
   }
 }

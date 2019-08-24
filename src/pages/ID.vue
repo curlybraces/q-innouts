@@ -26,7 +26,7 @@
         side="right"
         elevated
       >
-        <teammates :teammates="companions" :team="player.team.name" @newPlayer="setPlayer"/>
+        <teammates :teammates="companions" :team="person.team.name" @newPlayer="setPlayer"/>
       </q-drawer>
     </div>
   </q-page>
@@ -48,7 +48,7 @@ export default {
 
   data () {
     return {
-      player: null,
+      person: null,
       activePlayer: null,
       companions: [],
       error: null,
@@ -63,17 +63,30 @@ export default {
 
   beforeRouteEnter (to, from, next) {
     // alert('beforeRouteEnter')
-    if (from.name === 'player') {
+    if (from.name === 'player' && to.name === 'player') {
       next()
+    } else if (to.name === 'manager') {
+      axios.get('http://innouts.test/api/managers/' + to.params.manager)
+        .then(response => {
+          next(vm => {
+            vm.person = response.data.data
+            vm.activePlayer = vm.person
+            vm.companions = vm.person.players
+          })
+        })
+        .catch(error => {
+          from.error = error
+          next(false)
+        })
     } else {
       axios.get('http://innouts.test/api/players/' + to.params.id)
         .then(response => {
           // alert('response')
           next(vm => {
             // alert('next')
-            vm.player = response.data.data
-            vm.activePlayer = vm.player
-            vm.companions = vm.player.teammates
+            vm.person = response.data.data
+            vm.activePlayer = vm.person
+            vm.companions = vm.person.teammates
           })
         })
         .catch(error => {

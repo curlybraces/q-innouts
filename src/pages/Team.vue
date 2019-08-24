@@ -186,17 +186,18 @@
       </div>
     </div>
     <q-tabs
+    id="title"
       v-model="tab" dense inline-label @input="tabChange"
       class="bg-primary text-white shadow-2"
     >
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <q-tab v-if="$q.platform.is.desktop" name="chat" icon="chat" label="Rumours" />
+      <q-tab name="chat" icon="chat" label="Rumours" />
       <q-tab name="news" icon="info" label="Editorials" />
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
-     class="shadow-2 rounded-borders"
+     class="shadow- rounded-borders"
      >
       <q-tab-panel name="home">
         <div class="row justify-center q-mx-auto">
@@ -362,7 +363,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="chat">
-        <chat :team_id="team.id" />
+        <chat />
       </q-tab-panel>
 
       <q-tab-panel name="news">

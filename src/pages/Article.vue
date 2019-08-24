@@ -1,9 +1,11 @@
 <template>
   <q-page padding>
-    <div class="row justify-cente q-gutter-y-m">
-      <div class="col-md-8 col">
-        <div class="text-h5 text-capitalize text-center">{{article.title}}</div>
-        <div class="text-subtitle2 text-righ">BB</div>
+    <div class="row justify- q-gutter-y-m">
+      <div class="col-md-8 col offset- q-ml-lg">
+        <div class="text-h5 text-capitalize text-center q-py-md bg-primary text-secondary">
+          {{article.title}}
+          <div class="text-subtitle2 text-righ">BB</div>
+        </div>
         <q-img
           :src="article.picture"
           :ratio="16/9"
@@ -12,10 +14,10 @@
         <div v-html="article.body" class="text-body1 text-justify text-center q-my-md"/>
         <div class="row text-subtitle1 q-gutter-x-md">
           <!-- Tags: -->
-          <router-link :to="'/teams/'+team.id" class="no-decor text-black  bg-secondary rounded-borders q-pa-sm" v-for="team in article.teams" :key="team.id">
+          <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="team in article.teams" :key="team.id">
             {{team.name}}
           </router-link>
-          <router-link :to="'/players/'+player.id" class="no-decor text-white  bg-primary rounded-borders q-pa-sm" v-for="player in article.players" :key="player.id">
+          <router-link :to="'/players/'+player.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="player in article.players" :key="player.id">
             {{player.nickname}}
           </router-link>
         </div>
@@ -51,13 +53,9 @@ export default {
   beforeRouteEnter (to, from, next) {
     axios.get('http://innouts.test/api/articles/' + to.params.article)
       .then(response => {
-        // alert('response')
         next(vm => {
-          // alert('next')
           vm.setData(response)
-          // vm.article = response.data.data
           next()
-          // vm.companions = vm.player.teammates
         })
       })
       .catch(error => {

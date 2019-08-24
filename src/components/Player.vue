@@ -4,7 +4,7 @@
       <div class="col-grow col-sm-4 col-md-3 q-mx-auto">
         <div class="row justify-center">
           <div style="width: 200px;">
-            <q-img alt="Quasar logo" :src="player.picture" class="q-mx-auto full-width" />
+            <q-img :alt="player.firstName" :src="player.picture" class="q-mx-auto full-width" />
           </div>
         </div>
         <div class="row content-center bg-secondary q-mt-sm q-pb-sm">
@@ -61,16 +61,18 @@
           <q-item-section>
             <q-item-label>Height</q-item-label>
           </q-item-section>
-          <q-item-section v-if="player.height" side>
-            <q-item-label >{{player.height}} cm</q-item-label>
+          <q-item-section side>
+            <q-item-label v-if="player.height" >{{player.height}} cm</q-item-label>
+            <q-item-label v-else >N/A</q-item-label>
           </q-item-section>
         </q-item>
         <q-item >
           <q-item-section>
             <q-item-label>Weight</q-item-label>
           </q-item-section>
-          <q-item-section v-if="player.weight" side>
-            <q-item-label >{{player.weight}} kg</q-item-label>
+          <q-item-section side>
+            <q-item-label v-if="player.weight" >{{player.weight}} kg</q-item-label>
+            <q-item-label v-else >N/A</q-item-label>
           </q-item-section>
         </q-item>
         <q-item >
@@ -78,7 +80,8 @@
             <q-item-label>Foot</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-item-label >{{player.foot}}</q-item-label>
+            <q-item-label v-if="player.foot" >{{player.foot}}</q-item-label>
+            <q-item-label v-else >N/A</q-item-label>
           </q-item-section>
         </q-item>
         <q-item >
@@ -86,7 +89,8 @@
             <q-item-label>Position</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-item-label >{{player.broadPosition}}</q-item-label>
+            <q-item-label v-if="player.broadPosition" >{{player.broadPosition}}</q-item-label>
+            <q-item-label v-else >N/A</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

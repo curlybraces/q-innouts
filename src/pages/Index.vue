@@ -193,7 +193,7 @@
       elevated
     >
       <q-list padding link dense class="col bg-secondary" >
-        <q-item-label header>Latest</q-item-label>
+        <q-item-label header>Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <!-- <q-item-section avatar>
@@ -201,7 +201,7 @@
                 <img :src="player.picture">
               </q-avatar>
             </q-item-section> -->
-            <q-item-section class="text-subtitle1 ellipsis" no-wrap>{{article.title}}</q-item-section>
+            <q-item-section class="text-caption ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
             <q-item-section side >
               <q-item-label caption>5 min ago</q-item-label>
               <!-- <q-item-label caption>BB</q-item-label> -->

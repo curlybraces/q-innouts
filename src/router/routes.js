@@ -11,6 +11,7 @@ const routes = [
         name: 'player',
         component: ID,
       },
+      { path: '/managers/:manager', name: 'manager', component: () => import('pages/ID.vue') },
       {
         path: '/leagues/:league', component: () => import('pages/League.vue')
       },
