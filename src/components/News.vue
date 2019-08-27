@@ -29,24 +29,40 @@
 export default {
   name: 'News',
 
-  props: {
-    articles: Array
-  },
+  // props: {
+  //   articles: Array
+  // },
 
   data () {
-    return {}
+    return {
+      articles: Array,
+    }
   },
 
-  // created: function () {
-  //   this.$q.loading.show()
-  //   this.$axios.get('http://innouts.test/api/windows')
-  //     .then(response => {
+  created: function () {
+    this.setData()
+  },
 
-  //     })
-  //     .catch(error => {
-  //       this.error = error
-  //     })
-  // },
+  watch: {
+    $route () {
+      // alert('change')
+      this.setData()
+    }
+  },
+
+  methods: {
+    setData: function () {
+      this.$q.loading.show()
+      this.$axios.get('http://innouts.test/api/articles/teams/' + this.$route.params.team)
+        .then(response => {
+          this.articles = response.data
+          this.$q.loading.hide()
+        })
+        .catch(error => {
+          this.error = error
+        })
+    }
+  }
 }
 </script>
 

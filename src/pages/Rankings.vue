@@ -75,7 +75,7 @@
               >
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
-                    <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
                   <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
                     {{value.value.firstName}} {{value.value.lastName}}
@@ -104,7 +104,7 @@
                 :dense="$q.screen.lt.md"
                 :pagination.sync="fansPagination"
                 :rows-per-page-options="[10,20,0]"
-                row-key="name"
+                row-key="fan"
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
@@ -199,7 +199,7 @@
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
                     <!-- henlo -->
-                    <q-img :src="'statics/' + value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                   </div>
                 </q-td>
 

@@ -186,8 +186,25 @@ export default {
   data () {
     return {
       tab: 'mails',
-      league: Object,
-      stats: null,
+      // league: {
+      //   type: Object,
+      //   default: () => {
+      //     return {
+      //       holders: {
+      //         logo: String,
+      //       }
+      //     }
+      //   }
+      // },
+      league: {
+        holders: Object
+      },
+      stats: {
+        inter: Number,
+        recordWinner: {
+          trophy_cabinet: Object
+        }
+      },
       news: []
     }
   },

@@ -22,13 +22,11 @@
         :grid="$q.screen.xs"
         :data="transfers"
         :columns="columns"
-        :filter="filter"
         row-key="id"
         hide-bottom
         rows-per-page-label="Transfers per page"
         :pagination.sync="myPagination"
         :rows-per-page-options="[10,15,20,0]"
-        :loading="loading"
         color="primary"
         table-header-class="bg-primary text-white"
       >
@@ -128,7 +126,6 @@
               row-key="id"
               rows-per-page-label="Transfers per page"
               :rows-per-page-options="[5,10,15]"
-              :loading="loading"
               color="primary"
               table-header-class="bg-primary text-white"
             >
@@ -165,7 +162,6 @@
               row-key="id"
               rows-per-page-label="Transfers per page"
               :rows-per-page-options="[5,10,15]"
-              :loading="loading"
               color="primary"
               table-header-class="bg-primary text-white"
             >

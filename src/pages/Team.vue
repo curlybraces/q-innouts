@@ -332,12 +332,14 @@
               </q-card-section>
               <q-card-section class="q-mt-sm">
                 <div>
-                  <q-img :src="'statics/' + team.manager.picture" alt="" class="img-thumbnail" />
+                  <q-img :src="team.manager.picture" :alt="team.manager.displayName" class="img-thumbnail" />
                     <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
-                      {{team.manager.displayName}}
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                          {{team.manager.firstName}} {{team.manager.lastName}}
-                      </q-tooltip>
+                      <router-link :to="'/managers/' + team.manager.id" class="no-decor" >
+                        {{team.manager.displayName}}
+                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                            {{team.manager.firstName}} {{team.manager.lastName}}
+                        </q-tooltip>
+                      </router-link>
                     </div>
                     <div class="text-center bg-t-dark">
                       <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="team.manager.rating" :max="5" @input="submitRating" />
@@ -367,7 +369,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="news">
-        <news :articles="articles" />
+        <news />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -383,7 +385,12 @@ const PlayerCard = () => import('components/PlayerCard.vue')
 
 const initialState = () => {
   return {
-    team: Object,
+    team: {
+      stadium: {
+        capacity: Number,
+      },
+      manager: Object
+    },
     stats: Object,
     gks: [],
     cbs: [],
@@ -398,7 +405,7 @@ const initialState = () => {
     rws: [],
     sss: [],
     cfs: [],
-    articles: [],
+    // articles: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},
@@ -492,7 +499,7 @@ export default {
     setData: function (response) {
       this.team = response.data.team.info
       this.stats = response.data.team.stats
-      this.articles = this.team.articles
+      // this.articles = this.team.articles
       this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
       this.headerStyle.backgroundPosition = this.team.stadium.position
       this.team.players.forEach(element => {

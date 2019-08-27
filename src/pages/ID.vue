@@ -48,8 +48,14 @@ export default {
 
   data () {
     return {
-      person: null,
-      activePlayer: null,
+      person: {
+        team: {
+          name: 'team'
+        }
+      },
+      activePlayer: {
+        // firstName: 'name'
+      },
       companions: [],
       error: null,
     }

@@ -237,7 +237,9 @@ export default {
   },
 
   props: {
-    players: Object,
+    players: {
+      topOverall: [],
+    },
   }
 }
 </script>

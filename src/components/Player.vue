@@ -113,7 +113,15 @@ export default {
   }),
 
   props: {
-    player: null,
+    player: {
+      type: Object,
+      default: function () {
+        return {
+          birthday: '2000-01-01 00:00:00',
+          firstName: 'ab',
+        }
+      }
+    },
   },
 
   computed: {

@@ -56,7 +56,7 @@ export default {
 
   data () {
     return {
-      rumours: [],
+      rumours: Array,
       current: 1,
     }
   },
