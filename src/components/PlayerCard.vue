@@ -23,7 +23,7 @@ export default {
     player: Object,
     color: String,
     loggedIn: Boolean,
-    user: Function,
+    user: Object,
   },
 
   data () {

@@ -185,6 +185,7 @@
       :mini="$q.screen.lt.md"
       content-class="bg-secondary"
       :breakpoint="600"
+      :width="350"
       side="right"
       elevated
     >
@@ -192,18 +193,15 @@
         <q-item-label header>Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
-            <!-- <q-item-section avatar>
-              <q-avatar rounded>
-                <img :src="player.picture">
-              </q-avatar>
-            </q-item-section> -->
-            <q-item-section class="text-caption ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
-            <q-item-section side >
-              <q-item-label caption>5 min ago</q-item-label>
-              <!-- <q-item-label caption>BB</q-item-label> -->
-              <!-- <q-icon name="star" color="yellow" /> -->
+            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+              {{article.title}}
+              <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
+                {{article.title}}
+              </q-tooltip>
             </q-item-section>
-            <!-- <q-item-section side>{{player.specificPosition}}</q-item-section> -->
+            <q-item-section side >
+              <q-item-label caption>Today</q-item-label>
+            </q-item-section>
           </q-item>
           <q-separator />
         </div>

@@ -28,11 +28,21 @@
       :mini="$q.screen.lt.md"
       content-class="bg-secondary"
       :breakpoint="600"
+      width="350"
       side="right"
       elevated
     >
-      <q-list padding link dense class="col bg-secondary" >
+      <q-list v-if="teamsArticles.length || playersArticles.length" padding link dense class="col bg-secondary" >
         <q-item-label header>Also</q-item-label>
+        <div v-for="(article) in teamsArticles.concat(playerArticles)" :key="article.id">
+          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
+            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
+            <!-- <q-item-section side >
+              <q-item-label caption>Today</q-item-label>
+            </q-item-section> -->
+          </q-item>
+          <q-separator />
+        </div>
       </q-list>
     </q-drawer>
   </q-page>
@@ -47,6 +57,8 @@ export default {
   data: () => {
     return {
       article: null,
+      teamsArticles: [],
+      playerArticles: []
     }
   },
 
@@ -82,9 +94,24 @@ export default {
     }
   },
 
+  watch: {
+    $route () {
+      axios.get('http://innouts.test/api/articles/' + this.$route.params.article)
+        .then(response => {
+          this.setData(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      // this.setData()
+    }
+  },
+
   methods: {
     setData: function (response) {
-      this.article = response.data
+      this.article = response.data.article
+      this.teamsArticles = response.data.teams_articles
+      this.playersArticles = response.data.players_articles
     }
   }
 }
