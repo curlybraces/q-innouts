@@ -124,8 +124,7 @@
               :data="wanteds"
               :columns="wantedColumns"
               row-key="id"
-              rows-per-page-label="Transfers per page"
-              :rows-per-page-options="[5,10,15]"
+              hide-bottom
               color="primary"
               table-header-class="bg-primary text-white"
             >
@@ -160,6 +159,7 @@
               :data="unwanteds"
               :columns="unwantedColumns"
               row-key="id"
+              hide-bottom
               rows-per-page-label="Transfers per page"
               :rows-per-page-options="[5,10,15]"
               color="primary"
@@ -259,7 +259,7 @@ export default {
           field: row => row.player,
           sortable: true
         },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.suitor },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],
       unwantedColumns: [
