@@ -304,7 +304,7 @@ export default {
         })
       })
       .catch(error => {
-        from.error = error
+        console.log(error)
         next(false)
       })
   },
