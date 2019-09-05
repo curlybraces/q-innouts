@@ -183,7 +183,8 @@ export default {
         })
       })
       .catch(error => {
-        from.error = error
+        console.log(error)
+        // from.error = error
         next(false)
       })
   },

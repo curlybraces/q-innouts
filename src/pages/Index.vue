@@ -5,23 +5,41 @@
         arrows
         animated
         v-model="slide"
-        height="600px"
+        :height="carouselHeight"
       >
         <q-carousel-slide v-for="bulletin in bulletins" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div class="text-h3" >{{bulletin.title}}</div>
+            <div class="text-h4" >{{bulletin.title}}</div>
             <div class="text-subtitle1" v-text="bulletin.body"></div>
           </div>
         </q-carousel-slide>
       </q-carousel>
 
+      <q-list v-if="$q.platform.is.mobile" padding link bordered dense class="col bg-secondary" >
+        <q-item-label header>Latest Editorials</q-item-label>
+        <div v-for="(article) in articles" :key="article.id">
+          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
+            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+              {{article.title}}
+              <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
+                {{article.title}}
+              </q-tooltip>
+            </q-item-section>
+            <q-item-section side >
+              <q-item-label caption>Today</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+        </div>
+      </q-list>
+
       <q-table
         class="my-sticky-header-table bg-secondary"
         title="Biggest Transfers Summer 2019"
         :dense="$q.screen.lt.md"
-        :grid="$q.screen.xs"
         :data="transfers"
         :columns="columns"
+        :visible-columns="visibleColumns"
         row-key="id"
         hide-bottom
         rows-per-page-label="Transfers per page"
@@ -185,7 +203,7 @@
       :mini="$q.screen.lt.md"
       content-class="bg-secondary"
       :breakpoint="600"
-      :width="350"
+      :width="380"
       side="right"
       elevated
     >
@@ -230,6 +248,7 @@ export default {
   data: () => {
     return {
       slide: 1,
+      carouselHeight: '',
       columns: [
         {
           name: 'name',
@@ -243,9 +262,9 @@ export default {
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
         { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
-        { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
+        { name: 'rating', align: 'center', label: 'Rating', field: row => row },
       ],
-
+      visibleColumns: ['name', 'from', 'to', 'date', 'fee', 'rating'],
       transfers: [],
       myPagination: {
         rowsPerPage: 10
@@ -322,8 +341,12 @@ export default {
 
   created: function () {
     this.$store.commit('setLeftDrawer', false)
-    if (this.$q.platform.is.desktop) {
+    if (this.$q.platform.is.mobile) {
+      this.visibleColumns = ['name', 'from', 'to', 'date', 'fee']
+      this.carouselHeigth = '200px'
+    } else {
       this.$store.commit('setRightDrawer', true)
+      this.carouselHeigth = '600px'
     }
   },
 

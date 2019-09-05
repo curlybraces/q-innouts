@@ -27,6 +27,9 @@ const routes = [
       {
         path: '/articles/:article', component: () => import('pages/Article.vue')
       },
+      // {
+      //   path: '/articles', component: () => import('pages/Article.vue')
+      // },
       {
         path: '/rankings', component: () => import('pages/Rankings.vue')
       },
