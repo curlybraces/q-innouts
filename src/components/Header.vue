@@ -12,7 +12,7 @@
         </router-link>
       </q-toolbar-title>
 
-      <q-btn to="/articles/3" class="glossy" color="blue-grey-14" label="Editorials" />
+      <q-btn to="/editorials" no-caps class="glossy" color="blue-grey-14" label="Editorials" />
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">

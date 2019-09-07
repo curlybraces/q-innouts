@@ -137,14 +137,14 @@
         <div class="col-grow col-md">
           <div>
             <q-table
-              class="my-sticky-header-table bg-green-2"
+              class="my-sticky-header-table bg-secondary"
               title="Players in Demand"
               :data="wanteds"
               :columns="wantedColumns"
               row-key="id"
               hide-bottom
               color="primary"
-              table-header-class="bg-primary text-white"
+              table-header-class="bg-green-2"
             >
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
                 <router-link :to="'/players/' + value.value.id" class="no-decor" >
@@ -152,6 +152,16 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                <router-link :to="'/teams/' + value.value.id" >
+                  <div id="" class="q-mx-auto team-thumbnail">
+                    <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
+                  </div>
+                </router-link>
+              </q-td>
+              <q-td slot="body-cell-suitor" slot-scope="value" :props="value">
                 <router-link :to="'/teams/' + value.value.id" >
                   <div id="" class="q-mx-auto team-thumbnail">
                     <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
@@ -172,7 +182,7 @@
         <div class="col-grow col-md">
           <div>
             <q-table
-              class="my-sticky-header-table bg-red-2"
+              class="my-sticky-header-table bg-secondary"
               title="Players for Sale"
               :data="unwanteds"
               :columns="unwantedColumns"
@@ -181,11 +191,21 @@
               rows-per-page-label="Transfers per page"
               :rows-per-page-options="[5,10,15]"
               color="primary"
-              table-header-class="bg-primary text-white"
+              table-header-class="bg-red-2"
             >
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
                 <router-link :to="'/players/' + value.value.id" class="no-decor" >
                   {{value.value.nickname}}
+                </router-link>
+              </q-td>
+              <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                <router-link :to="'/teams/' + value.value.id" >
+                  <div id="" class="q-mx-auto team-thumbnail">
+                    <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-center" />
+                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
+                  </div>
                 </router-link>
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
@@ -250,14 +270,7 @@ export default {
       slide: 1,
       carouselHeight: '',
       columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player,
-          sortable: true
-        },
+        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
@@ -270,26 +283,14 @@ export default {
         rowsPerPage: 10
       },
       wantedColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player,
-          sortable: true
-        },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.suitor },
+        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
+        { name: 'team', align: 'center', label: 'team', field: row => row.player.team },
+        { name: 'suitor', align: 'center', label: 'Suitor', field: row => row.suitor },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],
       unwantedColumns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player,
-          sortable: true
-        },
+        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],

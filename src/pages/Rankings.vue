@@ -279,13 +279,7 @@ export default {
         descending: true,
       },
       columns: [
-        {
-          name: 'team',
-          required: true,
-          label: 'Team',
-          align: 'left',
-          field: row => row,
-        },
+        { name: 'team', required: true, label: 'Team', align: 'left', field: row => row },
         { name: 'totalTrophies', align: 'center', label: 'Major Trophies', field: 'totalTrophies', sortable: true },
         { name: 'popularity', align: 'center', label: 'Popularity', field: 'popularity', sortable: true },
         { name: 'european', align: 'center', label: 'European Success', field: 'european', sortable: true },
@@ -301,7 +295,7 @@ export default {
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
-        { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'score', align: 'center', label: 'Score', field: 'rating', sortable: true },
       ],
       managersPagination: {
         rowsPerPage: 10,

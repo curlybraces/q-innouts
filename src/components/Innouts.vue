@@ -60,7 +60,7 @@
           <div class="col-grow col-md">
             <div>
               <q-table
-                class="my-sticky-header-table"
+                class="my-sticky-header-table "
                 title="Outs"
                 :data="outTransfers"
                 :columns="transferOutColumns"
@@ -109,7 +109,7 @@
           <div class="col-grow col-md">
             <div>
               <q-table
-                class="my-sticky-header-table bg-green-2"
+                class="my-sticky-header-table bg-secondary"
                 title="Ins"
                 :data="wanteds"
                 :columns="wantedColumns"
@@ -118,7 +118,7 @@
                 :rows-per-page-options="[5,10,15]"
                 :loading="loading"
                 color="primary"
-                table-header-class="bg-primary text-white"
+                table-header-class="bg-green-2"
               >
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
                   <router-link :to="'/players/' + value.value.id" class="no-decor" >
@@ -146,7 +146,7 @@
           <div class="col-grow col-md">
             <div>
               <q-table
-                class="my-sticky-header-table bg-red-2"
+                class="my-sticky-header-table bg-secondary"
                 title="Outs"
                 :data="unwanteds"
                 :columns="unwantedColumns"
@@ -155,7 +155,7 @@
                 :rows-per-page-options="[5,10,15]"
                 :loading="loading"
                 color="primary"
-                table-header-class="bg-primary text-white"
+                table-header-class="bg-red-2"
               >
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
                   <router-link :to="'/players/' + value.value.id" class="no-decor" >
