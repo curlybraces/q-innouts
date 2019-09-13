@@ -193,13 +193,13 @@ export default {
       U23Columns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
-        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(new Date(), date.extractDate(row.birthday, 'YYYY-MM-DD HH:mm:ss'), 'years'), sortable: true },
+        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
       ],
       overallColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'nationality', align: 'left', label: 'Nationality', field: 'nationality', sortable: true },
-        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
+        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
         { name: 'pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
       ],

@@ -194,6 +194,7 @@
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
       <q-tab name="chat" icon="chat" label="Rumours" />
       <q-tab name="news" icon="info" label="Editorials" />
+      <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" />
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
@@ -371,6 +372,17 @@
       <q-tab-panel name="news">
         <news />
       </q-tab-panel>
+
+      <q-tab-panel name="business">
+        <div class="row justify-center q-gutter-x-md">
+          <div class="col">
+            <sign-form :team="team" :user="user" :signList="signList" :signQuota="signQuota"  />
+          </div>
+          <div class="col">
+           <sell-form :team="team" :user="user" :sellingList="sellList" :sellQuota="sellQuota" />
+          </div>
+        </div>
+      </q-tab-panel>
     </q-tab-panels>
   </q-page>
 </template>
@@ -382,6 +394,8 @@ const Chat = () => import('components/Chat.vue')
 const Fans = () => import('components/Fans.vue')
 const News = () => import('components/News.vue')
 const PlayerCard = () => import('components/PlayerCard.vue')
+const SellForm = () => import('components/SellForm.vue')
+const SignForm = () => import('components/SignForm.vue')
 
 const initialState = () => {
   return {
@@ -410,6 +424,10 @@ const initialState = () => {
     panel: 'home',
     headerStyle: {},
     fieldStyle: {},
+    signQuota: null,
+    sellQuota: Number,
+    signList: Function,
+    sellList: Function
   }
 }
 
@@ -421,7 +439,9 @@ export default {
     Chat,
     Fans,
     News,
-    PlayerCard
+    PlayerCard,
+    SellForm,
+    SignForm
   },
 
   data: () => {
@@ -491,19 +511,26 @@ export default {
     },
 
     panelChange: function (newVal, oldVal) {
-      // if (newVal === 'innouts' && this.windows.length === 0) {
-      // fetch the news and fill the array
-      // }
+      if (newVal === 'business' && this.signQuota === null) {
+        axios.get('http://innouts.test/api/sign-sell/' + this.user.id)
+          .then(response => {
+            this.signQuota = response.data.signQuota
+            this.sellQuota = response.data.sellQuota
+            this.signList = response.data.wanteds
+            this.sellList = response.data.unwanteds
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
 
     setData: function (response) {
       this.team = response.data.team.info
       this.stats = response.data.team.stats
-      // this.articles = this.team.articles
       this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
       this.headerStyle.backgroundPosition = this.team.stadium.position
       this.team.players.forEach(element => {
-        // alert(element)
         switch (element.specificPosition) {
           case 'GK':
             this.gks.push(element)
