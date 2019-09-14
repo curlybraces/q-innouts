@@ -1,75 +1,83 @@
 <template>
-  <div>
-    <p>{{remSellCards}} sell cards remaining! (current window)</p>
+  <q-card>
+    <q-card-section class="text-left text-h6 bg-red-3">
+      <span class="text-left" style="color: red;">&#10134;</span> Sell Players
+    </q-card-section>
+    <q-card-section class="text-subtitle1 text-center">{{remSellCards}} sell cards remaining! (current window)</q-card-section>
 
-   <div class="q-pa-md" style="max-width: 300px">
-      <div class="q-gutter-md">
-         <q-select v-model="selecteds" multiple :options="team.players" option-label="nickname" />
-      </div>
-   </div>
-
-    <form action method="post" @submit.prevent="submit">
-      <div class="form-group">
-        <label for="sel2">(hold control button to select more than one):</label>
-
-        <select
-          multiple
-          class="form-control"
-          id="sell"
-          name="sell[]"
-          chosen
-          v-model="selecteds"
-          @change="check"
-        >
-          <option
-            v-for="player in team.players"
-            :value="player"
-            :key="player.id"
-            :disabled="sellingList.includes(player.id)"
-          >{{player.nickname}}</option>
-        </select>
+    <q-card-section>
+      <div class="q-pa-md" style="">
+          <div class="q-gutter-md">
+            <q-select filled v-model="selecteds" multiple :options="team.players" option-label="nickname" @input="check" />
+          </div>
       </div>
 
-      <table class="table table-hover" v-if="unwanteds.length">
-        <thead>
-          <tr>
-            <td>Player</td>
-            <td>Cards</td>
-            <td class="text-center">Remove?</td>
-          </tr>
-        </thead>
+        <q-form action method="post" @submit="submit">
+          <!-- <div class="form-group">
+            <label for="sel2">(hold control button to select more than one):</label>
 
-        <tbody>
-          <tr v-for="unwanted in unwanteds" :key="unwanted.id">
-            <td>{{unwanted.player.firstName}} {{unwanted.player.lastName}}</td>
-            <td>
-              <form action>
-                <div class>
-                  <select
-                    class="form-control form-control-sm"
-                    id="sel1"
-                    name="sellist1"
-                    v-model="unwanted.votes"
-                    @change="update"
-                  >
-                    <option :value="1">1</option>
-                    <option :value="2">2</option>
-                    <option :value="3">3</option>
-                    <option :value="4">4</option>
-                  </select>
-                </div>
-              </form>
-            </td>
-            <td class="text-center">
-              <div @click="remove(unwanted)" class>&#10060;</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <select
+              multiple
+              class="form-control"
+              id="sell"
+              name="sell[]"
+              chosen
+              v-model="selecteds"
+              @change="check"
+            >
+              <option
+                v-for="player in team.players"
+                :value="player"
+                :key="player.id"
+                :disabled="sellingList.includes(player.id)"
+              >{{player.nickname}}</option>
+            </select>
+          </div> -->
 
-      <button type="submit" class="btn btn-primary" :disabled="this.unwanteds.length==0">Submit</button>
-    </form>
-  </div>
+          <q-markup-table class="table table-hover" v-if="unwanteds.length">
+            <thead>
+              <tr>
+                <td>Player</td>
+                <td>Cards</td>
+                <td class="text-center">Remove?</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr v-for="unwanted in unwanteds" :key="unwanted.id">
+                <td>{{unwanted.player.firstName}} {{unwanted.player.lastName}}</td>
+                <td>
+                  <form action>
+                    <div class>
+                      <select
+                        class="form-control form-control-sm"
+                        id="sel1"
+                        name="sellist1"
+                        v-model="unwanted.votes"
+                        @change="update"
+                      >
+                        <option :value="1">1</option>
+                        <option :value="2">2</option>
+                        <option :value="3">3</option>
+                        <option :value="4">4</option>
+                      </select>
+                    </div>
+                  </form>
+                </td>
+                <td class="text-center">
+                  <div @click="remove(unwanted)" class>&#10060;</div>
+                </td>
+              </tr>
+            </tbody>
+          </q-markup-table>
+
+          <!-- <button type="submit" class="btn btn-primary" >Submit</button> -->
+          <div class="row justify-center">
+            <q-btn label="Submit" type="submit" :disable="this.unwanteds.length==0" color="primary"/>
+          </div>
+        </q-form>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -84,12 +92,16 @@ export default {
   data () {
     return {
       unwanteds: [],
-      selecteds: [],
-      remSellCards: null
+      selecteds: null,
+      remSellCards: Number
     }
   },
 
   created: function () {
+    this.remSellCards = this.sellQuota
+  },
+
+  updated: function () {
     this.remSellCards = this.sellQuota
   },
 
@@ -100,7 +112,6 @@ export default {
       this.unwanteds.forEach(element => {
         x += element.votes
       })
-
       return x
     },
 
@@ -136,9 +147,10 @@ export default {
 
       if (x <= this.sellQuota) {
         this.$axios
-          .post('/unwanteds', {
+          .post('http://innouts.test/api/unwanteds', {
             players: JSON.stringify(this.unwanteds),
-            team: this.team.id
+            team: this.team.id,
+            userID: this.user.id
           })
           .then(response => {
             alert(response.data.message)

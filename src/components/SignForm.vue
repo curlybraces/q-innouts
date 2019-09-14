@@ -1,48 +1,90 @@
 <template>
-  <div>
-    <p>{{remSignCards}} sign cards remaining! (current window)</p>
+  <q-card class="column">
+    <q-card-section class="text-h6 bg-green-3 text-left">
+      <span style="">&#10133;</span> <q-icon name="add_circle" left size="2rem" color="green" class="" /> Sign Players
+    </q-card-section>
+    <q-card-section class="text-subtitle1 q-pa-sm">
+      {{remSignCards}} sign card(s) remaining! (current window)
+    </q-card-section>
 
-    <form class="form-inline" @submit.prevent="onSubmit">
-      <label for="player" class="mb-2 mr-sm-2">Player</label>
-      <input
-        type="text"
-        class="form-control mb-2 mr-sm-2"
-        v-model="player"
-        :disabled="this.signQuota==0"
-        id="player"
-        name="player"
-        placeholder="Kaka"
-        @keyup="search"
-        list="hints"
-      />
+    <q-card-section class="q-pa-md" style="">
+      <q-form class="q-mb-md" @submit="onSubmit">
+        <!-- <label for="player" class="mb-2 q-mr-sm">Enter player name</label>
+        <input
+          type="text"
+          class="form-control q-mb-md mr-sm-2"
+          v-model="player"
+          :disabled="this.signQuota==0"
+          id="player"
+          name="player"
+          placeholder="Kaka"
+          @keyup="search"
+          list="hints"
+        /> -->
+        <q-input dense filled v-model="player" @keyup="search" label="Enter player name" />
 
-      <select
-        v-if="this.hints.length"
-        name="wanted"
-        id="wanted"
-        class="form-control mb-2 mr-sm-2"
-        v-model="wanted"
-        @change="push"
-      >
-        <option selected disabled>Open</option>
-        <option
-          v-for="hint in this.hints"
-          :value="hint"
-          :key="hint.id"
-          :disabled="signingList.includes(hint.id)"
-        >{{hint.nickname}}</option>
-      </select>
-      <button
-        v-if="this.wantedPlayers.length"
-        type="submit"
-        class="form-control btn btn-primary mb-2"
-        :disabled="wantedPlayers.length==0"
-      >Submit</button>
-      <br />
-    </form>
-    <br />
+        <!-- <div class="q-pa-md" style="max-width: 300px">
+            <div class="q-gutter-md q-mx-auto">
+              <q-select v-model="wanted" :options="hints" option-label="nickname" @change="push" />
+            </div>
+        </div> -->
+            <div class="q-gutter-md q-mx-auto">
+        <q-select
+          v-show="hints.length"
+          dense
+          filled
+          v-model="wanted"
+          :options="hints"
+          option-label="nickname"
+          option-value="id"
+          @input="push"
+          color="teal"
+          clearable
+          options-selected-class="text-deep-orange"
+        >
+          <!-- <template v-slot:option="scope">
+            <q-item
+              v-bind="scope.itemProps"
+              v-on="scope.itemEvents"
+            >
+              <q-item-section avatar>
+                <q-avatar :src="scope.opt.picture" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label v-html="scope.opt.label" />
+                <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template> -->
+        </q-select>
+        </div>
 
-    <table class="table table-hover" v-if="this.wantedPlayers.length">
+        <!-- <select
+          v-if="this.hints.length"
+          name="wanted"
+          id="wanted"
+          class="form-control mb-2 mr-sm-2"
+          v-model="wanted"
+          @change="push"
+        >
+          <option selected disabled>Open</option>
+          <option
+            v-for="hint in this.hints"
+            :value="hint"
+            :key="hint.id"
+            :disabled="signingList.includes(hint.id)"
+          >{{hint.nickname}}</option>
+        </select> -->
+        <!-- <button
+          v-if="this.wantedPlayers.length"
+          type="submit"
+          class="form-control btn btn-primary mb-2"
+          :disabled="wantedPlayers.length==0"
+        >Submit</button> -->
+
+    <!-- <br /> -->
+
+    <q-markup-table class="table table-hover" v-if="this.wantedPlayers.length">
       <thead>
         <tr>
           <td>Player</td>
@@ -78,8 +120,13 @@
           </td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </q-markup-table>
+        <div v-if="this.wantedPlayers.length">
+          <q-btn label="Submit" type="submit" color="primary"/>
+        </div>
+    </q-form>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -93,27 +140,29 @@ export default {
 
   data () {
     return {
-      hints: [],
+      hints: Array,
       player: '',
       wantedPlayers: [],
       wanted: null,
       show: false,
-      remSignCards: null
+      remSignCards: Number
     }
   },
 
-  created: function () {
+  mounted: function () {
+    this.remSignCards = this.signQuota
+  },
+
+  updated: function () {
     this.remSignCards = this.signQuota
   },
 
   methods: {
     votesSum: function () {
       let x = 0
-
       this.wantedPlayers.forEach(element => {
         x += element.votes
       })
-
       return x
     },
 
@@ -122,10 +171,10 @@ export default {
 
       if (x <= this.signQuota) {
         this.$axios
-          .post('/wanteds', {
+          .post('http://innouts.test/api/wanteds', {
             players: JSON.stringify(this.wantedPlayers),
             team: this.team.id,
-            user: this.user
+            userID: this.user.id
           })
           .then(response => {
             alert(response.data.message)
@@ -140,11 +189,13 @@ export default {
     search: function () {
       if (this.player.length) {
         this.$axios
-          .post('/api/search', { player: this.player, team: this.team.id })
+          .post('http://innouts.test/api/search', { player: this.player, team: this.team.id })
           .then(response => (this.hints = response.data))
           .catch(function (error) {
             console.log(error)
           })
+      } else {
+        this.hints = []
       }
     },
 
@@ -153,7 +204,7 @@ export default {
 
       if (this.wantedPlayers.length >= 1) {
         this.wantedPlayers.forEach(function (element) {
-          if (element.player.id === item.id) {
+          if (element.id === item.id) {
             uniq = false
           }
         })

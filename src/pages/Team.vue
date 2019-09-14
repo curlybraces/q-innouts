@@ -375,10 +375,10 @@
 
       <q-tab-panel name="business">
         <div class="row justify-center q-gutter-x-md">
-          <div class="col">
+          <div class="col-sm-4 col-grow text-center">
             <sign-form :team="team" :user="user" :signList="signList" :signQuota="signQuota"  />
           </div>
-          <div class="col">
+          <div class="col-sm-4 col-grow">
            <sell-form :team="team" :user="user" :sellingList="sellList" :sellQuota="sellQuota" />
           </div>
         </div>

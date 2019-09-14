@@ -272,8 +272,9 @@ export default {
     }
     this.$axios.get('http://innouts.test/api/windows')
       .then(response => {
-        this.windows = response.data.data
-        this.window = this.windows[0]
+        this.windows = response.data.visibleWindows
+        this.windows.unshift(response.data.activeWindow)
+        this.window = response.data.activeWindow
         this.transfers = this.window.transfers
         // this.windowChange()
         this.loading = false
