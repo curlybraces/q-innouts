@@ -343,7 +343,7 @@
                       </router-link>
                     </div>
                     <div class="text-center bg-t-dark">
-                      <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="team.manager.rating" :max="5" @input="submitRating" />
+                      <!-- <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="team.manager.rating" :max="5" @input="submitRating" /> -->
                     </div>
                 </div>
               </q-card-section>
@@ -405,7 +405,7 @@ const initialState = () => {
       },
       manager: Object
     },
-    stats: Object,
+    stats: Function,
     gks: [],
     cbs: [],
     lbs: [],

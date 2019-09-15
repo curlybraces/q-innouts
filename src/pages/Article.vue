@@ -28,13 +28,13 @@
       :mini="$q.screen.lt.md"
       content-class="bg-secondary"
       :breakpoint="600"
-      width="350"
+      :width="350"
       side="right"
       elevated
     >
-      <q-list v-if="teamsArticles.length || playersArticles.length" padding link dense class="col bg-secondary" >
+      <q-list v-if="similarArticles.length" padding link dense class="col bg-secondary" >
         <q-item-label header>Also</q-item-label>
-        <div v-for="(article) in teamsArticles.concat(playerArticles)" :key="article.id">
+        <div v-for="(article) in similarArticles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
             <!-- <q-item-section side >
@@ -56,9 +56,16 @@ export default {
 
   data: () => {
     return {
-      article: null,
-      teamsArticles: [],
-      playerArticles: []
+      article: {},
+      // teamsArticles: [],
+      // playersArticles: [],
+      similarArticles: [],
+    }
+  },
+
+  computed: {
+    rightDrawerOpen: function () {
+      return this.$store.getters.rightDrawer
     }
   },
 
@@ -103,15 +110,27 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      // this.setData()
     }
   },
 
   methods: {
     setData: function (response) {
       this.article = response.data.article
-      this.teamsArticles = response.data.teams_articles
-      this.playersArticles = response.data.players_articles
+      this.similarArticles = response.data.players_articles
+
+      response.data.teams_articles.forEach(element => {
+        response.data.players_articles.forEach(article => {
+          if (element.id !== article.id) {
+            this.similarArticles.push(element)
+          }
+        })
+      })
+      // this.similarArticles = Array.from(new Set(this.similarArticles.concat(response.data.teams_articles)))
+      // this.similarArticles = this.similarArticles.concat(response.data.teams_articles.filter(seccondArrayItem => {
+      //   this.similarArticles.forEach!this.similarArticles.includes(seccondArrayItem)
+      //   }))
+      // this.teamsArticles = response.data.teams_articles
+      // this.playersArticles = response.data.players_articles
     }
   }
 }

@@ -230,7 +230,7 @@ export default {
       }
     },
 
-    update: function ($event) {
+    update: function () {
       // alert($event.target.value)
       let x = this.votesSum()
 
