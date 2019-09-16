@@ -176,7 +176,7 @@ export default {
     axios.get('http://innouts.test/api/windows')
       .then(response => {
         next(vm => {
-          vm.windows = response.data.data
+          vm.windows = response.data.visibleWindows
           vm.window = vm.windows[0]
           vm.transfers = vm.window.transfers
           vm.loading = false

@@ -3,12 +3,14 @@
     <q-card-section class="text-left text-h6 bg-red-3">
       <span class="text-left" style="color: red;">&#10134;</span> Sell Players
     </q-card-section>
-    <q-card-section class="text-subtitle1 text-center">{{remSellCards}} sell cards remaining! (current window)</q-card-section>
+    <q-card-section class="text-subtitle1 text-center">{{remSellCards}} sell card(s) remaining! (current window)</q-card-section>
 
     <q-card-section>
       <div class="q-pa-md" style="">
           <div class="q-gutter-md">
-            <q-select filled v-model="selecteds" multiple :options="team.players" option-label="nickname" @input="check" />
+            <q-select filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
+              options-selected-class="text-negative"
+             />
           </div>
       </div>
 
@@ -34,7 +36,7 @@
             </select>
           </div> -->
 
-          <q-markup-table class="table table-hover" v-if="unwanteds.length">
+          <q-markup-table class="table table-hover q-mb-md" v-if="unwanteds.length">
             <thead>
               <tr>
                 <td>Player</td>
@@ -42,7 +44,6 @@
                 <td class="text-center">Remove?</td>
               </tr>
             </thead>
-
             <tbody>
               <tr v-for="unwanted in unwanteds" :key="unwanted.id">
                 <td>{{unwanted.player.firstName}} {{unwanted.player.lastName}}</td>
@@ -71,7 +72,6 @@
             </tbody>
           </q-markup-table>
 
-          <!-- <button type="submit" class="btn btn-primary" >Submit</button> -->
           <div class="row justify-center">
             <q-btn label="Submit" type="submit" :disable="this.unwanteds.length==0" color="primary"/>
           </div>
@@ -85,15 +85,15 @@ export default {
   props: {
     team: Object,
     user: Object,
-    sellingList: Array,
-    sellQuota: Number
+    sellingList: null,
+    sellQuota: null
   },
 
   data () {
     return {
       unwanteds: [],
-      selecteds: null,
-      remSellCards: Number
+      selecteds: [],
+      remSellCards: null
     }
   },
 
@@ -102,13 +102,12 @@ export default {
   },
 
   updated: function () {
-    this.remSellCards = this.sellQuota
+    // this.remSellCards = this.sellQuota
   },
 
   methods: {
     votesSum: function () {
       let x = 0
-
       this.unwanteds.forEach(element => {
         x += element.votes
       })
@@ -118,6 +117,7 @@ export default {
     check: function ($event) {
       if (this.remSellCards === 0) {
         alert('You have run out of sell cards, please review your choices!')
+        this.selecteds.splice(this.selecteds.length, 1)
       } else {
         this.unwanteds = []
         this.remSellCards = this.sellQuota
@@ -131,7 +131,8 @@ export default {
       }
     },
 
-    update: function (unwanted) {
+    update: function () {
+      // alert('hey')
       let x = this.votesSum()
       this.remSellCards = this.sellQuota - x
     },
@@ -140,6 +141,7 @@ export default {
       this.remSellCards += player.votes
       let index = this.unwanteds.indexOf(player)
       this.unwanteds.splice(index, 1)
+      this.selecteds.splice(index, 1)
     },
 
     submit: function () {
@@ -159,7 +161,19 @@ export default {
           .catch(function (error) {
             console.log(error)
           })
-      } else alert('You have used more cards than you got! fix it and retry.')
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'You have used more cards than you got! fix and retry.'
+        })
+      }
+    },
+
+    add: function (details) {
+      this.selecteds.push(details.value)
+      console.log(details)
     }
   }
 }

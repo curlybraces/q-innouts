@@ -416,7 +416,7 @@ export default {
       let password = this.password
       let remember = this.remember
       this.$store.dispatch('login', { email, password, remember })
-        .then(() => this.$router.push({ name: 'profile', params: { user: '123' } }))
+        .then((response) => this.$router.push({ name: 'profile', params: { user: response.data.user.id } }))
         .catch(err => {
           this.$q.notify({
             color: 'red-5',

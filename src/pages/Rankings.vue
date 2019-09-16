@@ -303,7 +303,7 @@ export default {
         descending: true,
       },
       managers: [],
-      players: null,
+      players: Object,
       fansColumns: [
         { name: 'fan', required: true, label: 'Fan', align: 'left', field: row => row },
         { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name.replace(/\b\w/g, l => l.toUpperCase()) },
@@ -362,7 +362,7 @@ export default {
             this.error = error
           })
         this.$q.loading.hide()
-      } else if (newVal === 'players' && !this.players) {
+      } else if (newVal === 'players' && !this.players.topOverall) {
         this.$q.loading.show()
         axios.get('http://innouts.test/api/rankings/players')
           .then(response => {

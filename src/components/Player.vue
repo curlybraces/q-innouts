@@ -119,9 +119,13 @@ export default {
         return {
           birthday: '',
           firstName: 'ab',
+          rating: null,
         }
       }
     },
+    // player: {
+    //   rating: 0.0
+    // }
   },
 
   computed: {

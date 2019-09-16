@@ -228,7 +228,7 @@
       elevated
     >
       <q-list padding link dense class="col bg-secondary" >
-        <q-item-label header>Latest Editorials</q-item-label>
+        <q-item-label header><q-icon name="chrome_reader_mode" left size="2rem" color="primary" class="" /> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>

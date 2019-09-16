@@ -50,6 +50,7 @@ module.exports = function (ctx) {
         'QHeader',
         'QIcon',
         'QImg',
+        'QInfiniteScroll',
         'QInput',
         'QItem',
         'QItemSection',

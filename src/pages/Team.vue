@@ -187,7 +187,7 @@
     </div>
     <q-tabs
     id="title"
-      v-model="tab" dense inline-label @input="tabChange"
+      v-model="tab" dense inline-label
       class="bg-primary text-white shadow-2"
     >
       <q-tab name="home" icon="group_work" label="Team" />
@@ -405,7 +405,7 @@ const initialState = () => {
       },
       manager: Object
     },
-    stats: Function,
+    stats: Object,
     gks: [],
     cbs: [],
     lbs: [],
@@ -425,7 +425,7 @@ const initialState = () => {
     headerStyle: {},
     fieldStyle: {},
     signQuota: null,
-    sellQuota: Number,
+    sellQuota: null,
     signList: Function,
     sellList: Function
   }
@@ -506,9 +506,8 @@ export default {
   },
 
   methods: {
-    tabChange: function (value) {
-      // alert('hey')
-    },
+    // tabChange: function (value) {
+    // },
 
     panelChange: function (newVal, oldVal) {
       if (newVal === 'business' && this.signQuota === null) {

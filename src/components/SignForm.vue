@@ -3,7 +3,7 @@
     <q-card-section class="text-h6 bg-green-3 text-left">
       <span style="">&#10133;</span> <q-icon name="add_circle" left size="2rem" color="green" class="" /> Sign Players
     </q-card-section>
-    <q-card-section class="text-subtitle1 q-pa-sm">
+    <q-card-section class="text-subtitle1 q-pa-s">
       {{remSignCards}} sign card(s) remaining! (current window)
     </q-card-section>
 
@@ -28,7 +28,7 @@
               <q-select v-model="wanted" :options="hints" option-label="nickname" @change="push" />
             </div>
         </div> -->
-            <div class="q-gutter-md q-mx-auto">
+            <div class="q-gutter-md q-mx-auto q-my-sm">
         <q-select
           v-show="hints.length"
           dense
@@ -41,21 +41,24 @@
           color="teal"
           clearable
           options-selected-class="text-deep-orange"
+          class="q-mx-none"
         >
-          <!-- <template v-slot:option="scope">
+          <template v-slot:option="scope">
             <q-item
               v-bind="scope.itemProps"
               v-on="scope.itemEvents"
             >
               <q-item-section avatar>
-                <q-avatar :src="scope.opt.picture" />
+                <q-avatar>
+                  <img :src="scope.opt.picture">
+                </q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label v-html="scope.opt.label" />
-                <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+                <q-item-label v-text="scope.opt.firstName + ' ' +  scope.opt.lastName" />
+                <q-item-label caption>{{ scope.opt.team.name }}</q-item-label>
               </q-item-section>
             </q-item>
-          </template> -->
+          </template>
         </q-select>
         </div>
 
@@ -84,7 +87,7 @@
 
     <!-- <br /> -->
 
-    <q-markup-table class="table table-hover" v-if="this.wantedPlayers.length">
+    <q-markup-table class="table table-hover q-mb-md" v-if="this.wantedPlayers.length">
       <thead>
         <tr>
           <td>Player</td>
@@ -134,8 +137,8 @@ export default {
   props: {
     team: Object,
     user: Object,
-    signingList: Array,
-    signQuota: Number
+    signingList: null,
+    signQuota: null
   },
 
   data () {
@@ -145,15 +148,15 @@ export default {
       wantedPlayers: [],
       wanted: null,
       show: false,
-      remSignCards: Number
+      remSignCards: null
     }
   },
 
-  mounted: function () {
+  created: function () {
     this.remSignCards = this.signQuota
   },
 
-  updated: function () {
+  mounted: function () {
     this.remSignCards = this.signQuota
   },
 
@@ -183,7 +186,14 @@ export default {
           .catch(function (error) {
             console.log(error)
           })
-      } else alert('You have used more cards than you got! fix it and retry.')
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'You have used more cards than you got! fix and retry.'
+        })
+      }
     },
 
     search: function () {

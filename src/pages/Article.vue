@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify- q-gutter-y-m">
       <div class="col-md-8 col offset- q-ml-lg">
-        <div class="text-h5 text-capitalize text-center q-py-md bg-primary text-secondary">
+        <div class="text-h5 text-capitalize text-center q-py-md bg-primary text-secondary q-px-md">
           {{article.title}}
           <div class="text-subtitle2 text-righ">BB</div>
         </div>
@@ -118,12 +118,17 @@ export default {
       this.article = response.data.article
       this.similarArticles = response.data.players_articles
 
+      // combining uniqe articles from both arrays
       response.data.teams_articles.forEach(element => {
-        response.data.players_articles.forEach(article => {
-          if (element.id !== article.id) {
-            this.similarArticles.push(element)
+        let uniq = true
+        for (let index = 0; index < response.data.players_articles.length; index++) {
+          if (element.id === response.data.players_articles[index].id) {
+            uniq = false
           }
-        })
+        }
+        if (uniq) {
+          this.similarArticles.push(element)
+        }
       })
       // this.similarArticles = Array.from(new Set(this.similarArticles.concat(response.data.teams_articles)))
       // this.similarArticles = this.similarArticles.concat(response.data.teams_articles.filter(seccondArrayItem => {
