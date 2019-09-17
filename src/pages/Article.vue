@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify- q-gutter-y-m">
-      <div class="col-md-8 col offset- q-ml-lg">
+      <div class="col-md-8 col offset- q-pa-md bordered rounded-borders" :class="articleClass">
         <div class="text-h5 text-capitalize text-center q-py-md bg-primary text-secondary q-px-md">
           {{article.title}}
           <div class="text-subtitle2 text-righ">BB</div>
@@ -60,6 +60,7 @@ export default {
       // teamsArticles: [],
       // playersArticles: [],
       similarArticles: [],
+      articleClass: {}
     }
   },
 
@@ -98,6 +99,9 @@ export default {
     this.$store.commit('setLeftDrawer', false)
     if (this.$q.platform.is.desktop) {
       this.$store.commit('setRightDrawer', true)
+      this.articleClass = {
+        'q-ml-xl': true
+      }
     }
   },
 

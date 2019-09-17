@@ -284,7 +284,7 @@ export default {
       },
       wantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
-        { name: 'team', align: 'center', label: 'team', field: row => row.player.team },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
         { name: 'suitor', align: 'center', label: 'Suitor', field: row => row.suitor },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
       ],

@@ -354,6 +354,7 @@
                 :rules="[
                   val => val.length >= 6 || 'Please use minimum 6 characters'
                 ]"
+                class="q-pb-sm"
               />
 
               <q-checkbox v-model="remember" label="Remember Me?" />
@@ -362,8 +363,9 @@
                 <q-btn label="Submit" type="submit" color="primary" size="sm"/>
                 <q-btn label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
               </div>
-
-              <q-btn  size="sm" push type="a" label="New Around? Register" to="/register" />
+              <div>
+                <q-btn to="/register"  size="sm" push type="a" label="New Around? Register" class="full-width" />
+              </div>
             </q-form>
             <q-separator/>
           </div>
@@ -416,7 +418,7 @@ export default {
       let password = this.password
       let remember = this.remember
       this.$store.dispatch('login', { email, password, remember })
-        .then((response) => this.$router.push({ name: 'profile', params: { user: response.data.user.id } }))
+        .then(() => this.$router.push({ name: 'home' }))
         .catch(err => {
           this.$q.notify({
             color: 'red-5',

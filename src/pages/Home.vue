@@ -2,11 +2,11 @@
   <q-page>
     <div id="team-header" class="row relative-position justify-around bg-accet" :style="headerStyle">
       <div id="profile-pic" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/images/anonymous-user.png'" alt="logo" class="fit" />
+        <q-img contain :src="user.picture" alt="logo" class="fit" />
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/'+this.user.team.logo" :alt="this.user.team.name" class="fit" />
+        <q-img contain :src="'statics/'+user.team.logo" :alt="this.user.team.name" class="fit" />
       </div>
     </div>
 
@@ -166,7 +166,7 @@ export default {
   },
 
   created: function () {
-    // alert('created')
+    alert('created')
     this.$store.commit('setRightDrawer', false)
     this.team = this.user.team
     this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'

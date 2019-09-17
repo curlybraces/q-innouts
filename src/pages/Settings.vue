@@ -218,6 +218,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Settings',
 
@@ -507,19 +508,25 @@ export default {
 
     uploadFile (files) {
       let formData = new FormData()
-      formData.append('profile', files)
+      formData.append('profile', files[0])
       let headers = {
         'Content-Type': 'multipart/form-data'
       }
+      formData.append('_method', 'PUT')
       console.log(files)
       console.log(this.$refs.profile.files[0])
-      this.$axios.put('http://innouts.test/api/users/' + this.user.id, { profile: files[0] }, headers)
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (response) {
-          console.log(response)
-        })
+      console.log(formData)
+      return new Promise((resolve, reject) => {
+        this.$axios.post('http://innouts.test/api/users/' + this.user.id, formData, headers)
+          .then(function (response) {
+            console.log(response)
+            resolve(files)
+          })
+          .catch(function (err) {
+            console.log(err)
+            reject(err)
+          })
+      })
     }
 
   }

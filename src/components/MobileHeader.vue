@@ -20,7 +20,7 @@
       >
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
-            <q-list class="bg-primar">
+            <q-list dense class="bg-primar">
               <q-item clickable  v-close-popup to="/home" >
                 <q-item-section avatar>
                   <q-avatar icon="home" color="secondar" size="2.1rem" text-color="" />
@@ -31,7 +31,7 @@
               </q-item>
               <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
                 <q-item-section avatar>
-                  <q-avatar icon="img:statics/images/club_logos/atletico-madrid.png" size="2.1rem" />
+                  <q-avatar :icon="'img:statics/'+user.team.logo" size="2.1rem" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>{{user.team.name}}</q-item-label>
@@ -51,13 +51,14 @@
           <q-separator vertical inset class="q-mx-md" />
 
           <div class="column items-center">
-            <q-avatar size="72px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <q-avatar size="52px">
+              <img :src="user.picture">
             </q-avatar>
 
-            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize">{{user.name}}</div>
+            <div class="text-subtitle1 q-mt-xs q-mb-xs text-capitalize">{{user.name}}</div>
 
             <q-btn
+              dense
               color="primary"
               label="Logout"
               @click="logout"
@@ -104,7 +105,9 @@
                 <q-btn label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
               </div>
 
-              <q-btn size="sm" push type="a" label="New Around? Register" to="/register" />
+              <div>
+                <q-btn to="/register"  size="sm" push type="a" label="New Around? Register" class="full-width" />
+              </div>
             </q-form>
             <q-separator/>
           </div>

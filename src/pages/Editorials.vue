@@ -4,13 +4,13 @@
       <div class="col-grow col-sm-9 col-md-7 bg-primar text-white border-primary rounded-borders">
         <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
           <q-infinite-scroll @load="onLoad" :offset="200">
-            <q-item clickable v-for="(article, index) in articles" :key="index" :to="'/articles/'+article.id" class="bg-primary">
+            <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id" class="bg-primary">
               <q-item-section to thumbnail class="q-ml-non">
                 <img :src="article.picture">
               </q-item-section>
 
               <q-item-section top>
-                <q-item-label header class="text-h5" >{{article.title}}</q-item-label>
+                <q-item-label header :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
                 <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
               </q-item-section>
 
@@ -19,7 +19,7 @@
                 <q-item-label caption>share</q-item-label>
               </q-item-section>
             </q-item>
-            <template v-slot:loading>
+            <template v-if="remains" v-slot:loading>
               <div class="row justify-center q-my-md">
                 <q-spinner-dots color="primary" size="40px" />
               </div>
@@ -53,6 +53,12 @@ export default {
   data: () => {
     return {
       articles: Array,
+      articleChunks: Array,
+      articleBag: Array,
+      ArticleHeaderClass: {
+        'text-h6': true
+      },
+      remains: true,
     }
   },
 
@@ -72,18 +78,31 @@ export default {
 
   created: function () {
     this.$store.commit('setRightDrawer', false)
+    if (this.$q.screen.lt.md) {
+      this.ArticleHeaderClass = {
+        'text-subtitle1': true
+      }
+    }
   },
 
   methods: {
     setData: function (res) {
       this.articles = res.data
+      this.articleChunks = chunk(this.articles, 2)
+      this.articleBag = this.articleChunks[0]
     },
 
     onLoad (index, done) {
       setTimeout(() => {
-        if (this.articles) {
-          this.articles.push({}, {}, {}, {}, {}, {}, {})
+        if (this.articleChunks[index]) {
+          // this.articles[index].forEach(element => {
+          //   this.articleBag.push(element)
+          // })
+          this.articleBag.push(...this.articleChunks[index])
           done()
+        }
+        if (this.articleBag.length === this.articles.length) {
+          this.remains = false
         }
       }, 2500)
     },
