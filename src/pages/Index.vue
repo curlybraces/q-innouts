@@ -4,13 +4,15 @@
       <q-carousel
         arrows
         animated
+        infinite
+        :autoplay="8000"
         v-model="slide"
         :height="carouselHeight"
       >
         <q-carousel-slide v-for="bulletin in bulletins" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div class="text-h4" >{{bulletin.title}}</div>
-            <div class="text-subtitle1" v-text="bulletin.body"></div>
+            <div :class="bulletTitleClass" >{{bulletin.title}}</div>
+            <div :class="bulletBodyClass" v-text="bulletin.body"></div>
           </div>
         </q-carousel-slide>
       </q-carousel>
@@ -172,7 +174,7 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
-                <q-linear-progress :value="6/10" class="q-mt-md"
+                <q-linear-progress :value="value.value" class="q-mt-md"
                 color="positive" track-color=""
                 />
               </q-td>
@@ -209,7 +211,7 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
-                <q-linear-progress :value="4/10" class="q-mt-md"
+                <q-linear-progress :value="value.value" class="q-mt-md"
                 color="negative" track-color=""
                 />
               </q-td>
@@ -268,7 +270,9 @@ export default {
   data: () => {
     return {
       slide: 1,
-      carouselHeight: '',
+      carouselHeight: '500px',
+      bulletTitleClass: {},
+      bulletBodyClass: {},
       columns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
@@ -286,13 +290,13 @@ export default {
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
         { name: 'suitor', align: 'center', label: 'Suitor', field: row => row.suitor },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       unwantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       wanteds: [],
       unwanteds: [],
@@ -313,6 +317,10 @@ export default {
     rightDrawerOpen: function () {
       return this.$store.getters.rightDrawer
     }
+  },
+
+  watch: {
+
   },
 
   beforeRouteEnter (to, from, next) {
@@ -344,10 +352,24 @@ export default {
     this.$store.commit('setLeftDrawer', false)
     if (this.$q.platform.is.mobile) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee']
-      this.carouselHeigth = '200px'
+      // console.log(this.carouselHeight)
+      this.carouselHeight = '250px'
+      this.bulletTitleClass = {
+        'text-h6': true
+      }
+      this.bulletBodyClass = {
+        'text-subtitle2': true
+      }
+      // console.log(this.carouselHeight)
     } else {
       this.$store.commit('setRightDrawer', true)
-      this.carouselHeigth = '600px'
+      this.carouselHeight = '600px'
+      this.bulletTitleClass = {
+        'text-h4': true
+      }
+      this.bulletBodyClass = {
+        'text-subtitle1': true
+      }
     }
   },
 

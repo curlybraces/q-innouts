@@ -5,7 +5,8 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'axios'
+      'axios',
+      'social'
     ],
 
     css: [
@@ -14,8 +15,8 @@ module.exports = function (ctx) {
 
     extras: [
       'roboto-font',
-      'material-icons' // optional, you are not bound to it
-      // 'ionicons-v4',
+      'material-icons', // optional, you are not bound to it
+      'ionicons-v4',
       // 'mdi-v3',
       // 'fontawesome-v5',
       // 'eva-icons'
@@ -83,7 +84,7 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QTooltip',
-        'QUploader'
+        'QUploader',
       ],
 
       directives: [
@@ -96,9 +97,9 @@ module.exports = function (ctx) {
         'Notify',
         'Loading',
         'Dialog'
-      ]
+      ],
 
-      // iconSet: 'ionicons-v4'
+      iconSet: 'ionicons-v4'
       // lang: 'de' // Quasar language
     },
 

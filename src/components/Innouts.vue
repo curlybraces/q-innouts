@@ -104,7 +104,7 @@
           </div>
         </div>
         <q-separator spaced />
-        <h6 class="text-center q-my-md bg-primary text-secondary">Fans' Wishlist!</h6>
+        <h6 class="text-center q-my-md bg-primary text-secondary">Fans' Transfers!</h6>
         <div class="row q-gutter-md">
           <div class="col-grow col-md">
             <div>
@@ -136,7 +136,7 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-cards" slot-scope="value" :props="value">
-                  <q-linear-progress :value="6/10" class="q-mt-md"
+                  <q-linear-progress :value="value.value" class="q-mt-md"
                   color="positive" track-color=""
                   />
                 </q-td>
@@ -163,7 +163,7 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-cards" slot-scope="value" :props="value">
-                  <q-linear-progress :value="4/10" class="q-mt-md"
+                  <q-linear-progress :value="value.value" class="q-mt-md"
                   color="negative" track-color=""
                   />
                 </q-td>
@@ -228,7 +228,7 @@ export default {
           sortable: true
         },
         { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       unwantedColumns: [
         {
@@ -240,7 +240,7 @@ export default {
           sortable: true
         },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.date, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       windows: [],
       window: null,

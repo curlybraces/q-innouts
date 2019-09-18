@@ -43,7 +43,7 @@
                   </q-pagination>
               </div>
             </div>
-            <div v-else class="text-subtitle1 text-center">No rumours here!</div>
+            <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default {
           this.$q.loading.hide()
         })
         .catch(error => {
-          this.error = error
+          console.log(error)
         })
     }
   }

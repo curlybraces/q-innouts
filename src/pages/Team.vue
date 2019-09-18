@@ -405,7 +405,7 @@ const initialState = () => {
       },
       manager: Object
     },
-    stats: Object,
+    stats: {},
     gks: [],
     cbs: [],
     lbs: [],

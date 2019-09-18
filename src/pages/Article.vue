@@ -21,6 +21,39 @@
             {{player.nickname}}
           </router-link>
         </div>
+        <social-sharing :url="'https://innouts.com/'+$route.fullPath"
+          :title="article.title"
+          :description="article.body"
+          :hashtags="tags"
+          twitter-user="innouts"
+          class="q-mt-md q-gutter-sm"
+          inline-template>
+          <div>
+            <q-fab color="primary" push icon="share" direction="right">
+              <q-fab-action color="primary" @click="onClick" icon="mail" />
+              <q-fab-action color="accent" @click="onClick" icon="alarm" />
+            </q-fab>
+            <q-icon name="share" color="" size="1.1rem" class="q-mt-none" />
+            <network network="twitter">
+              <q-icon name="ion-logo-twitter" color="blue" size="1.1rem" />
+            </network>
+            <network network="facebook">
+              <q-icon name="ion-logo-facebook"  color="blue-14" size="1.1rem"/>
+            </network>
+            <network network="reddit">
+              <q-icon name="ion-logo-reddit" color="orange" size="1.1rem"/>
+            </network>
+            <network network="vk">
+              <q-icon name="ion-logo-vk" color="blue-6" size="1.1rem"/>
+            </network>
+            <network network="email">
+                <q-icon name="ion-mail" color="black" size="1.1rem"/>
+            </network>
+            <network network="whatsapp">
+              <q-icon name="ion-logo-whatsapp" color="green-8" size="1.1rem"/>
+            </network>
+          </div>
+        </social-sharing>
       </div>
     </div>
     <q-drawer
@@ -60,7 +93,8 @@ export default {
       // teamsArticles: [],
       // playersArticles: [],
       similarArticles: [],
-      articleClass: {}
+      articleClass: {},
+      tags: []
     }
   },
 
@@ -121,6 +155,12 @@ export default {
     setData: function (response) {
       this.article = response.data.article
       this.similarArticles = response.data.players_articles
+      this.article.team.forEach(element => {
+        this.tags.push(element.name)
+      })
+      this.article.players.forEach(element => {
+        this.tags.push(element.nickname)
+      })
 
       // combining uniqe articles from both arrays
       response.data.teams_articles.forEach(element => {

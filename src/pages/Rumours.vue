@@ -6,7 +6,7 @@
         <div v-for="(rumour, idx) in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
           <q-card class="bg-secondary">
             <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md q-my-md">{{rumour.title}}</h6>
-            <q-card-section class="text-center">
+            <q-card-section class="text-center q-py-sm">
               <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
             </q-card-section>
             <q-card-section class="text-body1 text-justify" v-html="rumour.body" />

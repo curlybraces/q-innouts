@@ -76,7 +76,7 @@ export default {
 
   props: {
     team: Object,
-    stats: Object,
+    stats: {},
   },
 
   data () {
