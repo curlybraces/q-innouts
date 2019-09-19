@@ -6,7 +6,7 @@
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/'+user.team.logo" :alt="this.user.team.name" class="fit" />
+        <q-img contain :src="'statics/'+user.team.logo" :alt="user.team.name" class="fit" />
       </div>
     </div>
 
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import { date } from 'quasar'
+// import { date } from 'quasar'
 
 export default {
   name: 'Home',
@@ -161,16 +161,17 @@ export default {
 
   computed: {
     user: function () {
+      // console.log('computed')
       return this.$store.state.user
     }
   },
 
-  created: function () {
-    alert('created')
+  mounted: function () {
+    // console.log('created')
     this.$store.commit('setRightDrawer', false)
-    this.team = this.user.team
-    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-    this.headerStyle.backgroundPosition = this.team.stadium.position
+    // this.team = this.user.team
+    // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+    // this.headerStyle.backgroundPosition = this.team.stadium.position
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
       this.headerStyle.display = 'flex'
@@ -187,10 +188,16 @@ export default {
       .catch(error => {
         this.error = error
       })
-    this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
-    this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
-    let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
-    this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
+    // this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
+    // this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
+    // let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
+    // this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
+  },
+
+  updated: function () {
+    this.team = this.user.team
+    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+    this.headerStyle.backgroundPosition = this.team.stadium.position
   },
 
   watch: {
@@ -228,7 +235,12 @@ export default {
         if (this.sumCards('ins') <= 4) {
           this.$axios({ url: 'http://innouts.test/api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
-              console.log(response.data)
+              this.$q.notify({
+                color: 'green-4',
+                textColor: 'white',
+                icon: 'fas fa-check-circle',
+                message: 'Changes saved!'
+              })
             })
             .catch(err => console.log(err))
         } else {
@@ -243,7 +255,12 @@ export default {
         if (this.sumCards('outs') <= 4) {
           this.$axios({ url: 'http://innouts.test/api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
-              console.log(response.data)
+              this.$q.notify({
+                color: 'green-4',
+                textColor: 'white',
+                icon: 'fas fa-check-circle',
+                message: 'Changes saved!'
+              })
             })
             .catch(err => console.log(err))
         } else {

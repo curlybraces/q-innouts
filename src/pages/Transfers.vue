@@ -106,16 +106,23 @@
             </q-td>
 
             <q-td slot="body-cell-rating" slot-scope="value" :props="value">
-                <q-rating
-                  class=""
-                  :style="{color: value.value.color}"
-                  size="1.5rem"
-                  icon="thumb_up"
-                  :id="value.value.id"
-                  :value="value.value.rating"
-                  :max="5"
-                  @input="submitRating($event, value.value.id, value.value.__index)"
-                />
+              <div class="row">
+                <div class="col-10 col-sm-grow">
+                  <q-rating
+                    class=""
+                    :style="{color: value.value.color}"
+                    size="1.5rem"
+                    icon="thumb_up"
+                    :id="value.value.id"
+                    :value="value.value.rating"
+                    :max="5"
+                    @input="submitRating($event, value.value.id, value.value.__index)"
+                  />
+                </div>
+                <div class="col-sm-2 col-grow text-overline">
+                  {{value.value.votes}}
+                </div>
+              </div>
             </q-td>
 
           </q-table>

@@ -16,7 +16,6 @@
 
               <q-item-section side >
                 <q-item-label caption>11:56</q-item-label>
-                <q-item-label caption>share</q-item-label>
               </q-item-section>
             </q-item>
             <template v-if="remains" v-slot:loading>

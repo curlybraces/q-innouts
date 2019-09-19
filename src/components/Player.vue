@@ -10,14 +10,15 @@
           </div>
           <div class="row content-center bg-secondary q-mt-sm q-pb-sm">
             <div class="col-12 col-sm-grow text-center">
-              <q-rating
+              <!-- <q-rating
                 color="orange"
                 class="q-mx-auto q-mt-sm"
                 size="1.5rem"
                 :value="player.rating"
                 :max="5"
                 @input="submitRating"
-              />
+              /> -->
+              <rating />
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{player.votes}}</div>
           </div>
@@ -64,7 +65,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.height" >{{player.height}} cm</q-item-label>
-              <q-item-label v-else >N/A</q-item-label>
+              <q-item-label v-else >NA</q-item-label>
             </q-item-section>
           </q-item>
           <q-item >
@@ -73,7 +74,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.weight" >{{player.weight}} kg</q-item-label>
-              <q-item-label v-else >N/A</q-item-label>
+              <q-item-label v-else >NA</q-item-label>
             </q-item-section>
           </q-item>
           <q-item >
@@ -82,7 +83,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.foot" >{{player.foot}}</q-item-label>
-              <q-item-label v-else >N/A</q-item-label>
+              <q-item-label v-else >NA</q-item-label>
             </q-item-section>
           </q-item>
           <q-item >
@@ -91,13 +92,13 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.broadPosition" >{{player.broadPosition}}</q-item-label>
-              <q-item-label v-else >N/A</q-item-label>
+              <q-item-label v-else >NA</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
       </div>
     </div>
-    <div class="row justify-center">
+    <div v-if="player.specificPosition" class="row justify-center">
       <q-tabs
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
@@ -174,9 +175,14 @@
 
 <script>
 import { date } from 'quasar'
+const Rating = import('components/Rating.vue')
 
 export default {
   name: 'Player',
+
+  components: {
+    Rating,
+  },
 
   data: () => ({
     ratingModel: 1,
@@ -225,22 +231,24 @@ export default {
     'player' () {
       this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
-      this.$axios.get('http://innouts.test/api/rumours/players/' + this.$route.params.id)
-        .then(response => {
-          this.rumours = response.data
-          this.$q.loading.hide()
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
-        .then(response => {
-          this.articles = response.data
-          this.$q.loading.hide()
-        })
-        .catch(error => {
-          this.error = error
-        })
+      if (this.player.specificPosition) {
+        this.$axios.get('http://innouts.test/api/rumours/players/' + this.$route.params.id)
+          .then(response => {
+            this.rumours = response.data
+            this.$q.loading.hide()
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
+          .then(response => {
+            this.articles = response.data
+            this.$q.loading.hide()
+          })
+          .catch(error => {
+            this.error = error
+          })
+      }
     }
   },
 

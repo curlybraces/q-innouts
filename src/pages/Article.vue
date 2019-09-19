@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify- q-gutter-y-m">
       <div class="col-md-8 col offset- q-pa-md bordered rounded-borders" :class="articleClass">
-        <div class="text-h5 text-capitalize text-center q-py-md bg-primary text-secondary q-px-md">
+        <div class="text-capitalize text-center q-py-md bg-primary text-secondary q-px-md" :class="titleClass">
           {{article.title}}
           <div class="text-subtitle2 text-righ">BB</div>
         </div>
@@ -11,7 +11,7 @@
           :ratio="16/9"
           transition="slide-right"
         />
-        <div v-html="article.body" class="text-body1 text-justify text-center q-my-md"/>
+        <div id="body" v-html="article.body" class="text-body1 text-justify text-center q-my-md"/>
         <div class="row text-subtitle1 q-gutter-x-md">
           <!-- Tags: -->
           <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="team in article.teams" :key="team.id">
@@ -28,30 +28,36 @@
           twitter-user="innouts"
           class="q-mt-md q-gutter-sm"
           inline-template>
-          <div>
+          <div class="q-gutter-sm">
             <q-fab color="primary" push icon="share" direction="right">
-              <q-fab-action color="primary" @click="onClick" icon="mail" />
-              <q-fab-action color="accent" @click="onClick" icon="alarm" />
+              <!-- <q-fab-action color="primary" @click="onClick" icon="mail" />
+              <q-fab-action color="accent" @click="onClick" icon="alarm" /> -->
+              <network network="twitter" class="q-mr-xs">
+                <q-btn round color="blue" icon="ion-logo-twitter" size="xs"/>
+                <!-- <q-icon name="ion-logo-twitter" color="blue" size="1.1rem" /> -->
+              </network>
+              <network network="facebook" class="q-mr-xs">
+                <q-btn round color="blue-14" icon="ion-logo-facebook" size="xs"/>
+                <!-- <q-icon name="ion-logo-facebook"  color="blue-14" size="1.1rem"/> -->
+              </network>
+              <network network="reddit" class="q-mr-xs">
+                <!-- <q-icon name="ion-logo-reddit" color="orange" size="1.1rem"/> -->
+                <q-btn round color="orange" icon="ion-logo-reddit" size="xs"/>
+              </network>
+              <network network="vk" class="q-mr-xs">
+                <q-btn round color="blue-6" icon="ion-logo-vk" size="xs"/>
+                <!-- <q-icon name="ion-logo-vk" color="blue-6" size="1.1rem"/> -->
+              </network>
+              <network network="email" class="q-mr-xs">
+                <q-btn round color="black" icon="ion-mail" size="xs"/>
+                  <!-- <q-icon name="ion-mail" color="black" size="1.1rem"/> -->
+              </network>
+              <network network="whatsapp" class="q-mr-xs">
+                <q-btn round color="green-8" icon="ion-logo-whatsapp" size="xs"/>
+                <!-- <q-icon name="ion-logo-whatsapp" color="green-8" size="1.1rem"/> -->
+              </network>
             </q-fab>
-            <q-icon name="share" color="" size="1.1rem" class="q-mt-none" />
-            <network network="twitter">
-              <q-icon name="ion-logo-twitter" color="blue" size="1.1rem" />
-            </network>
-            <network network="facebook">
-              <q-icon name="ion-logo-facebook"  color="blue-14" size="1.1rem"/>
-            </network>
-            <network network="reddit">
-              <q-icon name="ion-logo-reddit" color="orange" size="1.1rem"/>
-            </network>
-            <network network="vk">
-              <q-icon name="ion-logo-vk" color="blue-6" size="1.1rem"/>
-            </network>
-            <network network="email">
-                <q-icon name="ion-mail" color="black" size="1.1rem"/>
-            </network>
-            <network network="whatsapp">
-              <q-icon name="ion-logo-whatsapp" color="green-8" size="1.1rem"/>
-            </network>
+            <!-- <q-icon name="share" color="" size="1.1rem" class="q-mt-none" /> -->
           </div>
         </social-sharing>
       </div>
@@ -94,7 +100,8 @@ export default {
       // playersArticles: [],
       similarArticles: [],
       articleClass: {},
-      tags: []
+      titleClass: {},
+      tags: ''
     }
   },
 
@@ -136,6 +143,13 @@ export default {
       this.articleClass = {
         'q-ml-xl': true
       }
+      this.titleClass = {
+        'text-h5': true
+      }
+    } else {
+      this.titleClass = {
+        'text-h6': true
+      }
     }
   },
 
@@ -155,11 +169,13 @@ export default {
     setData: function (response) {
       this.article = response.data.article
       this.similarArticles = response.data.players_articles
-      this.article.team.forEach(element => {
-        this.tags.push(element.name)
+      this.article.teams.forEach(element => {
+        this.tags = this.tags + element.name
+        this.tags += ', '
       })
       this.article.players.forEach(element => {
-        this.tags.push(element.nickname)
+        this.tags = this.tags + element.nickname
+        this.tags += ', '
       })
 
       // combining uniqe articles from both arrays
@@ -185,5 +201,23 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+
+.q-btn--fab
+  width: 15px
+  height: 15px
+  font-size: 15px
+
+.q-btn--fab .q-icon
+  font-size: 15px
+
+.q-btn--round
+  min-height: 2rem
+  min-width: 2rem
+
+#body::first-letter
+  font-size: 150%
+  color: $primary
+  margin-left: 0.7rem
+
 </style>

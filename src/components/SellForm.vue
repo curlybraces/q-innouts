@@ -8,7 +8,7 @@
     <q-card-section>
       <div class="q-pa-md" style="">
           <div class="q-gutter-md">
-            <q-select filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
+            <q-select dense filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
               options-selected-class="text-negative"
              />
           </div>
