@@ -10,21 +10,22 @@
           </div>
           <div class="row content-center bg-secondary q-mt-sm q-pb-sm">
             <div class="col-12 col-sm-grow text-center">
-              <!-- <q-rating
+              <q-rating
+                v-if="$q.screen.lt.md"
                 color="orange"
                 class="q-mx-auto q-mt-sm"
                 size="1.5rem"
-                :value="player.rating"
+                :value="player.rating/2"
                 :max="5"
                 @input="submitRating"
-              /> -->
-              <rating />
+              />
+              <rating v-else @save="submitRating" :rating="player.rating"  color="orange" size="1.4rem" class="q-mx-auto q-mt-sm"/>
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{player.votes}}</div>
           </div>
         </div>  <!-- children will default to 'col'  -->
       </div>
-      <div class="col-grow col-sm-8 q-pa-md bg-secondary">
+      <div class="col-grow col-sm-8 bg-secondary" :class="playerInfoClass">
         <q-list dense class="rounded-borders bg-primary" bordere dark>
           <q-item>
             <q-item-section>
@@ -107,7 +108,7 @@
         <q-tab name="editorials" icon="info" label="Editorials" />
       </q-tabs>
       <q-tab-panels keep-alive v-model="tab" swipeable animated
-      class="shadow- rounded-borders full-width"
+      class="shadow- rounded-borders full-width q-mb-md"
       >
         <q-tab-panel name="rumours">
           <div  v-if="rumours.length">
@@ -175,7 +176,7 @@
 
 <script>
 import { date } from 'quasar'
-const Rating = import('components/Rating.vue')
+const Rating = () => import('components/Rating.vue')
 
 export default {
   name: 'Player',
@@ -193,7 +194,8 @@ export default {
     panel: 'rumours',
     rumours: [],
     articles: [],
-    current: 1
+    current: 1,
+    playerInfoClass: {}
   }),
 
   props: {
@@ -225,6 +227,16 @@ export default {
   created: function () {
     this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
     this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
+
+    if (this.$q.screen.lt.md) {
+      this.playerInfoClass = {
+        'q-pa-xs': true
+      }
+    } else {
+      this.playerInfoClass = {
+        'q-pa-md': true
+      }
+    }
   },
 
   watch: {
@@ -254,8 +266,17 @@ export default {
 
   methods: {
     submitRating: function (value) {
+      let url = 'http://innouts.test/api/players/'
+      // if the entity is a manager
+      if (!this.player.specificPosition) {
+        url = 'http://innouts.test/api/managers/'
+      }
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        if (this.$q.screen.lt.md) {
+          value *= 2
+        }
+        // console.log(value)
+        this.$axios({ url: url + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
           })

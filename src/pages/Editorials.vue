@@ -5,7 +5,7 @@
         <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
           <q-infinite-scroll @load="onLoad" :offset="200">
             <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id" class="bg-primary">
-              <q-item-section to thumbnail class="q-ml-non">
+              <q-item-section thumbnail class="q-ml-non">
                 <img :src="article.picture">
               </q-item-section>
 
@@ -14,8 +14,8 @@
                 <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
               </q-item-section>
 
-              <q-item-section side >
-                <q-item-label caption>11:56</q-item-label>
+              <q-item-section v-if="article.time<1" side >
+                <q-badge color="red" label="today" align="top" floating/>
               </q-item-section>
             </q-item>
             <template v-if="remains" v-slot:loading>
@@ -35,6 +35,7 @@
 
 <script>
 import axios from 'axios'
+import { date } from 'quasar'
 
 const chunk = function (array, size) {
   if (!array.length) {
@@ -58,6 +59,7 @@ export default {
         'text-h6': true
       },
       remains: true,
+      date: new Date()
     }
   },
 
@@ -87,6 +89,10 @@ export default {
   methods: {
     setData: function (res) {
       this.articles = res.data
+      this.articles.forEach(element => {
+        let diff = date.getDateDiff(this.date, element.created_at, 'days')
+        element.time = diff
+      })
       this.articleChunks = chunk(this.articles, 2)
       this.articleBag = this.articleChunks[0]
     },

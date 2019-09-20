@@ -10,14 +10,21 @@
       </router-link>
     </div>
     <div class="text-center bg-t-dark">
-      <q-rating :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="0.9rem" :value="player.rating" :max="5" @input="submitRating" />
+      <!-- <q-rating v-if="$q.screen.lt.md" :style="{color: color}" icon="star" class="q-mx-auto q-my-none" size="0.9rem" :value="player.rating" :max="5" @input="submitRating" /> -->
+      <rating v-if="$q.screen.gt.sm" :rating="player.rating" @save="submitRating"  :color="color" size="0.9rem" class="q-mx-auto"/>
     </div>
   </div>
 </template>
 
 <script>
+const Rating = () => import('components/Rating.vue')
+
 export default {
   name: 'PlayerCard',
+
+  components: {
+    Rating
+  },
 
   props: {
     player: Object,

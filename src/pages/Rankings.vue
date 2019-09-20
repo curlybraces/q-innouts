@@ -74,9 +74,11 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
-                  <div id="" class="row inline person-thumbnail no-decor ellipsis">
-                    <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
-                  </div>
+                  <router-link :to="'/managers/' + value.value.id" class="no-decor" >
+                    <div id="" class="row inline person-thumbnail no-decor ellipsis">
+                      <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    </div>
+                  </router-link>
                   <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
                     {{value.value.firstName}} {{value.value.lastName}}
                   </router-link> -->

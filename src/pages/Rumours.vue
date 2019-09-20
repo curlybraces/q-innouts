@@ -2,12 +2,12 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-lg-6 col-md-7 col-sm-8">
-        <h4 id="title" class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4>
+        <div id="title" class="text-center text-h4 q-my-md bg-primary q-pa-md text-white rounded-borders">&#128301; Rumour Mill</div>
         <div v-for="(rumour, idx) in rumours.slice((current-1)*10, current*10)" :key="rumour.id">
           <q-card class="bg-secondary">
             <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md q-my-md">{{rumour.title}}</h6>
             <q-card-section class="text-center q-py-sm">
-              <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
+              <img :src="rumour.picture" :alt="rumour.title" class="border-primary rounded-borders" width="145" height="90">
             </q-card-section>
             <q-card-section class="text-body1 text-justify" v-html="rumour.body" />
             <q-card-section>

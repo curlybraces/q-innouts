@@ -40,6 +40,9 @@ const routes = [
         path: '/register', component: () => import('pages/Register.vue')
       },
       {
+        path: '/forgot', component: () => import('pages/Forgot.vue')
+      },
+      {
         path: '/home', name: 'home', component: () => import('pages/Home.vue'), meta: { requiresAuth: true }
       },
       {

@@ -102,7 +102,7 @@
 
               <div>
                 <q-btn label="Submit" type="submit" color="primary" size="sm"/>
-                <q-btn label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
+                <q-btn to="/forgot" label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
               </div>
 
               <div>

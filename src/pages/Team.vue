@@ -343,7 +343,7 @@
                       </router-link>
                     </div>
                     <div class="text-center bg-t-dark">
-                      <!-- <q-rating :style="{color: team.color}" icon="star" class="q-mx-auto q-my-none" size="1rem" :value="team.manager.rating" :max="5" @input="submitRating" /> -->
+                      <rating :rating="team.manager.rating" @save="submitManagerRating"  :color="color" size="0.9rem" class="q-mx-auto"/>
                     </div>
                 </div>
               </q-card-section>
@@ -396,6 +396,7 @@ const News = () => import('components/News.vue')
 const PlayerCard = () => import('components/PlayerCard.vue')
 const SellForm = () => import('components/SellForm.vue')
 const SignForm = () => import('components/SignForm.vue')
+const Rating = () => import('components/Rating.vue')
 
 const initialState = () => {
   return {
@@ -441,7 +442,8 @@ export default {
     News,
     PlayerCard,
     SellForm,
-    SignForm
+    SignForm,
+    Rating
   },
 
   data: () => {
@@ -592,6 +594,30 @@ export default {
         this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    },
+
+    submitManagerRating: function (value) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/managers/' + this.team.manager.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+          .then(response => {
+            this.team.manager.rating = value
           })
           .catch(error => {
             this.$q.notify({

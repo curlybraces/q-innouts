@@ -142,7 +142,7 @@
         </q-td>
 
       </q-table>
-      <div class="row q-gutter-md">
+      <div class="row" :class="fanTransfersRowClass">
         <div class="col-grow col-md">
           <div>
             <q-table
@@ -237,7 +237,7 @@
       elevated
     >
       <q-list padding link dense class="col bg-secondary" >
-        <q-item-label header><q-icon name="chrome_reader_mode" left size="2rem" color="primary" class="" /> Latest Editorials</q-item-label>
+        <q-item-label header class="bordered bg-primary"><q-icon name="chrome_reader_mode" left size="1.5rem" color="secondary" class="" /> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -246,8 +246,8 @@
                 {{article.title}}
               </q-tooltip>
             </q-item-section>
-            <q-item-section side >
-              <q-item-label caption>Today</q-item-label>
+            <q-item-section v-if="article.time<1" side >
+              <q-badge color="red" label="today" align="top" floating/>
             </q-item-section>
           </q-item>
           <q-separator />
@@ -270,6 +270,7 @@
 
 <script>
 import axios from 'axios'
+import { date } from 'quasar'
 
 export default {
   name: 'HomePage',
@@ -277,6 +278,7 @@ export default {
   data: () => {
     return {
       slide: 1,
+      date: new Date(),
       carouselHeight: '500px',
       bulletTitleClass: {},
       bulletBodyClass: {},
@@ -309,6 +311,7 @@ export default {
       unwanteds: [],
       bulletins: [],
       articles: [],
+      fanTransfersRowClass: {}
     }
   },
 
@@ -367,6 +370,9 @@ export default {
       this.bulletBodyClass = {
         'text-subtitle2': true
       }
+      this.fanTransfersRowClass = {
+        'q-gutter-y-md': true
+      }
       // console.log(this.carouselHeight)
     } else {
       this.$store.commit('setRightDrawer', true)
@@ -377,6 +383,9 @@ export default {
       this.bulletBodyClass = {
         'text-subtitle1': true
       }
+      this.fanTransfersRowClass = {
+        'q-gutter-sm': true
+      }
     }
   },
 
@@ -385,6 +394,10 @@ export default {
       this.transfers = response.data.transfers
       this.bulletins = response.data.bulletins
       this.articles = response.data.articles
+      this.articles.forEach(element => {
+        let diff = date.getDateDiff(this.date, element.created_at, 'days')
+        element.time = diff
+      })
       this.wanteds = response.data.wanteds
       this.unwanteds = response.data.unwanteds
     },

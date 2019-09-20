@@ -4,7 +4,7 @@
       <div class="col-md-8 col offset- q-pa-md bordered rounded-borders" :class="articleClass">
         <div class="text-capitalize text-center q-py-md bg-primary text-secondary q-px-md" :class="titleClass">
           {{article.title}}
-          <div class="text-subtitle2 text-righ">BB</div>
+          <div class="text-subtitle2 text-left"> &#128221;BB</div>
         </div>
         <q-img
           :src="article.picture"
@@ -218,6 +218,6 @@ export default {
 #body::first-letter
   font-size: 150%
   color: $primary
-  margin-left: 0.7rem
+  margin-left: 1rem
 
 </style>
