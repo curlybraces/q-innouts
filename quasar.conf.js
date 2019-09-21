@@ -41,8 +41,9 @@ module.exports = function (ctx) {
         'QChatMessage',
         'QCheckbox',
         'QDate',
-        // 'QDialog',
+        'QDialog',
         'QDrawer',
+        'QEditor',
         'QExpansionItem',
         'QFab',
         'QFabAction',
@@ -96,10 +97,11 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Loading',
-        'Dialog'
+        'Dialog',
+        'Cookies'
       ],
 
-      iconSet: 'ionicons-v4'
+      // iconSet: 'ionicons-v4'
       // lang: 'de' // Quasar language
     },
 

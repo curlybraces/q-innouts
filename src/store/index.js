@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { Cookies } from 'quasar'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -18,6 +19,7 @@ export default function (/* { ssrContext } */) {
     state: {
       status: '',
       token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
+      cookieConsent: false,
       user: Object,
       view: 'hHh lpr fff',
       leftDrawer: false,
@@ -30,7 +32,14 @@ export default function (/* { ssrContext } */) {
       user: state => state.user,
       view: state => state.view,
       leftDrawer: state => state.leftDrawer,
-      rightDrawer: state => state.rightDrawer
+      rightDrawer: state => state.rightDrawer,
+      cookieConsent: state => {
+        if (Cookies.has('cookieConsent')) {
+          return true
+        } else {
+          return false
+        }
+      }
     },
 
     mutations: {
@@ -76,6 +85,10 @@ export default function (/* { ssrContext } */) {
 
       toggleLeftDrawer (state) {
         state.leftDrawer = !state.leftDrawer
+      },
+
+      cookieAccepted (state) {
+        state.cookieConsent = true
       }
 
     },
@@ -148,6 +161,11 @@ export default function (/* { ssrContext } */) {
           resolve()
         })
       },
+
+      acceptCookies ({ commit }) {
+        Cookies.set('cookieConsent', true, { expires: 10 })
+        commit('cookieAccepted')
+      }
 
     },
     // enable strict mode (adds overhead!)

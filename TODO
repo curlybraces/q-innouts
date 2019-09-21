@@ -4,7 +4,7 @@ Todo:
   ✔ ratings out of 10 @high @done(19-09-20 23:56)
   ☐ forgot password implementation @critical 
   ☐ update the number of votes for a player rating when moving among teammates @low
-  ☐ use dialog to inform users of cookies or better yet a banner! @high 
+  ✔ use dialog to inform users of cookies or better yet a banner! @high @done(19-09-21 16:54)
   ☐ add talent scout feature! @low 
   
 

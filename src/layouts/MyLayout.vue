@@ -1,5 +1,17 @@
 <template>
   <q-layout :view="view" >
+    <q-dialog v-model="shouldConfirm" persistent position="bottom">
+      <q-card>
+        <q-card-section class="row items-center q-py-sm">
+          <span style='font-size:25px;'>&#127850;</span>
+          <span class="q-ml-sm">We bake cookies in your browser for a better experience. Happy with it?</span>
+        </q-card-section>
+
+        <q-card-actions align="center">
+          <q-btn @click="acceptCookies" size="sm" label="Fine" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <q-header reveal elevated class="glossy q-pa-xs">
       <desktop-header v-if="$q.platform.is.desktop" />
       <mobile-header v-else />
@@ -209,7 +221,7 @@ hey
 
 <script>
 import DesktopHeader from 'components/Header.vue'
-import MobileHeader from 'components/MobileHeader.vue'
+const MobileHeader = () => import('components/MobileHeader.vue')
 // import { openURL } from 'quasar'
 
 export default {
@@ -220,10 +232,11 @@ export default {
     MobileHeader
   },
 
-  // data: () => {
-  //   return {
-  //   }
-  // },
+  data: () => {
+    return {
+      // shouldConfirm: Boolean
+    }
+  },
 
   computed: {
     view: function () {
@@ -236,6 +249,10 @@ export default {
 
     rightDrawerOpen: function () {
       return this.$store.getters.rightDrawer
+    },
+
+    shouldConfirm () {
+      return !this.$store.getters.cookieConsent
     }
   },
 
@@ -247,6 +264,11 @@ export default {
     //   this.leftDrawerOpen = view[1]
     //   this.rightDrawerOpen = view[2]
     // },
+
+    acceptCookies () {
+      // console.log('accept method')
+      this.$store.dispatch('acceptCookies')
+    }
 
   },
 

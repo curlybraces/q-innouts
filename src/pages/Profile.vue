@@ -51,7 +51,7 @@
       </q-card>
       <div class="col-12 col-md-3 bg-secondar text-center q-pt-sm self-center">
         <div v-if="user.intro">
-          <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
+          <p class="text-h5 text-capitalize q-mb-sm"><span>&#128220;</span></p>
           <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
           <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
         </div>

@@ -326,7 +326,7 @@
         </div>
         <!-- manager -->
         <div class="row q-my-sm">
-          <div v-if="$q.screen.gt.sm" class="col-grow col-sm-4 col-md-3 col-lg-2 offset-sm-1">
+          <div v-if="$q.screen.gt.sm" class="col-grow col-sm-4 col-md-2 col-lg-2 offset-sm-1">
             <q-card dark class="">
               <q-card-section class="bg-primary text-center">
                 Manager

@@ -48,6 +48,9 @@ const routes = [
       {
         path: '/settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true }
       },
+      {
+        path: '/admin', component: () => import('pages/Admin.vue')
+      },
       // keep as last route
       {
         path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')

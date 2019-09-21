@@ -77,6 +77,7 @@
             >
               <q-input
                 filled
+                class="q-pb-sm"
                 type="email"
                 v-model="email"
                 label="Email *"
@@ -89,6 +90,7 @@
 
               <q-input
                 filled
+                class="q-pb-sm"
                 type="password"
                 v-model="password"
                 label="Password *"

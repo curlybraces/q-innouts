@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center" :class="{'q-gutter-none': !gutters}">
-    <div class="rate q-mr-sm" :style="ratingStyle" :class="{'is-disabled': archived}">
+    <div class="rate" :style="ratingStyle" :class="{'is-disabled': archived}">
       <!-- <div v-for="rating in ratings" :key="rating">
         <q-icon :name="rating%2!==0 ? 'star' : 'star-half'" />
       </div> -->

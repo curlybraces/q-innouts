@@ -237,7 +237,7 @@
       elevated
     >
       <q-list padding link dense class="col bg-secondary" >
-        <q-item-label header class="bordered bg-primary"><q-icon name="chrome_reader_mode" left size="1.5rem" color="secondary" class="" /> Latest Editorials</q-item-label>
+        <q-item-label header class=""><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -248,6 +248,9 @@
             </q-item-section>
             <q-item-section v-if="article.time<1" side >
               <q-badge color="red" label="today" align="top" floating/>
+            </q-item-section>
+            <q-item-section v-else-if="article.time<4" side >
+              <q-badge color="red-4" text-color="" label="new" align="top" floating/>
             </q-item-section>
           </q-item>
           <q-separator />

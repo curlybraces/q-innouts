@@ -65,7 +65,7 @@
 
           <div class="column">
             <q-list class="bg-secondary">
-              <q-item clickable dense v-close-popup to="/teams/22" active-class="text-accent">
+              <q-item clickable dense v-close-popup to="/leagues/4" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -73,7 +73,7 @@
                   <q-item-label>Bundesliga</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable dense v-close-popup to="/teams/21" active-class="text-accent">
+              <q-item clickable dense v-close-popup to="/leagues/5" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -81,7 +81,7 @@
                   <q-item-label>Ligue 1</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item clickable dense v-close-popup to="/teams/21" active-class="text-accent">
+              <q-item clickable dense v-close-popup to="/leagues/4" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar icon="img:statics/images/club_logos/barcelona.png" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
@@ -335,6 +335,7 @@
             >
               <q-input
                 filled
+                class="q-pb-sm"
                 type="email"
                 v-model="email"
                 label="Email *"
