@@ -5,7 +5,6 @@
       v-model="splitterModel"
       class=""
     >
-
       <template v-slot:before class="bg-accent">
         <div class="row justify-center no-wrap q-pa-sm bordere bg-primary">
           <div class="column items-center">
@@ -63,24 +62,7 @@
           </q-tab-panel>
           <q-tab-panel name="bulletins">
             <div class="column">
-              <div class="text-h5 q-pa-sm bordered bg-secondary">Create new bulletin</div>
-              <q-form
-                @submit="onBulletinSubmit"
-                @reset="onBulletinReset"
-                class="q-gutter-sm"
-              >
-                <q-input v-model="bulletinTitle" label="title" class="q-mb-sm" />
-                <q-editor v-model="bulletinBody" min-height="8rem" />
-                <q-uploader
-                  url="http://localhost:4444/upload" label="Choose appropriate image"
-                  style="max-width: 300px" accept="image/*" :max-file-size="800000"
-                  class="q-my-sm"
-                />
-              <div class="q-mt-lg">
-                <q-btn label="Submit" type="submit" color="primary" />
-                <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-              </div>
-              </q-form>
+              <bulletin-admin />
             </div>
           </q-tab-panel>
 
@@ -94,9 +76,9 @@
               <q-input v-model="articleTitle" label="title" class="q-mb-sm" />
               <q-editor v-model="articleBody" min-height="14rem" />
               <q-uploader
-                url="http://localhost:4444/upload" label="Choose appropriate image"
+                url="http://localhost:4444/upload" label="Choose appropriate image" hide-upload-btn
                 style="max-width: 300px" accept="image/*" :max-file-size="800000"
-                class="q-my-sm"
+                class="q-my-sm" ref="article"
               />
             <div class="q-mt-lg">
               <q-btn label="Submit" type="submit" color="primary" />
@@ -116,9 +98,9 @@
                 <q-input v-model="rumourTitle" label="title" class="q-mb-sm" />
                 <q-editor v-model="rumourBody" min-height="7rem" />
                 <q-uploader
-                  url="http://localhost:4444/upload" label="Choose appropriate image"
-                  style="max-width: 300px" accept="image/*" :max-file-size="100000"
-                  class="q-my-sm"
+                  url="http://localhost:4444/upload" label="Choose appropriate image" hide-upload-btn
+                  style="max-width: 300px" accept="image/*" :max-file-size="90000"
+                  class="q-my-sm" ref="rumour"
                 />
               <div class="q-mt-lg">
                 <q-btn label="Submit" type="submit" color="primary" />
@@ -144,7 +126,7 @@
                       <q-select filled v-model="team" :options="teams" option-label="name" option-value="id" label="Team" />
                     </div>
                     <div class="col-md-3">
-                      <q-select filled v-model="player" :options="players" option-label="name" option-value="id" label="Player" />
+                      <q-select filled v-model="player" :options="players" option-label="nickname" option-value="id" label="Player" />
                     </div>
                     <div class="col-md-3"></div>
                   </div>
@@ -157,9 +139,24 @@
                       <q-select filled v-model="targetTeam" :options="targetTeams" option-label="name" option-value="id" label="Team" />
                     </div>
                     <div class="col-md-3">
-                      <q-select filled v-model="player" :options="players" option-label="name" option-value="id" label="League" />
+                      <!-- <q-select filled v-model="player" :options="players" option-label="name" option-value="id" label="League" /> -->
                     </div>
                     <div class="col-md-3"></div>
+                  </div>
+                  <div class="text-h5 q-pa-sm">Details</div>
+                  <div class="row justify q-my-sm q-gutter-x-sm">
+                    <div class="col-md-2">
+                      <q-input v-model="fee" label="Fee (m£)" type="number" class="q-mb-sm" />
+                    </div>
+                    <div class="col-md-2">
+                      <q-input v-model="date" label="Date" type="date" class="q-mb-sm" />
+                    </div>
+                    <div class="col-md-2 self-center">
+                      <q-toggle v-model="loan" label="Loan transfer?" />
+                    </div>
+                    <div class="col-md-2">
+                      <q-input v-if="loan" v-model="returnDate" label="Return date" type="date" class="q-mb-sm" />
+                    </div>
                   </div>
                   <div class="q-mt-lg">
                     <q-btn label="Submit" type="submit" color="primary" />
@@ -175,19 +172,23 @@
 </template>
 
 <script>
+const BulletinAdmin = () => import('components/BulletinAdmin.vue')
+
 export default {
   name: 'AdminPanel',
+
+  components: {
+    BulletinAdmin,
+  },
 
   data () {
     return {
       tab: 'overview',
       splitterModel: 20,
-      bulletinTitle: '',
-      bulletinBody: 'Type-in the body...',
       articleTitle: '',
-      articleBody: 'Type-in the body...',
+      articleBody: '',
       rumourTitle: '',
-      rumourBody: 'Type-in the body...',
+      rumourBody: '',
       leagues: [],
       teams: [],
       league: null,
@@ -197,23 +198,33 @@ export default {
       targetLeague: null,
       targetTeams: [],
       targetTeam: null,
-      fee: '',
+      fee: null,
       loan: false,
-      date: '',
-      returnDate: '',
+      date: null,
+      returnDate: null,
 
     }
   },
 
   watch: {
     'team' () {
-      console.log('team change')
+      this.player = null
+      this.$axios.get('http://innouts.test/api/teams/players/' + this.team.id)
+        .then(response => {
+          this.players = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     'league' () {
       this.teams = this.league.teams
+      this.team = null
+      this.player = null
     },
     'targetLeague' () {
       this.targetTeams = this.targetLeague.teams
+      this.targetTeam = null
     }
   },
 
@@ -234,49 +245,119 @@ export default {
 
     },
 
-    onBulletinReset () {
-      this.bulletinTitle = ''
-      this.bulletinBody = 'Type-in the body...'
-    },
-
-    onBulletinSubmit () {
-
-    },
-
     onArticleReset () {
       this.articleTitle = ''
-      this.articleBody = 'Type-in the body...'
+      this.articleBody = ''
+      this.$refs.article.reset()
     },
 
     onArticleSubmit () {
-
+      if (this.articleTitle.length && this.articleBody.length && this.$refs.article.files[0]) {
+        let formData = new FormData()
+        formData.append('picture', this.$refs.article.files[0])
+        formData.append('title', this.articleTitle)
+        formData.append('body', this.articleBody)
+        let headers = {
+          'Content-Type': 'multipart/form-data'
+        }
+        this.$axios.post('http://innouts.test/api/articles', formData, headers)
+          .then(response => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: 'Article created!'
+            })
+            this.onArticleReset()
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Title, body and picture are not filled!'
+        })
+      }
     },
 
     onRumourReset () {
       this.rumourTitle = ''
-      this.rumourBody = 'Type-in the body...'
+      this.rumourBody = ''
+      this.$refs.rumour.reset()
     },
 
     onRumourSubmit () {
-
+      if (this.rumourTitle.length && this.rumourBody.length && this.$refs.rumour.files[0]) {
+        let formData = new FormData()
+        formData.append('picture', this.$refs.rumour.files[0])
+        formData.append('title', this.rumourTitle)
+        formData.append('body', this.rumourBody)
+        let headers = {
+          'Content-Type': 'multipart/form-data'
+        }
+        this.$axios.post('http://innouts.test/api/rumours', formData, headers)
+          .then(response => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: 'Rumour created!'
+            })
+            this.onRumourReset()
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Title, body and picture are not filled!'
+        })
+      }
     },
 
     onTransferReset () {
       this.league = null
       this.team = null
+      this.teams = []
       this.players = []
       this.player = null
       this.targetLeague = null
       this.targetTeams = []
       this.targetTeam = null
-      this.fee = ''
+      this.fee = null
       this.loan = false
-      this.date = ''
-      this.returnDate = ''
+      this.date = null
+      this.returnDate = null
     },
 
     onTransferSubmit () {
-
+      if (this.player && this.targetTeam && this.date) {
+        this.$axios({ url: 'http://innouts.test/api/transfers', data: { player_id: this.player.id, from: this.team.id, to: this.targetTeam.id, fee: this.fee, date: this.date, loan: this.loan, returnDate: this.returnDate }, method: 'POST' })
+          .then(response => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: 'Transfer completed!'
+            })
+            this.onTransferReset()
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Player, destination and date are not filled!'
+        })
+      }
     },
   }
 

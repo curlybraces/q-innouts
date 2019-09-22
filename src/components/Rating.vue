@@ -177,6 +177,7 @@ table .rate
 .rate > label, .rate > span
   float: right
   margin: 0
+  transition: transform 0.2s ease-in, opacity 0.2s ease-in
 
 /* The star of the show */
 .rate > label:before
