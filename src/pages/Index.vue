@@ -37,7 +37,7 @@
 
       <q-table
         class="my-sticky-header-table bg-secondary"
-        title="Biggest Transfers Summer 2019"
+        title="Biggest Transfers of Summer 2019"
         :dense="$q.screen.lt.md"
         :data="transfers"
         :columns="columns"
@@ -290,7 +290,7 @@ export default {
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee, sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (£m)', field: row => row.fee, sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row },
       ],
       visibleColumns: ['name', 'from', 'to', 'date', 'fee', 'rating'],

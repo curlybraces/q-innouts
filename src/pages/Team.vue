@@ -343,7 +343,7 @@
                       </router-link>
                     </div>
                     <div class="text-center bg-t-dark">
-                      <rating :rating="team.manager.rating" @save="submitManagerRating"  :color="color" size="0.9rem" class="q-mx-auto"/>
+                      <rating :rating="team.manager.rating" @save="submitManagerRating"  :color="team.color" size="0.9rem" class="q-mx-auto"/>
                     </div>
                 </div>
               </q-card-section>

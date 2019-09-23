@@ -35,7 +35,6 @@
               <q-item-label >{{player.firstName}}</q-item-label>
             </q-item-section>
           </q-item>
-
           <q-item >
             <q-item-section>
               <q-item-label>Last Name</q-item-label>
@@ -104,24 +103,49 @@
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
       >
+        <q-tab name="transfers" icon="swap_horiz" label="Transfers" />
         <q-tab name="rumours" icon="chat" label="Rumours" />
         <q-tab name="editorials" icon="info" label="Editorials" />
       </q-tabs>
       <q-tab-panels keep-alive v-model="tab" swipeable animated
       class="shadow- rounded-borders full-width q-mb-md"
       >
+        <q-tab-panel name="transfers" :class="transfersClass">
+          <q-markup-table v-if="transfers.length" dense separator="none" bordere class="" >
+            <thead class="bg-primary text-white">
+              <tr class="text-left">
+                <th>From</th>
+                <th>To</th>
+                <th>Fee (£m)</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="transfer in transfers" :key="transfer.id">
+                <td>{{ transfer.from.name }}</td>
+                <td>{{ transfer.to.name }}</td>
+                <td>{{ transfer.fee ? transfer.fee : 'Free' }}</td>
+                <td>{{ transfer.date }}</td>
+              </tr>
+            </tbody>
+          </q-markup-table>
+          <div v-else class="text-subtitle1 text-center text-black">
+            No recorded transfers!
+          </div>
+        </q-tab-panel>
         <q-tab-panel name="rumours">
           <div  v-if="rumours.length">
             <div v-for="(rumour, idx) in rumours.slice((current-1)*5, current*5)" :key="rumour.id">
               <q-card class="bg-secondary">
+                <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" floating transparent/>
                 <div class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-sm q-mt-sm text-subtitle2">{{rumour.title}}</div>
-                <q-card-section class="text-body1 text-justify" v-html="rumour.body" >
+                <q-card-section class="text-body2 text-justify" v-html="rumour.body" >
                   <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
                 </q-card-section>
                 <q-card-section>
                   <div class="row justify-center">
                     <div class="col col-sm-1">
-                    <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" size="sm" class="float-right q-mr-sm" />
+                    <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" size="xs" class="float-right q-mr-sm" />
                     </div>
                     <div class="col-6 col-sm-8">
                       <q-linear-progress :value="rumour.upVotes/(rumour.upVotes+rumour.downVotes)" class="q-mt-md"
@@ -129,18 +153,18 @@
                       />
                     </div>
                     <div class="col col-sm-1">
-                    <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" size="sm" class="q-ml-sm" />
+                    <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" size="xs" class="q-ml-sm" />
                     </div>
                   </div>
                 </q-card-section>
               </q-card>
             </div>
-            <div class="q-pa-lg q-my-md flex flex-center">
+            <div class="q-pa-lg q-my-sm flex flex-center">
                 <q-pagination
                   v-model="current"
                   :max="Math.ceil(rumours.length/5)"
                   :direction-links="true"
-                  size="15px"
+                  size="10px"
                 >
                 </q-pagination>
             </div>
@@ -156,12 +180,10 @@
 
               <q-item-section top>
                 <q-item-label header class="text-subtitle1" >{{article.title}}</q-item-label>
-                <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
               </q-item-section>
 
               <q-item-section side >
                 <q-item-label caption>11:56</q-item-label>
-                <q-item-label caption>share</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -190,12 +212,14 @@ export default {
     age: null,
     date: new Date(),
     birthFormatted: null,
-    tab: 'rumours',
-    panel: 'rumours',
+    tab: 'transfers',
+    // panel: 'transfers',
     rumours: [],
     articles: [],
     current: 1,
-    playerInfoClass: {}
+    playerInfoClass: {},
+    transfersClass: {},
+    transfers: []
   }),
 
   props: {
@@ -232,6 +256,9 @@ export default {
       this.playerInfoClass = {
         'q-pa-xs': true
       }
+      this.transfersClass = {
+        'q-pa-xs': true
+      }
     } else {
       this.playerInfoClass = {
         'q-pa-md': true
@@ -243,11 +270,11 @@ export default {
     'player' () {
       this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
+      this.tab = 'transfers'
       if (this.player.specificPosition) {
         this.$axios.get('http://innouts.test/api/rumours/players/' + this.$route.params.id)
           .then(response => {
             this.rumours = response.data
-            this.$q.loading.hide()
           })
           .catch(error => {
             console.log(error)
@@ -255,7 +282,13 @@ export default {
         this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
           .then(response => {
             this.articles = response.data
-            this.$q.loading.hide()
+          })
+          .catch(error => {
+            this.error = error
+          })
+        this.$axios.get('http://innouts.test/api/transfers/players/' + this.$route.params.id)
+          .then(response => {
+            this.transfers = response.data.data
           })
           .catch(error => {
             this.error = error
@@ -279,6 +312,36 @@ export default {
         this.$axios({ url: url + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please login or register to rate.'
+        })
+      }
+    },
+
+    submitVote: function (val, key, index) {
+      if (this.loggedIn) {
+        this.$axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
+          .then(response => {
+            if (val === 1) {
+              this.rumours[index].vote = 'up'
+            } else {
+              this.rumours[index].vote = 'down'
+            }
+            this.rumours[index].upVotes = response.data.ups
+            this.rumours[index].downVotes = response.data.downs
           })
           .catch(error => {
             this.$q.notify({

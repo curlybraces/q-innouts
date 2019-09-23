@@ -8,7 +8,8 @@
               <!-- <h4 class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4> -->
               <div v-for="(rumour, idx) in rumours.slice((current-1)*5, current*5)" :key="rumour.id">
                 <q-card class="bg-secondary">
-                  <h6 class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-md q-mt-md">{{rumour.title}}</h6>
+                  <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" align="top" floating transparent />
+                  <div class="text-subtitle1 text-center text-uppercase bg-primary text-secondary q-pa-sm q-my-sm">{{rumour.title}}</div>
                   <!-- <q-card-section class="text-center">
                     <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
                   </q-card-section> -->
@@ -38,7 +39,7 @@
                     v-model="current"
                     :max="Math.ceil(rumours.length/5)"
                     :direction-links="true"
-                    size="15px"
+                    size="12px"
                   >
                   </q-pagination>
               </div>

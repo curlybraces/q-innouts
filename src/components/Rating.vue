@@ -61,9 +61,9 @@ export default {
 
   watch: {
     'rating' () {
-      console.log('inside watch')
-      console.log('rating is ' + this.rating)
-      console.log('value is ' + this.value)
+      // console.log('inside watch')
+      // console.log('rating is ' + this.rating)
+      // console.log('value is ' + this.value)
       this.value = this.rating
       this.temp_value = Math.round(this.rating * 1) / 1
     }

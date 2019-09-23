@@ -2,7 +2,7 @@
   <div>
     <q-tabs
       v-model="bullTab"
-      class="text-primary shadow-2 rounded-borders"
+      class="text-primary bg-secondary shadow-2 rounded-borders"
       active-bg-color="accen"
       active-color="accent"
     >
@@ -37,10 +37,19 @@
           </q-form>
         </q-tab-panel>
         <q-tab-panel name="edit">
+          <q-markup-table dense >
+          <thead>
+            <tr class="text-left">
+              <!-- <th>Img</th> -->
+              <th>Title</th>
+              <th>Body</th>
+            </tr>
+          </thead>
+          </q-markup-table>
           <q-list
             no-border
             inset-delimiter
-            class="bg-secondary"
+            class=""
           >
             <div v-for="(bullet, idx) in bulletins" :key="bullet.id">
               <q-item active-class="text-white bg-primary">
@@ -51,7 +60,7 @@
                 </q-item-section>
                 <q-item-section>
                   <div v-html="bullet.title"></div>
-                  <q-popup-edit :v-model="bullet.title" @save="saveTitle" @input="cancelTitle($event, idx)" buttons title="Update" persistent>
+                  <q-popup-edit :value="bullet.title" @save="saveTitle" @input="cancelTitle($event, idx)" buttons title="Update" persistent>
                     <q-input
                       filled
                       type="text"
@@ -64,8 +73,9 @@
                 <q-item-section>
                   <q-editor v-model="bullet.body" min-height="5rem" />
                 </q-item-section>
-                <q-item-section side>
-                  <q-btn color="red" text-color="white" label="Delete" @click="remove(bullet.id)" size="sm" v-close-popup />
+                <q-item-section side class="q-gutter-y-sm">
+                  <q-btn color="red" text-color="white" label="Delete" @click="remove(bullet.id)" size="xs" v-close-popup />
+                  <q-btn color="green" class="full-width" text-color="white" label="Save" @click="save(idx)" size="sm" v-close-popup />
                 </q-item-section>
               </q-item>
               <q-separator />
@@ -169,7 +179,29 @@ export default {
     },
 
     cancelTitle (initValue, bulletIdx) {
-      this.bulletins[bulletIdx] = initValue
+      this.bulletins[bulletIdx].title = initValue
+    },
+
+    save (idx) {
+      let bullet = this.bulletins[idx]
+      this.$axios({ url: 'http://innouts.test/api/bulletins/' + bullet.id, data: { title: bullet.title, body: bullet.body }, method: 'PUT' })
+        .then(response => {
+          this.fetchData()
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Bulletind updated!'
+          })
+        })
+        .catch(error => {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: error.response.data.error
+          })
+        })
     }
   }
 }

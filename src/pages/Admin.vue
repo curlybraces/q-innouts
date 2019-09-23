@@ -12,7 +12,7 @@
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSyb_bl2yTpKhgn__vbbP9_2hPU8AfzvyhH16xZnK1l1zH3MxaP">
             </q-avatar>
 
-            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize">admin name</div>
+            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize text-white">admin name</div>
 
             <q-btn
               color="secondary"
@@ -67,47 +67,11 @@
           </q-tab-panel>
 
           <q-tab-panel name="articles" class="q-pa-s">
-            <div class="text-h5 q-pa-sm bordered bg-secondary">Create new article</div>
-            <q-form
-              @submit="onArticleSubmit"
-              @reset="onArticleReset"
-              class="q-gutter-sm"
-            >
-              <q-input v-model="articleTitle" label="title" class="q-mb-sm" />
-              <q-editor v-model="articleBody" min-height="14rem" />
-              <q-uploader
-                url="http://localhost:4444/upload" label="Choose appropriate image" hide-upload-btn
-                style="max-width: 300px" accept="image/*" :max-file-size="800000"
-                class="q-my-sm" ref="article"
-              />
-            <div class="q-mt-lg">
-              <q-btn label="Submit" type="submit" color="primary" />
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-            </div>
-            </q-form>
+            <article-admin />
           </q-tab-panel>
 
           <q-tab-panel name="rumours">
-            <div class="column">
-              <div class="text-h5 q-pa-sm bordered bg-secondary">Create new rumour</div>
-              <q-form
-                @submit="onRumourSubmit"
-                @reset="onRumourReset"
-                class="q-gutter-sm"
-              >
-                <q-input v-model="rumourTitle" label="title" class="q-mb-sm" />
-                <q-editor v-model="rumourBody" min-height="7rem" />
-                <q-uploader
-                  url="http://localhost:4444/upload" label="Choose appropriate image" hide-upload-btn
-                  style="max-width: 300px" accept="image/*" :max-file-size="90000"
-                  class="q-my-sm" ref="rumour"
-                />
-              <div class="q-mt-lg">
-                <q-btn label="Submit" type="submit" color="primary" />
-                <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-              </div>
-              </q-form>
-            </div>
+            <rumour-admin />
           </q-tab-panel>
           <q-tab-panel name="transfers">
             <div class="column">
@@ -168,17 +132,24 @@
         </q-tab-panels>
       </template>
     </q-splitter>
+    <div class="text-h6 q-pa-sm" v-else>
+      Admin page is optimized for desktop use only!
+    </div>
   </q-page>
 </template>
 
 <script>
 const BulletinAdmin = () => import('components/BulletinAdmin.vue')
+const ArticleAdmin = () => import('components/ArticleAdmin.vue')
+const RumourAdmin = () => import('components/RumourAdmin.vue')
 
 export default {
   name: 'AdminPanel',
 
   components: {
     BulletinAdmin,
+    ArticleAdmin,
+    RumourAdmin
   },
 
   data () {

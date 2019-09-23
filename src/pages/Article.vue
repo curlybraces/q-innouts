@@ -4,7 +4,14 @@
       <div class="col-md-8 col offset- q-pa-md bordered rounded-borders" :class="articleClass">
         <div class="text-capitalize text-center q-py-md bg-primary text-secondary q-px-md" :class="titleClass">
           {{article.title}}
-          <div class="text-subtitle2 text-left"> &#128221;BB</div>
+          <div class="row text-subtitle2 text-left">
+            <div class="text-left col"> &#128221;BB
+
+            </div>
+            <div class="text-right col inline">
+              &#128347;{{ article.created_at.split(' ')[0] }}
+            </div>
+          </div>
         </div>
         <q-img
           :src="article.picture"
@@ -25,6 +32,7 @@
           :title="article.title"
           :description="article.body"
           :hashtags="tags"
+          :quote="article.title"
           twitter-user="innouts"
           class="q-mt-md q-gutter-sm"
           inline-template>

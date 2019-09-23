@@ -52,6 +52,7 @@
                     :value="value.value.rating"
                     :max="5"
                     @input="submitRating($event, value.value.id, value.value.__index, 'ins')"
+                    :readonly="window.rateArchived"
                   />
                 </q-td>
               </q-table>
@@ -97,6 +98,7 @@
                     :value="value.value.rating"
                     :max="5"
                     @input="submitRating($event, value.value.id, value.value.__index, 'outs')"
+                    :readonly="window.rateArchived"
                   />
                 </q-td>
               </q-table>
