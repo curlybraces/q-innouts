@@ -134,41 +134,7 @@
           </div>
         </q-tab-panel>
         <q-tab-panel name="rumours">
-          <div  v-if="rumours.length">
-            <div v-for="(rumour, idx) in rumours.slice((current-1)*5, current*5)" :key="rumour.id">
-              <q-card class="bg-secondary">
-                <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" floating transparent/>
-                <div class="text-center text-uppercase bg-primary text-secondary q-mb-sm q-pa-sm q-mt-sm text-subtitle2">{{rumour.title}}</div>
-                <q-card-section class="text-body2 text-justify" v-html="rumour.body" >
-                  <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
-                </q-card-section>
-                <q-card-section>
-                  <div class="row justify-center">
-                    <div class="col col-sm-1">
-                    <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" size="xs" class="float-right q-mr-sm" />
-                    </div>
-                    <div class="col-6 col-sm-8">
-                      <q-linear-progress :value="rumour.upVotes/(rumour.upVotes+rumour.downVotes)" class="q-mt-md"
-                      color="positive" track-color="negative"
-                      />
-                    </div>
-                    <div class="col col-sm-1">
-                    <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" size="xs" class="q-ml-sm" />
-                    </div>
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
-            <div class="q-pa-lg q-my-sm flex flex-center">
-                <q-pagination
-                  v-model="current"
-                  :max="Math.ceil(rumours.length/5)"
-                  :direction-links="true"
-                  size="10px"
-                >
-                </q-pagination>
-            </div>
-          </div>
+          <rumours v-if="rumours.length" :rumours="rumours" :chunk="5" btnSize="xs" :dense="true" />
           <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
         </q-tab-panel>
         <q-tab-panel name="editorials">
@@ -199,12 +165,14 @@
 <script>
 import { date } from 'quasar'
 const Rating = () => import('components/Rating.vue')
+const Rumours = () => import('components/Rumours.vue')
 
 export default {
   name: 'Player',
 
   components: {
     Rating,
+    Rumours
   },
 
   data: () => ({
@@ -245,6 +213,21 @@ export default {
 
     user: function () {
       return this.$store.state.user
+    },
+
+    fullname () {
+      return this.player.firstName + ' ' + this.player.lastName
+    }
+  },
+
+  meta () {
+    return {
+      title: this.player.nickname + ' - Innouts | You Come first!',
+
+      meta: {
+        description: { name: 'description', content: this.fullname + ' is a football player from ' + this.player.nationality + ' playing for ' + this.player.team.name + '.' },
+        keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.team.name, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
+      },
     }
   },
 

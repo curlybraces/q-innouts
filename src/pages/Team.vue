@@ -192,7 +192,7 @@
     >
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <q-tab name="chat" icon="chat" label="Rumours" />
+      <q-tab name="rumours" icon="chat" label="Rumours" />
       <q-tab name="news" icon="info" label="Editorials" />
       <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" />
     </q-tabs>
@@ -365,8 +365,13 @@
         <innouts :team="team" />
       </q-tab-panel>
 
-      <q-tab-panel name="chat">
-        <chat />
+      <q-tab-panel name="rumours">
+        <div class="row justify-center">
+          <div class="col-lg-6 col-md-8 col-sm-10">
+            <rumours v-if="rumours.length" :rumours="rumours" :dense="true" btnSize="xs" />
+            <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
+          </div>
+        </div>
       </q-tab-panel>
 
       <q-tab-panel name="news">
@@ -390,13 +395,14 @@
 <script>
 import axios from 'axios'
 const Innouts = () => import('components/Innouts.vue')
-const Chat = () => import('components/Chat.vue')
+// const Chat = () => import('components/Chat.vue')
 const Fans = () => import('components/Fans.vue')
 const News = () => import('components/News.vue')
 const PlayerCard = () => import('components/PlayerCard.vue')
 const SellForm = () => import('components/SellForm.vue')
 const SignForm = () => import('components/SignForm.vue')
 const Rating = () => import('components/Rating.vue')
+const Rumours = () => import('components/Rumours.vue')
 
 const initialState = () => {
   return {
@@ -404,6 +410,7 @@ const initialState = () => {
       stadium: {
         capacity: Number,
       },
+      league: {},
       manager: Object
     },
     stats: {},
@@ -420,7 +427,7 @@ const initialState = () => {
     rws: [],
     sss: [],
     cfs: [],
-    // articles: [],
+    rumours: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},
@@ -437,13 +444,14 @@ export default {
 
   components: {
     Innouts,
-    Chat,
+    // Chat,
     Fans,
     News,
     PlayerCard,
     SellForm,
     SignForm,
-    Rating
+    Rating,
+    Rumours
   },
 
   data: () => {
@@ -457,6 +465,17 @@ export default {
 
     user: function () {
       return this.$store.state.user
+    }
+  },
+
+  meta () {
+    return {
+      title: this.team.name + ' - Innouts',
+
+      meta: {
+        description: { name: 'description', content: this.team.name + ' is a football club from ' + this.team.league.country + ' playing in the ' + this.team.league.name + '. Check the squad, latest transfers, rumours and analysis here.' },
+        keywords: { name: 'keywords', content: [this.team.name, this.team.name + ' football club', this.team.stadium.name, this.team.name + ' transfers', this.team.name + ' transfer rumours', this.team.name + ' analysis'] },
+      },
     }
   },
 
@@ -508,8 +527,6 @@ export default {
   },
 
   methods: {
-    // tabChange: function (value) {
-    // },
 
     panelChange: function (newVal, oldVal) {
       if (newVal === 'business' && this.signQuota === null) {
@@ -519,6 +536,16 @@ export default {
             this.sellQuota = response.data.sellQuota
             this.signList = response.data.wanteds
             this.sellList = response.data.unwanteds
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      } else if (newVal === 'rumours' && !this.rumours.length) {
+        this.$q.loading.show()
+        this.$axios.get('http://innouts.test/api/rumours/teams/' + this.$route.params.team)
+          .then(response => {
+            this.rumours = response.data
+            this.$q.loading.hide()
           })
           .catch(error => {
             console.log(error)

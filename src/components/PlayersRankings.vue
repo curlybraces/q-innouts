@@ -12,6 +12,12 @@
           row-key="name"
           class="bg-secondary"
         >
+          <q-td slot="body-cell-rank" slot-scope="value" :props="value">
+            <div :style="medalStyle" v-if="value.value===1">&#129351;</div>
+            <div :style="medalStyle" v-else-if="value.value===2">&#129352;</div>
+            <div :style="medalStyle" v-else-if="value.value===3">&#129353;</div>
+            <div v-else>{{value.value}}</div>
+          </q-td>
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
@@ -197,6 +203,7 @@ export default {
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
       ],
       overallColumns: [
+        { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'nationality', align: 'left', label: 'Nationality', field: 'nationality', sortable: true },
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
@@ -205,8 +212,8 @@ export default {
       ],
       pagination: {
         rowsPerPage: 10,
-        sortBy: 'score',
-        descending: true,
+        sortBy: 'rank',
+        descending: false,
       },
       u23Pagination: {
         rowsPerPage: 10,
@@ -233,6 +240,7 @@ export default {
         sortBy: 'score',
         descending: true,
       },
+      medalStyle: {}
     }
   },
 
@@ -240,6 +248,15 @@ export default {
     players: {
       topOverall: null,
     },
+  },
+
+  created () {
+    if (this.$q.platform.is.desktop) {
+      this.medalStyle = {
+        fontSize: '17px'
+      }
+    } else {
+    }
   }
 }
 </script>

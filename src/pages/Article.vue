@@ -1,15 +1,15 @@
 <template>
   <q-page padding>
     <div class="row justify- q-gutter-y-m">
-      <div class="col-md-8 col offset- q-pa-md bordered rounded-borders" :class="articleClass">
-        <div class="text-capitalize text-center q-py-md bg-primary text-secondary q-px-md" :class="titleClass">
-          {{article.title}}
-          <div class="row text-subtitle2 text-left">
-            <div class="text-left col"> &#128221;BB
+      <div class="col-md-8 col offset- bordered rounded-borders" :class="articleClass">
+        <div class="text-capitalize title text-center q-pt-md q-pb-xs bg-primary text-secondary q-px-md" :class="titleClass">
+          <span class="newsTitle">{{article.title}}</span>
+          <div class="row q-mt-md text-caption text-left">
+            <div class="text-left col"> &#128221; {{authorName}}
 
             </div>
             <div class="text-right col inline">
-              &#128347;{{ article.created_at.split(' ')[0] }}
+              &#128347;{{ date }}
             </div>
           </div>
         </div>
@@ -18,8 +18,8 @@
           :ratio="16/9"
           transition="slide-right"
         />
-        <div id="body" v-html="article.body" class="text-body1 text-justify text-center q-my-md"/>
-        <div class="row text-subtitle1 q-gutter-x-md">
+        <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
+        <div class="row text-caption q-gutter-x-md">
           <!-- Tags: -->
           <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="team in article.teams" :key="team.id">
             {{team.name}}
@@ -81,12 +81,9 @@
     >
       <q-list v-if="similarArticles.length" padding link dense class="col bg-secondary" >
         <q-item-label header>Also</q-item-label>
-        <div v-for="(article) in similarArticles" :key="article.id">
+        <div v-for="(article) in similarArticles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
-            <!-- <q-item-section side >
-              <q-item-label caption>Today</q-item-label>
-            </q-item-section> -->
           </q-item>
           <q-separator />
         </div>
@@ -116,6 +113,47 @@ export default {
   computed: {
     rightDrawerOpen: function () {
       return this.$store.getters.rightDrawer
+    },
+
+    articleCount () {
+      return this.similarArticles.length
+    },
+
+    date () {
+      return this.article.created_at.split(' ')[0]
+    },
+
+    authorName () {
+      return this.article.author.firstname + ' ' + this.article.author.lastname
+    }
+  },
+
+  watch: {
+    $route () {
+      axios.get('http://innouts.test/api/articles/' + this.$route.params.article)
+        .then(response => {
+          this.setData(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+
+    articleCount () {
+      if (this.articleCount > 0 && this.$q.platform.is.desktop) {
+        this.$store.commit('setRightDrawer', true)
+      }
+    }
+  },
+
+  meta () {
+    return {
+      title: this.article.title + ' - Innouts | You Come first!',
+
+      meta: {
+        description: { name: 'description', content: this.article.body },
+        keywords: { name: 'keywords', content: [this.tags] },
+      },
     }
   },
 
@@ -137,19 +175,17 @@ export default {
     this.$store.commit('setView', {
       view: 'hhh lpR fff'
     })
-    if (this.$q.screen.gt.sm) {
-      this.$store.commit('setRightDrawer', true)
-    } else {
-      this.$store.commit('setRightDrawer', false)
-    }
   },
 
   created: function () {
     this.$store.commit('setLeftDrawer', false)
+    // console.log(this.similarArticles)
+    // console.log(this.similarArticles.length)
+    this.$store.commit('setRightDrawer', false)
     if (this.$q.platform.is.desktop) {
-      this.$store.commit('setRightDrawer', true)
       this.articleClass = {
-        'q-ml-xl': true
+        'q-ml-xl': true,
+        'q-pa-md': true
       }
       this.titleClass = {
         'text-h5': true
@@ -161,22 +197,11 @@ export default {
     }
   },
 
-  watch: {
-    $route () {
-      axios.get('http://innouts.test/api/articles/' + this.$route.params.article)
-        .then(response => {
-          this.setData(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  },
-
   methods: {
     setData: function (response) {
       this.article = response.data.article
       this.similarArticles = response.data.players_articles
+      this.tags = ''
       this.article.teams.forEach(element => {
         this.tags = this.tags + element.name
         this.tags += ', '

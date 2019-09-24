@@ -5,7 +5,6 @@
       v-model="splitterModel"
       class="bg-secondary"
     >
-
       <template v-slot:before>
         <q-tabs
           v-model="tab"
@@ -14,7 +13,6 @@
           active-bg-color="primary"
           active-color="yellow-14"
           class="bg-primar"
-
         >
           <q-tab name="teams" label="Teams" />
           <q-tab name="players" label="Players" />
@@ -73,15 +71,18 @@
                 row-key="name"
                 class="bg-secondary"
               >
+                <q-td slot="body-cell-rank" slot-scope="value" :props="value">
+                  <div :style="medalStyle" v-if="value.value===1">&#129351;</div>
+                  <div :style="medalStyle" v-else-if="value.value===2">&#129352;</div>
+                  <div :style="medalStyle" v-else-if="value.value===3">&#129353;</div>
+                  <div v-else>{{value.value}}</div>
+                </q-td>
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <router-link :to="'/managers/' + value.value.id" class="no-decor" >
                     <div id="" class="row inline person-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
                   </router-link>
-                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
-                    {{value.value.firstName}} {{value.value.lastName}}
-                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -156,7 +157,7 @@
           transition-next="jump-up"
           @before-transition="panelChange"
         >
-          <q-tab-panel name="teams">
+          <q-tab-panel :class="mobilePanelClass" name="teams">
             <div class="column">
               <q-table
                 title="Teams Ranking"
@@ -182,11 +183,11 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="players">
+          <q-tab-panel :class="mobilePanelClass" name="players">
             <players-rankings :players="players" />
           </q-tab-panel>
 
-          <q-tab-panel name="managers">
+          <q-tab-panel :class="mobilePanelClass" name="managers">
             <div class="column">
               <q-table
                 title="Managers Ranking"
@@ -218,7 +219,7 @@
               </q-table>
             </div>
           </q-tab-panel>
-          <q-tab-panel name="fans">
+          <q-tab-panel :class="mobilePanelClass" name="fans">
             <div class="column">
               <q-table
                 title="Fans Ranking"
@@ -236,9 +237,6 @@
                       <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
                   </router-link>
-                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
-                    {{value.value.name}}
-                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
@@ -292,6 +290,7 @@ export default {
       ],
       teams: [],
       managerColumns: [
+        { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'manager', required: true, label: 'Manager', align: 'left', field: row => row },
         { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.firstName + ' ' + row.lastName },
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
@@ -301,8 +300,8 @@ export default {
       ],
       managersPagination: {
         rowsPerPage: 10,
-        sortBy: 'score',
-        descending: true,
+        sortBy: 'rank',
+        descending: false,
       },
       managers: [],
       players: Object,
@@ -319,6 +318,19 @@ export default {
         descending: true,
       },
       fans: [],
+      medalStyle: {},
+      mobilePanelClass: {}
+    }
+  },
+
+  meta () {
+    return {
+      title: 'Rankings | Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'Check the latest rankings of best teams, players and managers from the European football world.' },
+        keywords: { name: 'keywords', content: ['football players rankings', 'best football players', 'best football managers', 'best football teams', 'latest football rankings', 'football\'s best'] },
+      },
     }
   },
 
@@ -345,8 +357,16 @@ export default {
     this.$store.commit('setView', {
       view: 'hhh lpR fff'
     })
-
     this.$store.commit('setRightDrawer', false)
+    if (this.$q.platform.is.desktop) {
+      this.medalStyle = {
+        fontSize: '17px'
+      }
+    } else {
+      this.mobilePanelClass = {
+        'q-pa-xs': true
+      }
+    }
     this.$q.loading.hide()
   },
 

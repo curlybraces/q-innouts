@@ -149,7 +149,7 @@ export default {
         team: {}
       },
       window: Object,
-      windows: Array,
+      windows: [],
       headerStyle: {},
       wantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
@@ -168,13 +168,24 @@ export default {
     }
   },
 
+  meta () {
+    return {
+      title: this.user.name + ' - Innouts',
+
+      meta: {
+        description: { name: 'description', content: this.user.name + ' is an active ' + this.user.team.name + ' fan. See their Innouts activity right here!' },
+        keywords: { name: 'keywords', content: [this.user.name, this.user.name + ' ' + this.user.team.name, this.user.name + ' football', this.user.name + ' Innouts'] },
+      },
+    }
+  },
+
   beforeRouteEnter (to, from, next) {
-    // alert('beforeRouteEnter')
+    // console.log('beforeRouteEnter')
     axios.get('http://innouts.test/api/users/' + to.params.user)
       .then(response => {
-        // alert('here')
+        // console.log('here')
         next(vm => {
-          // alert('here1')
+          // console.log('here1')
           vm.setData(response)
           next()
         })
@@ -213,7 +224,7 @@ export default {
       .catch(error => {
         this.error = error
       })
-    // alert('end of created hook')
+    // console.log('end of created hook')
   },
 
   watch: {

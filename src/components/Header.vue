@@ -92,50 +92,6 @@
             </q-list>
           </div>
         </div>
-        <!-- <q-list dark class="bg-primary">
-          <q-item clickable dense v-close-popup to="/leagues/1" active-class="text-accent">
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Premier League</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/2" active-class="text-accent" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>La Liga</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/leagues/3" active-class="text-accent">
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Serie A</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/leagues/4" active-class="text-accent">
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Bundesliga</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/5" active-class="text-accent">
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Ligue 1</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list> -->
       </q-btn-dropdown>
 
       <q-btn-dropdown

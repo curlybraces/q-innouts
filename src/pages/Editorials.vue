@@ -9,8 +9,8 @@
                 <img :src="article.picture">
               </q-item-section>
 
-              <q-item-section top>
-                <q-item-label header :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
+              <q-item-section to>
+                <q-item-label header class="newsTitle" :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
                 <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
               </q-item-section>
 
@@ -64,6 +64,17 @@ export default {
       },
       remains: true,
       date: new Date()
+    }
+  },
+
+  meta () {
+    return {
+      title: 'Editorials - Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'Latest football analysis of top five European leagues.' },
+        keywords: { name: 'keywords', content: ['football analysis', 'football news', 'football talk', 'premier league analysis', 'football world', 'European football'] },
+      },
     }
   },
 

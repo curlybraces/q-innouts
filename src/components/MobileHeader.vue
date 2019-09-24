@@ -13,10 +13,12 @@
     </q-avatar>
 
       <q-toolbar-title>
-        Innouts
+        <router-link to="/" class="no-decor text-white">
+          Innouts
+        </router-link>
       </q-toolbar-title>
 
-      <q-btn-dropdown icon="perm_identity" class="gloss" dense
+      <q-btn-dropdown icon="perm_identity" class="gloss" dense size="sm"
       >
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">

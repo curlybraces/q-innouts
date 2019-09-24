@@ -6,11 +6,9 @@
           <player :player="activePlayer" />
         </div>
       </div>
-      <div v-if="$q.screen.lt.sm" class="row justify-center">
-        <div  class="col-grow bordered rounded-borders bg-secondary">
-          <div class="q-pt-sm q-px-sm text-subtitle1 text-center">{{person.team.name}} squad</div>
-          <div v-for="(mate) in companions" :key="mate.id">
-            <q-item :to="'/players/'+mate.id" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple>
+      <q-list separator v-if="$q.screen.lt.sm" class=" bg-secondary" link bordered dense>
+          <q-item-label header class="q-pt-sm q-px-sm text-subtitle1 text-center">{{person.team.name}} squad</q-item-label>
+            <q-item v-for="(mate) in companions" :key="mate.id" :to="'/players/'+mate.id" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple dense>
               <q-item-section avatar>
                 <q-avatar rounded>
                   <img :src="mate.picture">
@@ -19,10 +17,7 @@
               <q-item-section>{{mate.nickname}}</q-item-section>
               <q-item-section side>{{mate.specificPosition}}</q-item-section>
             </q-item>
-            <q-separator />
-          </div>
-        </div>
-      </div>
+      </q-list>
       <q-drawer
         :value="rightDrawerOpen"
         :mini="$q.screen.lt.md"

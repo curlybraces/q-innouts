@@ -27,7 +27,7 @@
       content-class="bg-secondary"
     >
       <q-list>
-        <q-item clickable tag="a" to="/">
+        <q-item clickable tag="a" to="/editorials">
           <q-item-section avatar>
             <q-icon name="announcement" />
           </q-item-section>

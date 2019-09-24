@@ -11,16 +11,16 @@
       >
         <q-carousel-slide v-for="bulletin in bulletins" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div :class="bulletTitleClass" >{{bulletin.title}}</div>
-            <div :class="bulletBodyClass" v-text="bulletin.body"></div>
+            <div class="newsTitle" :class="bulletTitleClass" >{{bulletin.title}}</div>
+            <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body"></div>
           </div>
         </q-carousel-slide>
       </q-carousel>
 
       <q-list v-if="$q.platform.is.mobile" padding link bordered dense class="col bg-secondary" >
-        <q-item-label header>Latest Editorials</q-item-label>
+        <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
-          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
+          <q-item :to="'/articles/'+article.id" class="newsTitle"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
               {{article.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
@@ -230,16 +230,16 @@
     <q-drawer
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
-      content-class="bg-secondary"
+      content-class="bg-grey-4"
       :breakpoint="600"
       :width="380"
       side="right"
       elevated
     >
-      <q-list padding link dense class="col bg-secondary" >
-        <q-item-label header class=""><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
-        <div v-for="(article) in articles" :key="article.id">
-          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
+      <q-list padding bor link dense class="col bg-brown-3" >
+        <q-item-label header><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
+        <div v-for="(article) in articles" :key="article.id" class="newsTitle">
+          <q-item :to="'/articles/'+article.id"  clickable v-ripple >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
               {{article.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
@@ -251,6 +251,17 @@
             </q-item-section>
             <q-item-section v-else-if="article.time<4" side >
               <q-badge color="red-4" text-color="" label="new" align="top" floating/>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+        </div>
+      </q-list>
+      <q-list padding link class="col" >
+        <q-item-label header class=""><span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127995;</span> Latest Rumours</q-item-label>
+        <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
+          <q-item to="/rumours"  clickable v-ripple dense>
+            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+              {{rumour.title}}
             </q-item-section>
           </q-item>
           <q-separator />
@@ -314,6 +325,7 @@ export default {
       unwanteds: [],
       bulletins: [],
       articles: [],
+      rumours: [],
       fanTransfersRowClass: {}
     }
   },
@@ -332,8 +344,15 @@ export default {
     }
   },
 
-  watch: {
+  meta () {
+    return {
+      title: 'Innouts | You Come first!',
 
+      meta: {
+        description: { name: 'description', content: 'Innouts is a football community for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },
+        keywords: { name: 'keywords', content: ['Innouts', 'football analysis', 'football Innouts', 'football transfers', 'football rumours', 'football rankings', 'best football players', 'best football managers'] },
+      },
+    }
   },
 
   beforeRouteEnter (to, from, next) {
@@ -397,6 +416,7 @@ export default {
       this.transfers = response.data.transfers
       this.bulletins = response.data.bulletins
       this.articles = response.data.articles
+      this.rumours = response.data.rumours
       this.articles.forEach(element => {
         let diff = date.getDateDiff(this.date, element.created_at, 'days')
         element.time = diff
@@ -435,3 +455,5 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+</style>

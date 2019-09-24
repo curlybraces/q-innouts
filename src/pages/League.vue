@@ -26,7 +26,7 @@
     <div class="row justify-center">
       <!-- <div class="col"> -->
           <q-tab-panels v-model="tab" animated class="col col-lg-11 q-mx-aut">
-            <q-tab-panel name="mails">
+            <q-tab-panel name="mails" :class="panelClass">
               <q-card class="text-subtitle1">
                 <div class="row bg-primary justify-center text-white">
                   <div class="col-grow col-sm-6 text-center q-pa-s">
@@ -142,7 +142,7 @@
                   </div>
                   <div class="col-grow col-sm-6 text-center self-center">
                     <!-- Teams⚔ -->
-                    <ul id="league-teams" class="q-pa-md q-my-none">
+                    <ul id="league-teams" class="q-my-none" :class="panelClass">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
                          <router-link :to="'/teams/' + team.id" >
                             <img class="full-height" alt="Quasar logo" :src="'statics/' + team.logo">
@@ -186,16 +186,6 @@ export default {
   data () {
     return {
       tab: 'mails',
-      // league: {
-      //   type: Object,
-      //   default: () => {
-      //     return {
-      //       holders: {
-      //         logo: String,
-      //       }
-      //     }
-      //   }
-      // },
       league: {
         holders: Object
       },
@@ -205,7 +195,29 @@ export default {
           trophy_cabinet: Object
         }
       },
-      news: []
+      news: [],
+      panelClass: {}
+    }
+  },
+
+  computed: {
+    teamNames () {
+      let x = []
+      this.league.teams.forEach(element => {
+        x.push(element.name)
+      })
+      return x
+    }
+  },
+
+  meta () {
+    return {
+      title: this.league.name + ' - Innouts',
+
+      meta: {
+        description: { name: 'description', content: this.league.name + ' is the first tier of football in ' + this.league.country },
+        keywords: { name: 'keywords', content: [this.league.name, this.league.name + ' ' + this.league.country, this.league.name + ' teams', this.league.name + ' champions'].concat(this.teamNames) },
+      },
     }
   },
 
@@ -225,6 +237,12 @@ export default {
 
   created: function () {
     this.$store.commit('setRightDrawer', false)
+
+    if (this.$q.platform.is.mobile) {
+      this.panelClass = {
+        'q-pa-xs': true
+      }
+    }
   },
 
   beforeRouteUpdate (to, from, next) {

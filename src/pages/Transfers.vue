@@ -180,6 +180,17 @@ export default {
     }
   },
 
+  meta () {
+    return {
+      title: 'Transfers - Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'Latest bigger football transfers, covering the Premier League, La Liga, Serie A, Bundesliga and Ligue1' },
+        keywords: { name: 'keywords', content: ['football transfers', 'latest transfers', 'football transfer window', 'transfer gossip'] },
+      },
+    }
+  },
+
   beforeRouteEnter (to, from, next) {
     axios.get('http://innouts.test/api/windows')
       .then(response => {

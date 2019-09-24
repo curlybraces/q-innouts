@@ -1,16 +1,15 @@
 
 Todo:
   ☐ Admin authentication @low 
-  ☐ admin panel @high 
-  ✔ ratings out of 10 @high @done(19-09-20 23:56)
   ☐ forgot password implementation @critical 
   ☐ update the number of votes for a player rating when moving among teammates @low
-  ✔ use dialog to inform users of cookies or better yet a banner! @high @done(19-09-21 16:54)
-  ☐ add talent scout feature! @low 
-  ✔ add player transfer history to player page @high @done(19-09-23 15:23)
-  ✔ display date along rumours @high @done(19-09-23 11:49)
-  ☐ associate rumours with windows, possibly to disable rating after some time! @low 
-  ✔ disable rating of old transfers @high @done(19-09-23 15:48)
+  ✔ injecting meta info into pages @high @done(19-09-24 22:29)
+  ☐ SSR for pages: Player, Article @high 
 
-Fix:
-  
+Archive:
+  ✔ admin panel @high @done(19-09-24 17:18) @project(Todo)
+  ✔ ratings out of 10 @high @done(19-09-20 23:56) @project(Todo)
+  ✔ use dialog to inform users of cookies or better yet a banner! @high @done(19-09-21 16:54) @project(Todo)
+  ✔ add player transfer history to player page @high @done(19-09-23 15:23) @project(Todo)
+  ✔ display date along rumours @high @done(19-09-23 11:49) @project(Todo)
+  ✔ disable rating of old transfers @high @done(19-09-23 15:48) @project(Todo)
