@@ -147,10 +147,8 @@ export default {
 
   created: function () {
     if (this.loggedIn) {
-      if (localStorage.getItem('token')) {
-        this.$store.dispatch('getUser', localStorage.getItem('token'))
-      } else {
-        this.$store.dispatch('getUser', sessionStorage.getItem('token'))
+      if (this.$q.cookies.has('token')) {
+        this.$store.dispatch('getUser', this.$q.cookies.get('token'))
       }
     }
   },

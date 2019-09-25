@@ -230,14 +230,14 @@
     <q-drawer
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
-      content-class="bg-grey-4"
+      content-class="bg-brown-3"
       :breakpoint="600"
       :width="380"
       side="right"
       elevated
     >
-      <q-list padding bor link dense class="col bg-brown-3" >
-        <q-item-label header><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
+      <q-list padding separator link dense class="col" >
+        <q-item-label header class="text-black bg-brown-5"><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -257,7 +257,7 @@
         </div>
       </q-list>
       <q-list padding link class="col" >
-        <q-item-label header class=""><span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127995;</span> Latest Rumours</q-item-label>
+        <q-item-label header class="bg-brown-5 text-white"><span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127995;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -346,7 +346,7 @@ export default {
 
   meta () {
     return {
-      title: 'Innouts | You Come first!',
+      title: 'Innouts | You Come First.',
 
       meta: {
         description: { name: 'description', content: 'Innouts is a football community for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },

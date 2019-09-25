@@ -3,10 +3,10 @@ Todo:
   ☐ Admin authentication @low 
   ☐ forgot password implementation @critical 
   ☐ update the number of votes for a player rating when moving among teammates @low
-  ✔ injecting meta info into pages @high @done(19-09-24 22:29)
   ☐ SSR for pages: Player, Article @high 
 
 Archive:
+  ✔ injecting meta info into pages @high @done(19-09-24 22:29) @project(Todo)
   ✔ admin panel @high @done(19-09-24 17:18) @project(Todo)
   ✔ ratings out of 10 @high @done(19-09-20 23:56) @project(Todo)
   ✔ use dialog to inform users of cookies or better yet a banner! @high @done(19-09-21 16:54) @project(Todo)

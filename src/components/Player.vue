@@ -138,7 +138,8 @@
           <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
         </q-tab-panel>
         <q-tab-panel name="editorials">
-          <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
+          <articles v-if="articles.length" :articles="articles" :chunk="3" :dense="true" />
+          <!-- <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
             <q-item clickable v-for="article in articles" :key="article.id" :to="'/articles/'+article.id" class="bg-primary">
               <q-item-section to thumbnail class="q-ml-non">
                 <img :src="article.picture">
@@ -152,7 +153,7 @@
                 <q-item-label caption>11:56</q-item-label>
               </q-item-section>
             </q-item>
-          </q-list>
+          </q-list> -->
           <div v-else class="text-subtitle1 text-center text-black">
             Nothing to display at this time!
           </div>
@@ -166,13 +167,15 @@
 import { date } from 'quasar'
 const Rating = () => import('components/Rating.vue')
 const Rumours = () => import('components/Rumours.vue')
+const Articles = () => import('components/Articles.vue')
 
 export default {
   name: 'Player',
 
   components: {
     Rating,
-    Rumours
+    Rumours,
+    Articles
   },
 
   data: () => ({
@@ -181,7 +184,6 @@ export default {
     date: new Date(),
     birthFormatted: null,
     tab: 'transfers',
-    // panel: 'transfers',
     rumours: [],
     articles: [],
     current: 1,
@@ -201,9 +203,6 @@ export default {
         }
       }
     },
-    // player: {
-    //   rating: 0.0
-    // }
   },
 
   computed: {
@@ -222,7 +221,7 @@ export default {
 
   meta () {
     return {
-      title: this.player.nickname + ' - Innouts | You Come first!',
+      title: this.player.nickname + ' - Innouts',
 
       meta: {
         description: { name: 'description', content: this.fullname + ' is a football player from ' + this.player.nationality + ' playing for ' + this.player.team.name + '.' },

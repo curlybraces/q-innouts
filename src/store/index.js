@@ -11,14 +11,19 @@ Vue.use(Vuex)
  * directly export the Store instantiation
  */
 
-export default function (/* { ssrContext } */) {
+export default function ({ ssrContext }) {
+  const cookies = process.env.SERVER
+    ? Cookies.parseSSR(ssrContext)
+    : Cookies // otherwise we're on client
+
   const Store = new Vuex.Store({
     // modules: {
     //   example
     // },
     state: {
       status: '',
-      token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
+      // token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
+      token: cookies.has('token') ? cookies.get('token') : '',
       cookieConsent: false,
       user: Object,
       view: 'hHh lpr fff',
@@ -34,7 +39,7 @@ export default function (/* { ssrContext } */) {
       leftDrawer: state => state.leftDrawer,
       rightDrawer: state => state.rightDrawer,
       cookieConsent: state => {
-        if (Cookies.has('cookieConsent')) {
+        if (cookies.has('cookieConsent')) {
           return true
         } else {
           return false
@@ -104,9 +109,11 @@ export default function (/* { ssrContext } */) {
               // let user = resp.data.user
 
               if (credentials.remember) {
-                localStorage.setItem('token', token)
+                // localStorage.setItem('token', token)
+                cookies.set('token', token, { expires: 10 })
               } else {
-                sessionStorage.setItem('token', token)
+                // sessionStorage.setItem('token', token)
+                cookies.set('token', token)
               }
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
@@ -115,7 +122,8 @@ export default function (/* { ssrContext } */) {
             })
             .catch(err => {
               commit('authError')
-              localStorage.removeItem('token')
+              // localStorage.removeItem('token')
+              cookies.remove('token')
               reject(err)
             })
         })
@@ -124,8 +132,9 @@ export default function (/* { ssrContext } */) {
       logout ({ commit }) {
         return new Promise((resolve, reject) => {
           commit('logout')
-          localStorage.removeItem('token')
-          sessionStorage.removeItem('token')
+          cookies.remove('token')
+          // localStorage.removeItem('token')
+          // sessionStorage.removeItem('token')
           delete axios.defaults.headers.common['Authorization']
           resolve()
         })
@@ -136,9 +145,10 @@ export default function (/* { ssrContext } */) {
           commit('auth_request')
           axios({ url: 'http://innouts.test/api/register', data: info, method: 'POST' })
             .then(resp => {
-              const token = resp.data.token
+              let token = resp.data.token
               // const user = resp.data.user
-              localStorage.setItem('token', token)
+              cookies.set('token', token)
+              // localStorage.setItem('token', token)
               // Add the following line:
               axios.defaults.headers.common['Authorization'] = token
               commit('auth_success', token)
@@ -146,7 +156,8 @@ export default function (/* { ssrContext } */) {
             })
             .catch(err => {
               commit('auth_error', err)
-              localStorage.removeItem('token')
+              cookies.remove('token')
+              // localStorage.removeItem('token')
               reject(err)
             })
         })
@@ -163,7 +174,7 @@ export default function (/* { ssrContext } */) {
       },
 
       acceptCookies ({ commit }) {
-        Cookies.set('cookieConsent', true, { expires: 10 })
+        cookies.set('cookieConsent', true, { expires: 10 })
         commit('cookieAccepted')
       }
 

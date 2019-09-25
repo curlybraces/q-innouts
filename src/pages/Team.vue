@@ -193,8 +193,8 @@
       <q-tab name="home" icon="group_work" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
       <q-tab name="rumours" icon="chat" label="Rumours" />
-      <q-tab name="news" icon="info" label="Editorials" />
-      <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" />
+      <q-tab name="articles" icon="info" label="Editorials" />
+      <!-- <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" /> -->
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
@@ -374,8 +374,13 @@
         </div>
       </q-tab-panel>
 
-      <q-tab-panel name="news">
-        <news />
+      <q-tab-panel name="articles">
+        <div class="row justify-center">
+          <div class="col-lg-6 col-md-8 col-sm-10">
+            <articles v-if="articles.length" :articles="articles" :dense="true" />
+            <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
+          </div>
+        </div>
       </q-tab-panel>
 
       <q-tab-panel name="business">
@@ -395,9 +400,8 @@
 <script>
 import axios from 'axios'
 const Innouts = () => import('components/Innouts.vue')
-// const Chat = () => import('components/Chat.vue')
 const Fans = () => import('components/Fans.vue')
-const News = () => import('components/News.vue')
+const Articles = () => import('components/Articles.vue')
 const PlayerCard = () => import('components/PlayerCard.vue')
 const SellForm = () => import('components/SellForm.vue')
 const SignForm = () => import('components/SignForm.vue')
@@ -428,6 +432,7 @@ const initialState = () => {
     sss: [],
     cfs: [],
     rumours: [],
+    articles: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},
@@ -444,9 +449,8 @@ export default {
 
   components: {
     Innouts,
-    // Chat,
     Fans,
-    News,
+    Articles,
     PlayerCard,
     SellForm,
     SignForm,
@@ -549,6 +553,16 @@ export default {
           })
           .catch(error => {
             console.log(error)
+          })
+      } else if (newVal === 'articles' && !this.articles.length) {
+        this.$q.loading.show()
+        this.$axios.get('http://innouts.test/api/articles/teams/' + this.$route.params.team)
+          .then(response => {
+            this.articles = response.data
+            this.$q.loading.hide()
+          })
+          .catch(error => {
+            this.error = error
           })
       }
     },
@@ -692,9 +706,6 @@ export default {
 
   table
     color: white;
-
-    th, td
-      // padding: 0.2rem;
 
 #team-field
   background-size: cover;

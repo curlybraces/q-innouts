@@ -12,7 +12,7 @@
         </router-link>
       </q-toolbar-title>
 
-      <q-btn to="/editorials" no-caps class="glossy" color="blue-grey-14" label="Editorials" />
+      <q-btn to="/editorials" no-caps class="glossy" color="blue-grey-7" label="Editorials" />
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
@@ -361,11 +361,12 @@ export default {
 
   created: function () {
     if (this.loggedIn) {
-      if (localStorage.getItem('token')) {
-        this.$store.dispatch('getUser', localStorage.getItem('token'))
-      } else {
-        this.$store.dispatch('getUser', sessionStorage.getItem('token'))
+      if (this.$q.cookies.has('token')) {
+        this.$store.dispatch('getUser', this.$q.cookies.get('token'))
       }
+      // } else {
+      //   this.$store.dispatch('getUser', sessionStorage.get('token'))
+      // }
     }
   },
 

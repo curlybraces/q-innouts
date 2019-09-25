@@ -215,7 +215,7 @@ export default {
       title: this.league.name + ' - Innouts',
 
       meta: {
-        description: { name: 'description', content: this.league.name + ' is the first tier of football in ' + this.league.country },
+        description: { name: 'description', content: this.league.name + ' is the first tier of football in ' + this.league.country + '. See interesting stats right here!' },
         keywords: { name: 'keywords', content: [this.league.name, this.league.name + ' ' + this.league.country, this.league.name + ' teams', this.league.name + ' champions'].concat(this.teamNames) },
       },
     }
