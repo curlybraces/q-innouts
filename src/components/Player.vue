@@ -139,21 +139,6 @@
         </q-tab-panel>
         <q-tab-panel name="editorials">
           <articles v-if="articles.length" :articles="articles" :chunk="3" :dense="true" />
-          <!-- <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
-            <q-item clickable v-for="article in articles" :key="article.id" :to="'/articles/'+article.id" class="bg-primary">
-              <q-item-section to thumbnail class="q-ml-non">
-                <img :src="article.picture">
-              </q-item-section>
-
-              <q-item-section top>
-                <q-item-label header class="text-subtitle1" >{{article.title}}</q-item-label>
-              </q-item-section>
-
-              <q-item-section side >
-                <q-item-label caption>11:56</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list> -->
           <div v-else class="text-subtitle1 text-center text-black">
             Nothing to display at this time!
           </div>
@@ -254,27 +239,32 @@ export default {
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
       this.tab = 'transfers'
       if (this.player.specificPosition) {
-        this.$axios.get('http://innouts.test/api/rumours/players/' + this.$route.params.id)
+        this.$axios.get('http://innouts.test/api/players/' + this.$route.params.id)
           .then(response => {
-            this.rumours = response.data
+            console.log(response.data)
+            console.log(response.data.data)
+            console.log(response.data.transfers)
+            this.transfers = response.data.data.transfers
+            this.rumours = response.data.data.rumours
+            this.articles = response.data.data.articles
           })
           .catch(error => {
             console.log(error)
           })
-        this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
-          .then(response => {
-            this.articles = response.data
-          })
-          .catch(error => {
-            this.error = error
-          })
-        this.$axios.get('http://innouts.test/api/transfers/players/' + this.$route.params.id)
-          .then(response => {
-            this.transfers = response.data.data
-          })
-          .catch(error => {
-            this.error = error
-          })
+        // this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
+        //   .then(response => {
+        //     this.articles = response.data
+        //   })
+        //   .catch(error => {
+        //     this.error = error
+        //   })
+        // this.$axios.get('http://innouts.test/api/transfers/players/' + this.$route.params.id)
+        //   .then(response => {
+        //     this.transfers = response.data.data
+        //   })
+        //   .catch(error => {
+        //     this.error = error
+        //   })
       }
     }
   },

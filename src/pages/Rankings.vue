@@ -44,7 +44,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link :to="'/teams/' + value.value.id" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -88,7 +88,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.id" >
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -124,7 +124,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.id" >
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -172,7 +172,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link :to="'/teams/' + value.value.id" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -209,7 +209,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.id" >
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -242,7 +242,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.id" >
-                      <q-img :src="'statics/' + value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>

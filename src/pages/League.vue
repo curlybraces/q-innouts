@@ -59,7 +59,7 @@
                   </div>
                   <div class="col-grow col-sm-6 text-center self-center">
                     <div id="defending-champs" class="q-mx-auto">
-                      <q-img :src="'statics/' + league.holders.logo" :alt="league.holders.name" class="full-height" />
+                      <q-img :src="league.holders.logo" :alt="league.holders.name" class="full-height" />
                     </div>
                     <h5 class="text-center q-my-none">
                       <span>
@@ -130,7 +130,7 @@
                         </q-item-section>
                         <q-item-section side>
                           <q-item-label class="team-thumbnail">
-                            <q-img :src="'statics/' + stats.recordWinner.logo" :alt="stats.recordWinner.name" class="full-height" />
+                            <q-img :src="stats.recordWinner.logo" :alt="stats.recordWinner.name" class="full-height" />
                               <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                                 {{stats.recordWinner.name}}
                               </q-tooltip>
@@ -145,7 +145,7 @@
                     <ul id="league-teams" class="q-my-none" :class="panelClass">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
                          <router-link :to="'/teams/' + team.id" >
-                            <img class="full-height" alt="Quasar logo" :src="'statics/' + team.logo">
+                            <img class="full-height" alt="Quasar logo" :src="team.logo">
                               <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                                 {{team.name}}
                               </q-tooltip>

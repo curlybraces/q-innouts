@@ -26,7 +26,7 @@
           <div class="col-4 col-grow col-sm-4 col-md-3 q-ml-auto">
             <div id="team-card" class="rounded-borders bg-t-darker">
               <div id="team-logo-wrapper">
-                <q-img contain  :src="'statics/'+team.logo" alt="logo" class="fit" />
+                <q-img contain  :src="team.logo" alt="logo" class="fit" />
               </div>
               <p class="text-h5 text-uppercase q-mt-sm q-mb-none" :style="{backgroundColor: team.color}"> <span>{{team.name}} </span></p>
             </div>
@@ -129,7 +129,7 @@
           <q-card class="col-11 col-sm-8 bg-t-darker self-center">
             <div class="row">
               <div class="column col-grow col-4 col-sm-3 self-center">
-                <q-img :src="'statics/' + team.logo" :alt="team.name" class="img-thumbnail" />
+                <q-img :src="team.logo" :alt="team.name" class="img-thumbnail" />
                 <div class="text-center text-uppercase" :style="{backgroundColor: team.color}" > {{team.name}} </div>
               </div>
               <div class="col-grow col-8">
@@ -368,7 +368,7 @@
       <q-tab-panel name="rumours">
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
-            <rumours v-if="rumours.length" :rumours="rumours" :dense="true" btnSize="xs" />
+            <rumours v-if="team.rumours.length" :rumours="team.rumours" :dense="true" btnSize="xs" />
             <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
           </div>
         </div>
@@ -377,7 +377,7 @@
       <q-tab-panel name="articles">
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
-            <articles v-if="articles.length" :articles="articles" :dense="true" />
+            <articles v-if="team.articles.length" :articles="team.articles" :dense="true" />
             <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
           </div>
         </div>
@@ -431,8 +431,8 @@ const initialState = () => {
     rws: [],
     sss: [],
     cfs: [],
-    rumours: [],
-    articles: [],
+    // rumours: [],
+    // articles: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},
@@ -543,26 +543,6 @@ export default {
           })
           .catch(error => {
             console.log(error)
-          })
-      } else if (newVal === 'rumours' && !this.rumours.length) {
-        this.$q.loading.show()
-        this.$axios.get('http://innouts.test/api/rumours/teams/' + this.$route.params.team)
-          .then(response => {
-            this.rumours = response.data
-            this.$q.loading.hide()
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      } else if (newVal === 'articles' && !this.articles.length) {
-        this.$q.loading.show()
-        this.$axios.get('http://innouts.test/api/articles/teams/' + this.$route.params.team)
-          .then(response => {
-            this.articles = response.data
-            this.$q.loading.hide()
-          })
-          .catch(error => {
-            this.error = error
           })
       }
     },

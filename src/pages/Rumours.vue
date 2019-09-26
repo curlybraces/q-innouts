@@ -41,7 +41,7 @@ export default {
     axios.get('http://innouts.test/api/rumours')
       .then(response => {
         next(vm => {
-          vm.rumours = response.data.data
+          vm.rumours = response.data
         })
       })
       .catch(error => {
