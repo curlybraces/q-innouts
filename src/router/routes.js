@@ -49,7 +49,10 @@ const routes = [
         path: '/settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true }
       },
       {
-        path: '/admin', component: () => import('pages/Admin.vue')
+        path: '/admin', name: 'adminPanel', component: () => import('pages/Admin.vue'), meta: { requiresAuth: true }
+      },
+      {
+        path: '/admin-login', component: () => import('pages/AdminLogin.vue')
       },
       // keep as last route
       {

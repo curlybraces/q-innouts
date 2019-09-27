@@ -24,8 +24,10 @@ export default function ({ ssrContext }) {
       status: '',
       // token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
       token: cookies.has('token') ? cookies.get('token') : '',
+      adminToken: cookies.has('adminToken') ? cookies.get('adminToken') : '',
       cookieConsent: false,
       user: Object,
+      admin: Object,
       view: 'hHh lpr fff',
       leftDrawer: false,
       rightDrawer: false,
@@ -33,6 +35,7 @@ export default function ({ ssrContext }) {
 
     getters: {
       loggedIn: state => !!state.token,
+      adminIn: state => !!state.adminToken,
       authStatus: state => state.status,
       user: state => state.user,
       view: state => state.view,
@@ -71,9 +74,21 @@ export default function ({ ssrContext }) {
         state.user = ''
       },
 
+      adminLogout (state) {
+        state.adminToken = ''
+        state.admin = ''
+      },
+
       updateUser (state, payload) {
         state.user = payload.user
         // alert('done')
+      },
+
+      adminAuthSuccess (state, payload) {
+        state.adminToken = payload.token
+        axios({ url: 'http://innouts.test/api/admin', method: 'GET' })
+          .then(resp => { state.admin = resp.data.admin })
+          .catch(err => console.log(err))
       },
 
       setView (state, payload) {
@@ -129,6 +144,28 @@ export default function ({ ssrContext }) {
         })
       },
 
+      adminLogin ({ commit }, credentials) {
+        return new Promise((resolve, reject) => {
+          axios({ url: 'http://innouts.test/api/admin-login', data: credentials, method: 'POST' })
+            .then(resp => {
+              let token = resp.data.access_token
+              if (credentials.remember) {
+                cookies.set('adminToken', token, { expires: 10 })
+              } else {
+                cookies.set('adminToken', token)
+              }
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+
+              commit('adminAuthSuccess', { 'token': token })
+              resolve(resp)
+            })
+            .catch(err => {
+              // cookies.remove('token')
+              reject(err)
+            })
+        })
+      },
+
       logout ({ commit }) {
         return new Promise((resolve, reject) => {
           commit('logout')
@@ -140,13 +177,21 @@ export default function ({ ssrContext }) {
         })
       },
 
+      adminLogout ({ commit }) {
+        return new Promise((resolve, reject) => {
+          commit('adminLogout')
+          cookies.remove('adminToken')
+          delete axios.defaults.headers.common['Authorization']
+          resolve()
+        })
+      },
+
       register ({ commit }, info) {
         return new Promise((resolve, reject) => {
           commit('auth_request')
           axios({ url: 'http://innouts.test/api/register', data: info, method: 'POST' })
             .then(resp => {
               let token = resp.data.token
-              // const user = resp.data.user
               cookies.set('token', token)
               // localStorage.setItem('token', token)
               // Add the following line:

@@ -33,7 +33,7 @@
               </q-item>
               <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
                 <q-item-section avatar>
-                  <q-avatar :icon="'img:statics/'+user.team.logo" size="2.1rem" />
+                  <q-avatar :icon="'img:'+user.team.logo" size="2.1rem" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>{{user.team.name}}</q-item-label>

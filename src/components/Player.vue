@@ -241,9 +241,6 @@ export default {
       if (this.player.specificPosition) {
         this.$axios.get('http://innouts.test/api/players/' + this.$route.params.id)
           .then(response => {
-            console.log(response.data)
-            console.log(response.data.data)
-            console.log(response.data.transfers)
             this.transfers = response.data.data.transfers
             this.rumours = response.data.data.rumours
             this.articles = response.data.data.articles
@@ -251,20 +248,6 @@ export default {
           .catch(error => {
             console.log(error)
           })
-        // this.$axios.get('http://innouts.test/api/articles/players/' + this.$route.params.id)
-        //   .then(response => {
-        //     this.articles = response.data
-        //   })
-        //   .catch(error => {
-        //     this.error = error
-        //   })
-        // this.$axios.get('http://innouts.test/api/transfers/players/' + this.$route.params.id)
-        //   .then(response => {
-        //     this.transfers = response.data.data
-        //   })
-        //   .catch(error => {
-        //     this.error = error
-        //   })
       }
     }
   },

@@ -6,7 +6,7 @@
       </div>
 
       <div id="team-logo" class="ph-thumbs bg-secondary">
-        <q-img contain :src="'statics/'+user.team.logo" :alt="user.team.name" class="fit" />
+        <q-img contain :src="user.team.logo" :alt="user.team.name" class="fit" />
       </div>
     </div>
 
@@ -76,7 +76,7 @@
               <q-td key="team" :props="props">
                 <router-link :to="'/teams/' + props.row.targetTeam.id" >
                   <div id="" class="q-mx-auto team-thumbnail">
-                    <q-img :src="'statics/' + props.row.targetTeam.logo" :alt="props.row.targetTeam.name" class="full-height self-center" />
+                    <q-img :src="props.row.targetTeam.logo" :alt="props.row.targetTeam.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                         {{props.row.targetTeam.name}}
                       </q-tooltip>

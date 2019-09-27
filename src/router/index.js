@@ -31,11 +31,21 @@ export default function ({ store }) {
   Router.beforeEach((to, from, next) => {
     store.commit('setLeftDrawer', false)
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      if (store.getters.loggedIn) {
-        next()
-        return
+      if (to.name === 'adminPanel') {
+        console.log('inside to.name')
+        console.log(store.getters.adminIn)
+        if (store.getters.adminIn) {
+          next('/admin')
+        } else {
+          next('/admin-login')
+        }
+      } else {
+        if (store.getters.loggedIn) {
+          next()
+          return
+        }
+        next('/login')
       }
-      next('/login')
     } else {
       next()
     }
