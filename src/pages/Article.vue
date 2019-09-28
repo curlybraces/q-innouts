@@ -21,10 +21,10 @@
         <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
         <div class="row text-caption q-gutter-x-md">
           <!-- Tags: -->
-          <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="team in article.teams" :key="team.id">
+          <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="team in article.teams" :key="team.id">
             {{team.name}}
           </router-link>
-          <router-link :to="'/players/'+player.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-sm" v-for="player in article.players" :key="player.id">
+          <router-link :to="'/players/'+player.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
             {{player.nickname}}
           </router-link>
         </div>
@@ -120,17 +120,17 @@ export default {
     },
 
     date () {
-      return this.article.created_at.split(' ')[0]
+      return this.article.created_at ? this.article.created_at.split(' ')[0] : '?'
     },
 
     authorName () {
-      return this.article.author.firstname + ' ' + this.article.author.lastname
+      return this.article.author ? this.article.author.firstname + ' ' + this.article.author.lastname : 'Anonymous'
     }
   },
 
   watch: {
     $route () {
-      axios.get('http://innouts.test/api/articles/' + this.$route.params.article)
+      axios.get('api/articles/' + this.$route.params.article)
         .then(response => {
           this.setData(response)
         })
@@ -158,7 +158,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/articles/' + to.params.article)
+    axios.get('api/articles/' + to.params.article)
       .then(response => {
         next(vm => {
           vm.setData(response)

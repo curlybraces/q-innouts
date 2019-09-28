@@ -165,12 +165,16 @@ export default {
 
     articleBag () {
       return this.articleChunks[0]
+    },
+
+    admin: function () {
+      return this.$store.getters.admin
     }
   },
 
   created () {
     this.fetchData()
-    this.$axios.get('http://innouts.test/api/teams')
+    this.$axios.get('api/teams')
       .then(response => {
         this.teams = response.data
       })
@@ -183,7 +187,7 @@ export default {
           message: 'Problem fetching teams!'
         })
       })
-    this.$axios.get('http://innouts.test/api/players')
+    this.$axios.get('api/players')
       .then(response => {
         this.players = response.data
         this.playerOptions = this.players
@@ -201,7 +205,7 @@ export default {
 
   methods: {
     fetchData () {
-      this.$axios.get('http://innouts.test/api/articles')
+      this.$axios.get('api/articles')
         .then(response => {
           this.articles = response.data
         })
@@ -240,10 +244,11 @@ export default {
         formData.append('body', this.articleBody)
         formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
         formData.append('taggedPlayers', JSON.stringify(taggedPlayersIDs))
+        formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'
         }
-        this.$axios.post('http://innouts.test/api/articles', formData, headers)
+        this.$axios.post('api/articles', formData, headers)
           .then(response => {
             this.$q.notify({
               color: 'green-4',
@@ -267,7 +272,7 @@ export default {
     },
 
     remove (id) {
-      this.$axios.delete('http://innouts.test/api/articles/' + id)
+      this.$axios.delete('api/articles/' + id)
         .then(response => {
           this.fetchData()
           this.$q.notify({
@@ -288,7 +293,7 @@ export default {
 
     save (idx) {
       let article = this.articleBag[idx]
-      this.$axios({ url: 'http://innouts.test/api/articles/' + article.id, data: { title: article.title, body: article.body }, method: 'PUT' })
+      this.$axios({ url: 'api/articles/' + article.id, data: { title: article.title, body: article.body }, method: 'PUT' })
         .then(response => {
           this.fetchData()
           this.$q.notify({

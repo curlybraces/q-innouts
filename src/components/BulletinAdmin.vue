@@ -99,13 +99,19 @@ export default {
     }
   },
 
+  computed: {
+    admin: function () {
+      return this.$store.getters.admin
+    }
+  },
+
   created () {
     this.fetchData()
   },
 
   methods: {
     fetchData () {
-      this.$axios.get('http://innouts.test/api/bulletins')
+      this.$axios.get('api/bulletins')
         .then(response => {
           this.bulletins = response.data
         })
@@ -132,10 +138,11 @@ export default {
         formData.append('picture', this.$refs.bulletin.files[0])
         formData.append('title', this.bulletinTitle)
         formData.append('body', this.bulletinBody)
+        formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'
         }
-        this.$axios.post('http://innouts.test/api/bulletins', formData, headers)
+        this.$axios.post('api/bulletins', formData, headers)
           .then(response => {
             this.$q.notify({
               color: 'green-4',
@@ -159,7 +166,7 @@ export default {
     },
 
     remove (id) {
-      this.$axios.delete('http://innouts.test/api/bulletins/' + id)
+      this.$axios.delete('api/bulletins/' + id)
         .then(response => {
           this.fetchData()
           this.$q.notify({
@@ -184,7 +191,7 @@ export default {
 
     save (idx) {
       let bullet = this.bulletins[idx]
-      this.$axios({ url: 'http://innouts.test/api/bulletins/' + bullet.id, data: { title: bullet.title, body: bullet.body }, method: 'PUT' })
+      this.$axios({ url: 'api/bulletins/' + bullet.id, data: { title: bullet.title, body: bullet.body }, method: 'PUT' })
         .then(response => {
           this.fetchData()
           this.$q.notify({

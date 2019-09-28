@@ -66,6 +66,11 @@
           table-header-class="bg-green-2"
           hide-bottom
         >
+          <template v-slot:top>
+            <div class="q-table__control">
+              <div class="q-table__title"><span class="emoji">&#128525;</span> In</div>
+            </div>
+          </template>
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="player" :props="props">
@@ -106,6 +111,11 @@
           table-header-class="bg-red-2"
           hide-bottom
         >
+          <template v-slot:top>
+            <div class="q-table__control">
+              <div class="q-table__title"><span class="emoji">&#128548;</span> Out</div>
+            </div>
+          </template>
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="player" :props="props">
@@ -138,10 +148,10 @@ export default {
 
   data () {
     return {
-      window: Object,
-      windows: Array,
+      window: {},
+      windows: [],
       headerStyle: {},
-      team: Object,
+      team: {},
       wantedColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
@@ -179,7 +189,7 @@ export default {
       this.headerStyle.minHeight = '375px'
     }
 
-    this.$axios.get('http://innouts.test/api/windows')
+    this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
         this.windows.unshift(response.data.activeWindow)
@@ -188,10 +198,6 @@ export default {
       .catch(error => {
         this.error = error
       })
-    // this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
-    // this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
-    // let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
-    // this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
   },
 
   updated: function () {
@@ -202,7 +208,7 @@ export default {
 
   watch: {
     window: function () {
-      this.$axios({ url: 'http://innouts.test/api/business', data: { userID: this.user.id, windowID: this.window.id }, method: 'POST' })
+      this.$axios({ url: 'api/business', data: { userID: this.user.id, windowID: this.window.id }, method: 'POST' })
         .then(response => {
           this.wanteds = response.data.wanteds
           this.unwanteds = response.data.unwanteds
@@ -219,7 +225,7 @@ export default {
     },
 
     saveIntro: function (value, initialValue) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newIntro: value }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { newIntro: value }, method: 'PUT' })
         .then(response => {
           console.log(response.data)
         })
@@ -233,7 +239,7 @@ export default {
     saveCards: function (event, id, insOuts) {
       if (insOuts === 'ins') {
         if (this.sumCards('ins') <= 4) {
-          this.$axios({ url: 'http://innouts.test/api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
+          this.$axios({ url: 'api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
                 color: 'green-4',
@@ -253,7 +259,7 @@ export default {
         }
       } else {
         if (this.sumCards('outs') <= 4) {
-          this.$axios({ url: 'http://innouts.test/api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
+          this.$axios({ url: 'api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
                 color: 'green-4',

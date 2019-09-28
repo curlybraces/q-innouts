@@ -38,7 +38,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/rumours')
+    axios.get('api/rumours')
       .then(response => {
         next(vm => {
           vm.rumours = response.data

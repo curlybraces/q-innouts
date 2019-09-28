@@ -157,14 +157,14 @@
               </q-card>
             </q-tab-panel>
 
-            <q-tab-panel name="alarms">
+            <!-- <q-tab-panel name="alarms">
               <div class="text-h6">Alarms</div>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </q-tab-panel>
 
             <q-tab-panel name="news">
               <news />
-            </q-tab-panel>
+            </q-tab-panel> -->
           </q-tab-panels>
         </div>
     <!-- </div> -->
@@ -173,14 +173,13 @@
 
 <script>
 import axios from 'axios'
-const News = () => import('components/News.vue')
-// import { date } from 'quasar'
+// const News = () => import('components/News.vue')
 
 export default {
   name: 'League',
 
   components: {
-    News,
+    // News,
   },
 
   data () {
@@ -203,9 +202,11 @@ export default {
   computed: {
     teamNames () {
       let x = []
-      this.league.teams.forEach(element => {
-        x.push(element.name)
-      })
+      if (this.league.teams) {
+        this.league.teams.forEach(element => {
+          x.push(element.name)
+        })
+      }
       return x
     }
   },
@@ -222,7 +223,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/leagues/' + to.params.league)
+    axios.get('api/leagues/' + to.params.league)
       .then(response => {
         next(vm => {
           vm.league = response.data.league
@@ -230,7 +231,7 @@ export default {
         })
       })
       .catch(error => {
-        from.error = error
+        console.log(error)
         next(false)
       })
   },
@@ -246,7 +247,7 @@ export default {
   },
 
   beforeRouteUpdate (to, from, next) {
-    axios.get('http://innouts.test/api/leagues/' + to.params.league)
+    axios.get('api/leagues/' + to.params.league)
       .then(response => {
         this.league = response.data.league
         this.stats = response.data.stats

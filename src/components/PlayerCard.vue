@@ -50,7 +50,7 @@ export default {
   methods: {
     submitRating: function (value) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        this.$axios({ url: 'api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
           })

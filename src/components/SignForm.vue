@@ -143,7 +143,7 @@ export default {
 
   data () {
     return {
-      hints: Array,
+      hints: [],
       player: '',
       wantedPlayers: [],
       wanted: null,
@@ -174,7 +174,7 @@ export default {
 
       if (x <= this.signQuota) {
         this.$axios
-          .post('http://innouts.test/api/wanteds', {
+          .post('api/wanteds', {
             players: JSON.stringify(this.wantedPlayers),
             team: this.team.id,
             userID: this.user.id
@@ -199,7 +199,7 @@ export default {
     search: function () {
       if (this.player.length) {
         this.$axios
-          .post('http://innouts.test/api/search', { player: this.player, team: this.team.id })
+          .post('api/search', { player: this.player, team: this.team.id })
           .then(response => (this.hints = response.data))
           .catch(function (error) {
             console.log(error)

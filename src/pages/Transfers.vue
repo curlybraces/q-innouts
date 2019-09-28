@@ -192,7 +192,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/windows')
+    axios.get('api/windows')
       .then(response => {
         next(vm => {
           vm.windows = response.data.visibleWindows
@@ -224,7 +224,7 @@ export default {
     submitRating: function (value, id, index) {
       if (this.loggedIn) {
         // alert(index)
-        axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        axios({ url: 'api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.transfers[index].rating = value
           })

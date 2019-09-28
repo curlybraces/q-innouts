@@ -149,7 +149,7 @@ export default {
 
       if (x <= this.sellQuota) {
         this.$axios
-          .post('http://innouts.test/api/unwanteds', {
+          .post('api/unwanteds', {
             players: JSON.stringify(this.unwanteds),
             team: this.team.id,
             userID: this.user.id

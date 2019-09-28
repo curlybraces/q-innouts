@@ -335,7 +335,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/rankings/teams')
+    axios.get('api/rankings/teams')
       .then(response => {
         next(vm => {
           vm.teams = response.data.teams
@@ -376,7 +376,7 @@ export default {
         this.$q.loading.show({
           delay: 200
         })
-        axios.get('http://innouts.test/api/managers')
+        axios.get('api/managers')
           .then(response => {
             this.managers = response.data
           })
@@ -386,7 +386,7 @@ export default {
         this.$q.loading.hide()
       } else if (newVal === 'players' && !this.players.topOverall) {
         this.$q.loading.show()
-        axios.get('http://innouts.test/api/rankings/players')
+        axios.get('api/rankings/players')
           .then(response => {
             this.players = response.data
           })
@@ -396,7 +396,7 @@ export default {
         this.$q.loading.hide()
       } else if (newVal === 'fans' && this.fans.length === 0) {
         this.$q.loading.show()
-        axios.get('http://innouts.test/api/rankings/fans')
+        axios.get('api/rankings/fans')
           .then(response => {
             this.fans = response.data
           })

@@ -64,34 +64,15 @@ export default {
 
   methods: {
     onSubmit () {
+      if (this.adminIn) {
+        this.$store.dispatch('adminLogout')
+      }
       let email = this.email
       let password = this.password
       let remember = this.remember
       this.$store.dispatch('login', { email, password, remember })
         .then(() => this.$router.push({ name: 'home' }))
         .catch(err => console.log(err))
-      // this.$axios.post('http://innouts.test/api/login', {
-      //   email: this.email,
-      //   password: this.password
-      // })
-      //   .then(response => {
-      //     console.log = response.data.data
-      //     this.$q.notify({
-      //       color: 'green-4',
-      //       textColor: 'white',
-      //       icon: 'fas fa-check-circle',
-      //       message: 'Logged In'
-      //     })
-      //     this.$router.push({ name: 'profile', params: { user: '123' } })
-      //   })
-      //   .catch(error => {
-      //     this.$q.notify({
-      //       color: 'red-5',
-      //       textColor: 'white',
-      //       icon: 'fas fa-exclamation-triangle',
-      //       message: error.response.data.error
-      //     })
-      //   })
     },
 
   },

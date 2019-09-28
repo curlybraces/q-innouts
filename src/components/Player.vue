@@ -19,9 +19,9 @@
                 :max="5"
                 @input="submitRating"
               />
-              <rating v-else @save="submitRating" :rating="player.rating"  color="orange" size="1.4rem" class="q-mx-auto q-mt-sm"/>
+              <rating v-else @save="submitRating" :rating="player.rating"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
             </div>
-            <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{player.votes}}</div>
+            <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
         </div>  <!-- children will default to 'col'  -->
       </div>
@@ -174,7 +174,8 @@ export default {
     current: 1,
     playerInfoClass: {},
     transfersClass: {},
-    transfers: []
+    transfers: [],
+    votes: 0,
   }),
 
   props: {
@@ -239,11 +240,12 @@ export default {
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
       this.tab = 'transfers'
       if (this.player.specificPosition) {
-        this.$axios.get('http://innouts.test/api/players/' + this.$route.params.id)
+        this.$axios.get('api/players/' + this.$route.params.id)
           .then(response => {
             this.transfers = response.data.data.transfers
             this.rumours = response.data.data.rumours
             this.articles = response.data.data.articles
+            this.votes = response.data.data.votes
           })
           .catch(error => {
             console.log(error)
@@ -254,10 +256,10 @@ export default {
 
   methods: {
     submitRating: function (value) {
-      let url = 'http://innouts.test/api/players/'
+      let url = 'api/players/'
       // if the entity is a manager
       if (!this.player.specificPosition) {
-        url = 'http://innouts.test/api/managers/'
+        url = 'api/managers/'
       }
       if (this.loggedIn) {
         if (this.$q.screen.lt.md) {
@@ -288,7 +290,7 @@ export default {
 
     submitVote: function (val, key, index) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
+        this.$axios({ url: 'api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
           .then(response => {
             if (val === 1) {
               this.rumours[index].vote = 'up'

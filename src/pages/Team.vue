@@ -194,7 +194,7 @@
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
       <q-tab name="rumours" icon="chat" label="Rumours" />
       <q-tab name="articles" icon="info" label="Editorials" />
-      <!-- <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" /> -->
+      <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" />
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
@@ -368,7 +368,7 @@
       <q-tab-panel name="rumours">
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
-            <rumours v-if="team.rumours.length" :rumours="team.rumours" :dense="true" btnSize="xs" />
+            <rumours v-if="team.rumours ? team.rumours.length : false" :rumours="team.rumours" :dense="true" btnSize="xs" />
             <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
           </div>
         </div>
@@ -377,7 +377,7 @@
       <q-tab-panel name="articles">
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
-            <articles v-if="team.articles.length" :articles="team.articles" :dense="true" />
+            <articles v-if="team.articles ? team.articles.length : false" :articles="team.articles" :dense="true" />
             <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
           </div>
         </div>
@@ -484,7 +484,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/teams/' + to.params.team)
+    axios.get('api/teams/' + to.params.team)
       .then(response => {
         next(vm => {
           vm.setData(response)
@@ -498,7 +498,7 @@ export default {
   },
 
   beforeRouteUpdate (to, from, next) {
-    axios.get('http://innouts.test/api/teams/' + to.params.team)
+    axios.get('api/teams/' + to.params.team)
       .then(response => {
         this.reset()
         this.setData(response)
@@ -534,7 +534,7 @@ export default {
 
     panelChange: function (newVal, oldVal) {
       if (newVal === 'business' && this.signQuota === null) {
-        axios.get('http://innouts.test/api/sign-sell/' + this.user.id)
+        axios.get('api/sign-sell/' + this.user.id)
           .then(response => {
             this.signQuota = response.data.signQuota
             this.sellQuota = response.data.sellQuota
@@ -612,7 +612,7 @@ export default {
 
     submitRating: function (value) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        this.$axios({ url: 'api/players/' + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.player.rating = value
           })
@@ -636,7 +636,7 @@ export default {
 
     submitManagerRating: function (value) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/managers/' + this.team.manager.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        this.$axios({ url: 'api/managers/' + this.team.manager.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.team.manager.rating = value
           })

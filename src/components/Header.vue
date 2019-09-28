@@ -372,6 +372,9 @@ export default {
 
   methods: {
     onSubmit () {
+      if (this.adminIn) {
+        this.$store.dispatch('adminLogout')
+      }
       let email = this.email
       let password = this.password
       let remember = this.remember

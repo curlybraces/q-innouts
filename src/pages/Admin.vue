@@ -12,7 +12,7 @@
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSyb_bl2yTpKhgn__vbbP9_2hPU8AfzvyhH16xZnK1l1zH3MxaP">
             </q-avatar>
 
-            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize text-white">admin name</div>
+            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize text-white">{{admin.firstname}} {{admin.lastname}}</div>
 
             <q-btn
               color="secondary"
@@ -177,10 +177,16 @@ export default {
     }
   },
 
+  computed: {
+    admin: function () {
+      return this.$store.getters.admin
+    }
+  },
+
   watch: {
     'team' () {
       this.player = null
-      this.$axios.get('http://innouts.test/api/teams/players/' + this.team.id)
+      this.$axios.get('api/teams/players/' + this.team.id)
         .then(response => {
           this.players = response.data
         })
@@ -202,7 +208,9 @@ export default {
   created () {
     this.$store.commit('setRightDrawer', false)
 
-    this.$axios.get('http://innouts.test/api/leagues')
+    this.$store.dispatch('getAdmin', this.$q.cookies.get('adminToken'))
+
+    this.$axios.get('api/leagues')
       .then(response => {
         this.leagues = response.data
       })
@@ -212,78 +220,10 @@ export default {
   },
 
   methods: {
-    logout () {
-
-    },
-
-    onArticleReset () {
-      this.articleTitle = ''
-      this.articleBody = ''
-      this.$refs.article.reset()
-    },
-
-    onArticleSubmit () {
-      if (this.articleTitle.length && this.articleBody.length && this.$refs.article.files[0]) {
-        let formData = new FormData()
-        formData.append('picture', this.$refs.article.files[0])
-        formData.append('title', this.articleTitle)
-        formData.append('body', this.articleBody)
-        let headers = {
-          'Content-Type': 'multipart/form-data'
-        }
-        this.$axios.post('http://innouts.test/api/articles', formData, headers)
-          .then(response => {
-            this.$q.notify({
-              color: 'green-4',
-              textColor: 'white',
-              icon: 'fas fa-check-circle',
-              message: 'Article created!'
-            })
-            this.onArticleReset()
-          })
-      } else {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'fas fa-exclamation-triangle',
-          message: 'Title, body and picture are not filled!'
-        })
-      }
-    },
-
-    onRumourReset () {
-      this.rumourTitle = ''
-      this.rumourBody = ''
-      this.$refs.rumour.reset()
-    },
-
-    onRumourSubmit () {
-      if (this.rumourTitle.length && this.rumourBody.length && this.$refs.rumour.files[0]) {
-        let formData = new FormData()
-        formData.append('picture', this.$refs.rumour.files[0])
-        formData.append('title', this.rumourTitle)
-        formData.append('body', this.rumourBody)
-        let headers = {
-          'Content-Type': 'multipart/form-data'
-        }
-        this.$axios.post('http://innouts.test/api/rumours', formData, headers)
-          .then(response => {
-            this.$q.notify({
-              color: 'green-4',
-              textColor: 'white',
-              icon: 'fas fa-check-circle',
-              message: 'Rumour created!'
-            })
-            this.onRumourReset()
-          })
-      } else {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'fas fa-exclamation-triangle',
-          message: 'Title, body and picture are not filled!'
-        })
-      }
+    logout: function () {
+      this.$store.dispatch('adminLogout').then(() => {
+        this.$router.push('/')
+      })
     },
 
     onTransferReset () {
@@ -303,7 +243,7 @@ export default {
 
     onTransferSubmit () {
       if (this.player && this.targetTeam && this.date) {
-        this.$axios({ url: 'http://innouts.test/api/transfers', data: { player_id: this.player.id, from: this.team.id, to: this.targetTeam.id, fee: this.fee, date: this.date, loan: this.loan, returnDate: this.returnDate }, method: 'POST' })
+        this.$axios({ url: 'api/transfers', data: { player_id: this.player.id, from: this.team.id, to: this.targetTeam.id, fee: this.fee, date: this.date, loan: this.loan, returnDate: this.returnDate }, method: 'POST' })
           .then(response => {
             this.$q.notify({
               color: 'green-4',

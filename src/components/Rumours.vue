@@ -120,7 +120,7 @@ export default {
 
     submitVote: function (val, key, index) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
+        this.$axios({ url: 'api/rumours/' + key, data: { userId: this.user.id, val: val }, method: 'PUT' })
           .then(response => {
             if (val === 1) {
               this.rumours[index].vote = 'up'

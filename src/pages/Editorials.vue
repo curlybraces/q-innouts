@@ -42,7 +42,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/articles')
+    axios.get('api/articles')
       .then(response => {
         next(vm => {
           vm.setData(response)

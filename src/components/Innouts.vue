@@ -16,7 +16,7 @@
             <div>
               <q-table
                 class="my-sticky-header-table"
-                title="Ins"
+                title="In"
                 :data="inTransfers"
                 :columns="transferInColumns"
                 :visible-columns="inVisibleColumns"
@@ -62,7 +62,7 @@
             <div>
               <q-table
                 class="my-sticky-header-table "
-                title="Outs"
+                title="Out"
                 :data="outTransfers"
                 :columns="transferOutColumns"
                 :visible-columns="outVisibleColumns"
@@ -111,7 +111,7 @@
           <div class="col-grow col-md">
             <div>
               <q-table
-                class="my-sticky-header-table bg-secondary"
+                class="my-sticky-header-table"
                 title="Ins"
                 :data="wanteds"
                 :columns="wantedColumns"
@@ -122,6 +122,11 @@
                 color="primary"
                 table-header-class="bg-green-2"
               >
+                <template v-slot:top>
+                  <div class="q-table__control">
+                    <div class="q-table__title"><span class="emoji">&#128525;</span> In</div>
+                  </div>
+                </template>
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
                   <router-link :to="'/players/' + value.value.id" class="no-decor" >
                     {{value.value.nickname}}
@@ -148,7 +153,7 @@
           <div class="col-grow col-md">
             <div>
               <q-table
-                class="my-sticky-header-table bg-secondary"
+                class="my-sticky-header-table"
                 title="Outs"
                 :data="unwanteds"
                 :columns="unwantedColumns"
@@ -159,6 +164,11 @@
                 color="primary"
                 table-header-class="bg-red-2"
               >
+                <template v-slot:top>
+                  <div class="q-table__control">
+                    <div class="q-table__title"><span class="emoji">&#128548;</span> Out</div>
+                  </div>
+                </template>
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
                   <router-link :to="'/players/' + value.value.id" class="no-decor" >
                     {{value.value.nickname}}
@@ -272,7 +282,7 @@ export default {
       this.inVisibleColumns = ['name', 'from', 'date', 'fee', 'rating']
       this.outVisibleColumns = ['name', 'to', 'date', 'fee', 'rating']
     }
-    this.$axios.get('http://innouts.test/api/windows')
+    this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
         this.windows.unshift(response.data.activeWindow)
@@ -320,7 +330,7 @@ export default {
 
     submitRating: function (value, id, index, inOut) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        this.$axios({ url: 'api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             if (inOut === 'ins') {
               this.inTransfers[index].rating = value

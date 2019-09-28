@@ -38,6 +38,7 @@ export default function ({ ssrContext }) {
       adminIn: state => !!state.adminToken,
       authStatus: state => state.status,
       user: state => state.user,
+      admin: state => state.admin,
       view: state => state.view,
       leftDrawer: state => state.leftDrawer,
       rightDrawer: state => state.rightDrawer,
@@ -59,7 +60,7 @@ export default function ({ ssrContext }) {
       authSuccess (state, payload) {
         state.status = 'success'
         state.token = payload.token
-        axios({ url: 'http://innouts.test/api/user', method: 'GET' })
+        axios({ url: 'api/user', method: 'GET' })
           .then(resp => { state.user = resp.data.user })
           .catch(err => console.log(err))
       },
@@ -71,12 +72,12 @@ export default function ({ ssrContext }) {
       logout (state) {
         state.status = ''
         state.token = ''
-        state.user = ''
+        state.user = {}
       },
 
       adminLogout (state) {
         state.adminToken = ''
-        state.admin = ''
+        state.admin = {}
       },
 
       updateUser (state, payload) {
@@ -84,9 +85,14 @@ export default function ({ ssrContext }) {
         // alert('done')
       },
 
+      updateAdmin (state, payload) {
+        state.admin = payload.admin
+        // alert('done')
+      },
+
       adminAuthSuccess (state, payload) {
         state.adminToken = payload.token
-        axios({ url: 'http://innouts.test/api/admin', method: 'GET' })
+        axios({ url: 'api/admin', method: 'GET' })
           .then(resp => { state.admin = resp.data.admin })
           .catch(err => console.log(err))
       },
@@ -118,7 +124,7 @@ export default function ({ ssrContext }) {
       login ({ commit }, credentials) {
         return new Promise((resolve, reject) => {
           commit('authRequest')
-          axios({ url: 'http://innouts.test/api/login', data: credentials, method: 'POST' })
+          axios({ url: 'api/login', data: credentials, method: 'POST' })
             .then(resp => {
               let token = resp.data.token
               // let user = resp.data.user
@@ -146,7 +152,7 @@ export default function ({ ssrContext }) {
 
       adminLogin ({ commit }, credentials) {
         return new Promise((resolve, reject) => {
-          axios({ url: 'http://innouts.test/api/admin-login', data: credentials, method: 'POST' })
+          axios({ url: 'api/admin-login', data: credentials, method: 'POST' })
             .then(resp => {
               let token = resp.data.access_token
               if (credentials.remember) {
@@ -189,7 +195,7 @@ export default function ({ ssrContext }) {
       register ({ commit }, info) {
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({ url: 'http://innouts.test/api/register', data: info, method: 'POST' })
+          axios({ url: 'api/register', data: info, method: 'POST' })
             .then(resp => {
               let token = resp.data.token
               cookies.set('token', token)
@@ -211,8 +217,18 @@ export default function ({ ssrContext }) {
       getUser ({ commit }, token) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
         return new Promise((resolve, reject) => {
-          axios({ url: 'http://innouts.test/api/user', method: 'GET' })
+          axios({ url: 'api/user', method: 'GET' })
             .then(resp => { commit('updateUser', { 'user': resp.data.user }) })
+            .catch(err => console.log(err))
+          resolve()
+        })
+      },
+
+      getAdmin ({ commit }, token) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+        return new Promise((resolve, reject) => {
+          axios({ url: 'api/admin', method: 'GET' })
+            .then(resp => { commit('updateAdmin', { 'admin': resp.data.admin }) })
             .catch(err => console.log(err))
           resolve()
         })

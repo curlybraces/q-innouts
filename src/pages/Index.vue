@@ -37,7 +37,7 @@
 
       <q-table
         class="my-sticky-header-table bg-secondary"
-        title="Biggest Transfers of Summer 2019"
+        :title="'Biggest Transfers of ' + transfers[0].window.name"
         :dense="$q.screen.lt.md"
         :data="transfers"
         :columns="columns"
@@ -130,7 +130,7 @@
                 size="1.5rem"
                 icon="thumb_up"
                 :id="value.value.id"
-                :value="value.value.rating"
+                :value="value.value.rating ? value.value.rating : 0"
                 :max="5"
                 @input="submitRating($event, value.value.id, value.value.__index)"
               />
@@ -155,6 +155,11 @@
               color="primary"
               table-header-class="bg-green-2"
             >
+              <template v-slot:top>
+                <div class="q-table__control">
+                  <div class="q-table__title"><span class="emoji">&#128293;</span> Players in Demand</div>
+                </div>
+              </template>
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
                 <router-link :to="'/players/' + value.value.id" class="no-decor" >
                   {{value.value.nickname}}
@@ -202,6 +207,11 @@
               color="primary"
               table-header-class="bg-red-2"
             >
+              <template v-slot:top>
+                <div class="q-table__control">
+                  <div class="q-table__title"><span class="emoji">&#128148;</span> Players for Sale</div>
+                </div>
+              </template>
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
                 <router-link :to="'/players/' + value.value.id" class="no-decor" >
                   {{value.value.nickname}}
@@ -237,7 +247,7 @@
       elevated
     >
       <q-list padding separator link dense class="col" >
-        <q-item-label header class="text-black bg-brown-5"><span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
+        <q-item-label header class="text-black bg-brown-5"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -257,7 +267,7 @@
         </div>
       </q-list>
       <q-list padding link class="col" >
-        <q-item-label header class="bg-brown-5 text-white"><span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127995;</span> Latest Rumours</q-item-label>
+        <q-item-label header class="bg-brown-5 text-white"><span class="q-icon on-left emoji" >&#128066;&#127995;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -356,7 +366,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('http://innouts.test/api/')
+    axios.get('/api')
       .then(response => {
         next(vm => {
           vm.setData(response)
@@ -425,15 +435,11 @@ export default {
       this.unwanteds = response.data.unwanteds
     },
 
-    submitRating: function (value, id, index, inOut) {
+    submitRating: function (value, id, index) {
       if (this.loggedIn) {
         this.$axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
-            if (inOut === 'ins') {
-              this.inTransfers[index].rating = value
-            } else {
-              this.outTransfers[index].rating = value
-            }
+            this.transfers[index].rating = value
           })
           .catch(error => {
             this.$q.notify({

@@ -180,7 +180,7 @@
                   <div v-if="user.team">
                     <div class="row justify-center">
                       <div class="col-md-2 col-3">
-                        <q-img :src="'statics/'+user.team.logo" class="full-width" />
+                        <q-img :src="user.team.logo" class="full-width" />
                       </div>
                     </div>
                     <div class="row justify-center q-my-md">
@@ -481,11 +481,7 @@ export default {
             icon: 'fas fa-check-circle',
             message: 'Team saved!'
           })
-          if (localStorage.getItem('token')) {
-            this.$store.dispatch('getUser', localStorage.getItem('token'))
-          } else {
-            this.$store.dispatch('getUser', sessionStorage.getItem('token'))
-          }
+          this.$store.dispatch('getUser', this.$q.cookies.get('token'))
         })
         .catch(err => console.log(err))
     },

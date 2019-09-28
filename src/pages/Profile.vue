@@ -15,7 +15,8 @@
         <q-list dense dar >
           <q-item>
             <q-item-section avatar>
-              <q-icon color="" name="perm_identity" />
+              <!-- <q-icon color="" name="perm_identity" /> -->
+              <span class="emoji">&#128100;</span>
             </q-item-section>
             <q-item-section>
               <q-item-label class="text-capitalize" > {{user.name}} </q-item-label>
@@ -23,7 +24,8 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <q-icon color="" name="calendar_today" />
+              <!-- <q-icon color="" name="calendar_today" /> -->
+              <span class="emoji">&#128467;</span>
             </q-item-section>
             <q-item-section>
               <q-item-label >
@@ -33,7 +35,8 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <q-icon color="" name="schedule" />
+              <!-- <q-icon color="" name="schedule" /> -->
+              <span class="emoji">&#128157;</span>
             </q-item-section>
             <q-item-section>
               <q-item-label >{{user.team.name}} fan since {{info.since}}</q-item-label>
@@ -41,7 +44,8 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <q-icon color="" name="remove_red_eye" />
+              <!-- <q-icon color="" name="remove_red_eye" /> -->
+              <span class="emoji">&#128064;</span>
             </q-item-section>
             <q-item-section>
               <q-item-label >Seen {{info.seen}} </q-item-label>
@@ -51,7 +55,7 @@
       </q-card>
       <div class="col-12 col-md-3 bg-secondar text-center q-pt-sm self-center">
         <div v-if="user.intro">
-          <p class="text-h5 text-capitalize q-mb-sm"><span>&#128220;</span></p>
+          <p class="emoji text-capitalize q-mb-sm"><span>&#128220;</span></p>
           <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
           <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
         </div>
@@ -60,7 +64,7 @@
         <q-card class="column q-pa-m bg-secondary bordered w-75 q-mx-auto">
           <div class="">
             <div class="text-h6 text-center bg-primary q-pa-sm">
-              <span style='font-size:1.7rem;'>&#127941;</span>
+              <span style='font-size:1.7rem;'>&#127894;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
@@ -95,6 +99,11 @@
           color="primary"
           table-header-class="bg-green-2"
         >
+          <template v-slot:top>
+            <div class="q-table__control">
+              <div class="q-table__title"><span class="emoji">&#128525;</span> In</div>
+            </div>
+          </template>
           <q-td slot="body-cell-name" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
               {{value.value.nickname}}
@@ -125,6 +134,11 @@
           color="primary"
           table-header-class="bg-red-2"
         >
+          <template v-slot:top>
+            <div class="q-table__control">
+              <div class="q-table__title"><span class="emoji">&#128548;</span> Out</div>
+            </div>
+          </template>
           <q-td slot="body-cell-name" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id" class="no-decor" >
               {{value.value.nickname}}
@@ -181,7 +195,7 @@ export default {
 
   beforeRouteEnter (to, from, next) {
     // console.log('beforeRouteEnter')
-    axios.get('http://innouts.test/api/users/' + to.params.user)
+    axios.get('api/users/' + to.params.user)
       .then(response => {
         // console.log('here')
         next(vm => {
@@ -198,7 +212,7 @@ export default {
   },
 
   beforeRouteUpdate (to, from, next) {
-    axios.get('http://innouts.test/api/users/' + to.params.user)
+    axios.get('api/users/' + to.params.user)
       .then(response => {
         // this.reset()
         this.setData(response)
@@ -215,7 +229,7 @@ export default {
   created: function () {
     this.$store.commit('setRightDrawer', false)
 
-    this.$axios.get('http://innouts.test/api/windows')
+    this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
         this.windows.unshift(response.data.activeWindow)
@@ -229,7 +243,7 @@ export default {
 
   watch: {
     window: function () {
-      this.$axios({ url: 'http://innouts.test/api/business', data: { userID: this.user.id, windowID: this.window.id }, method: 'POST' })
+      this.$axios({ url: 'api/business', data: { userID: this.user.id, windowID: this.window.id }, method: 'POST' })
         .then(response => {
           this.wanteds = response.data.wanteds
           this.unwanteds = response.data.unwanteds

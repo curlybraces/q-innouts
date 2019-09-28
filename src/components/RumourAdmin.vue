@@ -163,12 +163,16 @@ export default {
 
     rumourBag () {
       return this.rumourChunks[0]
+    },
+
+    admin: function () {
+      return this.$store.getters.admin
     }
   },
 
   created () {
     this.fetchData()
-    this.$axios.get('http://innouts.test/api/teams')
+    this.$axios.get('api/teams')
       .then(response => {
         this.teams = response.data
       })
@@ -181,7 +185,7 @@ export default {
           message: 'Problem fetching teams!'
         })
       })
-    this.$axios.get('http://innouts.test/api/players')
+    this.$axios.get('api/players')
       .then(response => {
         this.players = response.data
         this.playerOptions = this.players
@@ -199,9 +203,9 @@ export default {
 
   methods: {
     fetchData () {
-      this.$axios.get('http://innouts.test/api/rumours')
+      this.$axios.get('api/rumours')
         .then(response => {
-          this.rumours = response.data.data
+          this.rumours = response.data
         })
         .catch(error => {
           console.log(error)
@@ -238,10 +242,11 @@ export default {
         formData.append('body', this.rumourBody)
         formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
         formData.append('taggedPlayers', JSON.stringify(taggedPlayersIDs))
+        formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'
         }
-        this.$axios.post('http://innouts.test/api/rumours', formData, headers)
+        this.$axios.post('api/rumours', formData, headers)
           .then(response => {
             this.$q.notify({
               color: 'green-4',
@@ -265,7 +270,7 @@ export default {
     },
 
     remove (id) {
-      this.$axios.delete('http://innouts.test/api/rumours/' + id)
+      this.$axios.delete('api/rumours/' + id)
         .then(response => {
           this.fetchData()
           this.$q.notify({
@@ -286,7 +291,7 @@ export default {
 
     save (idx) {
       let rumour = this.rumourBag[idx]
-      this.$axios({ url: 'http://innouts.test/api/rumours/' + rumour.id, data: { title: rumour.title, body: rumour.body }, method: 'PUT' })
+      this.$axios({ url: 'api/rumours/' + rumour.id, data: { title: rumour.title, body: rumour.body }, method: 'PUT' })
         .then(response => {
           this.fetchData()
           this.$q.notify({

@@ -74,7 +74,7 @@ export default {
     if (from.name === 'player' && to.name === 'player') {
       next()
     } else if (to.name === 'manager') {
-      axios.get('http://innouts.test/api/managers/' + to.params.manager)
+      axios.get('api/managers/' + to.params.manager)
         .then(response => {
           next(vm => {
             vm.person = response.data.data
@@ -87,7 +87,7 @@ export default {
           next(false)
         })
     } else {
-      axios.get('http://innouts.test/api/players/' + to.params.id)
+      axios.get('api/players/' + to.params.id)
         .then(response => {
           // alert('response')
           next(vm => {
@@ -112,10 +112,6 @@ export default {
       }
     })
   },
-
-  // created: () => {
-  //   alert('created')
-  // },
 
   beforeCreate: function () {
     this.$store.commit('setView', {

@@ -11,9 +11,9 @@
 
       <div class="text-center">
         <q-btn-group :style="{backgroundColor: team.color}" push class="">
-          <q-btn size="sm" push @click="country" :disable="!stats.fansTotal" label="Country" />
-          <q-btn size="sm" push @click="gender" :disable="!stats.fansTotal" label="Gender" />
-          <q-btn size="sm" push @click="age" :disable="!stats.fansTotal" label="Age" />
+          <q-btn class="fanBtns" size="sm" push @click="country" :disable="!stats.fansTotal" label="Country" />
+          <q-btn class="fanBtns" size="sm" push @click="gender" :disable="!stats.fansTotal" label="Gender" />
+          <q-btn class="fanBtns" size="sm" push @click="age" :disable="!stats.fansTotal" label="Age" />
         </q-btn-group>
 
         <transition name="fade">
