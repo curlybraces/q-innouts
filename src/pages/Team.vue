@@ -431,8 +431,6 @@ const initialState = () => {
     rws: [],
     sss: [],
     cfs: [],
-    // rumours: [],
-    // articles: [],
     tab: 'home',
     panel: 'home',
     headerStyle: {},

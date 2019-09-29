@@ -127,7 +127,6 @@ export default function ({ ssrContext }) {
           axios({ url: 'api/login', data: credentials, method: 'POST' })
             .then(resp => {
               let token = resp.data.token
-              // let user = resp.data.user
 
               if (credentials.remember) {
                 // localStorage.setItem('token', token)
@@ -137,7 +136,6 @@ export default function ({ ssrContext }) {
                 cookies.set('token', token)
               }
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-
               commit('authSuccess', { 'token': token })
               resolve(resp)
             })
@@ -161,7 +159,6 @@ export default function ({ ssrContext }) {
                 cookies.set('adminToken', token)
               }
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-
               commit('adminAuthSuccess', { 'token': token })
               resolve(resp)
             })

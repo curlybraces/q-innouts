@@ -141,7 +141,7 @@
 </template>
 
 <script>
-// import { date } from 'quasar'
+// import store from './'
 
 export default {
   name: 'Home',
@@ -171,13 +171,17 @@ export default {
 
   computed: {
     user: function () {
-      // console.log('computed')
       return this.$store.state.user
     }
   },
 
+  // beforeRouteEnter (to, from, next) {
+  //   if (!store.getters.user.team_id) {
+  //     this.$router.push({ name: 'settings' })
+  //   }
+  // },
+
   mounted: function () {
-    // console.log('created')
     this.$store.commit('setRightDrawer', false)
     // this.team = this.user.team
     // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'

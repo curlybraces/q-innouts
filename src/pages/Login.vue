@@ -72,7 +72,14 @@ export default {
       let remember = this.remember
       this.$store.dispatch('login', { email, password, remember })
         .then(() => this.$router.push({ name: 'home' }))
-        .catch(err => console.log(err))
+        .catch(err => {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: err.response.data.error
+          })
+        })
     },
 
   },
