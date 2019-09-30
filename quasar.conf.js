@@ -132,7 +132,7 @@ module.exports = function (ctx) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'http://innouts.test/api',
+          target: 'http://innouts6.test/api',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''

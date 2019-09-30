@@ -354,6 +354,10 @@ export default {
       return this.$store.getters.loggedIn
     },
 
+    adminIn: function () {
+      return this.$store.getters.adminIn
+    },
+
     user: function () {
       return this.$store.getters.user
     }
@@ -364,9 +368,6 @@ export default {
       if (this.$q.cookies.has('token')) {
         this.$store.dispatch('getUser', this.$q.cookies.get('token'))
       }
-      // } else {
-      //   this.$store.dispatch('getUser', sessionStorage.get('token'))
-      // }
     }
   },
 

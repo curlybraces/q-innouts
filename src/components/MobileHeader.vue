@@ -140,6 +140,10 @@ export default {
       return this.$store.getters.loggedIn
     },
 
+    adminIn: function () {
+      return this.$store.getters.adminIn
+    },
+
     user: function () {
       return this.$store.getters.user
     }

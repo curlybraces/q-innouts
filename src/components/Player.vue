@@ -111,7 +111,7 @@
       class="shadow- rounded-borders full-width q-mb-md"
       >
         <q-tab-panel name="transfers" :class="transfersClass">
-          <q-markup-table v-if="transfers.length" dense separator="none" bordere class="" >
+          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="" >
             <thead class="bg-primary text-white">
               <tr class="text-left">
                 <th>From</th>

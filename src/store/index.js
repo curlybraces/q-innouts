@@ -87,7 +87,6 @@ export default function ({ ssrContext }) {
 
       updateAdmin (state, payload) {
         state.admin = payload.admin
-        // alert('done')
       },
 
       adminAuthSuccess (state, payload) {
