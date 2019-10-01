@@ -141,7 +141,7 @@
 </template>
 
 <script>
-// import store from './'
+import store from '../store'
 
 export default {
   name: 'Home',
@@ -175,11 +175,22 @@ export default {
     }
   },
 
-  // beforeRouteEnter (to, from, next) {
-  //   if (!store.getters.user.team_id) {
-  //     this.$router.push({ name: 'settings' })
-  //   }
-  // },
+  beforeRouteEnter (to, from, next) {
+    console.log('entered beforeRouteEnter')
+    // console.log(window.store)
+    console.log(store(store))
+    // let Store = store()
+    // console.log(Store.getters)
+    // console.log(store())
+    // console.log(store(store).getters.loggedIn)
+    // console.log(store(store).getters.user)
+    // console.log(store(store).getters.user.team_id)
+    // if (!store(store).getters.user.team_id) {
+    //   next({ name: 'settings' })
+    // } else {
+    //   next()
+    // }
+  },
 
   mounted: function () {
     this.$store.commit('setRightDrawer', false)

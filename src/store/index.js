@@ -240,6 +240,5 @@ export default function ({ ssrContext }) {
     // for dev mode only
     // strict: process.env.DEV
   })
-
   return Store
 }

@@ -92,7 +92,7 @@
                     <q-item class="q-mt-lg">
                       <q-item-section class="text-center">
                         <q-uploader
-                          :url="'http://innouts.test/api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
+                          :url="'api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
                           accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
                           :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
                           ref="profile" :factory="uploadFile"
@@ -258,7 +258,7 @@ export default {
 
   created: function () {
     this.$store.commit('setRightDrawer', false)
-    this.$axios({ url: 'http://innouts.test/api/countries', method: 'GET' })
+    this.$axios({ url: 'api/countries', method: 'GET' })
       .then(response => {
         for (let x in response.data) {
           this.countries.push(response.data[x])
@@ -272,7 +272,7 @@ export default {
           message: error.response.data.error
         })
       })
-    this.$axios.get('http://innouts.test/api/leagues')
+    this.$axios.get('api/leagues')
       .then(response => {
         this.leagues = response.data
       })
@@ -291,7 +291,7 @@ export default {
     },
 
     saveEmail: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { email: val }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { email: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -337,7 +337,7 @@ export default {
             persistent: true
           }).onOk(data => {
             if (data.length >= 6) {
-              this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
+              this.$axios({ url: 'api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
                 .then(response => {
                   this.$q.notify({
                     color: 'green-4',
@@ -396,7 +396,7 @@ export default {
     },
 
     saveName: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newName: val }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { newName: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -413,7 +413,7 @@ export default {
     },
 
     saveCountry: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newNationality: val }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { newNationality: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -435,7 +435,7 @@ export default {
     },
 
     saveBirthday: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newBirthday: val }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { newBirthday: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -452,7 +452,7 @@ export default {
     },
 
     saveGender: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { newGender: val }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { newGender: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -473,7 +473,7 @@ export default {
     },
 
     saveTeam: function (val, initialVal) {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, data: { team: val.id }, method: 'PUT' })
+      this.$axios({ url: 'api/users/' + this.user.id, data: { team: val.id }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
             color: 'green-4',
@@ -487,7 +487,7 @@ export default {
     },
 
     deleteAccount: function () {
-      this.$axios({ url: 'http://innouts.test/api/users/' + this.user.id, method: 'DELETE' })
+      this.$axios({ url: 'api/users/' + this.user.id, method: 'DELETE' })
         .then(response => {
           this.$q.notify({
             color: 'warning',
@@ -513,7 +513,7 @@ export default {
       console.log(this.$refs.profile.files[0])
       console.log(formData)
       return new Promise((resolve, reject) => {
-        this.$axios.post('http://innouts.test/api/users/' + this.user.id, formData, headers)
+        this.$axios.post('api/users/' + this.user.id, formData, headers)
           .then(function (response) {
             console.log(response)
             resolve(files)
