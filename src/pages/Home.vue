@@ -141,7 +141,6 @@
 </template>
 
 <script>
-import store from '../store'
 
 export default {
   name: 'Home',
@@ -175,28 +174,14 @@ export default {
     }
   },
 
-  beforeRouteEnter (to, from, next) {
-    console.log('entered beforeRouteEnter')
-    // console.log(window.store)
-    console.log(store(store))
-    // let Store = store()
-    // console.log(Store.getters)
-    // console.log(store())
-    // console.log(store(store).getters.loggedIn)
-    // console.log(store(store).getters.user)
-    // console.log(store(store).getters.user.team_id)
-    // if (!store(store).getters.user.team_id) {
-    //   next({ name: 'settings' })
-    // } else {
-    //   next()
-    // }
+  preFetch ({ store, redirect }) {
+    if (!store.getters.user.team_id) {
+      redirect('/settings')
+    }
   },
 
   mounted: function () {
     this.$store.commit('setRightDrawer', false)
-    // this.team = this.user.team
-    // this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
-    // this.headerStyle.backgroundPosition = this.team.stadium.position
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
       this.headerStyle.display = 'flex'

@@ -229,10 +229,55 @@
 
       <q-space />
       <q-space />
-      <q-space />
-      <q-space />
-      <q-btn-dropdown icon="perm_identity" class="gloss" rounde dense
+      <q-select
+        dark
+        filled
+        dense
+        v-model="search"
+        placeholder="Find friends"
+        use-input
+        hide-selected
+        fill-input
+        :input-debounce="600"
+        :options="users"
+        @filter="filterFn"
+        @input="showUser"
+        option-label="name"
+        option-value="id"
       >
+        <template v-slot:option="scope">
+          <q-item
+            dense
+            v-if="scope.opt.picture"
+            v-bind="scope.itemProps"
+            v-on="scope.itemEvents"
+          >
+            <q-item-section>
+              <q-avatar size="28px">
+                <img :src="scope.opt.picture">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-html="scope.opt.name" />
+            </q-item-section>
+          </q-item>
+          <q-item to="/friends" v-else class="bg-secondary">
+            <q-item-section class="text-center">View All</q-item-section>
+          </q-item>
+        </template>
+        <template v-slot:no-option>
+          <q-item>
+            <q-item-section class="text-grey">
+              Not a soul &#128128;
+            </q-item-section>
+          </q-item>
+        </template>
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-select>
+      <q-space />
+      <q-btn-dropdown icon="perm_identity" class="gloss" rounde dense>
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
             <q-list class="bg-primar">
@@ -346,6 +391,8 @@ export default {
       email: '',
       password: '',
       remember: false,
+      search: '',
+      users: [],
     }
   },
 
@@ -395,7 +442,33 @@ export default {
       this.$store.dispatch('logout').then(() => {
         this.$router.push('/')
       })
+    },
+
+    filterFn (val, update, abort) {
+      if (val.length < 2) {
+        abort()
+        return
+      }
+
+      update(() => {
+        this.$axios.get('api/friends', { params: { name: val } })
+          .then(response => {
+            let users = response.data.users
+            if (users.length > 3) {
+              this.users = users.slice(0, 4)
+              this.users.push({ name: 'View all', id: 'friends' })
+            } else {
+              this.users = users
+            }
+          })
+          .catch(err => console.log(err))
+      })
+    },
+
+    showUser (value) {
+      this.$router.push({ name: 'profile', params: { user: value.id } })
     }
+
   },
 
 }

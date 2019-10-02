@@ -281,6 +281,19 @@ export default {
       })
   },
 
+  mounted () {
+    if (!this.user.team_id) {
+      this.$q.notify({
+        timeout: 10000,
+        // position: 'top',
+        color: 'warning',
+        textColor: 'black',
+        icon: 'fas fa-info-circle',
+        message: 'Innouts is more fun when you support a team!'
+      })
+    }
+  },
+
   methods: {
     panelChange: () => {
 

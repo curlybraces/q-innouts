@@ -240,14 +240,14 @@
     <q-drawer
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
-      content-class="bg-brown-3"
+      content-class="bg-brown-7"
       :breakpoint="600"
       :width="380"
       side="right"
       elevated
     >
-      <q-list padding separator link dense class="col" >
-        <q-item-label header class="text-black bg-brown-5"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
+      <q-list dark padding separator link dense class="col text-grey" >
+        <q-item-label header class="text-black bg-brown-8"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id"  clickable v-ripple >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
