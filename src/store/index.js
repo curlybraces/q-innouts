@@ -190,21 +190,19 @@ export default function ({ ssrContext }) {
 
       register ({ commit }, info) {
         return new Promise((resolve, reject) => {
-          commit('auth_request')
+          // commit('auth_request')
           axios({ url: 'api/register', data: info, method: 'POST' })
             .then(resp => {
-              let token = resp.data.token
-              cookies.set('token', token)
-              // localStorage.setItem('token', token)
+              // let token = resp.data.token
+              // cookies.set('token', token)
               // Add the following line:
-              axios.defaults.headers.common['Authorization'] = token
-              commit('auth_success', token)
+              // axios.defaults.headers.common['Authorization'] = token
+              // commit('auth_success', token)
               resolve(resp)
             })
             .catch(err => {
-              commit('auth_error', err)
-              cookies.remove('token')
-              // localStorage.removeItem('token')
+              // commit('auth_error', err)
+              // cookies.remove('token')
               reject(err)
             })
         })

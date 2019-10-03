@@ -1,9 +1,6 @@
 <template>
   <div class="row justify-center" :class="{'q-gutter-none': !gutters}">
     <div class="rate" :style="ratingStyle" :class="{'is-disabled': archived}">
-      <!-- <div v-for="rating in ratings" :key="rating">
-        <q-icon :name="rating%2!==0 ? 'star' : 'star-half'" />
-      </div> -->
       <label class="star-rating__star" v-for="rating in ratings" :class="{'is-selected': ((value >= rating) && value != null), 'is-disabled': archived, 'half': rating%2!==0}"
           :style="{color: ((value >= rating) && value != null) ? starColor : 'black'}"  @mouseover="star_over(rating)" @mouseout="star_out" :key="rating">
 
@@ -40,7 +37,6 @@ export default {
       type: String,
       default: 'gold'
     },
-    // votes: Number,
     archived: {
       type: Boolean,
       default: false
@@ -64,26 +60,21 @@ export default {
       // console.log('inside watch')
       // console.log('rating is ' + this.rating)
       // console.log('value is ' + this.value)
-      this.value = this.rating
-      this.temp_value = Math.round(this.rating * 1) / 1
+      this.value = Math.round(this.rating)
+      this.temp_value = Math.round(this.rating)
     }
   },
 
   created () {
-    // console.log('created')
-    // this.disabled = this.archived
-    // this.$emit('created event')
     this.value = this.rating
   },
 
   mounted () {
-    // console.log('mounted')
-    this.value = Math.round(this.rating * 1) / 1
+    this.value = Math.round(this.rating)
     this.starColor = this.color
     this.ratingStyle = {
       fontSize: this.size
     }
-    // this.disabled = this.archived
   },
 
   // updated: function () {

@@ -55,7 +55,7 @@
               class=""
             />
 
-            <q-toggle v-model="accept" label="I accept Innouts' terms" />
+            <q-toggle v-model="accept" label="I accept Innouts' terms" checked-icon="check" />
 
             <div class="q-mb-md">
               <q-btn label="Submit" type="submit" color="primary" />
@@ -82,6 +82,17 @@ export default {
     }
   },
 
+  meta () {
+    return {
+      title: 'Register | Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'Get started with Innouts and leave behind he age of passive fans!' },
+        // keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.team.name, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
+      },
+    }
+  },
+
   created: function () {
     this.$store.commit('setView', {
       view: 'hhh lpR fff'
@@ -97,9 +108,26 @@ export default {
         email: this.email,
         password: this.password,
       }
-      this.$store.dispatch('register', data)
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
+      if (this.accept) {
+        this.$store.dispatch('register', data)
+          .then(() => {
+            this.$q.notify({
+              timeout: 8000,
+              color: 'warning',
+              textColor: 'black',
+              icon: 'fas fa-info-circle',
+              message: 'Thanks for signing up! We\'ve sent an activation link to your email. Please confirm it before trying to login.'
+            })
+          })
+          .catch(err => console.log(err))
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'ion warning',
+          message: 'Terms not accepted!'
+        })
+      }
     },
 
     onReset () {

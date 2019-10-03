@@ -15,11 +15,11 @@
                 color="orange"
                 class="q-mx-auto q-mt-sm"
                 size="1.5rem"
-                :value="player.rating/2"
+                :value="Math.round(rating/2)"
                 :max="5"
                 @input="submitRating"
               />
-              <rating v-else @save="submitRating" :rating="player.rating"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
+              <rating v-else @save="submitRating" :rating="rating"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
@@ -176,6 +176,7 @@ export default {
     transfersClass: {},
     transfers: [],
     votes: 0,
+    rating: 0
   }),
 
   props: {
@@ -242,10 +243,12 @@ export default {
       if (this.player.specificPosition) {
         this.$axios.get('api/players/' + this.$route.params.id)
           .then(response => {
-            this.transfers = response.data.data.transfers
-            this.rumours = response.data.data.rumours
-            this.articles = response.data.data.articles
-            this.votes = response.data.data.votes
+            let player = response.data.data
+            this.rating = parseFloat(player.rating)
+            this.votes = player.votes
+            this.transfers = player.transfers
+            this.rumours = player.rumours
+            this.articles = player.articles
           })
           .catch(error => {
             console.log(error)
@@ -268,7 +271,7 @@ export default {
         // console.log(value)
         this.$axios({ url: url + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
-            this.player.rating = value
+            this.rating = value
           })
           .catch(error => {
             this.$q.notify({
@@ -316,7 +319,23 @@ export default {
           message: 'Please login or register to rate.'
         })
       }
-    }
+    },
+
+    // start () {
+    //   this.startTime = new Date()
+    // },
+
+    // end () {
+    //   this.endTime = new Date()
+    //   let timeDiff = this.endTime - this.startTime // in ms
+    //   // strip the ms
+    //   // timeDiff /= 1000
+
+    //   // get seconds
+    //   // let diff = date.getDateDiff(this.startTime, this.startTime, 'seconds')
+    //   // let seconds = Math.round(timeDiff)
+    //   console.log(timeDiff + ' milliseconds')
+    // }
   }
 
 }
