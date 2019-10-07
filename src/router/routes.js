@@ -54,6 +54,9 @@ const routes = [
       {
         path: '/admin-login', component: () => import('pages/AdminLogin.vue')
       },
+      {
+        path: '/find/:name', name: 'find', component: () => import('pages/Find.vue')
+      },
       // keep as last route
       {
         path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')

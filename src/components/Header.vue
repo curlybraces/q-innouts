@@ -261,7 +261,7 @@
               <q-item-label v-html="scope.opt.name" />
             </q-item-section>
           </q-item>
-          <q-item to="/friends" v-else class="bg-secondary">
+          <q-item v-else :to="'/find/'+search" class="bg-secondary">
             <q-item-section class="text-center">View All</q-item-section>
           </q-item>
         </template>
@@ -455,6 +455,7 @@ export default {
           .then(response => {
             let users = response.data.users
             if (users.length > 3) {
+              this.search = val
               this.users = users.slice(0, 4)
               this.users.push({ name: 'View all', id: 'friends' })
             } else {
