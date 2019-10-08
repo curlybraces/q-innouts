@@ -87,7 +87,7 @@ export default {
       title: 'Register | Innouts',
 
       meta: {
-        description: { name: 'description', content: 'Get started with Innouts and leave behind he age of passive fans!' },
+        description: { name: 'description', content: 'Get started with Innouts and leave behind the age of passive fans!' },
         // keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.team.name, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
       },
     }
@@ -115,16 +115,24 @@ export default {
               timeout: 8000,
               color: 'warning',
               textColor: 'black',
-              icon: 'fas fa-info-circle',
+              icon: 'fas fa-information-circle',
               message: 'Thanks for signing up! We\'ve sent an activation link to your email. Please confirm it before trying to login.'
             })
+            this.$router.push({ path: '/login' })
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'warning',
+              message: err.response.data.message
+            })
+          })
       } else {
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
-          icon: 'ion warning',
+          icon: 'warning',
           message: 'Terms not accepted!'
         })
       }

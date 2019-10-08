@@ -35,7 +35,7 @@
                       <q-item-section side class="bg-">
                         <q-item-label>
                           Email
-                          <q-badge v-if="user.email_verified" color="positive">verified</q-badge>
+                          <q-badge v-if="user.email_verified_at" color="positive">verified</q-badge>
                           <q-badge v-else color="warning">unverified</q-badge>
                         </q-item-label>
                       </q-item-section>

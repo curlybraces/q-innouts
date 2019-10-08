@@ -166,13 +166,13 @@ export default {
       let password = this.password
       let remember = this.remember
       this.$store.dispatch('login', { email, password, remember })
-        .then(() => this.$router.push({ name: 'profile', params: { user: '123' } }))
+        .then(() => this.$router.push({ name: 'home' }))
         .catch(err => {
           this.$q.notify({
             color: 'red-5',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
-            message: err.response.data.error
+            message: err.response.data.message
           })
         })
     },

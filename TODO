@@ -2,7 +2,7 @@
 Todo:
   ☐ forgot password implementation @critical 
   ☐ SSR for pages: Player, Article @high 
-  ☐ user search @high 
+  ✔ user search @high @done(19-10-08 15:39)
 
 Archive:
   ✔ Admin authentication @low @done(19-09-28 13:42) @project(Todo)

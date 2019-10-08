@@ -333,10 +333,10 @@
               </q-card-section>
               <q-card-section class="q-mt-sm">
                 <div>
-                  <q-img :src="team.manager.picture" :alt="team.manager.displayName" class="img-thumbnail" />
+                  <q-img :src="team.manager.picture" :alt="team.manager.nickname" class="img-thumbnail" />
                     <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
                       <router-link :to="'/managers/' + team.manager.id" class="no-decor" >
-                        {{team.manager.displayName}}
+                        {{team.manager.nickname}}
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                             {{team.manager.firstName}} {{team.manager.lastName}}
                         </q-tooltip>

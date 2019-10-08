@@ -81,9 +81,9 @@ export default {
         .catch(err => {
           this.$q.notify({
             color: 'red-5',
-            textColor: 'white',
+            // textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
-            message: err.response.data.error
+            message: err.response.data.message
           })
         })
     },

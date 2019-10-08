@@ -233,7 +233,7 @@
         dark
         filled
         dense
-        v-model="search"
+        v-model="selectedFriend"
         placeholder="Find friends"
         use-input
         hide-selected
@@ -276,7 +276,7 @@
           <q-icon name="search" />
         </template>
       </q-select>
-      <q-space />
+      <!-- <q-space /> -->
       <q-btn-dropdown icon="perm_identity" class="gloss" rounde dense>
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
@@ -376,9 +376,6 @@
 
     </q-toolbar>
 
-    <!-- <q-toolbar class="col-8 text-white">
-
-    </q-toolbar> -->
   </div>
 </template>
 
@@ -392,6 +389,7 @@ export default {
       password: '',
       remember: false,
       search: '',
+      selectedFriend: null,
       users: [],
     }
   },
@@ -418,6 +416,12 @@ export default {
     }
   },
 
+  watch: {
+    $route () {
+      this.selectedFriend = null
+    }
+  },
+
   methods: {
     onSubmit () {
       if (this.adminIn) {
@@ -433,7 +437,7 @@ export default {
             color: 'red-5',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
-            message: err.response.data.error
+            message: err.response.data.message
           })
         })
     },
