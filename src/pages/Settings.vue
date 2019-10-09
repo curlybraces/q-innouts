@@ -288,7 +288,7 @@ export default {
         // position: 'top',
         color: 'warning',
         textColor: 'black',
-        icon: 'fas fa-info-circle',
+        icon: 'fas fa-information-circle',
         message: 'Innouts is more fun when you support a team!'
       })
     }
