@@ -106,7 +106,7 @@
 
               <div>
                 <q-btn label="Submit" type="submit" color="primary" size="sm"/>
-                <q-btn to="/forgot" label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
+                <q-btn to="/forgot-password" label="Forgot Password?" type="a" color="primary" size="sm" class="q-ml-sm" />
               </div>
 
               <div>
@@ -181,6 +181,12 @@ export default {
       this.$store.dispatch('logout').then(() => {
         this.$router.push('/')
       })
+    },
+
+    reset () {
+      this.email = ''
+      this.password = ''
+      this.remember = false
     }
   },
 

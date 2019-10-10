@@ -34,13 +34,16 @@ const routes = [
         path: '/rankings', component: () => import('pages/Rankings.vue')
       },
       {
-        path: '/login', component: () => import('pages/Login.vue')
+        path: '/login', name: 'login', component: () => import('pages/Login.vue')
       },
       {
         path: '/register', component: () => import('pages/Register.vue')
       },
       {
-        path: '/forgot', component: () => import('pages/Forgot.vue')
+        path: '/forgot-password', component: () => import('pages/Forgot.vue')
+      },
+      {
+        path: '/reset-password/:token', component: () => import('pages/ResetPassword.vue')
       },
       {
         path: '/home', name: 'home', component: () => import('pages/Home.vue'), meta: { requiresAuth: true }

@@ -1,10 +1,10 @@
 
 Todo:
-  ☐ forgot password implementation @critical 
   ☐ SSR for pages: Player, Article @high 
-  ✔ user search @high @done(19-10-08 15:39)
 
 Archive:
+  ✔ forgot password implementation @critical @done(19-10-10 20:27) @project(Todo)
+  ✔ user search @high @done(19-10-08 15:39) @project(Todo)
   ✔ Admin authentication @low @done(19-09-28 13:42) @project(Todo)
   ✔ update the number of votes for a player rating when moving among teammates @low @done(19-09-28 17:56) @project(Todo)
   ✔ injecting meta info into pages @high @done(19-09-24 22:29) @project(Todo)

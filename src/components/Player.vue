@@ -23,6 +23,10 @@
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
+            <q-item class="full-width bordered q-py-none">
+              <q-item-section class="emoji text-center" title="approximate value">&#128178;</q-item-section>
+              <q-item-section class="text-overline text-cente q-ml-none">£{{value}} m</q-item-section>
+            </q-item>
         </div>  <!-- children will default to 'col'  -->
       </div>
       <div class="col-grow col-sm-8 bg-secondary" :class="playerInfoClass">
@@ -176,7 +180,8 @@ export default {
     transfersClass: {},
     transfers: [],
     votes: 0,
-    rating: 0
+    rating: 0,
+    value: 0,
   }),
 
   props: {
@@ -246,6 +251,7 @@ export default {
             let player = response.data.data
             this.rating = parseFloat(player.rating)
             this.votes = player.votes
+            this.value = player.value
             this.transfers = player.transfers
             this.rumours = player.rumours
             this.articles = player.articles
