@@ -190,11 +190,11 @@
       v-model="tab" dense inline-label
       class="bg-primary text-white shadow-2"
     >
-      <q-tab name="home" icon="group_work" label="Team" />
+      <q-tab name="home" label="Team" />
       <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
-      <q-tab name="rumours" icon="chat" label="Rumours" />
-      <q-tab name="articles" icon="info" label="Editorials" />
-      <q-tab v-if="user.team_id == team.id" name="business" icon="work" label="sign/sell" />
+      <q-tab name="rumours" label="Rumours" />
+      <q-tab name="articles" label="Editorials" />
+      <q-tab v-if="user.team_id == team.id" name="business" label="sign/sell" />
     </q-tabs>
 
     <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"

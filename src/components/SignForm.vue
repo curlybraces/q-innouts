@@ -1,7 +1,7 @@
 <template>
   <q-card class="column">
     <q-card-section class="text-h6 bg-green-3 text-left">
-      <span style="">&#10133;</span> <q-icon name="add_circle" left size="2rem" color="green" class="" /> Sign Players
+      <span style="">&#10133;</span> Sign Players
     </q-card-section>
     <q-card-section class="text-subtitle1 q-pa-s">
       {{remSignCards}} sign card(s) remaining! (current window)
@@ -21,7 +21,7 @@
           @keyup="search"
           list="hints"
         /> -->
-        <q-input dense filled v-model="player" @keyup="search" label="Enter player name" />
+        <q-input dense filled v-model="player" @keyup="search" debounce="600" label="Enter player name" />
 
         <!-- <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md q-mx-auto">
@@ -62,31 +62,6 @@
         </q-select>
         </div>
 
-        <!-- <select
-          v-if="this.hints.length"
-          name="wanted"
-          id="wanted"
-          class="form-control mb-2 mr-sm-2"
-          v-model="wanted"
-          @change="push"
-        >
-          <option selected disabled>Open</option>
-          <option
-            v-for="hint in this.hints"
-            :value="hint"
-            :key="hint.id"
-            :disabled="signingList.includes(hint.id)"
-          >{{hint.nickname}}</option>
-        </select> -->
-        <!-- <button
-          v-if="this.wantedPlayers.length"
-          type="submit"
-          class="form-control btn btn-primary mb-2"
-          :disabled="wantedPlayers.length==0"
-        >Submit</button> -->
-
-    <!-- <br /> -->
-
     <q-markup-table class="table table-hover q-mb-md" v-if="this.wantedPlayers.length">
       <thead>
         <tr>
@@ -110,10 +85,10 @@
                   v-model="wanted.votes"
                   @change="update"
                 >
-                  <option :value="1">1</option>
-                  <option :value="2">2</option>
+                  <option v-for="opt in (remSignCards+1)" :value="opt" :key="opt">{{opt}}</option>
+                  <!-- <option :value="2">2</option>
                   <option :value="3">3</option>
-                  <option :value="4">4</option>
+                  <option :value="4">4</option> -->
                 </select>
               </div>
             </form>
@@ -138,7 +113,7 @@ export default {
     team: Object,
     user: Object,
     signingList: null,
-    signQuota: null
+    signQuota: Number
   },
 
   data () {
@@ -152,13 +127,19 @@ export default {
     }
   },
 
-  created: function () {
-    this.remSignCards = this.signQuota
+  watch: {
+    'signQuota' () {
+      this.remSignCards = this.signQuota
+    }
   },
 
-  mounted: function () {
-    this.remSignCards = this.signQuota
-  },
+  // created: function () {
+  //   this.remSignCards = this.signQuota
+  // },
+
+  // mounted: function () {
+  //   this.remSignCards = this.signQuota
+  // },
 
   methods: {
     votesSum: function () {
@@ -176,8 +157,8 @@ export default {
         this.$axios
           .post('api/wanteds', {
             players: JSON.stringify(this.wantedPlayers),
-            team: this.team.id,
-            userID: this.user.id
+            suitor_id: this.team.id,
+            user_id: this.user.id
           })
           .then(response => {
             alert(response.data.message)

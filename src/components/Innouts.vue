@@ -239,7 +239,7 @@ export default {
           field: row => row.player,
           sortable: true
         },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       unwantedColumns: [

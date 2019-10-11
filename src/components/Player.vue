@@ -23,8 +23,8 @@
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
-            <q-item class="full-width bordered q-py-none">
-              <q-item-section class="emoji text-center" title="approximate value">&#128178;</q-item-section>
+            <q-item class="full-width rounded-borders bordered q-py-none">
+              <q-item-section side class="emoji text-center" title="approximate value">&#128178;</q-item-section>
               <q-item-section class="text-overline text-cente q-ml-none">£{{value}} m</q-item-section>
             </q-item>
         </div>  <!-- children will default to 'col'  -->
@@ -107,9 +107,9 @@
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
       >
-        <q-tab name="transfers" icon="swap_horiz" label="Transfers" />
-        <q-tab name="rumours" icon="chat" label="Rumours" />
-        <q-tab name="editorials" icon="info" label="Editorials" />
+        <q-tab name="transfers" label="Transfers" />
+        <q-tab name="rumours" label="Rumours" />
+        <q-tab name="editorials" label="Editorials" />
       </q-tabs>
       <q-tab-panels keep-alive v-model="tab" swipeable animated
       class="shadow- rounded-borders full-width q-mb-md"

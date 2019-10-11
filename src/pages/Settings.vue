@@ -256,6 +256,12 @@ export default {
     }
   },
 
+  meta () {
+    return {
+      title: 'Settings - Innouts',
+    }
+  },
+
   created: function () {
     this.$store.commit('setRightDrawer', false)
     this.$axios({ url: 'api/countries', method: 'GET' })
@@ -482,7 +488,14 @@ export default {
     },
 
     validateTeam: function (val) {
-      return (this.user.nationality && this.user.birthday && this.user.gender) !== null
+      if ((this.user.nationality && this.user.birthday && this.user.gender) !== null) {
+        return true
+      } else {
+        this.league = ''
+        this.teams = []
+        this.team = null
+        return false
+      }
     },
 
     saveTeam: function (val, initialVal) {

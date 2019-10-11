@@ -15,7 +15,6 @@
         <q-list dense dar >
           <q-item>
             <q-item-section avatar>
-              <!-- <q-icon color="" name="perm_identity" /> -->
               <span class="emoji">&#128100;</span>
             </q-item-section>
             <q-item-section>
@@ -24,7 +23,6 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <!-- <q-icon color="" name="calendar_today" /> -->
               <span class="emoji">&#128467;</span>
             </q-item-section>
             <q-item-section>
@@ -35,7 +33,6 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <!-- <q-icon color="" name="schedule" /> -->
               <span class="emoji">&#128157;</span>
             </q-item-section>
             <q-item-section>
@@ -44,11 +41,10 @@
           </q-item>
           <q-item>
             <q-item-section avatar>
-              <!-- <q-icon color="" name="remove_red_eye" /> -->
               <span class="emoji">&#128064;</span>
             </q-item-section>
             <q-item-section>
-              <q-item-label >Seen {{info.seen}} </q-item-label>
+              <q-item-label >Seen {{user.lastSeen}} </q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -61,14 +57,16 @@
         </div>
       </div>
       <div class="col-grow col-md-3  self-center">
-        <q-card class="column q-pa-m bg-secondary bordered w-75 q-mx-auto">
+        <q-card class="column q-pa-m bg-secondary w-75 q-mx-auto">
           <div class="">
-            <div class="text-h6 text-center bg-primary q-pa-sm">
-              <span style='font-size:1.7rem;'>&#127894;</span>
+            <div class="text-h6 text-center bg-primary rounded-borders bordered q-pa-sm">
+              <span title="Achievements: Users will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
-                <q-avatar v-for="el in 4" :key="el" color="primary" size="1.5rem" text-color="white" icon="stars" />
+                <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
+                  &#127894;
+                </span>
               </div>
             </div>
           </div>
@@ -267,8 +265,8 @@ export default {
       }
       this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
       this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
-      let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
-      this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
+      // let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
+      // this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
     }
   }
 }

@@ -287,7 +287,7 @@ export default {
         { name: 'league', align: 'center', label: 'League Success', field: 'league', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'fanLevel', label: 'Fan Level', field: 'fanLevel', sortable: true },
         { name: 'squadScore', label: 'Squad Score', field: 'squadScore', sortable: true },
-        { name: 'squadValue', label: 'Squad Value', field: 'squadValue', sortable: true },
+        { name: 'squadValue', label: 'Squad Value (£m)', field: 'squadValue', sortable: true },
       ],
       teams: [],
       managerColumns: [
@@ -311,7 +311,7 @@ export default {
         { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name.replace(/\b\w/g, l => l.toUpperCase()) },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
-        { name: 'level', align: 'left', label: 'Level', field: 'fanLevel', format: val => `${val.toFixed(2)}`, sortable: true },
+        { name: 'level', align: 'left', label: 'Level', field: 'level', format: val => `${val.toFixed(2)}`, sortable: true },
       ],
       fansPagination: {
         rowsPerPage: 10,

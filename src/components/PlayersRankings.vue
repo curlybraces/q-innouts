@@ -209,6 +209,7 @@ export default {
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
         { name: 'pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value', field: 'value', sortable: true },
       ],
       pagination: {
         rowsPerPage: 10,

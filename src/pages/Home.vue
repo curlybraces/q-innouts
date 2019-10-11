@@ -12,10 +12,11 @@
 
     <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordere">
       <div class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders">
-        <p class="text-h5 text-capitalize q-mb-sm"><span>&#9997;</span></p>
+        <p class="text-h5 text-capitalize q-mb-sm"><span>&#128221;</span></p>
         <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
         <p class="text-subtitle1 q-pa-sm text-secondary">
           {{user.intro}}
+          <span v-if="!user.intro">Click to write!</span>
           <q-popup-edit buttons :value="user.intro" @save="saveIntro" @cancel="cancelIntro" >
             <q-input maxlength="100" type="textarea" v-model="user.intro" dense autofocus counter @keyup.enter.stop />
           </q-popup-edit>
@@ -24,18 +25,20 @@
       <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
       </div>
       <div class="col-grow col-md-3  self-center">
-        <q-card class="column q-pa-m bg-secondary bordered self-cente w-75 q-mx-auto">
+        <q-card class="column q-pa-m bg-secondary w-75 q-mx-auto">
           <div class="">
-            <div class="text-h6 text-center bg-primary q-pa-sm">
-              <span style='font-size:1.7rem;'>&#127941;</span>
+            <div class="text-h6 text-center bg-primary q-pa-sm rounded-borders bordered">
+              <span title="Achievements: You will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
-                <q-avatar v-for="el in 4" :key="el" color="red" size="1.5rem" text-color="white" icon="stars" />
+                <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
+                  &#127894;
+                </span>
               </div>
-              <div class="q-mt-md">
+              <div class="q-mt-md text-center">
                 Till next level
-                <q-linear-progress :value="4/5" color="primary" class="q-mt-sm" />
+                <q-linear-progress :value="user.level-Math.floor(user.level)/1" color="positive" class="q-mt-sm" />
               </div>
             </div>
           </div>
@@ -79,19 +82,19 @@
                 </router-link>
               </q-td>
               <q-td key="team" :props="props">
-                <router-link :to="'/teams/' + props.row.targetTeam.id" >
+                <router-link :to="'/teams/' + props.row.team.id" >
                   <div id="" class="q-mx-auto team-thumbnail">
-                    <q-img :src="props.row.targetTeam.logo" :alt="props.row.targetTeam.name" class="full-height self-center" />
+                    <q-img :src="props.row.team.logo" :alt="props.row.team.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                        {{props.row.targetTeam.name}}
+                        {{props.row.team.name}}
                       </q-tooltip>
                   </div>
                 </router-link>
               </q-td>
               <q-td key="cards" :props="props">
                 {{ props.row.priority }}
-                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validate"  @save="saveCards($event, props.row.id, 'ins')" @input="cancelCards($event, props.row.__index, 'ins')"   title="Update cards" buttons persisten>
-                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= 4 && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
+                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validateSign"  @save="saveCards($event, props.row.id, 'ins')" @input="cancelCards($event, props.row.__index, 'ins')"   title="Update cards" buttons persisten>
+                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= user.signQuota && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
                 </q-popup-edit>
               </q-td>
             </q-tr>
@@ -128,8 +131,8 @@
               </q-td>
               <q-td key="cards" :props="props">
                 {{ props.row.priority }}
-                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validate"  @save="saveCards($event, props.row.id, 'outs')" @input="cancelCards($event, props.row.__index, 'outs')"   title="Update cards" buttons persisten>
-                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= 4 && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
+                <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validateSell"  @save="saveCards($event, props.row.id, 'outs')" @input="cancelCards($event, props.row.__index, 'outs')"   title="Update cards" buttons persisten>
+                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= user.sellQuota && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
                 </q-popup-edit>
               </q-td>
             </q-tr>
@@ -153,7 +156,7 @@ export default {
       team: {},
       wantedColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.priority, sortable: true },
       ],
       unwantedColumns: [
@@ -177,6 +180,12 @@ export default {
   preFetch ({ store, redirect }) {
     if (!store.getters.user.team_id) {
       redirect('/settings')
+    }
+  },
+
+  meta () {
+    return {
+      title: 'Home - Innouts',
     }
   },
 
@@ -238,7 +247,7 @@ export default {
 
     saveCards: function (event, id, insOuts) {
       if (insOuts === 'ins') {
-        if (this.sumCards('ins') <= 4) {
+        if (this.sumCards('ins') <= this.user.signQuota) {
           this.$axios({ url: 'api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
@@ -254,11 +263,11 @@ export default {
             color: 'red-5',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
-            message: 'More than a total of 4 cards used!'
+            message: 'More than a total of ' + this.user.signQuota + ' cards used!'
           })
         }
       } else {
-        if (this.sumCards('outs') <= 4) {
+        if (this.sumCards('outs') <= this.user.sellQuota) {
           this.$axios({ url: 'api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
@@ -274,7 +283,7 @@ export default {
             color: 'red-5',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
-            message: 'More than a total of 4 cards used!'
+            message: 'More than a total of ' + this.user.sellQuota + ' cards used!'
           })
         }
       }
@@ -304,8 +313,12 @@ export default {
       }
     },
 
-    validate: (val) => {
-      return val >= 0 && val <= 4
+    validateSign: (val) => {
+      return val >= 0 && val <= this.user.signQuota
+    },
+
+    validateSell: (val) => {
+      return val >= 0 && val <= this.user.sellQuota
     }
 
   }
