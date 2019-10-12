@@ -8,7 +8,7 @@
       </div>
       <q-list separator v-if="$q.screen.lt.sm" class=" bg-secondary" link bordered dense>
           <q-item-label header class="q-pt-sm q-px-sm text-subtitle1 text-center">{{person.team.name}} squad</q-item-label>
-            <q-item v-for="(mate) in companions" :key="mate.id" :to="'/players/'+mate.id" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple dense>
+            <q-item v-for="(mate) in companions" :key="mate.id" :to="'/players/'+mate.id + '/' + mate.slug" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple dense>
               <q-item-section avatar>
                 <q-avatar rounded>
                   <img :src="mate.picture">
@@ -56,7 +56,6 @@ export default {
         }
       },
       activePlayer: {
-        // firstName: 'name'
       },
       companions: [],
       error: null,

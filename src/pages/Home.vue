@@ -10,27 +10,30 @@
       </div>
     </div>
 
-    <div class="row justify-around bg-primary q-gutter-x-md q-py-sm bordere">
-      <div class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders">
-        <p class="text-h5 text-capitalize q-mb-sm"><span>&#128221;</span></p>
+    <div class="row justify-around bg-secondary q-py-sm bordered">
+      <q-card class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders">
+        <q-card-section class="text-h5 text-capitalize bg-primary q-pa-sm"><span>&#128221;</span></q-card-section>
         <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
-        <p class="text-subtitle1 q-pa-sm text-secondary">
+        <p class="text-subtitle1 q-pa-sm text-secondar">
           {{user.intro}}
           <span v-if="!user.intro">Click to write!</span>
           <q-popup-edit buttons :value="user.intro" @save="saveIntro" @cancel="cancelIntro" >
-            <q-input maxlength="100" type="textarea" v-model="user.intro" dense autofocus counter @keyup.enter.stop />
+            <q-input maxlength="150" type="textarea" v-model="user.intro" dense autofocus counter @keyup.enter.stop />
           </q-popup-edit>
         </p>
-      </div>
+      </q-card>
       <div class="col-grow col-md-3 bg-secondar text-center q-pt-s self-center">
+        <q-card class="text-subtitle1">
+          <q-card-section class="q-pa-sm">Total sign cards: {{user.signQuota}} </q-card-section>
+          <q-card-section class="q-pa-sm">Total sell cards: {{user.sellQuota}}</q-card-section>
+        </q-card>
       </div>
       <div class="col-grow col-md-3  self-center">
-        <q-card class="column q-pa-m bg-secondary w-75 q-mx-auto">
-          <div class="">
-            <div class="text-h6 text-center bg-primary q-pa-sm rounded-borders bordered">
+        <q-card class="column q-pa-m bg-secondary w-7 q-mx-auto">
+            <q-card-section class="text-h6 text-center bg-primary q-pa-sm rounded-borders">
               <span title="Achievements: You will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
-            </div>
-            <div class="q-pa-md">
+            </q-card-section>
+            <q-card-section class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
                 <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
                   &#127894;
@@ -40,8 +43,7 @@
                 Till next level
                 <q-linear-progress :value="user.level-Math.floor(user.level)/1" color="positive" class="q-mt-sm" />
               </div>
-            </div>
-          </div>
+            </q-card-section>
         </q-card>
       </div>
     </div>
@@ -77,12 +79,12 @@
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="player" :props="props">
-                <router-link :to="'/players/' + props.row.player.id" class="no-decor" >
+                <router-link :to="'/players/' + props.row.player.id + '/' + props.row.player.slug" class="no-decor" >
                   {{props.row.player.nickname}}
                 </router-link>
               </q-td>
               <q-td key="team" :props="props">
-                <router-link :to="'/teams/' + props.row.team.id" >
+                <router-link :to="'/teams/' + props.row.team.slug" >
                   <div id="" class="q-mx-auto team-thumbnail">
                     <q-img :src="props.row.team.logo" :alt="props.row.team.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -94,7 +96,7 @@
               <q-td key="cards" :props="props">
                 {{ props.row.priority }}
                 <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validateSign"  @save="saveCards($event, props.row.id, 'ins')" @input="cancelCards($event, props.row.__index, 'ins')"   title="Update cards" buttons persisten>
-                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= user.signQuota && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
+                  <q-input type="number" v-model="props.row.priority" :hint="'Total of ' + user.signQuota + ' cards'" :rules="[ val => validateSign(val) || 'Wrong number of cards' ]" dense autofocus counter />
                 </q-popup-edit>
               </q-td>
             </q-tr>
@@ -122,7 +124,7 @@
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="player" :props="props">
-                <router-link :to="'/players/' + props.row.player.id" class="no-decor" >
+                <router-link :to="'/players/' + props.row.player.id + '/' + props.row.player.slug" class="no-decor" >
                   {{props.row.player.nickname}}
                 </router-link>
               </q-td>
@@ -132,7 +134,7 @@
               <q-td key="cards" :props="props">
                 {{ props.row.priority }}
                 <q-popup-edit :value="props.row.priority" :disable="window.wishArchived" :validate="validateSell"  @save="saveCards($event, props.row.id, 'outs')" @input="cancelCards($event, props.row.__index, 'outs')"   title="Update cards" buttons persisten>
-                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => val <= user.sellQuota && val >= 0 || 'Wrong number of cards' ]" dense autofocus counter />
+                  <q-input type="number" v-model="props.row.priority" hint="between 0 and 4" :rules="[ val => validateSell(val) || 'Wrong number of cards' ]" dense autofocus counter />
                 </q-popup-edit>
               </q-td>
             </q-tr>
@@ -177,11 +179,11 @@ export default {
     }
   },
 
-  preFetch ({ store, redirect }) {
-    if (!store.getters.user.team_id) {
-      redirect('/settings')
-    }
-  },
+  // preFetch ({ store, redirect }) {
+  //   if (!store.getters.user.team_id) {
+  //     redirect('/settings')
+  //   }
+  // },
 
   meta () {
     return {
@@ -190,6 +192,9 @@ export default {
   },
 
   mounted: function () {
+    if (!this.$store.getters.user.team_id) {
+      this.$router.push({ name: 'settings' })
+    }
     this.$store.commit('setRightDrawer', false)
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
@@ -313,12 +318,20 @@ export default {
       }
     },
 
-    validateSign: (val) => {
-      return val >= 0 && val <= this.user.signQuota
+    validateSign (val) {
+      let sum = this.sumCards('ins')
+      return val >= 0 && sum <= this.user.signQuota
     },
 
-    validateSell: (val) => {
-      return val >= 0 && val <= this.user.sellQuota
+    // validateSign (val, index) {
+    //   let sum = this.sumCards('ins')
+    //   sum -= this.wanteds[index].priority
+    //   return val >= 0 && val <= this.user.signQuota - sum
+    // },
+
+    validateSell (val) {
+      let sum = this.sumCards('outs')
+      return val >= 0 && sum <= this.user.sellQuota
     }
 
   }

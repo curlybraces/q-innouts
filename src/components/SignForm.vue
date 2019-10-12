@@ -4,31 +4,13 @@
       <span style="">&#10133;</span> Sign Players
     </q-card-section>
     <q-card-section class="text-subtitle1 q-pa-s">
-      {{remSignCards}} sign card(s) remaining! (current window)
+      {{remSignCards}} sign card(s) remaining (current window)
     </q-card-section>
 
     <q-card-section class="q-pa-md" style="">
       <q-form class="q-mb-md" @submit="onSubmit">
-        <!-- <label for="player" class="mb-2 q-mr-sm">Enter player name</label>
-        <input
-          type="text"
-          class="form-control q-mb-md mr-sm-2"
-          v-model="player"
-          :disabled="this.signQuota==0"
-          id="player"
-          name="player"
-          placeholder="Kaka"
-          @keyup="search"
-          list="hints"
-        /> -->
-        <q-input dense filled v-model="player" @keyup="search" debounce="600" label="Enter player name" />
-
-        <!-- <div class="q-pa-md" style="max-width: 300px">
-            <div class="q-gutter-md q-mx-auto">
-              <q-select v-model="wanted" :options="hints" option-label="nickname" @change="push" />
-            </div>
-        </div> -->
-            <div class="q-gutter-md q-mx-auto q-my-sm">
+        <q-input dense filled v-model="player" @keyup="search" debounce="600" label="Enter player name" :disable="!remSignCards" />
+        <div class="q-gutter-md q-mx-auto q-my-sm">
         <q-select
           v-show="hints.length"
           dense
@@ -76,7 +58,8 @@
           <td>{{wanted.player.firstName}} {{wanted.player.lastName}}</td>
           <td>{{wanted.player.team.name}}</td>
           <td>
-            <form action>
+            <!-- <q-select dense v-model="wanted.votes" :options="Array(remSignCards+1).fill(0).map((e,i)=>i+1)" label="Card" /> -->
+            <form>
               <div class>
                 <select
                   class="form-control form-control-sm"
@@ -85,10 +68,7 @@
                   v-model="wanted.votes"
                   @change="update"
                 >
-                  <option v-for="opt in (remSignCards+1)" :value="opt" :key="opt">{{opt}}</option>
-                  <!-- <option :value="2">2</option>
-                  <option :value="3">3</option>
-                  <option :value="4">4</option> -->
+                  <option v-for="opt in (remSignCards+1)" :value="opt" :key="opt" >{{opt}}</option>
                 </select>
               </div>
             </form>
@@ -133,14 +113,6 @@ export default {
     }
   },
 
-  // created: function () {
-  //   this.remSignCards = this.signQuota
-  // },
-
-  // mounted: function () {
-  //   this.remSignCards = this.signQuota
-  // },
-
   methods: {
     votesSum: function () {
       let x = 0
@@ -152,7 +124,6 @@ export default {
 
     onSubmit: function () {
       let x = this.votesSum()
-
       if (x <= this.signQuota) {
         this.$axios
           .post('api/wanteds', {
@@ -161,11 +132,21 @@ export default {
             user_id: this.user.id
           })
           .then(response => {
-            alert(response.data.message)
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: response.data.message
+            })
             location.reload()
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.message
+            })
           })
       } else {
         this.$q.notify({
@@ -212,6 +193,7 @@ export default {
           })
           this.remSignCards -= 1
           this.player = ''
+          this.wanted = null
           this.hints = []
         } else {
           alert('player already in your list!')
@@ -224,7 +206,6 @@ export default {
     update: function () {
       // alert($event.target.value)
       let x = this.votesSum()
-
       this.remSignCards = this.signQuota - x
     },
 

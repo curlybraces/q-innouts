@@ -6,35 +6,13 @@
     <q-card-section class="text-subtitle1 text-center">{{remSellCards}} sell card(s) remaining! (current window)</q-card-section>
 
     <q-card-section>
-      <div class="q-pa-md" style="">
           <div class="q-gutter-md">
             <q-select dense filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
               options-selected-class="text-negative"
              />
           </div>
-      </div>
 
         <q-form action method="post" @submit="submit">
-          <!-- <div class="form-group">
-            <label for="sel2">(hold control button to select more than one):</label>
-
-            <select
-              multiple
-              class="form-control"
-              id="sell"
-              name="sell[]"
-              chosen
-              v-model="selecteds"
-              @change="check"
-            >
-              <option
-                v-for="player in team.players"
-                :value="player"
-                :key="player.id"
-                :disabled="sellingList.includes(player.id)"
-              >{{player.nickname}}</option>
-            </select>
-          </div> -->
 
           <q-markup-table class="table table-hover q-mb-md" v-if="unwanteds.length">
             <thead>
@@ -57,10 +35,10 @@
                         v-model="unwanted.votes"
                         @change="update"
                       >
-                        <option :value="1">1</option>
-                        <option :value="2">2</option>
+                        <option v-for="opt in (remSellCards+1)" :value="opt" :key="opt" > {{opt}}</option>
+                        <!-- <option :value="2">2</option>
                         <option :value="3">3</option>
-                        <option :value="4">4</option>
+                        <option :value="4">4</option> -->
                       </select>
                     </div>
                   </form>
@@ -72,7 +50,7 @@
             </tbody>
           </q-markup-table>
 
-          <div class="row justify-center">
+          <div v-if="this.unwanteds.length" class="row justify-center">
             <q-btn label="Submit" type="submit" :disable="this.unwanteds.length==0" color="primary"/>
           </div>
         </q-form>
@@ -97,12 +75,10 @@ export default {
     }
   },
 
-  created: function () {
-    this.remSellCards = this.sellQuota
-  },
-
-  updated: function () {
-    // this.remSellCards = this.sellQuota
+  watch: {
+    'sellQuota' () {
+      this.remSellCards = this.sellQuota
+    }
   },
 
   methods: {
@@ -132,7 +108,6 @@ export default {
     },
 
     update: function () {
-      // alert('hey')
       let x = this.votesSum()
       this.remSellCards = this.sellQuota - x
     },
@@ -151,15 +126,25 @@ export default {
         this.$axios
           .post('api/unwanteds', {
             players: JSON.stringify(this.unwanteds),
-            team: this.team.id,
+            team_id: this.team.id,
             userID: this.user.id
           })
           .then(response => {
-            alert(response.data.message)
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: response.data.message
+            })
             location.reload()
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.message
+            })
           })
       } else {
         this.$q.notify({

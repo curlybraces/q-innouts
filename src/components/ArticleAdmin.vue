@@ -33,14 +33,19 @@
                   class="q-my-sm" ref="article"
                 />
               </div>
+            </div>
+            <div class="row q-gutter-x-sm">
               <div class="col">
                 <q-select
                   filled
                   v-model="taggedTeams"
                   multiple
-                  :options="teams"
+                  :options="teamOptions"
                   option-label="name"
                   option-value="id"
+                  use-input
+                  input-debounce="100"
+                  @filter="filterTeams"
                   use-chips
                   stack-label
                   label="Tagged teams"
@@ -60,6 +65,22 @@
                   use-chips
                   stack-label
                   label="Tagged players"
+                />
+              </div>
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedManagers"
+                  multiple
+                  :options="managerOptions"
+                  option-label="nickname"
+                  option-value="id"
+                  use-input
+                  input-debounce="100"
+                  @filter="filterManagers"
+                  use-chips
+                  stack-label
+                  label="Tagged managers"
                 />
               </div>
             </div>
@@ -148,11 +169,15 @@ export default {
       articleBody: '',
       articles: [],
       teams: [],
+      teamOptions: [],
       taggedTeams: [],
       players: [],
       playerOptions: [],
       taggedPlayers: [],
       remains: true,
+      managers: [],
+      managerOptions: [],
+      taggedManagers: []
       // articleChunks: [],
       // articleBag: []
     }
@@ -177,6 +202,7 @@ export default {
     this.$axios.get('api/teams')
       .then(response => {
         this.teams = response.data
+        this.teamOptions = this.teams
       })
       .catch(error => {
         console.log(error)
@@ -199,6 +225,20 @@ export default {
           textColor: 'white',
           icon: 'fas fa-exclamation-triangle',
           message: 'Problem fetching players!'
+        })
+      })
+    this.$axios.get('api/managers')
+      .then(response => {
+        this.managers = response.data
+        this.managerOptions = this.managers
+      })
+      .catch(error => {
+        console.log(error)
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Problem fetching managers!'
         })
       })
   },
@@ -232,11 +272,15 @@ export default {
       if (this.articleTitle.length && this.articleBody.length && this.$refs.article.files[0]) {
         let taggedPlayersIDs = []
         let taggedTeamsIDs = []
+        let taggedManagersIDs = []
         this.taggedTeams.forEach(element => {
           taggedTeamsIDs.push(element.id)
         })
         this.taggedPlayers.forEach(element => {
           taggedPlayersIDs.push(element.id)
+        })
+        this.taggedManagers.forEach(element => {
+          taggedManagersIDs.push(element.id)
         })
         let formData = new FormData()
         formData.append('picture', this.$refs.article.files[0])
@@ -244,6 +288,7 @@ export default {
         formData.append('body', this.articleBody)
         formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
         formData.append('taggedPlayers', JSON.stringify(taggedPlayersIDs))
+        formData.append('taggedManagers', JSON.stringify(taggedManagersIDs))
         formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'
@@ -313,6 +358,20 @@ export default {
         })
     },
 
+    filterTeams (val, update) {
+      if (val === '') {
+        update(() => {
+          this.teamOptions = this.teams
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.teamOptions = this.teams.filter(v => v.name.toLowerCase().indexOf(needle) > -1)
+      })
+    },
+
     filterFn (val, update) {
       if (val === '') {
         update(() => {
@@ -324,6 +383,20 @@ export default {
       update(() => {
         const needle = val.toLowerCase()
         this.playerOptions = this.players.filter(v => v.nickname.toLowerCase().indexOf(needle) > -1)
+      })
+    },
+
+    filterManagers (val, update) {
+      if (val === '') {
+        update(() => {
+          this.managerOptions = this.managers
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.managerOptions = this.managers.filter(v => v.nickname.toLowerCase().indexOf(needle) > -1)
       })
     },
 

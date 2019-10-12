@@ -25,40 +25,6 @@
             />
           </div>
         </transition>
-            <!-- <q-expansion-item
-              group="somegroup"
-              icon="explore"
-              label="First"
-              default-opened
-              header-class="text-primary"
-            >
-              <q-card>
-                <q-card-section>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                  commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                  eveniet doloribus ullam aliquid.
-                </q-card-section>
-              </q-card>
-            </q-expansion-item>
-
-            <q-expansion-item group="somegroup" icon="perm_identity" label="Second" header-class="text-teal">
-              <q-card>
-                <q-card-section>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                  commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                  eveniet doloribus ullam aliquid.
-                </q-card-section>
-              </q-card>
-            </q-expansion-item> -->
-        <!-- <a class="btn btn-sm  fans-btns mx-1" :style="{backgroundColor: team.color}" data-toggle="collapse" href="#country" role="button" aria-expanded="false" aria-controls="country">
-          Country
-        </a>
-        <a class="btn btn-sm  fans-btns mr-1" :style="{backgroundColor: team.color}" data-toggle="collapse" href="#gender" role="button" aria-expanded="false" aria-controls="gender">
-          Gender
-        </a>
-        <a class="btn btn-sm  fans-btns" :style="{backgroundColor: team.color}" data-toggle="collapse" href="#age" role="button" aria-expanded="false" aria-controls="age">
-          Age
-        </a> -->
       </div>
     </div>
   </div>
@@ -154,7 +120,8 @@ export default {
       this.fansGender = Object.entries(JSON.parse(this.stats.fansByGender))
       this.fansGender.splice(0, 0, ['gender', 'fans'])
       this.fansAge = Object.entries(JSON.parse(this.stats.fansByAge))
-      this.fansAge[0] = ['age', 'fans']
+      this.fansAge.splice(0, 0, ['age', 'fans'])
+      // this.fansAge[0] = ['age', 'fans']
     }
 
   }

@@ -42,7 +42,7 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.id" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -78,7 +78,7 @@
                   <div v-else>{{value.value}}</div>
                 </q-td>
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
-                  <router-link :to="'/managers/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/managers/' + value.value.slug" class="no-decor" >
                     <div id="" class="row inline person-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
@@ -87,7 +87,7 @@
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.id" >
+                    <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
@@ -116,14 +116,11 @@
                       <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
                   </router-link>
-                  <!-- <router-link :to="'/teams/' + value.value.id" class="no-decor text-bod1 text-capitalize q-ml-sm" >
-                    {{value.value.name}}
-                  </router-link> -->
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.id" >
+                    <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
@@ -170,7 +167,7 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.id" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -208,7 +205,7 @@
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.id" >
+                    <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
@@ -241,7 +238,7 @@
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.id" >
+                    <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}

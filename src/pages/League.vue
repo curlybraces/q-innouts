@@ -144,7 +144,7 @@
                     <!-- Teams⚔ -->
                     <ul id="league-teams" class="q-my-none" :class="panelClass">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
-                         <router-link :to="'/teams/' + team.id" >
+                         <router-link :to="'/teams/' + team.slug" >
                             <img class="full-height" alt="Quasar logo" :src="team.logo">
                               <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                                 {{team.name}}

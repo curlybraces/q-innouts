@@ -103,12 +103,12 @@
             </div>
           </template>
           <q-td slot="body-cell-name" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               {{value.value.nickname}}
             </router-link>
           </q-td>
           <q-td slot="body-cell-team" slot-scope="value" :props="value">
-            <router-link :to="'/teams/' + value.value.id" >
+            <router-link :to="'/teams/' + value.value.slug" >
               <div id="" class="q-mx-auto team-thumbnail">
                 <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -138,7 +138,7 @@
             </div>
           </template>
           <q-td slot="body-cell-name" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               {{value.value.nickname}}
             </router-link>
           </q-td>

@@ -191,7 +191,7 @@
       class="bg-primary text-white shadow-2"
     >
       <q-tab name="home" label="Team" />
-      <q-tab name="innouts" icon="swap_horiz" label="Innouts" />
+      <q-tab name="innouts" label="Innouts" />
       <q-tab name="rumours" label="Rumours" />
       <q-tab name="articles" label="Editorials" />
       <q-tab v-if="user.team_id == team.id" name="business" label="sign/sell" />
@@ -335,7 +335,7 @@
                 <div>
                   <q-img :src="team.manager.picture" :alt="team.manager.nickname" class="img-thumbnail" />
                     <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
-                      <router-link :to="'/managers/' + team.manager.id" class="no-decor" >
+                      <router-link :to="'/managers/' + team.manager.slug" class="no-decor" >
                         {{team.manager.nickname}}
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                             {{team.manager.firstName}} {{team.manager.lastName}}
@@ -385,10 +385,10 @@
 
       <q-tab-panel name="business">
         <div class="row justify-center q-gutter-x-md">
-          <div class="col-sm-4 col-grow text-center">
+          <div class="col-sm-5 col-grow text-center">
             <sign-form :team="team" :user="user" :signList="signList" :signQuota="signQuota"  />
           </div>
-          <div class="col-sm-4 col-grow">
+          <div class="col-sm-5 col-grow">
            <sell-form :team="team" :user="user" :sellingList="sellList" :sellQuota="sellQuota" />
           </div>
         </div>

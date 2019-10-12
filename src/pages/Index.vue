@@ -63,7 +63,7 @@
                     <q-item-label>{{ col.label }}</q-item-label>
                   </q-item-section>
                   <q-item-section v-if="idx === 0" side>
-                    <router-link :to="'/players/' + col.value.id" class="no-decor">
+                    <router-link :to="'/players/' + col.value.id + '/' + col.value.slug " class="no-decor">
                       <q-item-label caption>{{ col.value.nickname }}</q-item-label>
                     </router-link>
                   </q-item-section>
@@ -71,7 +71,7 @@
                     <q-item-label caption>{{ col.value }}</q-item-label>
                   </q-item-section>
                   <q-item-section v-else-if="[1,2].includes(idx)" side>
-                    <router-link :to="'/teams/' + col.value.id" class="no-decor">
+                    <router-link :to="'/teams/' + col.value.slug" class="no-decor">
                       <q-item-label caption>{{ col.value.name }}</q-item-label>
                     </router-link>
                   </q-item-section>
@@ -94,13 +94,13 @@
         </template>
 
         <q-td slot="body-cell-name" slot-scope="value" :props="value">
-          <router-link :to="'/players/' + value.value.id" class="no-decor" >
+          <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
             {{value.value.nickname}}
           </router-link>
         </q-td>
 
         <q-td slot="body-cell-from" slot-scope="value" :props="value">
-          <router-link :to="'/teams/' + value.value.id" >
+          <router-link :to="'/teams/' + value.value.slug" >
             <div id="" class="q-mx-auto team-thumbnail">
               <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                 <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -111,7 +111,7 @@
         </q-td>
 
         <q-td slot="body-cell-to" slot-scope="value" :props="value">
-          <router-link :to="'/teams/' + value.value.id" >
+          <router-link :to="'/teams/' + value.value.slug" >
             <div id="" class="q-mx-auto team-thumbnail">
               <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                 <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -125,7 +125,6 @@
           <div class="row">
             <div class="col-10 col-sm-grow">
               <q-rating
-                class=""
                 :style="{color: value.value.color}"
                 size="1.5rem"
                 icon="thumb_up"
@@ -161,12 +160,12 @@
                 </div>
               </template>
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                   {{value.value.nickname}}
                 </router-link>
               </q-td>
               <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                <router-link :to="'/teams/' + value.value.id" >
+                <router-link :to="'/teams/' + value.value.slug" >
                   <div id="" class="q-mx-auto team-thumbnail">
                     <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -176,7 +175,7 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-suitor" slot-scope="value" :props="value">
-                <router-link :to="'/teams/' + value.value.id" >
+                <router-link :to="'/teams/' + value.value.slug" >
                   <div id="" class="q-mx-auto team-thumbnail">
                     <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -213,12 +212,12 @@
                 </div>
               </template>
               <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                   {{value.value.nickname}}
                 </router-link>
               </q-td>
               <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                <router-link :to="'/teams/' + value.value.id" >
+                <router-link :to="'/teams/' + value.value.slug" >
                   <div id="" class="q-mx-auto team-thumbnail">
                     <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -321,13 +320,13 @@ export default {
       },
       wantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'suitor', align: 'center', label: 'Suitor', field: row => row.suitor },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
       unwantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.player.team },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
@@ -437,7 +436,7 @@ export default {
 
     submitRating: function (value, id, index) {
       if (this.loggedIn) {
-        this.$axios({ url: 'http://innouts.test/api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
+        this.$axios({ url: 'api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.transfers[index].rating = value
           })

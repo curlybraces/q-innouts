@@ -21,10 +21,10 @@
         <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
         <div class="row text-caption q-gutter-x-md">
           <!-- Tags: -->
-          <router-link :to="'/teams/'+team.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="team in article.teams" :key="team.id">
+          <router-link :to="'/teams/'+team.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="team in article.teams" :key="team.id">
             {{team.name}}
           </router-link>
-          <router-link :to="'/players/'+player.id" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
+          <router-link :to="'/players/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
             {{player.nickname}}
           </router-link>
         </div>

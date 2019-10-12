@@ -2,7 +2,7 @@
   <div class="player-card">
     <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
     <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
-      <router-link :to="'/players/' + player.id" class="no-decor" >
+      <router-link :to="'/players/' + player.id + '/' + player.slug" class="no-decor" >
         {{player.nickname}}
         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
             {{player.firstName}} {{player.lastName}}

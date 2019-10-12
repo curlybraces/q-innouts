@@ -23,10 +23,10 @@
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
-            <q-item class="full-width rounded-borders bordered q-py-none">
-              <q-item-section side class="emoji text-center" title="approximate value">&#128178;</q-item-section>
-              <q-item-section class="text-overline text-cente q-ml-none">£{{value}} m</q-item-section>
-            </q-item>
+          <div v-if="player.broadPosition" class="row justify-center q-py-sm rounded-borders bordered ">
+            <div class="col text-center text-h5" title="approximate value"> 💷</div>
+            <div class="col text-subtitle2 self-center">{{value}} m</div>
+          </div>
         </div>  <!-- children will default to 'col'  -->
       </div>
       <div class="col-grow col-sm-8 bg-secondary" :class="playerInfoClass">

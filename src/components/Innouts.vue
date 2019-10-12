@@ -29,12 +29,12 @@
                 table-header-class="bg-primary text-white"
               >
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     {{value.value.nickname}}
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-from" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.id" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-auto team-thumbnail">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -75,12 +75,12 @@
                 table-header-class="bg-primary text-white"
               >
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     {{value.value.nickname}}
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-to" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.id" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-auto team-thumbnail">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -119,6 +119,7 @@
                 rows-per-page-label="Transfers per page"
                 :rows-per-page-options="[5,10,15]"
                 :loading="loading"
+                :pagination.sync="wantedPagination"
                 color="primary"
                 table-header-class="bg-green-2"
               >
@@ -128,12 +129,12 @@
                   </div>
                 </template>
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     {{value.value.nickname}}
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.id" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-auto team-thumbnail">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -161,6 +162,7 @@
                 rows-per-page-label="Transfers per page"
                 :rows-per-page-options="[5,10,15]"
                 :loading="loading"
+                :pagination.sync="unwantedPagination"
                 color="primary"
                 table-header-class="bg-red-2"
               >
@@ -170,7 +172,7 @@
                   </div>
                 </template>
                 <q-td slot="body-cell-name" slot-scope="value" :props="value">
-                  <router-link :to="'/players/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     {{value.value.nickname}}
                   </router-link>
                 </q-td>
@@ -237,11 +239,14 @@ export default {
           label: 'Player',
           align: 'left',
           field: row => row.player,
-          sortable: true
         },
         { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
+      wantedPagination: {
+        sortBy: 'cards',
+        descending: true,
+      },
       unwantedColumns: [
         {
           name: 'name',
@@ -249,11 +254,14 @@ export default {
           label: 'Player',
           align: 'left',
           field: row => row.player,
-          sortable: true
         },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
       ],
+      unwantedPagination: {
+        sortBy: 'cards',
+        descending: true,
+      },
       windows: [],
       window: null,
       inTransfers: [],
@@ -308,21 +316,21 @@ export default {
       this.unwanteds = []
 
       this.transfers.forEach(elem => {
-        if (elem.from.id === parseInt(this.$route.params.team)) {
+        if (elem.from.id === parseInt(this.team.id)) {
           this.outTransfers.push(elem)
-        } else if (elem.to.id === parseInt(this.$route.params.team)) {
+        } else if (elem.to.id === parseInt(this.team.id)) {
           this.inTransfers.push(elem)
         }
       })
 
       this.window.wanteds.forEach(elem => {
-        if (elem.suitor.id === parseInt(this.$route.params.team)) {
+        if (elem.suitor.id === parseInt(this.team.id)) {
           this.wanteds.push(elem)
         }
       })
 
       this.window.unwanteds.forEach(elem => {
-        if (elem.player.team_id === parseInt(this.$route.params.team)) {
+        if (elem.player.team_id === parseInt(this.team.id)) {
           this.unwanteds.push(elem)
         }
       })

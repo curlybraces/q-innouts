@@ -2,7 +2,7 @@
   <div>
     <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
       <q-infinite-scroll @load="onLoad" :offset="200">
-        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id" class="bg-primary">
+        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.slug" class="bg-primary">
           <q-item-section thumbnail class="q-ml-non">
             <img :src="article.picture">
           </q-item-section>

@@ -47,7 +47,7 @@
                         <q-item-label>{{ col.label }}</q-item-label>
                       </q-item-section>
                       <q-item-section v-if="idx === 0" side>
-                        <router-link :to="'/players/' + col.value.id" class="no-decor">
+                        <router-link :to="'/players/' + col.value.id + '/' + col.value.slug" class="no-decor">
                           <q-item-label caption>{{ col.value.nickname }}</q-item-label>
                         </router-link>
                       </q-item-section>
@@ -55,7 +55,7 @@
                         <q-item-label caption>{{ col.value }}</q-item-label>
                       </q-item-section>
                       <q-item-section v-else-if="[1,2].includes(idx)" side>
-                        <router-link :to="'/teams/' + col.value.id" class="no-decor">
+                        <router-link :to="'/teams/' + col.value.slug" class="no-decor">
                           <q-item-label caption>{{ col.value.name }}</q-item-label>
                         </router-link>
                       </q-item-section>
@@ -78,13 +78,13 @@
             </template>
 
             <q-td slot="body-cell-name" slot-scope="value" :props="value">
-              <router-link :to="'/players/' + value.value.id" class="no-decor" >
+              <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                 {{value.value.nickname}}
               </router-link>
             </q-td>
 
             <q-td slot="body-cell-from" slot-scope="value" :props="value">
-              <router-link :to="'/teams/' + value.value.id" >
+              <router-link :to="'/teams/' + value.value.slug" >
                 <div id="" class="q-mx-auto team-thumbnail">
                   <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
                     <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -95,7 +95,7 @@
             </q-td>
 
             <q-td slot="body-cell-to" slot-scope="value" :props="value">
-              <router-link :to="'/teams/' + value.value.id" >
+              <router-link :to="'/teams/' + value.value.slug" >
                 <div id="" class="q-mx-auto team-thumbnail">
                   <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
                     <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >

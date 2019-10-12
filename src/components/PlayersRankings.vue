@@ -19,7 +19,7 @@
             <div v-else>{{value.value}}</div>
           </q-td>
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -45,7 +45,7 @@
           class="bg-secondary"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -73,7 +73,7 @@
           class="bg-secondary q-mr-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -99,7 +99,7 @@
           class="bg-secondary q-mx-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -125,7 +125,7 @@
           class="bg-secondary q-mx-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
@@ -151,7 +151,7 @@
           class="bg-secondary q-ml-xs"
         >
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
-            <router-link :to="'/players/' + value.value.id" class="no-decor" >
+            <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
                 <q-img :src="value.value.picture" :alt="value.value.nickname" class="full-height self-cente" />
                   <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >

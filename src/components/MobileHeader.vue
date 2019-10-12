@@ -31,7 +31,7 @@
                   <q-item-label>Home</q-item-label>
                 </q-item-section>
               </q-item>
-              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team_id" >
+              <q-item v-if="user.team" clickable  v-close-popup :to="'/teams/'+user.team.slug" >
                 <q-item-section avatar>
                   <q-avatar :icon="'img:'+user.team.logo" size="2.1rem" />
                 </q-item-section>
