@@ -111,7 +111,7 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
-                  <router-link :to="'/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     <div class="row inline person-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
@@ -140,7 +140,7 @@
         v-model="tab"
         dense
         no-caps
-        class="bg-accent text-white shadow-2"
+        class="bg-blue-grey text-white shadow-2"
       >
         <q-tab name="teams" label="Teams" />
         <q-tab name="players"  label="Players" />
@@ -229,7 +229,7 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
-                  <router-link :to="'/' + value.value.id" class="no-decor" >
+                  <router-link :to="'/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                     <div class="row inline person-thumbnail no-decor ellipsis">
                       <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
@@ -371,37 +371,35 @@ export default {
   methods: {
     panelChange: function (newVal, oldVal) {
       if (newVal === 'managers' && this.managers.length === 0) {
-        this.$q.loading.show({
-          delay: 200
-        })
+        this.$q.loading.show()
         axios.get('api/managers')
           .then(response => {
             this.managers = response.data
+            this.$q.loading.hide()
           })
           .catch(error => {
             this.error = error
           })
-        this.$q.loading.hide()
       } else if (newVal === 'players' && !this.players.topOverall) {
         this.$q.loading.show()
         axios.get('api/rankings/players')
           .then(response => {
             this.players = response.data
+            this.$q.loading.hide()
           })
           .catch(error => {
             this.error = error
           })
-        this.$q.loading.hide()
       } else if (newVal === 'fans' && this.fans.length === 0) {
         this.$q.loading.show()
         axios.get('api/rankings/fans')
           .then(response => {
             this.fans = response.data
+            this.$q.loading.hide()
           })
           .catch(error => {
             this.error = error
           })
-        this.$q.loading.hide()
       }
     },
 

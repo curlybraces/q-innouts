@@ -1,11 +1,17 @@
 
 Todo:
   ☐ SSR for pages: Player, Article @high 
-  ☐ change route params to slugs @high 
-  ☐ add player value in player rankings @high 
   ☐ create the innouts logo @high 
+  ☐ avoid bot registeration @low
+
+Fix:
+  ☐ player search in transfers page
+  ☐ rumours page 2 resizes the cards! @high 
 
 Archive:
+  ✔ add value of a leagues players' to its page @high @done(19-10-14 02:06) @project(Todo)
+  ✔ add player value in player rankings @high @done(19-10-14 01:36) @project(Todo)
+  ✔ change route params to slugs @high @done(19-10-13 16:34) @project(Todo)
   ✔ forgot password implementation @critical @done(19-10-10 20:27) @project(Todo)
   ✔ user search @high @done(19-10-08 15:39) @project(Todo)
   ✔ Admin authentication @low @done(19-09-28 13:42) @project(Todo)

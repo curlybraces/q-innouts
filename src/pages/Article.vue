@@ -5,7 +5,7 @@
         <div class="text-capitalize title text-center q-pt-md q-pb-xs bg-primary text-secondary q-px-md" :class="titleClass">
           <span class="newsTitle">{{article.title}}</span>
           <div class="row q-mt-md text-caption text-left">
-            <div class="text-left col"> &#128221; {{authorName}}
+            <div class="text-left col"> &#9997;&#127996; {{authorName}}
 
             </div>
             <div class="text-right col inline">
@@ -19,13 +19,16 @@
           transition="slide-right"
         />
         <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
-        <div class="row text-caption q-gutter-x-md">
+        <div class="row text-caption q-gutter-x-md q-px-sm">
           <!-- Tags: -->
+          <router-link :to="'/players/'+player.id+'/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
+            {{player.nickname}}
+          </router-link>
+          <router-link :to="'/managers/'+manager.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="manager in article.managers" :key="manager.id">
+            {{manager.nickname}}
+          </router-link>
           <router-link :to="'/teams/'+team.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="team in article.teams" :key="team.id">
             {{team.name}}
-          </router-link>
-          <router-link :to="'/players/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
-            {{player.nickname}}
           </router-link>
         </div>
         <social-sharing :url="'https://innouts.com/'+$route.fullPath"
@@ -34,7 +37,7 @@
           :hashtags="tags"
           :quote="article.title"
           twitter-user="innouts"
-          class="q-mt-md q-gutter-sm"
+          class="q-mt-md q-gutter-sm q-px-sm"
           inline-template>
           <div class="q-gutter-sm">
             <q-fab color="primary" push icon="share" direction="right">
@@ -148,7 +151,7 @@ export default {
 
   meta () {
     return {
-      title: this.article.title + ' - Innouts | You Come first!',
+      title: this.article.title + ' - Innouts',
 
       meta: {
         description: { name: 'description', content: this.article.body },

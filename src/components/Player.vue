@@ -17,9 +17,10 @@
                 size="1.5rem"
                 :value="Math.round(rating/2)"
                 :max="5"
+                :disable="player.retired ? true : false"
                 @input="submitRating"
               />
-              <rating v-else @save="submitRating" :rating="rating"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
+              <rating v-else @save="submitRating" :rating="rating" :archived="player.retired ? true : false"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
@@ -96,18 +97,18 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.broadPosition" >{{player.broadPosition}}</q-item-label>
-              <q-item-label v-else >NA</q-item-label>
+              <q-item-label v-else >Coach</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
       </div>
     </div>
-    <div v-if="player.specificPosition" class="row justify-center">
+    <div class="row justify-center">
       <q-tabs
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
       >
-        <q-tab name="transfers" label="Transfers" />
+        <q-tab v-if="player.specificPosition" name="transfers" label="Transfers" />
         <q-tab name="rumours" label="Rumours" />
         <q-tab name="editorials" label="Editorials" />
       </q-tabs>
@@ -172,7 +173,7 @@ export default {
     age: null,
     date: new Date(),
     birthFormatted: null,
-    tab: 'transfers',
+    tab: 'rumours',
     rumours: [],
     articles: [],
     current: 1,
@@ -244,7 +245,12 @@ export default {
     'player' () {
       this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
-      this.tab = 'transfers'
+      if (this.player.specificPosition) {
+        this.tab = 'transfers'
+      } else {
+        this.tab = 'rumours'
+      }
+
       if (this.player.specificPosition) {
         this.$axios.get('api/players/' + this.$route.params.id)
           .then(response => {
@@ -253,6 +259,20 @@ export default {
             this.votes = player.votes
             this.value = player.value
             this.transfers = player.transfers
+            this.rumours = player.rumours
+            this.articles = player.articles
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      } else {
+        this.$axios.get('api/managers/' + this.$route.params.manager)
+          .then(response => {
+            let player = response.data.data
+            this.rating = parseFloat(player.rating)
+            this.votes = player.votes
+            this.value = player.value
+            this.transfers = []
             this.rumours = player.rumours
             this.articles = player.articles
           })

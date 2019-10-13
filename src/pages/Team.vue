@@ -311,7 +311,7 @@
           </div>
           <q-list v-else bordered padding link dense class="col bg-secondary" >
             <div v-for="(player, index) in team.players" :key="player.id">
-              <q-item :to="'/players/'+player.id" @click="setPlayer(index)"  clickable v-ripple>
+              <q-item :to="'/players/'+player.id+'/'+player.slug" @click="setPlayer(index)"  clickable v-ripple>
                 <q-item-section avatar>
                   <q-avatar rounded>
                     <img :src="player.picture">
@@ -349,10 +349,10 @@
               </q-card-section>
             </q-card>
           </div>
-          <q-item v-else class="col bg-t-dar bordered rounded-borders">
+          <q-item v-else :to="'/managers/'+team.manager.slug" class="col bg-t-dar bordered rounded-borders">
             <q-item-section avatar>
               <q-avatar rounded>
-                <img :src="'/statics/' + team.manager.picture">
+                <img :src="team.manager.picture">
               </q-avatar>
             </q-item-section>
             <q-item-section>{{team.manager.firstName}} {{team.manager.lastName}}</q-item-section>

@@ -180,27 +180,32 @@ export default {
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'height', align: 'left', label: 'Height', field: row => row.height, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       DFColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       MFColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       ATColumns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       U23Columns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       overallColumns: [
         { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
@@ -209,7 +214,7 @@ export default {
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
         { name: 'pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
-        { name: 'value', align: 'left', label: 'value', field: 'value', sortable: true },
+        { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
       pagination: {
         rowsPerPage: 10,

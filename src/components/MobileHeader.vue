@@ -18,8 +18,7 @@
         </router-link>
       </q-toolbar-title>
 
-      <q-btn-dropdown icon="perm_identity" class="gloss" dense size="sm"
-      >
+      <q-btn-dropdown icon="perm_identity" class="gloss" dense>
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
             <q-list dense class="bg-primar">

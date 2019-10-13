@@ -2,7 +2,7 @@
   <div>
     <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
       <q-infinite-scroll @load="onLoad" :offset="200">
-        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id" class="bg-primary">
+        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id+'/'+article.slug" class="bg-primary" :dense="dense">
           <q-item-section thumbnail class="q-ml-non">
             <img :src="article.picture">
           </q-item-section>
@@ -18,6 +18,9 @@
 
           <q-item-section v-else-if="article.time<4" side >
             <q-badge color="secondary" text-color="primary" label="new" align="top" floating/>
+          </q-item-section>
+          <q-item-section v-else side >
+            <q-badge color="secondary" text-color="primary" :label="article.created_at.split(' ')[0]" align="top" floating/>
           </q-item-section>
         </q-item>
         <template v-if="remains" v-slot:loading>
@@ -41,7 +44,7 @@ const chunk = function (array, size) {
   return [head, ...chunk(tail, size)]
 }
 
-// import { date } from 'quasar'
+import { date } from 'quasar'
 
 export default {
   // name: 'ComponentName',
@@ -60,8 +63,10 @@ export default {
 
   data () {
     return {
+      timedArticles: [],
       articleChunks: [],
       articleBag: [],
+      date: new Date(),
       remains: true,
       ArticleHeaderClass: {
         'text-h6': true
@@ -70,7 +75,12 @@ export default {
   },
 
   created () {
-    this.articleChunks = chunk(this.articles, this.chunk)
+    this.timedArticles = this.articles
+    this.timedArticles.forEach(element => {
+      let diff = date.getDateDiff(this.date, element.created_at, 'days')
+      element.time = diff
+    })
+    this.articleChunks = chunk(this.timedArticles, this.chunk)
     this.articleBag = this.articleChunks[0]
 
     if (this.dense) {

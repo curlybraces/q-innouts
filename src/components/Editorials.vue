@@ -2,12 +2,12 @@
   <div>
     <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
       <q-infinite-scroll @load="onLoad" :offset="200">
-        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.slug" class="bg-primary">
+        <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id+'/'+article.slug" class="bg-primary">
           <q-item-section thumbnail class="q-ml-non">
             <img :src="article.picture">
           </q-item-section>
 
-          <q-item-section to>
+          <q-item-section>
             <q-item-label header class="newsTitle" :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
             <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
           </q-item-section>

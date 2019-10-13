@@ -17,10 +17,10 @@
         </q-carousel-slide>
       </q-carousel>
 
-      <q-list v-if="$q.platform.is.mobile" padding link bordered dense class="col bg-secondary" >
+      <q-list v-if="$q.platform.is.mobile" padding link bordere dense class="col bg-secondary" >
         <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id">
-          <q-item :to="'/articles/'+article.id" class="newsTitle"  clickable v-ripple dense>
+          <q-item :to="'/articles/'+article.id+'/'+article.slug" class="newsTitle"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
               {{article.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
@@ -29,6 +29,21 @@
             </q-item-section>
             <q-item-section side >
               <q-item-label caption>Today</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+        </div>
+      </q-list>
+
+      <q-list v-if="$q.platform.is.mobile" padding link bordere dense class="col bg-secondary" >
+        <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127996;</span> Latest Rumours</q-item-label>
+        <div v-for="(rumour) in rumours" :key="rumour.id">
+          <q-item to="/rumours" class="newsTitle"  clickable v-ripple dense>
+            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+              {{rumour.title}}
+              <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
+                {{rumour.title}}
+              </q-tooltip>
             </q-item-section>
           </q-item>
           <q-separator />
@@ -239,16 +254,16 @@
     <q-drawer
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
-      content-class="bg-brown-7"
+      content-class="bg-blue-grey-3"
       :breakpoint="600"
       :width="380"
       side="right"
       elevated
     >
-      <q-list dark padding separator link dense class="col text-grey" >
-        <q-item-label header class="text-black bg-brown-8"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
+      <q-list padding link dense class="col" >
+        <q-item-label header class="bg-primary"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
-          <q-item :to="'/articles/'+article.id"  clickable v-ripple >
+          <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple dens >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
               {{article.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
@@ -266,7 +281,7 @@
         </div>
       </q-list>
       <q-list padding link class="col" >
-        <q-item-label header class="bg-brown-5 text-white"><span class="q-icon on-left emoji" >&#128066;&#127995;</span> Latest Rumours</q-item-label>
+        <q-item-label header class="bg-primary"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>

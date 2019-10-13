@@ -8,7 +8,7 @@
     <q-card-section>
           <div class="q-gutter-md">
             <q-select dense filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
-              options-selected-class="text-negative"
+              options-selected-class="text-negative" :disable="!remSellCards"
              />
           </div>
 
@@ -121,7 +121,6 @@ export default {
 
     submit: function () {
       let x = this.votesSum()
-
       if (x <= this.sellQuota) {
         this.$axios
           .post('api/unwanteds', {
@@ -136,7 +135,9 @@ export default {
               icon: 'fas fa-check-circle',
               message: response.data.message
             })
-            location.reload()
+            this.unwanteds = []
+            this.remSellCards = this.sellQuota - x
+            this.selecteds = []
           })
           .catch(error => {
             this.$q.notify({

@@ -84,7 +84,6 @@
                           <q-item-label >{{stats.inter}}%</q-item-label>
                         </q-item-section>
                       </q-item>
-
                       <q-item >
                         <q-item-section>
                           <q-item-label>Average Player Rating</q-item-label>
@@ -94,7 +93,14 @@
                           <q-item-label >{{stats.playersAvgRating}}</q-item-label>
                         </q-item-section>
                       </q-item>
-
+                      <q-item >
+                        <q-item-section>
+                          <q-item-label>Average Player Value (£m)</q-item-label>
+                        </q-item-section>
+                        <q-item-section side>
+                          <q-item-label >{{stats.playersAvgValue}}</q-item-label>
+                        </q-item-section>
+                      </q-item>
                       <q-item>
                         <q-item-section>
                           <q-item-label >Average Player Age</q-item-label>
@@ -156,15 +162,6 @@
                 </div>
               </q-card>
             </q-tab-panel>
-
-            <!-- <q-tab-panel name="alarms">
-              <div class="text-h6">Alarms</div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </q-tab-panel>
-
-            <q-tab-panel name="news">
-              <news />
-            </q-tab-panel> -->
           </q-tab-panels>
         </div>
     <!-- </div> -->

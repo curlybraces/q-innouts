@@ -138,7 +138,9 @@ export default {
               icon: 'fas fa-check-circle',
               message: response.data.message
             })
-            location.reload()
+            this.wantedPlayers = []
+            this.remSignCards = this.signQuota - x
+            // location.reload()
           })
           .catch(error => {
             this.$q.notify({

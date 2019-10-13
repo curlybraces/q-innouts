@@ -34,13 +34,16 @@
               <span title="Achievements: You will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </q-card-section>
             <q-card-section class="q-pa-md">
-              <div class="text-center q-mb-sm q-gutter-x-xs">
-                <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
-                  &#127894;
-                </span>
+              <div class="text-center q-mb-sm q-pt-sm q-gutter-x-xs">
+                <div v-if="user.level>1">
+                  <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
+                    &#127894;
+                  </span>
+                </div>
+                <span v-if="user.level<1" class="emoji" title="Rookie: level under 1">&#129313;</span>
               </div>
               <div class="q-mt-md text-center">
-                Till next level
+                Till next level ({{Math.floor(user.level)+1}})
                 <q-linear-progress :value="user.level-Math.floor(user.level)/1" color="positive" class="q-mt-sm" />
               </div>
             </q-card-section>

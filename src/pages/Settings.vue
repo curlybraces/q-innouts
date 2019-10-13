@@ -188,6 +188,7 @@
                     </div>
                   </div>
                   <div v-if="!user.team || change">
+                    <div class="text-subtitle2 text-center q-py-sm"> Note: Changing your loyalties will cost you 1 level!</div>
                     <div class="row justify-center q-gutter-sm">
                       <div class="col">
                         <q-select filled v-model="league" :options="leagues" option-label="name" option-value="id" label="League" />

@@ -57,16 +57,19 @@
         </div>
       </div>
       <div class="col-grow col-md-3  self-center">
-        <q-card class="column q-pa-m bg-secondary w-75 q-mx-auto">
+        <q-card class="column q-pa-m bg-secondary q-mx-auto">
           <div class="">
             <div class="text-h6 text-center bg-primary rounded-borders bordered q-pa-sm">
               <span title="Achievements: Users will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
-                <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
-                  &#127894;
-                </span>
+                <div v-if="user.level>1">
+                  <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 sign + 1 sell cards">
+                    &#127894;
+                  </span>
+                </div>
+                <span v-if="user.level<1" class="emoji" title="Rookie: level under 1"> &#129318;&#127996;</span>
               </div>
             </div>
           </div>
@@ -165,7 +168,7 @@ export default {
       headerStyle: {},
       wantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
-        { name: 'team', align: 'center', label: 'Team', field: row => row.targetTeam },
+        { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'cards', align: 'center', label: 'Cards', field: row => row.priority, sortable: true },
       ],
       unwantedColumns: [
@@ -236,7 +239,6 @@ export default {
       .catch(error => {
         this.error = error
       })
-    // console.log('end of created hook')
   },
 
   watch: {
@@ -265,8 +267,6 @@ export default {
       }
       this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
       this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
-      // let diff = date.getDateDiff(this.date, this.user.lastSeen, 'days')
-      // this.info.seen = diff < 1 ? 'today' : diff + ' day(s) ago'
     }
   }
 }

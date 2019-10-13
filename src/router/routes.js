@@ -25,7 +25,7 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
-        path: '/articles/:article', component: () => import('pages/Article.vue')
+        path: '/articles/:article/:slug', component: () => import('pages/Article.vue')
       },
       {
         path: '/editorials', component: () => import('pages/Editorials.vue')
@@ -62,7 +62,7 @@ const routes = [
       },
       // keep as last route
       {
-        path: '/:user', name: 'profile', component: () => import('pages/Profile.vue')
+        path: '/:user/:slug', name: 'profile', component: () => import('pages/Profile.vue')
       },
     ]
   },
