@@ -310,8 +310,8 @@
             </div>
           </div>
           <q-list v-else bordered padding link dense class="col bg-secondary" >
-            <div v-for="(player, index) in team.players" :key="player.id">
-              <q-item :to="'/players/'+player.id+'/'+player.slug" @click="setPlayer(index)"  clickable v-ripple>
+            <div v-for="(player) in team.players" :key="player.id">
+              <q-item :to="'/players/'+player.id+'/'+player.slug" clickable v-ripple>
                 <q-item-section avatar>
                   <q-avatar rounded>
                     <img :src="player.picture">
@@ -367,7 +367,7 @@
 
       <q-tab-panel name="rumours">
         <div class="row justify-center">
-          <div class="col-lg-6 col-md-8 col-sm-10">
+          <div class="col-grow col-lg-6 col-md-8 col-sm-10">
             <rumours v-if="team.rumours ? team.rumours.length : false" :rumours="team.rumours" :dense="true" btnSize="xs" />
             <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
           </div>

@@ -3,12 +3,12 @@ Todo:
   ☐ SSR for pages: Player, Article @high 
   ☐ create the innouts logo @high 
   ☐ avoid bot registeration @low
-
-Fix:
-  ☐ player search in transfers page
-  ☐ rumours page 2 resizes the cards! @high 
+  ☐ add the info page links to footer @critical 
 
 Archive:
+  ✔ show the players age in rankings @high @done(19-10-14 18:26) @project(Fix)
+  ✔ player search in transfers page @done(19-10-14 16:42) @project(Fix)
+  ✔ rumours page 2 resizes the cards! @high @done(19-10-14 15:34) @project(Fix)
   ✔ add value of a leagues players' to its page @high @done(19-10-14 02:06) @project(Todo)
   ✔ add player value in player rankings @high @done(19-10-14 01:36) @project(Todo)
   ✔ change route params to slugs @high @done(19-10-13 16:34) @project(Todo)

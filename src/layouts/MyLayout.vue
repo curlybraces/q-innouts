@@ -13,7 +13,7 @@
       </q-card>
     </q-dialog>
     <q-header reveal elevated class="glossy q-pa-xs">
-      <desktop-header v-if="$q.platform.is.desktop" />
+      <desktop-header v-if="$q.platform.is.desktop" :leagues="leagues" :teams="teams" />
       <mobile-header v-else />
     </q-header>
 
@@ -58,46 +58,12 @@
         header-class="text-primary"
       >
         <q-list >
-          <q-item clickable dense v-close-popup to="/leagues/1" >
+          <q-item v-for="league in leagues" :key="league.id" clickable dense v-close-popup :to="'/leagues/'+league.slug" active-class="text-accent">
             <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/premier-league.png" color="secondary" size="2.1rem" text-color="white" />
+              <q-avatar :icon="'img:'+league.logo" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>Premier League</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/2" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/la-liga.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>La Liga</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/leagues/3" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/serie-a.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Serie A</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/leagues/4" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/bundesliga.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Bundesliga</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/leagues/5" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/league_logos/ligue-1.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Ligue 1</q-item-label>
+              <q-item-label>{{league.name}}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -109,73 +75,12 @@
         header-class="text-primary"
       >
         <q-list class="bg-secondary">
-          <q-item clickable dense v-close-popup to="/teams/22" >
+          <q-item v-for="team in teams" :key="team.id" clickable dense v-close-popup :to="'/teams/'+team.slug" active-class="text-accent">
             <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/real-madrid.png" color="secondary" size="2.1rem" text-color="white" />
+              <q-avatar :icon="'img:'+team.logo" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>Real Madrid</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/teams/21" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/barcelona.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Barcelona</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/teams/14" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/manchester-united.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Man. United</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/teams/62" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/bayern-munchen.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Bayern</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable dense v-close-popup to="/teams/6" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/chelsea.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Chelsea</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/teams/12" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/liverpool.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Liverpool</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/teams/41" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/juventus.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Juventus</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable dense v-close-popup to="/teams/13" >
-            <q-item-section avatar>
-              <q-avatar icon="img:statics/images/club_logos/manchester-city.png" color="secondary" size="2.1rem" text-color="white" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Man. City</q-item-label>
+              <q-item-label>{{team.name}}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -202,18 +107,23 @@ hey
     </q-page-container>
 
     <q-footer>
-      <q-toolbar>
-        <q-btn
-          flat
-          round
-          dense
-          icon="menu"
-        />
-        <q-toolbar-title>
-          Footer
-          <span slot="subtitle">Subtile</span>
-        </q-toolbar-title>
-      </q-toolbar>
+      <div class="row justify-around q-py-lg text-center q-gutter-y-sm">
+        <div class="col-12 q-gutter-x-md text-caption">
+          <router-link to="/about" class="no-deco text-grey">About</router-link>
+          <router-link to="/guide" class="no-deco text-grey">Guide</router-link>
+          <router-link to="/privacy-policy" class="no-deco text-grey">Privacy Policy</router-link>
+          <router-link to="/terms" class="no-deco text-grey">Terms of Service</router-link>
+        </div>
+        <div class="col-grow">
+          <a class="no-decor q-mx-sm">
+            <q-icon @click="openURL('https://instagram.com/_innouts.com_')"  name="ion-logo-instagram" size="1.2rem" color="grey"/>
+          </a>
+          <router-link to="" class="no-decor">
+            <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
+          </router-link>
+        </div>
+        <div class="col-12 text-caption text-grey q-mt-lg">Copyright &copy; 2018-2019 Innouts</div>
+      </div>
     </q-footer>
 
   </q-layout>
@@ -222,7 +132,7 @@ hey
 <script>
 import DesktopHeader from 'components/Header.vue'
 const MobileHeader = () => import('components/MobileHeader.vue')
-// import { openURL } from 'quasar'
+import { openURL } from 'quasar'
 
 export default {
   name: 'MyLayout',
@@ -235,6 +145,8 @@ export default {
   data: () => {
     return {
       // shouldConfirm: Boolean
+      leagues: [],
+      teams: []
     }
   },
 
@@ -256,8 +168,19 @@ export default {
     }
   },
 
+  created () {
+    this.$axios.get('api/leagues-teams')
+      .then(response => {
+        this.leagues = response.data.leagues
+        this.teams = response.data.teams
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+
   methods: {
-    // openURL,
+    openURL,
 
     // setView: function (view) {
     //   this.view = view[0]

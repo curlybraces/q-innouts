@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import { date } from 'quasar'
+// import { date } from 'quasar'
 
 export default {
   // name: 'PlayersRankings',
@@ -203,7 +203,7 @@ export default {
       U23Columns: [
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'Pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
-        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
+        { name: 'age', align: 'left', label: 'Age', field: 'age', sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
         { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },
       ],
@@ -211,7 +211,7 @@ export default {
         { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'nationality', align: 'left', label: 'Nationality', field: 'nationality', sortable: true },
-        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.date, 'years'), sortable: true },
+        { name: 'age', align: 'left', label: 'Age', field: 'age', sortable: true },
         { name: 'pos', align: 'left', label: 'Pos', field: row => row.specificPosition, sortable: true },
         { name: 'score', align: 'left', label: 'Score', field: 'rating', sortable: true },
         { name: 'value', align: 'left', label: 'value (£m)', field: 'value', sortable: true },

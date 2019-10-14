@@ -213,7 +213,7 @@ export default {
         },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       transferOutColumns: [
@@ -227,7 +227,7 @@ export default {
         },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       inVisibleColumns: [],

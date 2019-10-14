@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div v-for="(rumour, idx) in rumours.slice((current-1)*chunk, current*chunk)" :key="rumour.id">
+  <q-infinite-scroll @load="onLoad" :offset="200">
+    <!-- <div v-for="(rumour, idx) in rumours.slice((current-1)*chunk, current*chunk)" :key="rumour.id"> -->
+    <div v-for="(rumour, idx) in rumourBag" :key="rumour.id">
       <q-card class="bg-secondary">
         <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" align="top" floating transparent />
         <div class="newsTitle text-center text-uppercase bg-primary text-secondary q-pa-sm" :class="titleClass" >{{rumour.title}}
@@ -9,7 +10,7 @@
           <q-img
             :src="rumour.picture" :ratio="16/9" :alt="rumour.title"
             spinner-color="white"
-            style="height: 90px; max-width: 145px"
+            :style="picStyle"
             class="border-primary rounded-borders"
           />
         </q-card-section>
@@ -31,7 +32,12 @@
         </q-card-section>
       </q-card>
     </div>
-      <div class="q-pa-lg q-my-md flex flex-center">
+    <template v-if="remains" v-slot:loading>
+      <div class="row justify-center q-my-md">
+        <q-spinner-dots color="primary" size="40px" />
+      </div>
+    </template>
+      <!-- <div class="q-pa-lg q-my-md flex flex-center">
         <q-pagination
             v-model="current"
             :max="Math.ceil(rumours.length/chunk)"
@@ -39,22 +45,39 @@
             :size="paginationSize"
         >
         </q-pagination>
-      </div>
-  </div>
+      </div> -->
+  </q-infinite-scroll>
 </template>
 
 <script>
-import { scroll } from 'quasar'
-const { getScrollTarget, setScrollPosition } = scroll
+const chunk = function (array, size) {
+  if (!array.length) {
+    return []
+  }
+  const head = array.slice(0, size)
+  const tail = array.slice(size)
+
+  return [head, ...chunk(tail, size)]
+}
+
+// import { scroll } from 'quasar'
+// const { getScrollTarget, setScrollPosition } = scroll
 
 export default {
   name: 'Rumours',
   data () {
     return {
-      current: 1,
+      // current: 1,
       bodyClass: {},
       titleClass: {},
-      paginationSize: '14px'
+      rumourChunks: [],
+      rumourBag: [],
+      // paginationSize: '14px'
+      // remains: true,
+      picStyle: {
+        height: '90px',
+        maxWidth: '145px'
+      }
     }
   },
 
@@ -85,14 +108,25 @@ export default {
 
     user: function () {
       return this.$store.state.user
+    },
+
+    remains () {
+      return !(this.rumourBag.length === this.rumours.length)
     }
   },
 
   created () {
+    this.rumourChunks = chunk(this.rumours, this.chunk)
+    this.rumourBag = this.rumourChunks[0]
     if (this.dense) {
-      this.paginationSize = '10px'
+      // this.paginationSize = '10px'
+      this.picStyle = {
+        height: '65px',
+        maxWidth: '105px'
+      }
       this.bodyClass = {
         'text-body2': true,
+        'q-pa-sm': true
       }
       this.titleClass = {
         'q-mt-sm': true,
@@ -111,12 +145,12 @@ export default {
   },
 
   methods: {
-    scrollToElement (el) {
-      let target = getScrollTarget(el)
-      let offset = el.offsetTop
-      let duration = 1000
-      setScrollPosition(target, offset, duration)
-    },
+    // scrollToElement (el) {
+    //   let target = getScrollTarget(el)
+    //   let offset = el.offsetTop
+    //   let duration = 1000
+    //   setScrollPosition(target, offset, duration)
+    // },
 
     submitVote: function (val, key, index) {
       if (this.loggedIn) {
@@ -146,15 +180,24 @@ export default {
           message: 'Please login or register to rate.'
         })
       }
-    }
+    },
+
+    onLoad (index, done) {
+      setTimeout(() => {
+        if (this.rumourChunks[index]) {
+          this.rumourBag.push(...this.rumourChunks[index])
+          done()
+        }
+      }, 2500)
+    },
 
   },
 
-  watch: {
-    current () {
-      this.scrollToElement(document.getElementById('title'))
-    }
-  }
+  // watch: {
+  //   current () {
+  //     this.scrollToElement(document.getElementById('title'))
+  //   }
+  // }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col col-sm-8 col-md-6">
-        <q-card class="bg-secondary q-pa-md">
+        <q-card class="bg-secondary" :class="cardClass">
           <q-card-section class="bg-primary text-white q-mb-md">
             <q-tabs
               v-model="tab"
@@ -19,7 +19,7 @@
             </q-tabs>
           </q-card-section>
 
-          <q-card-section>
+          <q-card-section :class="cardPanelClass">
             <q-tab-panels
               v-model="tab"
               animated
@@ -239,6 +239,10 @@ export default {
       teams: [],
       league: '',
       team: '',
+      cardClass: {
+        'q-pa-md': true
+      },
+      cardPanelClass: {}
     }
   },
 
@@ -265,6 +269,12 @@ export default {
 
   created: function () {
     this.$store.commit('setRightDrawer', false)
+    if (this.$q.screen.lt.md) {
+      this.cardClass = {
+        'q-pa-none': true
+      }
+      this.cardPanelClass = { 'q-pa-xs': true }
+    }
     this.$axios({ url: 'api/countries', method: 'GET' })
       .then(response => {
         for (let x in response.data) {

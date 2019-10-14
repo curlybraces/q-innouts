@@ -129,7 +129,7 @@
               <tr v-for="transfer in transfers" :key="transfer.id">
                 <td>{{ transfer.from.name }}</td>
                 <td>{{ transfer.to.name }}</td>
-                <td>{{ transfer.fee ? transfer.fee : 'Free' }}</td>
+                <td>{{ transfer.loan ? 'Loan' : transfer.fee ? transfer.fee : 'Free' }}</td>
                 <td>{{ transfer.date }}</td>
               </tr>
             </tbody>

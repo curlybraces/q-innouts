@@ -16,9 +16,10 @@
             title="Transfers"
             :dense="$q.screen.lt.md"
             :grid="$q.screen.xs"
-            :data="transfers"
+            :data="filteredTransfers"
             :columns="columns"
             :filter="filter"
+            :filter-method="filterMethod"
             row-key="id"
             rows-per-page-label="Transfers per page"
             :pagination.sync="myPagination"
@@ -144,27 +145,19 @@ export default {
     return {
       filter: '',
       columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Player',
-          align: 'left',
-          field: row => row.player,
-          // format: val => `${val}`,
-          sortable: true
-        },
+        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (£m)', field: row => row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (£m)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
-
       transfers: [],
+      filteredTransfers: [],
       myPagination: {
         rowsPerPage: 10
       },
-      loading: true,
+      loading: false,
       window: null,
       windows: [],
     }
@@ -198,12 +191,11 @@ export default {
           vm.windows = response.data.visibleWindows
           vm.window = vm.windows[0]
           vm.transfers = vm.window.transfers
-          vm.loading = false
+          // vm.loading = false
         })
       })
       .catch(error => {
         console.log(error)
-        // from.error = error
         next(false)
       })
   },
@@ -216,6 +208,23 @@ export default {
     window () {
       this.loading = true
       this.transfers = this.window.transfers
+      this.filteredTransfers = this.transfers
+      this.loading = false
+    },
+
+    'filter' () {
+      this.loading = true
+      if (this.filter.length) {
+        this.filteredTransfers = []
+        this.transfers.forEach(element => {
+          // console.log(element.player.nickname.toLowerCase().includes(this.filter))
+          if (element.player.firstName.toLowerCase().includes(this.filter) || element.player.lastName.toLowerCase().includes(this.filter)) {
+            this.filteredTransfers.push(element)
+          }
+        })
+      } else {
+        this.filteredTransfers = this.transfers
+      }
       this.loading = false
     }
   },
@@ -244,6 +253,10 @@ export default {
           message: 'Please login or register to rate.'
         })
       }
+    },
+
+    filterMethod () {
+      return this.filteredTransfers
     }
   },
 }

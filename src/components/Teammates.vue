@@ -29,20 +29,11 @@
 export default {
   name: 'TeammatesColumn',
 
-  data: () => ({
-    // teammates: ['Joe', 'Jack']
-  }),
-
   props: {
     teammates: Array,
     team: String,
   },
 
-  methods: {
-    // setPlayer (id) {
-    //   this.$emit('newPlayer', id)
-    // }
-  }
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-lg-6 col-md-7 col-sm-8">
+      <div class="col-grow col-lg-6 col-md-7 col-sm-8">
         <div id="title" class="text-center text-h4 q-my-md bg-primary q-pa-md text-white rounded-borders"><!-- &#128301; --> Rumour Mill</div>
-          <rumours :rumours="rumours" :picture="true" :chunk="10" />
+          <rumours v-if="rumours.length" :rumours="rumours" :picture="true" :chunk="10" :dense="$q.screen.lt.md" />
       </div>
     </div>
   </q-page>
@@ -45,7 +45,7 @@ export default {
         })
       })
       .catch(error => {
-        from.error = error
+        console.log(error)
         next(false)
       })
   },

@@ -27,9 +27,6 @@
                 {{article.title}}
               </q-tooltip>
             </q-item-section>
-            <q-item-section side >
-              <q-item-label caption>Today</q-item-label>
-            </q-item-section>
           </q-item>
           <q-separator />
         </div>
