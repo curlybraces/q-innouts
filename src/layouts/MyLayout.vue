@@ -115,12 +115,12 @@ hey
           <router-link to="/terms" class="no-deco text-grey">Terms of Service</router-link>
         </div>
         <div class="col-grow">
-          <a class="no-decor q-mx-sm">
-            <q-icon @click="openURL('https://instagram.com/_innouts.com_')"  name="ion-logo-instagram" size="1.2rem" color="grey"/>
+          <a @click="openURL('https://instagram.com/_innouts.com_')" class="no-decor link q-mx-sm">
+            <q-icon   name="ion-logo-instagram" size="1.2rem" color="grey"/>
           </a>
-          <router-link to="" class="no-decor">
+          <a @click="openURL('https://twitter.com/_innouts.com_')" class="no-decor link">
             <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
-          </router-link>
+          </a>
         </div>
         <div class="col-12 text-caption text-grey q-mt-lg">Copyright &copy; 2018-2019 Innouts</div>
       </div>
