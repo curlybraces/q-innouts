@@ -3,7 +3,7 @@
     <div class="row justify-center">
       <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body text-justify">
         <div class="text-h4 text-center q-my-lg q-py-sm bg-primary text-secondary">Terms of Service</div>
-               <h5>Your Access</h5>
+               <h5 class="q-my-md">Your Access</h5>
                <p>
                    Access to our site is permitted on a temporary basis, and we reserve the
                right to withdraw or amend the service we provide on our site without notice. We will not be liable if for any reason
@@ -15,7 +15,7 @@
                you to have access to our site. You are also responsible for ensuring that all persons who access our site through
                your internet connection are aware of these terms, and that they comply with them.
             </p>
-               <h5>  Rights   </h5>
+               <h5 class="q-my-md">  Rights   </h5>
                <p>
                We are the owner or the licensee of all intellectual property rights in our site, and in the material published
                on it. Those works are protected by copyright laws and treaties around the world. All such rights are reserved.
@@ -28,21 +28,21 @@
                breach of these terms of use, your right to use our site will cease immediately and you must, at our option, return
                or destroy any copies of the materials you have made.
             </p>
-            <h5>Changes</h5>
+            <h5 class="q-my-md">Changes</h5>
             <p>
                Our Site Changes Regularly We aim to update our site regularly,
                and may change the content at any time. If the need arises, we may suspend access to our site, or close it indefinitely.
                Any of the material on our site may be out of date at any given time, and we are under no obligation to update such
                material.
             </p>
-            <h5>Reliance on Our Information</h5>
+            <h5 class="q-my-md">Reliance on Our Information</h5>
             <p>
                Materials posted on our site are not intended to amount
                to advice on which reliance should be placed. We therefore disclaim all liability and responsibility arising from
                any reliance placed on such materials by any visitor to our site, or by anyone who may be informed of any of its
                contents.
             </p>
-            <h5>Our Liabilities</h5>
+            <h5 class="q-my-md">Our Liabilities</h5>
             <p>
                The material and information displayed on our site is provided without any guarantees, conditions
                or warranties as to its accuracy. Nothing in these terms of use affects our liability
@@ -50,21 +50,20 @@
                misrepresentation as to a fundamental matter, nor any other liability which cannot be excluded or limited under
                applicable law.
             </p>
-             <h5>Your Liabilities</h5>
+             <h5 class="q-my-md">Your Liabilities</h5>
             <p>
-               You shall indemnify and hold harmless Genius Sports, its subsidiaries, employees
-               and agents and partners from any claims, liabilities, costs and expenses that may arise as a result of your breach
+               You shall indemnify and hold harmless Innouts, from any claims, liabilities, costs and expenses that may arise as a result of your breach
                of these terms of use or a breach of any laws of any jurisdiction applicable to you.
             </p>
-            <h5>Your Information</h5>
+            <h5 class="q-my-md">Your Information</h5>
             <p>
-                We process information about you in accordance with our <a href=""> privacy policy</a>. By using our site, you
+                We process information about you in accordance with our <router-link to="/privacy-policy"> privacy policy</router-link>. By using our site, you
                consent to such processing and you warrant that all data provided by you is accurate.
             </p>
 
-            <h5>Offences</h5>
+            <h5 class="q-my-md">Offences</h5>
             <p>
-               Offences You must not misuse our site by knowingly introducing viruses, trojans, worms, logic bombs or other material
+               You must not misuse our site by knowingly introducing viruses, trojans, worms, logic bombs or other material
                which is malicious or technologically harmful. You must not attempt to gain unauthorised access to our site, the
                server on which our site is stored or any server, computer or database connected to our site. You must not attack
                our site via a denial-of-service attack or a distributed denial-of service attack. By breaching this provision,
@@ -76,35 +75,34 @@
                site or to your downloading of any material posted on it, or on any website linked to it.
             </p>
 
-            <h5>Links</h5>
+            <h5 class="q-my-md">Links</h5>
             <p>
-               our site contains links to other sites and resources, which are provided for your
+               Our site contains links to other sites and resources, which are provided for your
                information only. We have no control over the contents of those sites or resources, and accept no responsibility
                for them or for any loss or damage that may arise from your use of them.
             </p>
 
-            <h5>Jurisdiction</h5>
+            <h5 class="q-my-md">Jurisdiction</h5>
             <p>
-               Jurisdiction and Applicable Law The English
-               courts will have exclusive jurisdiction over any claim arising from, or related to, a visit to our site. These terms
+               The English courts will have exclusive jurisdiction over any claim arising from, or related to, a visit to our site. These terms
                of use and any dispute or claim arising out of or in connection with them or their subject matter or formation (including
                non-contractual disputes or claims) shall be governed by and construed in accordance with the law of England and
                Wales.
             </p>
 
-            <h5>Trademark</h5>
+            <h5 class="q-my-md">Trademark</h5>
             <p>
                “Innouts” is a trademark exclusively owned by us.
             </p>
 
-            <h5>Variations</h5>
+            <h5 class="q-my-md">Variations</h5>
             <p>
                We may revise these terms at any time by amending this page. You are expected to check this page from time to time to take notice of
                any changes we made, as they are binding on you. Some of the provisions contained in these terms of use may also
                be superseded by provisions or notices published elsewhere on our site.
             </p>
 
-            <h5>Concerns</h5>
+            <h5 class="q-my-md">Concerns</h5>
             <p>
                If you have any concerns about material which appears on our site, please email:
                info@innouts.com.
