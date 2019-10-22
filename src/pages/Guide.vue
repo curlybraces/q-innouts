@@ -8,7 +8,7 @@
            </p>
             <h5 class="q-my-md">Sign and Sell Cards</h5>
             <p>
-               In each transfer window, <b>a fan</b> of a team, will receive a certain number of sign and sell cards, which they can use to add players to their sign or sell
+               In each transfer window, a fan of a team, will receive a certain number of sign and sell cards, which they can use to add players to their sign or sell
                lists respectively. The formula by which your cards are calculated is as follows:
                number of sign/sell cards = 4 + user level + purchased sign/sell cards <br>
                You can allocate each card to a different player or more than 1 card to a single player should you see fit.

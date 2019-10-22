@@ -118,9 +118,9 @@ hey
           <a @click="openURL('https://instagram.com/_innouts.com_')" class="no-decor link q-mx-sm">
             <q-icon   name="ion-logo-instagram" size="1.2rem" color="grey"/>
           </a>
-          <a @click="openURL('https://twitter.com/_innouts.com_')" class="no-decor link">
+          <!-- <a @click="openURL('https://twitter.com/_innouts.com_')" class="no-decor link">
             <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
-          </a>
+          </a> -->
         </div>
         <div class="col-12 text-caption text-grey q-mt-lg">Copyright &copy; 2018-2019 Innouts</div>
       </div>

@@ -70,7 +70,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.height" >{{player.height}} cm</q-item-label>
-              <q-item-label v-else >NA</q-item-label>
+              <q-item-label v-else ></q-item-label>
             </q-item-section>
           </q-item>
           <q-item >
@@ -79,7 +79,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.weight" >{{player.weight}} kg</q-item-label>
-              <q-item-label v-else >NA</q-item-label>
+              <q-item-label v-else ></q-item-label>
             </q-item-section>
           </q-item>
           <q-item >
@@ -88,7 +88,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.foot" >{{player.foot}}</q-item-label>
-              <q-item-label v-else >NA</q-item-label>
+              <q-item-label v-else ></q-item-label>
             </q-item-section>
           </q-item>
           <q-item >

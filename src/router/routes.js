@@ -61,16 +61,16 @@ const routes = [
         path: '/find/:name', name: 'find', component: () => import('pages/Find.vue')
       },
       {
-        path: '/about', name: 'find', component: () => import('pages/About.vue')
+        path: '/about', component: () => import('pages/About.vue')
       },
       {
-        path: '/guide', name: 'find', component: () => import('pages/Guide.vue')
+        path: '/guide', component: () => import('pages/Guide.vue')
       },
       {
-        path: '/privacy-policy', name: 'find', component: () => import('pages/Policy.vue')
+        path: '/privacy-policy', component: () => import('pages/Policy.vue')
       },
       {
-        path: '/terms', name: 'find', component: () => import('pages/Terms.vue')
+        path: '/terms', component: () => import('pages/Terms.vue')
       },
       // keep as last route
       {

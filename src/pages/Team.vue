@@ -67,7 +67,7 @@
                       <q-item-label >Average squad score</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >{{stats.avgRating}}/10</q-item-label>
+                      <q-item-label >{{stats.avgRating}}</q-item-label>
                     </q-item-section>
                   </q-item>
 

@@ -9,7 +9,7 @@
       </q-btn>
 
     <q-avatar clickable link to="/">
-      <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+      <img class="bordered" src="~assets/innouts.png">
     </q-avatar>
 
       <q-toolbar-title>

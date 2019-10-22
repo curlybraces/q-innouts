@@ -191,7 +191,6 @@ export default {
           vm.windows = response.data.visibleWindows
           vm.window = vm.windows[0]
           vm.transfers = vm.window.transfers
-          // vm.loading = false
         })
       })
       .catch(error => {

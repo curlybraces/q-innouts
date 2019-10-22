@@ -49,7 +49,7 @@
 
       <q-table
         class="my-sticky-header-table bg-secondary"
-        :title="'Biggest Transfers of ' + transfers[0].window.name"
+        title="Biggest Transfers of Last Window"
         :dense="$q.screen.lt.md"
         :data="transfers"
         :columns="columns"
@@ -362,12 +362,12 @@ export default {
 
     rightDrawerOpen: function () {
       return this.$store.getters.rightDrawer
-    }
+    },
   },
 
   meta () {
     return {
-      title: 'Innouts | You Come First.',
+      title: 'Innouts | You Come First',
 
       meta: {
         description: { name: 'description', content: 'Innouts is a football community for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },
@@ -377,7 +377,7 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('/api')
+    axios.get('api/')
       .then(response => {
         next(vm => {
           vm.setData(response)

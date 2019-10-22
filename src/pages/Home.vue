@@ -195,7 +195,7 @@ export default {
   },
 
   mounted: function () {
-    if (!this.$store.getters.user.team_id) {
+    if (!this.user.team_id) {
       this.$router.push({ name: 'settings' })
     }
     this.$store.commit('setRightDrawer', false)

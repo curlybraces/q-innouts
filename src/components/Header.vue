@@ -3,16 +3,16 @@
     <q-toolbar class="q-gutter-x-sm">
 
     <q-avatar clickable link to="/">
-      <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+      <img class="bordered" src="~assets/innouts.png">
     </q-avatar>
 
       <q-toolbar-title>
-        <router-link to="/" class="no-decor text-white">
+        <router-link to="/" class="no-decor text-white text-h6">
           Innouts
         </router-link>
       </q-toolbar-title>
 
-      <q-btn to="/editorials" no-caps class="glossy" color="blue-grey-7" label="Editorials" />
+      <q-btn to="/editorials" no-caps  label="Editorials" />
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">
@@ -349,7 +349,7 @@ export default {
     },
 
     showUser (value) {
-      this.$router.push({ name: 'profile', params: { user: value.id } })
+      this.$router.push({ name: 'profile', params: { user: value.id, slug: value.slug } })
     },
 
     reset () {

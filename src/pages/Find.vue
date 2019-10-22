@@ -4,7 +4,7 @@
       <div class="col-grow col-sm-7 col-md-6 bg-primar border-primary rounded-borders">
         <q-list v-if="friends.length" link class="bg-secondary" >
           <q-infinite-scroll @load="onLoad" :offset="100">
-            <q-item v-for="friend in friendsBag" :key="friend.id" :to="'/'+friend.id" active-class="text-white bg-primary"  clickable v-ripple>
+            <q-item v-for="friend in friendsBag" :key="friend.id" :to="'/'+friend.id+'/'+friend.slug" active-class="text-white bg-primary"  clickable v-ripple>
               <q-item-section avatar>
                 <q-avatar rounded>
                   <img :src="friend.picture">
