@@ -12,7 +12,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <q-header reveal elevated class="glossy q-pa-xs">
+    <q-header reveal elevated class="gloss q-pa-xs">
       <desktop-header v-if="$q.platform.is.desktop" :leagues="leagues" :teams="teams" />
       <mobile-header v-else />
     </q-header>

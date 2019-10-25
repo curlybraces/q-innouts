@@ -3,7 +3,7 @@
     <div class="row bg-secondary">
       <div class="col-6 col-sm-5 col-md-3 offset-sm-1">
         <div style="width: 280px; height: 280px;">
-          <q-img alt="Quasar logo" :src="league.logo" class="q-mx-aut fit" />
+          <q-img :alt="league.name" :src="league.logo" class="q-mx-aut fit" />
         </div>
       </div>
       <div class="col-grow col-md-auto self-end">
@@ -151,7 +151,7 @@
                     <ul id="league-teams" class="q-my-none" :class="panelClass">
                        <li v-for="team in league.teams" :key="team.id" class="picture-wrapper">
                          <router-link :to="'/teams/' + team.slug" >
-                            <img class="full-height" alt="Quasar logo" :src="team.logo">
+                            <img class="full-height" :alt="team.name" :src="team.logo">
                               <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                                 {{team.name}}
                               </q-tooltip>

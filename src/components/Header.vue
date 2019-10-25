@@ -34,12 +34,33 @@
         <div class="row bg-primary no-wrap q-pa-md">
           <div class="column">
             <q-list class="bg-secondary">
-              <q-item v-for="league in leagues" :key="league.id" clickable dense v-close-popup :to="'/leagues/'+league.slug" active-class="text-accent">
+              <q-item v-for="league in leagues.slice(0,3)" :key="league.id" clickable dense v-close-popup :to="'/leagues/'+league.slug" active-class="text-accent">
                 <q-item-section avatar>
                   <q-avatar :icon="'img:'+league.logo" color="secondary" size="2.1rem" text-color="white" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>{{league.name}}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+          <q-separator vertical inset class="q-mx-sm" />
+          <div class="column">
+            <q-list class="bg-secondary">
+              <q-item v-for="league in leagues.slice(3,5)" :key="league.id" clickable dense v-close-popup :to="'/leagues/'+league.slug" active-class="text-accent">
+                <q-item-section avatar>
+                  <q-avatar :icon="'img:'+league.logo" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{league.name}}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item dense to="/leagues/others">
+                <q-item-section avatar>
+                  <q-avatar :icon="'img:images/leagues/other'" color="secondary" size="2.1rem" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Others</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>

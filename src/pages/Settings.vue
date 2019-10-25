@@ -196,7 +196,24 @@
                       <div class="col self-center text-center">
                         Team
                         <q-popup-edit :value="team" :validate="validateTeam" @save="saveTeam" @cancel="cancelTeam" buttons title="Change team" persistent label-set="SAVE">
-                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" option-value="id" label="team" />
+                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" option-value="id" label="team" >
+                            <template v-slot:option="scope">
+                              <q-item
+                                v-bind="scope.itemProps"
+                                v-on="scope.itemEvents"
+                              >
+                                <q-item-section avatar>
+                                  <q-avatar>
+                                    <img :src="scope.opt.logo">
+                                  </q-avatar>
+                                </q-item-section>
+                                <q-item-section>
+                                  <q-item-label v-text="scope.opt.name" />
+                                  <!-- <q-item-label caption>{{ scope.opt.name }}</q-item-label> -->
+                                </q-item-section>
+                              </q-item>
+                            </template>
+                          </q-select>
                         </q-popup-edit>
                       </div>
                     </div>
@@ -294,7 +311,7 @@ export default {
         this.leagues = response.data
       })
       .catch(error => {
-        this.error = error
+        console.log(error)
       })
   },
 

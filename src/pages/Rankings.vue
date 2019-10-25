@@ -272,14 +272,14 @@ export default {
       splitterModel: 10,
       myPagination: {
         rowsPerPage: 10,
-        sortBy: 'totalTrophies',
+        sortBy: 'european',
         descending: true,
       },
       columns: [
         { name: 'team', required: true, label: 'Team', align: 'left', field: row => row },
         { name: 'totalTrophies', align: 'center', label: 'Major Trophies', field: 'totalTrophies', sortable: true },
         { name: 'popularity', align: 'center', label: 'Popularity', field: 'popularity', sortable: true },
-        { name: 'european', align: 'center', label: 'European Success', field: 'european', sortable: true },
+        { name: 'european', align: 'center', label: 'European Triumphs', field: 'european', sortable: true },
         { name: 'elimination', align: 'center', label: 'Elimination Tournaments', field: 'elimination', sortable: true },
         { name: 'league', align: 'center', label: 'League Success', field: 'league', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'fanLevel', label: 'Fan Level', field: 'fanLevel', sortable: true },

@@ -2,10 +2,12 @@
 Todo:
   ☐ SSR for pages: Player, Article @low
   ☐ avoid bot registeration @low
+  ☐ add league table @low 
 
 Fix:
   ☐ user home refresh takes them to settings! @high 
   ☐ user profile upload doesn't give feedback on failure @low
+  ☐ player age shows NaN on Safari @low 
 
 Archive:
   ✔ create the innouts logo @high @done(19-10-22 19:49) @project(Todo)

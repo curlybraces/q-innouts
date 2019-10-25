@@ -13,6 +13,9 @@ const routes = [
       },
       { path: '/managers/:manager', name: 'manager', component: () => import('pages/ID.vue') },
       {
+        path: '/leagues/others', component: () => import('pages/Others.vue')
+      },
+      {
         path: '/leagues/:league', component: () => import('pages/League.vue')
       },
       {
