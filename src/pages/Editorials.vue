@@ -4,7 +4,7 @@
       <div class="col-grow col-sm-9 col-md-7 bg-primar text-white border-primary rounded-borders">
         <articles v-if="articles.length" :articles="articles" :chunk="10" :dense="$q.screen.lt.md" />
         <div v-else class="text-subtitle1 text-center text-black">
-          Nothing to display at this time! You can contribute one if you wish!
+          Nothing to display at this time!
         </div>
       </div>
     </div>

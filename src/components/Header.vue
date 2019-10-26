@@ -57,7 +57,7 @@
               </q-item>
               <q-item dense to="/leagues/others">
                 <q-item-section avatar>
-                  <q-avatar :icon="'img:images/leagues/other'" color="secondary" size="2.1rem" text-color="white" />
+                  <q-avatar icon="star" color="secondary" size="2.1rem" text-color="whte" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>Others</q-item-label>

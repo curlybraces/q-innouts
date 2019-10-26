@@ -2,7 +2,6 @@
 Todo:
   ☐ SSR for pages: Player, Article @low
   ☐ avoid bot registeration @low
-  ☐ add league table @low 
 
 Fix:
   ☐ user home refresh takes them to settings! @high 
@@ -10,6 +9,7 @@ Fix:
   ☐ player age shows NaN on Safari @low 
 
 Archive:
+  ✔ add league table @low @done(19-10-26 15:20) @project(Todo)
   ✔ create the innouts logo @high @done(19-10-22 19:49) @project(Todo)
   ✔ add the info page links to footer @critical @done(19-10-19 23:37) @project(Todo)
   ✔ show the players age in rankings @high @done(19-10-14 18:26) @project(Fix)

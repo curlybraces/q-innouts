@@ -17,16 +17,15 @@
           inline-label
           class="bg-primary text-white shadow-2"
         >
-          <q-tab name="mails" icon="description" label="Overview" />
-          <!-- <q-tab name="alarms" icon="table_chart" label="Table" />
-          <q-tab name="news" icon="info" label="News" /> -->
+          <q-tab name="overview" label="Overview" />
+          <q-tab name="table" label="Table" />
         </q-tabs>
       </div>
     </div>
     <div class="row justify-center">
       <!-- <div class="col"> -->
           <q-tab-panels v-model="tab" animated class="col col-lg-11 q-mx-aut">
-            <q-tab-panel name="mails" :class="panelClass">
+            <q-tab-panel name="overview" :class="panelClass">
               <q-card class="text-subtitle1">
                 <div class="row bg-primary justify-center text-white">
                   <div class="col-grow col-sm-6 text-center q-pa-s">
@@ -162,6 +161,13 @@
                 </div>
               </q-card>
             </q-tab-panel>
+            <q-tab-panel name="table" :class="panelClass">
+              <q-img
+                :src="league.table"
+                class="bordered"
+              />
+              <div class="text-caption">Data from BBC Sports</div>
+            </q-tab-panel>
           </q-tab-panels>
         </div>
     <!-- </div> -->
@@ -181,7 +187,7 @@ export default {
 
   data () {
     return {
-      tab: 'mails',
+      tab: 'overview',
       league: {
         holders: Object
       },
