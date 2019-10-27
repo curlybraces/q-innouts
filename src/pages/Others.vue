@@ -75,5 +75,9 @@ export default {
     }
   },
 
+  created () {
+    this.$store.commit('setRightDrawer', false)
+  }
+
 }
 </script>

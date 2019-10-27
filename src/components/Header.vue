@@ -159,7 +159,7 @@
           </q-item>
         </template>
         <template v-slot:no-option>
-          <q-item>
+          <q-item dense>
             <q-item-section class="text-grey">
               Not a soul &#128128;
             </q-item-section>

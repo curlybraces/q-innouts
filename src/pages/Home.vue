@@ -219,7 +219,7 @@ export default {
 
   updated: function () {
     this.team = this.user.team
-    this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+    this.headerStyle.backgroundImage = 'url(' + this.user.team.stadium.picture + ')'
     this.headerStyle.backgroundPosition = this.team.stadium.position
   },
 

@@ -548,7 +548,7 @@ export default {
     setData: function (response) {
       this.team = response.data.team.info
       this.stats = response.data.team.stats
-      this.headerStyle.backgroundImage = 'url(statics/' + this.team.stadium.picture + ')'
+      this.headerStyle.backgroundImage = 'url(' + this.team.stadium.picture + ')'
       this.headerStyle.backgroundPosition = this.team.stadium.position
       this.team.players.forEach(element => {
         switch (element.specificPosition) {

@@ -257,7 +257,7 @@ export default {
   methods: {
     setData: function (response) {
       this.user = response.data.data
-      this.headerStyle.backgroundImage = 'url(statics/' + this.user.team.stadium.picture + ')'
+      this.headerStyle.backgroundImage = 'url(' + this.user.team.stadium.picture + ')'
       this.headerStyle.backgroundPosition = this.user.team.stadium.position
       if (this.$q.screen.lt.md) {
         this.headerStyle.minHeight = '200px'
