@@ -82,7 +82,6 @@
                   <q-item>
                     <q-item-section>
                       <div v-if="team.trophiesWon" class="">
-                        <!-- <div id="trophiesCol" class=""> -->
                           <table id="trophy-table" class="mx-sm-0">
                             <thead>
                               <tr id="trophy-cabinet">
@@ -93,11 +92,11 @@
                                   <q-badge align="bottom" :style="{backgroundColor: team.color}" text-color="blac" :label="team.trophyCabinet.cls+'x'" />
                                 </th>
                                 <th v-if="team.trophyCabinet.ls" class="trophy ">
-                                  <q-img class="full-height" :title="team.league.name" :src="'statics/' + team.league.leagueTrophyPic" :alt="team.league.name + 'trophy thumbnail'"/>
+                                  <q-img class="full-height" :title="team.league.name" :src="team.league.league_trophy_pic" :alt="team.league.name + ' trophy thumbnail'"/>
                                   <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ls+'x'" />
                                 </th>
                                 <th v-if="team.trophyCabinet.ffts" class="trophy ">
-                                  <q-img class="full-height" :title="team.league.fftName" :src="'statics/' + team.league.fftTrophyPic" :alt="team.league.fftName + 'trophy thumbnail'"/>
+                                  <q-img class="full-height" :title="team.league.fftName" :src="team.league.fft_trophy_pic" :alt="team.league.fftName + ' trophy thumbnail'"/>
                                   <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.ffts+'x'" />
                                 </th>
                                 <th v-if="team.trophyCabinet.els" class="trophy ">
@@ -105,13 +104,12 @@
                                   <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.els+'x'" />
                                 </th>
                                 <th v-if="team.trophyCabinet.cs" class="trophy ">
-                                  <q-img class="full-height" :title="team.league.cupName" :src="'statics/' + team.league.cupTrophyPic" :alt="team.league.cupName + 'trophy thumbnail'"/>
+                                  <q-img class="full-height" :title="team.league.cupName" :src="team.league.cup_trophy_pic" :alt="team.league.cupName + ' trophy thumbnail'"/>
                                   <q-badge align="bottom" :style="{backgroundColor: team.color}" :label="team.trophyCabinet.cs+'x'" />
                                 </th>
                               </tr>
                             </thead>
                           </table>
-                        <!-- </div> -->
                       </div>
                     </q-item-section>
                   </q-item>

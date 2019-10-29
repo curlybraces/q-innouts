@@ -114,7 +114,7 @@ hey
       <router-view />
     </q-page-container>
 
-    <q-footer>
+    <q-footer elevated>
       <div class="row justify-around q-py-lg text-center q-gutter-y-sm">
         <div class="col-12 q-gutter-x-md text-caption">
           <router-link to="/about" class="no-deco text-grey">About</router-link>
