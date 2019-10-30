@@ -1,6 +1,6 @@
 <template>
   <q-layout :view="view" >
-    <q-dialog v-model="shouldConfirm" persistent position="bottom">
+    <q-dialog v-model="shouldConfirm" persistent position="bottom" v-close-popup>
       <q-card>
         <q-card-section class="row items-center q-py-sm">
           <span style='font-size:25px;'>&#127850;</span>
@@ -8,7 +8,7 @@
         </q-card-section>
 
         <q-card-actions align="center">
-          <q-btn @click="acceptCookies" size="sm" label="Fine" color="primary" v-close-popup />
+          <q-btn @click="acceptCookies" size="sm" label="Fine" color="primary" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -152,7 +152,7 @@ export default {
 
   data: () => {
     return {
-      // shouldConfirm: Boolean
+      shouldConfirm: Boolean,
       leagues: [],
       teams: []
     }
