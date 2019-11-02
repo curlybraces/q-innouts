@@ -166,7 +166,7 @@
                 :src="league.table"
                 class="bordered"
               />
-              <div class="text-caption">Data from BBC Sports</div>
+              <div class="text-caption q-my-sm">Data from BBC Sports</div>
             </q-tab-panel>
           </q-tab-panels>
         </div>
