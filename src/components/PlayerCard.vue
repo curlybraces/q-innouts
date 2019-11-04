@@ -1,6 +1,6 @@
 <template>
   <div class="player-card">
-    <q-img :src="player.picture" :alt="player.nickname" class="img-thumbnail" />
+    <q-img :src="player.picture" placeholder-src="statics/images/players/picSoon.png" :alt="player.nickname" class="img-thumbnail" />
     <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
       <router-link :to="'/players/' + player.id + '/' + player.slug" class="no-decor" >
         {{player.nickname}}

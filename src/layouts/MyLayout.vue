@@ -152,7 +152,7 @@ export default {
 
   data: () => {
     return {
-      shouldConfirm: Boolean,
+      // shouldConfirm: Boolean,
       leagues: [],
       teams: []
     }
