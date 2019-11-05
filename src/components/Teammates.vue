@@ -12,7 +12,7 @@
           <q-item :to="'/players/'+mate.id+'/'+mate.slug" active-class="text-white bg-primary"  clickable v-ripple>
             <q-item-section avatar>
               <q-avatar rounded>
-                <img :src="mate.picture">
+                <q-img :src="mate.picture" placeholder-src="statics/images/players/picSoon.png" />>
               </q-avatar>
             </q-item-section>
             <q-item-section>{{mate.nickname}}</q-item-section>
