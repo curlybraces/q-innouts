@@ -15,7 +15,7 @@
         </div>
         <q-img
           :src="article.picture"
-          :ratio="16/9"
+          :ratio="10/7"
           transition="slide-right"
         />
         <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
@@ -76,16 +76,16 @@
     <q-drawer
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
-      content-class="bg-secondary"
+      content-class="bg-blue-grey-3"
       :breakpoint="600"
       :width="350"
       side="right"
       elevated
     >
-      <q-list v-if="similarArticles.length" padding link dense class="col bg-secondary" >
-        <q-item-label header>Also</q-item-label>
+      <q-list v-if="similarArticles.length" padding link dense class="col" >
+        <q-item-label header class="bg-primary">Also</q-item-label>
         <div v-for="(article) in similarArticles" :key="article.id" class="newsTitle">
-          <q-item :to="'/articles/'+article.id"  clickable v-ripple>
+          <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>{{article.title}}</q-item-section>
           </q-item>
           <q-separator />

@@ -44,7 +44,7 @@
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-heigh self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
@@ -323,7 +323,7 @@ export default {
 
   meta () {
     return {
-      title: 'Rankings | Innouts',
+      title: 'Rankings - Innouts',
 
       meta: {
         description: { name: 'description', content: 'Check the latest rankings of best teams, players and managers from the European football world.' },

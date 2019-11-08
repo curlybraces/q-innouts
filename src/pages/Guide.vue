@@ -49,7 +49,7 @@
                name at the top right corner of the navigation bar.
             </p>
 
-            <h6>from a team's fans broken down stats, to friend's profiles, there are a lot more to Innouts which we don't think need
+            <h6>from a team's fans broken down stats, to friends' profiles, there are a lot more to Innouts which we don't think need
                much explanation and hope you will enjoy them as much as we do!
              </h6>
       </div>

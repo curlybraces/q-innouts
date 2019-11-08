@@ -73,6 +73,15 @@
 
                   <q-item>
                     <q-item-section>
+                      <q-item-label >Total squad value</q-item-label>
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-item-label >£ {{stats.totalValue}} m</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section>
                       <q-item-label >Major trophies won</q-item-label>
                     </q-item-section>
                     <q-item-section side>
@@ -165,6 +174,15 @@
                     </q-item-section>
                     <q-item-section side>
                       <q-item-label >{{stats.avgRating}}/10</q-item-label>
+                    </q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section>
+                      <q-item-label >Total squad value</q-item-label>
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-item-label >£ {{stats.totalValue}} m</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -312,7 +330,7 @@
               <q-item :to="'/players/'+player.id+'/'+player.slug" clickable v-ripple>
                 <q-item-section avatar>
                   <q-avatar rounded>
-                    <img :src="player.picture">
+                    <q-img :src="player.picture" placeholder-src="statics/images/players/picSoon.png" />
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>{{player.firstName}} {{player.lastName}}</q-item-section>

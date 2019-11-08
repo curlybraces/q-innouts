@@ -253,7 +253,7 @@
       :mini="$q.screen.lt.md"
       content-class="bg-blue-grey-3"
       :breakpoint="600"
-      :width="380"
+      :width="400"
       side="right"
       elevated
     >
@@ -419,7 +419,7 @@ export default {
       // console.log(this.carouselHeight)
     } else {
       this.$store.commit('setRightDrawer', true)
-      this.carouselHeight = '600px'
+      this.carouselHeight = '700px'
       this.bulletTitleClass = {
         'text-h4': true
       }
@@ -436,6 +436,7 @@ export default {
     setData: function (response) {
       this.transfers = response.data.transfers
       this.bulletins = response.data.bulletins
+      this.slide = this.bulletins.length
       this.articles = response.data.articles
       this.rumours = response.data.rumours
       this.articles.forEach(element => {

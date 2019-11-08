@@ -135,6 +135,7 @@ export default {
     } else {
       this.bodyClass = {
         'text-body1': true,
+        'q-mt-sm': true
       }
       this.titleClass = {
         'q-mt-md': true,
