@@ -64,6 +64,17 @@ export default {
     },
   },
 
+  meta () {
+    return {
+      title: 'Login - Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'Login to Innouts!' },
+        // keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.team.name, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
+      },
+    }
+  },
+
   created: function () {
     this.$store.commit('setRightDrawer', false)
   },

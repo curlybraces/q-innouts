@@ -84,7 +84,7 @@ export default {
 
   meta () {
     return {
-      title: 'Register | Innouts',
+      title: 'Register - Innouts',
 
       meta: {
         description: { name: 'description', content: 'Get started with Innouts and leave behind the age of passive fans!' },

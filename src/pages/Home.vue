@@ -26,6 +26,7 @@
         <q-card class="text-subtitle1">
           <q-card-section class="q-pa-sm">Total sign cards: {{user.signQuota}} </q-card-section>
           <q-card-section class="q-pa-sm">Total sell cards: {{user.sellQuota}}</q-card-section>
+          <q-card-section class="text-caption">Need more yet? Here!</q-card-section>
         </q-card>
       </div>
       <div class="col-grow col-md-3  self-center">
