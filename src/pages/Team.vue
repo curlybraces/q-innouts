@@ -49,7 +49,13 @@
                       <q-item-label>Internationalization</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >{{stats.inter}}%</q-item-label>
+                      <q-item-label >
+                        <span v-if="stats.inter <= 10">&#128525;</span><span v-else-if="stats.inter <= 20">&#128522;</span><span v-else-if="stats.inter <= 30">&#128526;</span>
+                        <span v-else-if="stats.inter <= 40">&#128527;</span><span v-else-if="stats.inter <= 50">&#129320;</span><span v-else-if="stats.inter <= 60">&#128528;</span>
+                        <span v-else-if="stats.inter <= 70">&#128529;</span><span v-else-if="stats.inter <= 80">&#128530;</span><span v-else-if="stats.inter <= 90">&#128544;</span>
+                        <span v-else-if="stats.inter <= 100">&#128545;</span>
+                        {{stats.inter}}%
+                      </q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -155,7 +161,13 @@
                       <q-item-label>Internationalization</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >{{stats.inter}}%</q-item-label>
+                      <q-item-label >
+                        <span v-if="stats.inter <= 10">&#128525;</span><span v-else-if="stats.inter <= 20">&#128522;</span><span v-else-if="stats.inter <= 30">&#128526;</span>
+                        <span v-else-if="stats.inter <= 40">&#128527;</span><span v-else-if="stats.inter <= 50">&#129320;</span><span v-else-if="stats.inter <= 60">&#128528;</span>
+                        <span v-else-if="stats.inter <= 70">&#128529;</span><span v-else-if="stats.inter <= 80">&#128530;</span><span v-else-if="stats.inter <= 90">&#128544;</span>
+                        <span v-else-if="stats.inter <= 100">&#128545;</span>
+                        {{stats.inter}}%
+                      </q-item-label>
                     </q-item-section>
                   </q-item>
 

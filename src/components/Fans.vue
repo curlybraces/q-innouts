@@ -120,8 +120,8 @@ export default {
       this.fansGender = Object.entries(JSON.parse(this.stats.fansByGender))
       this.fansGender.splice(0, 0, ['gender', 'fans'])
       this.fansAge = Object.entries(JSON.parse(this.stats.fansByAge))
-      // this.fansAge.splice(0, 0, ['age', 'fans']) this is problematic!
-      this.fansAge[0] = ['age', 'fans']
+      this.fansAge.splice(0, 0, ['age', 'fans']) // this is problematic!
+      // this.fansAge[0] = ['age', 'fans']
     }
 
   }

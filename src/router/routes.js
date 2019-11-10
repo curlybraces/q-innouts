@@ -75,6 +75,9 @@ const routes = [
       {
         path: '/terms', component: () => import('pages/Terms.vue')
       },
+      {
+        path: '/purchase-cards', name: 'buy', component: () => import('pages/Buy.vue')
+      },
       // keep as last route
       {
         path: '/:user/:slug', name: 'profile', component: () => import('pages/Profile.vue')

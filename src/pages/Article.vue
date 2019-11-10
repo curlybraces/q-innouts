@@ -104,8 +104,6 @@ export default {
   data: () => {
     return {
       article: {},
-      // teamsArticles: [],
-      // playersArticles: [],
       similarArticles: [],
       articleClass: {},
       titleClass: {},

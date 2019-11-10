@@ -32,7 +32,7 @@
             >
               <q-item-section avatar>
                 <q-avatar>
-                  <img :src="scope.opt.picture">
+                  <q-img :src="scope.opt.picture" placeholder-src="statics/images/players/picSoon.png"/>
                 </q-avatar>
               </q-item-section>
               <q-item-section>
@@ -48,7 +48,7 @@
       <thead>
         <tr>
           <td>Player</td>
-          <td>Club</td>
+          <td>Team</td>
           <td>Cards</td>
           <td class="text-center">Remove?</td>
         </tr>

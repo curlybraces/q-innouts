@@ -338,6 +338,7 @@ export default {
             icon: 'fas fa-exclamation-triangle',
             message: err.response.data.message
           })
+          this.$router.push('/login')
         })
     },
 

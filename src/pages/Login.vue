@@ -37,7 +37,8 @@
 
             <div class="q-mb-md">
               <q-btn label="Submit" type="submit" color="primary" />
-              <q-btn label="Forgot Password?" type="a" color="primary" class="q-ml-sm" />
+              <q-btn to="/forgot-password" label="Forgot Password?" type="a" color="primary" class="q-ml-sm" />
+              <q-btn @click="resendActivation" label="Resend Activation Link?" type="a" color="info" size="sm" class="float-right" />
             </div>
           </q-form>
         </q-card>
@@ -98,6 +99,35 @@ export default {
           })
         })
     },
+
+    resendActivation () {
+      if (this.email) {
+        this.$axios({ url: 'api/resend-activation-link', data: { email: this.email }, method: 'POST' })
+          .then(response => {
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: response.data.message
+            })
+          })
+          .catch(error => {
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'fas fa-exclamation-triangle',
+              message: error.response.data.error
+            })
+          })
+      } else {
+        this.$q.notify({
+          color: 'red-5',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Please enter your email!'
+        })
+      }
+      console.log('hey')
+    }
 
   },
 

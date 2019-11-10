@@ -22,11 +22,11 @@
           </q-popup-edit>
         </p>
       </q-card>
-      <div class="col-12 col-md-3 bg-secondar text-center q-pt-s self-center">
+      <div class="col-12 col-md-3 bg-secondar q-pt-s self-center">
         <q-card class="text-subtitle1">
-          <q-card-section class="q-pa-sm">Total sign cards: {{user.signQuota}} </q-card-section>
-          <q-card-section class="q-pa-sm">Total sell cards: {{user.sellQuota}}</q-card-section>
-          <q-card-section class="text-caption">Need more yet? Here!</q-card-section>
+          <q-card-section class="q-pa-sm text-capitalize">Total sign cards: {{user.signQuota}} </q-card-section>
+          <q-card-section class="q-pa-sm text-capitalize">Total sell cards: {{user.sellQuota}}</q-card-section>
+          <q-card-section class="text-caption text-right">Want more still? <router-link to="/purchase-cards">Here!</router-link> </q-card-section>
         </q-card>
       </div>
       <div class="col-grow col-md-3  self-center">
