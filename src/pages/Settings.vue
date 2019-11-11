@@ -203,7 +203,7 @@
                                 v-on="scope.itemEvents"
                               >
                                 <q-item-section avatar>
-                                  <q-avatar>
+                                  <q-avatar square>
                                     <img :src="scope.opt.logo">
                                   </q-avatar>
                                 </q-item-section>

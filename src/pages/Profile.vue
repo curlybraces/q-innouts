@@ -53,14 +53,14 @@
         <div v-if="user.intro">
           <p class="emoji text-capitalize q-mb-sm"><span>&#128220;</span></p>
           <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
-          <p class="text-subtitle1 q-pa-sm text-secondary">{{user.intro}}</p>
+          <p class="text-subtitle1 q-pa-sm text-secondary newsTitle">{{user.intro}}</p>
         </div>
       </div>
       <div class="col-grow col-md-3  self-center">
         <q-card class="column q-pa-m bg-secondary q-mx-auto">
           <div class="">
             <div class="text-h6 text-center bg-primary rounded-borders bordered q-pa-sm">
-              <span title="Achievements: Users will gain an extra sign and sell cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
+              <span title="Achievements: Users will gain an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
@@ -195,7 +195,6 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-    // console.log('beforeRouteEnter')
     axios.get('api/users/' + to.params.user)
       .then(response => {
         // console.log('here')

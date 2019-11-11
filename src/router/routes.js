@@ -76,7 +76,7 @@ const routes = [
         path: '/terms', component: () => import('pages/Terms.vue')
       },
       {
-        path: '/purchase-cards', name: 'buy', component: () => import('pages/Buy.vue')
+        path: '/purchase-cards', name: 'buy', component: () => import('pages/Buy.vue'), meta: { requiresAuth: true }
       },
       // keep as last route
       {
