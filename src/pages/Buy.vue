@@ -105,13 +105,24 @@
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
           </div>
         </q-form>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="FY2GH2DYQGE2Q">
         <input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
         <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-        </form>
-        <div ref="card" class="q-my-md"></div>
+        </form> -->
+        <div v-show="payForm" ref="card" class="q-my-lg bg-secondary q-pa-lg rounded-borders bordered">
+          <div id="card-element">
+            <!-- Elements will create input elements here -->
+          </div>
+
+          <!-- We'll put the error messages in this element -->
+          <div id="card-errors" role="alert"></div>
+
+          <div class="row justify-cente">
+            <q-btn label="Buy" id="submit" color="positive" size="sm" class="q-mx-auto q-mt-md" />
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
@@ -119,16 +130,10 @@
 
 <script>
 
-// var stripe
-// var elements
-// const makeReady = () => {
-//   stripe = Stripe('pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2')
-//   elements = stripe.elements()
-// }
-//     card = undefined;
-
 export default {
   name: 'Buy',
+
+  // components: { Card },
 
   data () {
     return {
@@ -137,6 +142,7 @@ export default {
       tempOut: 0,
       permOut: 0,
       clientSecret: null,
+      payForm: false,
     }
   },
 
@@ -156,21 +162,31 @@ export default {
 
       // JS tags
       script: {
-        // Stripe: { src: 'https://js.stripe.com/v3/' }
+        stripe: { src: 'https://js.stripe.com/v3/' },
       },
     }
   },
 
   beforeUpdate () {
+    /* eslint-disable */
     // Set your publishable key: remember to change this to your live secret key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
-    // var stripe = stripe('pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2')
-    // var elements = stripe.elements()
-    // let stripe = stripe(`YOUR_STRIPE_PUBLISHABLE_KEY`),
-    // elements = stripe.elements(),
-    // card = undefined
-    // let card = elements.create('card')
-    // card.mount(this.$refs.card)
+    var stripe = Stripe('pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2');
+    var elements = stripe.elements();
+
+    // Set up Stripe.js and Elements to use in checkout form
+    var style = {
+      base: {
+        // color: "#32325d",
+        border: '1px solid #D8D8D8',
+        borderRadius: '4px',
+        color: "#000",
+      }
+    };
+
+    var card = elements.create("card", { style: style });
+    card.mount("#card-element");
+    /* eslint-disable */
   },
 
   methods: {
@@ -180,6 +196,7 @@ export default {
         this.$axios({ url: 'api/buy', data: { user_id: this.user.id, tempIn: parseInt(this.tempIn), tempOut: parseInt(this.tempOut), permIn: parseInt(this.permIn), permOut: parseInt(this.permOut), total: parseInt(this.total) }, method: 'POST' })
           .then(response => {
             this.clientSecret = response.data.message
+            this.payForm = true
             // console.log(response.data.message)
             // makeReady()
             // let card = elements.create('card')
@@ -198,7 +215,18 @@ export default {
       this.permIn = 0
       this.tempOut = 0
       this.permOut = 0
+      this.clientSecret = null
+      this.payForm = false
     }
   }
 }
 </script>
+
+<style lang="stylus" >
+.stripe-card
+  width: 300px
+  border: 1px solid grey
+
+.stripe-card.complete
+  border-color: green
+</style>
