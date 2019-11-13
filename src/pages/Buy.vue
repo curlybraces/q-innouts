@@ -31,7 +31,7 @@
                         </td>
                         <td>£1</td>
                         <td>
-                          <q-input filled  type="number" v-model="tempIn" :rules="[ val => val >= 0 || 'Wrong number' ]" lazy-rules dense autofocus />
+                          <q-input :disable="continued" filled  type="number" v-model="tempIn" :rules="[ val => val >= 0 || 'Wrong number' ]" lazy-rules dense autofocus />
                         </td>
                       </tr>
                       <tr>
@@ -43,7 +43,7 @@
                         </td>
                         <td>£7</td>
                         <td>
-                          <q-input filled type="number" v-model="permIn" :rules="[ val => val >= 0 || 'Wrong number' ]" dense autofocus />
+                          <q-input :disable="continued" filled type="number" v-model="permIn" :rules="[ val => val >= 0 || 'Wrong number' ]" dense autofocus />
                         </td>
                       </tr>
                     </tbody>
@@ -73,7 +73,7 @@
                         </td>
                         <td>£2</td>
                         <td>
-                          <q-input filled type="number" v-model="tempOut" :rules="[ val => val >= 0 || 'Wrong number' ]" dense autofocus />
+                          <q-input :disable="continued" filled type="number" v-model="tempOut" :rules="[ val => val >= 0 || 'Wrong number' ]" dense autofocus />
                         </td>
                       </tr>
                       <tr>
@@ -85,7 +85,7 @@
                         </td>
                         <td>£10</td>
                         <td>
-                          <q-input filled type="number" v-model="permOut" :rules="[ val => val >= 0 || 'Wrong number' ]" dense />
+                          <q-input :disable="continued" filled type="number" v-model="permOut" :rules="[ val => val >= 0 || 'Wrong number' ]" dense />
                         </td>
                       </tr>
                     </tbody>
@@ -101,7 +101,7 @@
             </q-item>
           </div>
           <div class="row justify-center q-mb-md">
-            <q-btn label="Continue" type="submit" color="primary" />
+            <q-btn v-show="!continued" label="Continue" type="submit" color="primary" />
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
           </div>
         </q-form>
@@ -115,12 +115,10 @@
           <div id="card-element">
             <!-- Elements will create input elements here -->
           </div>
-
           <!-- We'll put the error messages in this element -->
           <div id="card-errors" role="alert"></div>
-
           <div class="row justify-cente">
-            <q-btn label="Buy" id="submit" color="positive" size="sm" class="q-mx-auto q-mt-md" />
+            <q-btn id="submit" @click="buy" label="Buy" color="positive" size="sm" class="q-mx-auto q-mt-md" />
           </div>
         </div>
       </div>
@@ -133,8 +131,6 @@
 export default {
   name: 'Buy',
 
-  // components: { Card },
-
   data () {
     return {
       tempIn: 0,
@@ -143,6 +139,10 @@ export default {
       permOut: 0,
       clientSecret: null,
       payForm: false,
+      stripeSetup: false,
+      stripe: null,
+      card: null,
+      continued: false,
     }
   },
 
@@ -168,25 +168,27 @@ export default {
   },
 
   beforeUpdate () {
-    /* eslint-disable */
-    // Set your publishable key: remember to change this to your live secret key in production
-    // See your keys here: https://dashboard.stripe.com/account/apikeys
-    var stripe = Stripe('pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2');
-    var elements = stripe.elements();
+    if (!this.stripeSetup) {
+      /* eslint-disable */
+      // Set your publishable key: remember to change this to your live secret key in production
+      // See your keys here: https://dashboard.stripe.com/account/apikeys
+      this.stripe = Stripe('pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2');
+      var elements = this.stripe.elements();
 
-    // Set up Stripe.js and Elements to use in checkout form
-    var style = {
-      base: {
-        // color: "#32325d",
-        border: '1px solid #D8D8D8',
-        borderRadius: '4px',
-        color: "#000",
-      }
-    };
+      // Set up Stripe.js and Elements to use in checkout form
+      var style = {
+        base: {
+          // color: "#32325d",
+          color: "#000",
+        }
+      };
 
-    var card = elements.create("card", { style: style });
-    card.mount("#card-element");
-    /* eslint-disable */
+      this.card = elements.create("card", { style: style });
+      this.card.mount("#card-element");
+      this.stripeSetup = true
+      /* eslint-disable */
+    }
+
   },
 
   methods: {
@@ -197,10 +199,20 @@ export default {
           .then(response => {
             this.clientSecret = response.data.message
             this.payForm = true
-            // console.log(response.data.message)
-            // makeReady()
-            // let card = elements.create('card')
-            // card.mount(this.$refs.card)
+
+            const cardholderName = document.getElementById('cardholder-name');
+            const cardElement = document.getElementById('card-element');
+            const cardButton = document.getElementById('card-button');
+
+            this.card.addEventListener('change', ({error}) => {
+              const displayError = document.getElementById('card-errors');
+              if (error) {
+                displayError.textContent = error.message;
+              } else {
+                displayError.textContent = '';
+              }
+            });
+            this.continued = true
             this.$q.loading.hide()
           })
           .catch(error => {
@@ -217,7 +229,47 @@ export default {
       this.permOut = 0
       this.clientSecret = null
       this.payForm = false
+      this.continued = false
+    },
+
+    buy () {
+      this.$q.loading.show()
+      // let temp = this
+      this.stripe.confirmCardPayment(this.clientSecret, {
+        payment_method: {card: this.card}
+      }).then((result) => {
+        if (result.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          // console.log(result.error.message);
+          this.$q.loading.hide()
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: result.error.message
+          })
+        } else {
+          // The payment has been processed!
+          if (result.paymentIntent.status === 'succeeded') {
+            this.payForm = false
+            this.$q.loading.hide()
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'fas fa-check-circle',
+              message: 'Purchase complete. An invoice is sent to your email, thanks.'
+            })
+            // console.log('success')
+            // Show a success message to your customer
+            // There's a risk of the customer closing the window before callback execution
+            // Set up a webhook or plugin to listen for the payment_intent.succeeded event
+            // that handles any business critical post-payment actions
+          }
+        }
+      });
+
     }
+
   }
 }
 </script>
