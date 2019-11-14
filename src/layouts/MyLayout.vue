@@ -107,7 +107,7 @@
     <q-ajax-bar size="4px" color="warning" />
 
     <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated>
-hey
+      <!-- hey -->
     </q-drawer>
 
     <q-page-container>
@@ -152,7 +152,6 @@ export default {
 
   data: () => {
     return {
-      // shouldConfirm: Boolean,
       leagues: [],
       teams: []
     }
@@ -190,14 +189,7 @@ export default {
   methods: {
     openURL,
 
-    // setView: function (view) {
-    //   this.view = view[0]
-    //   this.leftDrawerOpen = view[1]
-    //   this.rightDrawerOpen = view[2]
-    // },
-
     acceptCookies () {
-      // console.log('accept method')
       this.$store.dispatch('acceptCookies')
     }
 

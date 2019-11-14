@@ -6,6 +6,14 @@ import { Cookies } from 'quasar'
 
 Vue.use(Vuex)
 
+const checkConsent = (cookies) => {
+  if (cookies.has('cookieConsent')) {
+    return true
+  } else {
+    return false
+  }
+}
+
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation
@@ -25,7 +33,7 @@ export default function ({ ssrContext }) {
       // token: localStorage.getItem('token') || sessionStorage.getItem('token') || '',
       token: cookies.has('token') ? cookies.get('token') : '',
       adminToken: cookies.has('adminToken') ? cookies.get('adminToken') : '',
-      cookieConsent: false,
+      cookieConsent: checkConsent(cookies),
       user: Object,
       admin: Object,
       view: 'hHh lpr fff',
@@ -42,13 +50,7 @@ export default function ({ ssrContext }) {
       view: state => state.view,
       leftDrawer: state => state.leftDrawer,
       rightDrawer: state => state.rightDrawer,
-      cookieConsent: state => {
-        if (cookies.has('cookieConsent')) {
-          return true
-        } else {
-          return false
-        }
-      }
+      cookieConsent: state => state.cookieConsent
     },
 
     mutations: {
