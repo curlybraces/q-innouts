@@ -6,7 +6,7 @@
           <player :player="activePlayer" />
         </div>
       </div>
-      <q-list separator v-if="$q.screen.lt.sm" class=" bg-secondary" link bordered dense>
+      <q-list separator v-if="$q.screen.lt.sm && companions.length" class=" bg-secondary" link bordered dense>
           <q-item-label header class="q-pt-sm q-px-sm text-subtitle1 text-center">{{person.team.name}} squad</q-item-label>
             <q-item v-for="(mate) in companions" :key="mate.id" :to="'/players/'+mate.id + '/' + mate.slug" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple dense>
               <q-item-section avatar>
@@ -19,6 +19,7 @@
             </q-item>
       </q-list>
       <q-drawer
+        v-if="companions.length"
         :value="rightDrawerOpen"
         :mini="$q.screen.lt.md"
         content-class="bg-grey-2"

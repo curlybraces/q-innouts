@@ -31,7 +31,7 @@
               v-on="scope.itemEvents"
             >
               <q-item-section avatar>
-                <q-avatar>
+                <q-avatar square>
                   <q-img :src="scope.opt.picture" placeholder-src="statics/images/players/picSoon.png"/>
                 </q-avatar>
               </q-item-section>

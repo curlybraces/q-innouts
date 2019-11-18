@@ -355,32 +355,32 @@
         <!-- manager -->
         <div class="row q-my-sm">
           <div v-if="$q.screen.gt.sm" class="col-grow col-sm-4 col-md-2 col-lg-2 offset-sm-1">
-            <q-card dark class="">
-              <q-card-section class="bg-primary text-center">
+            <q-card class="">
+              <q-card-section class="bg-primary text-center text-secondary">
                 Manager
               </q-card-section>
-              <q-card-section class="q-mt-sm">
-                <div>
-                  <q-img :src="team.manager.picture" :alt="team.manager.nickname" class="img-thumbnail" />
-                    <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
-                      <router-link :to="'/managers/' + team.manager.slug" class="no-decor" >
-                        {{team.manager.nickname}}
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                            {{team.manager.firstName}} {{team.manager.lastName}}
-                        </q-tooltip>
-                      </router-link>
-                    </div>
-                    <div class="text-center bg-t-dark">
-                      <rating :rating="team.manager.rating" @save="submitManagerRating"  :color="team.color" size="0.9rem" class="q-mx-auto"/>
-                    </div>
+              <q-card-section class="q-mt-sm q-pa-sm">
+                <div style="width: 160px; height: 160px" class="q-mx-auto" >
+                  <q-img :src="team.manager.picture" placeholder-src="statics/images/players/picSoon.png" :alt="team.manager.nickname" class="img-thumbnail" />
+                </div>
+                <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
+                  <router-link :to="'/managers/' + team.manager.slug" class="no-decor" >
+                    {{team.manager.nickname}}
+                    <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        {{team.manager.firstName}} {{team.manager.lastName}}
+                    </q-tooltip>
+                  </router-link>
+                </div>
+                <div class="text-center bg-t-dark">
+                  <rating :rating="team.manager.rating" @save="submitManagerRating"  :color="team.color" size="0.9rem" class="q-mx-auto"/>
                 </div>
               </q-card-section>
             </q-card>
           </div>
           <q-item v-else :to="'/managers/'+team.manager.slug" class="col bg-t-dar bordered rounded-borders">
             <q-item-section avatar>
-              <q-avatar rounded>
-                <img :src="team.manager.picture">
+              <q-avatar square>
+                <q-img :src="team.manager.picture" placeholder-src="statics/images/players/picSoon.png" />
               </q-avatar>
             </q-item-section>
             <q-item-section>{{team.manager.firstName}} {{team.manager.lastName}}</q-item-section>

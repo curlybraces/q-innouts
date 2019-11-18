@@ -80,19 +80,20 @@
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <router-link :to="'/managers/' + value.value.slug" class="no-decor" >
                     <div id="" class="row inline person-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                      <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/players/picSoon.png" class="full-height self-cente" />
                     </div>
                   </router-link>
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.slug" >
+                    <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
+                    <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                   </div>
                 </q-td>
               </q-table>
@@ -199,18 +200,19 @@
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
                     <!-- henlo -->
-                    <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
+                    <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/players/picSoon.png" class="full-height self-cente" />
                   </div>
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link :to="'/teams/' + value.value.slug" >
+                    <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
+                    <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
                   </div>
                 </q-td>
               </q-table>
@@ -372,7 +374,7 @@ export default {
     panelChange: function (newVal, oldVal) {
       if (newVal === 'managers' && this.managers.length === 0) {
         this.$q.loading.show()
-        axios.get('api/managers')
+        axios.get('api/rankings/managers')
           .then(response => {
             this.managers = response.data
             this.$q.loading.hide()

@@ -183,6 +183,7 @@ export default {
     votes: 0,
     rating: 0,
     value: 0,
+    entity: null,
   }),
 
   props: {
@@ -245,13 +246,15 @@ export default {
     'player' () {
       this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
       this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
-      if (this.player.specificPosition) {
+      if (this.player.broadPosition) {
+        this.entity = 'player'
         this.tab = 'transfers'
       } else {
+        this.entity = 'manager'
         this.tab = 'rumours'
       }
 
-      if (this.player.specificPosition) {
+      if (this.entity === 'player') {
         this.$axios.get('api/players/' + this.$route.params.id)
           .then(response => {
             let player = response.data.data
@@ -287,7 +290,7 @@ export default {
     submitRating: function (value) {
       let url = 'api/players/'
       // if the entity is a manager
-      if (!this.player.specificPosition) {
+      if (!(this.entity === 'player')) {
         url = 'api/managers/'
       }
       if (this.loggedIn) {

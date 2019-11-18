@@ -8,6 +8,8 @@ Todo:
 Fix:
   ☐ user profile upload doesn't give feedback on failure @low
   ☐ player age shows NaN on Safari @low 
+  ☐ Josh Davison birtday is not accurate @low 
+  ☐ stadium name should have fixed length and ellipsis! @high 
 
 Archive:
   ✔ user home refresh takes them to settings! @high @done(19-11-10 16:15) @project(Fix)
