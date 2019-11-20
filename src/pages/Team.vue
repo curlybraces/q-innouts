@@ -12,7 +12,7 @@
           <div class="col relative-position">
             <div class="d-inline-block absolute-center">
               <div class="rope border-right border-left border-dark"></div>
-              <div class="border-x border-y border-dark q-pa-xs bg-primary text-white text-caption"> {{team.stadium.name}}</div>
+              <div class="border-x border-y border-dark q-pa-xs bg-primary ellipsis text-white text-caption" :title="team.stadium.name"> {{team.stadium.name}}</div>
             </div>
           </div>
           <div class="col relative-position">
@@ -50,10 +50,10 @@
                     </q-item-section>
                     <q-item-section side>
                       <q-item-label >
-                        <span v-if="stats.inter <= 10">&#128525;</span><span v-else-if="stats.inter <= 20">&#128522;</span><span v-else-if="stats.inter <= 30">&#128526;</span>
-                        <span v-else-if="stats.inter <= 40">&#128527;</span><span v-else-if="stats.inter <= 50">&#129320;</span><span v-else-if="stats.inter <= 60">&#128528;</span>
-                        <span v-else-if="stats.inter <= 70">&#128529;</span><span v-else-if="stats.inter <= 80">&#128530;</span><span v-else-if="stats.inter <= 90">&#128544;</span>
-                        <span v-else-if="stats.inter <= 100">&#128545;</span>
+                        <span v-if="stats.inter <= 10" title="lovely!">&#128525;</span><span v-else-if="stats.inter <= 20" title="cool!">&#128522;</span><span v-else-if="stats.inter <= 30" title="impressive!">&#128526;</span>
+                        <span v-else-if="stats.inter <= 40" title="boastful!">&#128527;</span><span v-else-if="stats.inter <= 50" title="meh!">&#129320;</span><span v-else-if="stats.inter <= 60" title="neutral!">&#128528;</span>
+                        <span v-else-if="stats.inter <= 70" title="discontent!">&#128529;</span><span v-else-if="stats.inter <= 80" title="disturbed!">&#128530;</span><span v-else-if="stats.inter <= 90" title="angry!">&#128544;</span>
+                        <span v-else-if="stats.inter <= 100" title="fuming!">&#128545;</span>
                         {{stats.inter}}%
                       </q-item-label>
                     </q-item-section>
@@ -162,10 +162,10 @@
                     </q-item-section>
                     <q-item-section side>
                       <q-item-label >
-                        <span v-if="stats.inter <= 10">&#128525;</span><span v-else-if="stats.inter <= 20">&#128522;</span><span v-else-if="stats.inter <= 30">&#128526;</span>
-                        <span v-else-if="stats.inter <= 40">&#128527;</span><span v-else-if="stats.inter <= 50">&#129320;</span><span v-else-if="stats.inter <= 60">&#128528;</span>
-                        <span v-else-if="stats.inter <= 70">&#128529;</span><span v-else-if="stats.inter <= 80">&#128530;</span><span v-else-if="stats.inter <= 90">&#128544;</span>
-                        <span v-else-if="stats.inter <= 100">&#128545;</span>
+                        <span v-if="stats.inter <= 10" title="lovely!">&#128525;</span><span v-else-if="stats.inter <= 20" title="cool!">&#128522;</span><span v-else-if="stats.inter <= 30" title="impressive!">&#128526;</span>
+                        <span v-else-if="stats.inter <= 40" title="boastful!">&#128527;</span><span v-else-if="stats.inter <= 50" title="meh!">&#129320;</span><span v-else-if="stats.inter <= 60" title="neutral!">&#128528;</span>
+                        <span v-else-if="stats.inter <= 70" title="discontent!">&#128529;</span><span v-else-if="stats.inter <= 80" title="disturbed!">&#128530;</span><span v-else-if="stats.inter <= 90" title="angry!">&#128544;</span>
+                        <span v-else-if="stats.inter <= 100" title="fuming!">&#128545;</span>
                         {{stats.inter}}%
                       </q-item-label>
                     </q-item-section>

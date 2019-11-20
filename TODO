@@ -3,15 +3,17 @@ Todo:
   ☐ SSR for pages: Player, Article @low
   ☐ avoid bot registeration @low
   ☐ link to purchasing additional cards @high 
-  ☐ ability to ban a user @high 
 
 Fix:
   ☐ user profile upload doesn't give feedback on failure @low
   ☐ player age shows NaN on Safari @low 
   ☐ Josh Davison birtday is not accurate @low 
-  ☐ stadium name should have fixed length and ellipsis! @high 
+  ☐ change password not sending value of new pass @critical 
 
 Archive:
+  ✔ ask for confirmation on user asking to delete account @high @done(19-11-20 02:02) @project(Todo)
+  ✔ stadium name should have fixed length and ellipsis! @high @done(19-11-20 00:26) @project(Fix)
+  ✔ ability to ban a user @high @done(19-11-19 15:33) @project(Todo)
   ✔ user home refresh takes them to settings! @high @done(19-11-10 16:15) @project(Fix)
   ✔ add league table @low @done(19-10-26 15:20) @project(Todo)
   ✔ create the innouts logo @high @done(19-10-22 19:49) @project(Todo)

@@ -1,5 +1,18 @@
 <template>
   <q-page padding>
+    <q-dialog v-model="confirmDeletion" persistent v-close-popup>
+      <q-card>
+        <q-card-section class="row items-center q-py-sm">
+          <span style='font-size:35px;'>&#128561;</span>
+          <span class="q-ml-sm">Confirm Deletion?</span>
+        </q-card-section>
+
+        <q-card-actions align="center">
+          <q-btn label="Cancel" color="primary" v-close-popup />
+          <q-btn flat @click="deleteAccount" size="sm" label="yes" color="negative" v-close-popup/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <div class="row justify-center">
       <div class="col col-sm-8 col-md-6">
         <q-card class="bg-secondary" :class="cardClass">
@@ -224,7 +237,7 @@
               <q-tab-panel name="delete">
                 <div class="column q-gutter-sm text-subtitle1">
                   Pressing the button below, will enlist your account for deletion. You will have a short period to reclaim it by just logging back in.
-                  <q-btn @click="deleteAccount"  class="glossy col-auto q-mt-md q-mx-auto" size="sm" rounded color="negative" label="Delete Account" />
+                  <q-btn @click="confirmDeletion = true"  class="glossy col-auto q-mt-md q-mx-auto" size="sm" rounded color="negative" label="Delete Account" />
                 </div>
               </q-tab-panel>
             </q-tab-panels>
@@ -249,6 +262,8 @@ export default {
       newPass: '',
       oldPassPrompt: false,
       oldPass: '',
+      confirmDeletion: false,
+      confirmedDeletion: false,
       countries: [],
       country: '',
       change: false,
@@ -411,7 +426,7 @@ export default {
               })
               this.password = ''
             }
-            console.log('>>>> OK, received', data)
+            // console.log('>>>> OK, received', data)
           }).onCancel(() => {
             console.log('>>>> Cancel')
             this.password = ''
@@ -545,7 +560,7 @@ export default {
         .then(response => {
           this.$q.notify({
             color: 'warning',
-            textColor: 'white',
+            textColor: 'primary',
             icon: 'fas fa-check-circle',
             message: 'Account listed for deletion! We hope to welcome you back again!'
           })
@@ -553,7 +568,14 @@ export default {
             this.$router.push('/')
           })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: err.response.data.message
+          })
+        })
     },
 
     uploadFile (files) {

@@ -34,14 +34,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-from" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.slug" >
-                    <div id="" class="q-mx-auto team-thumbnail">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </div>
+                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
+                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
                   </router-link>
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -80,14 +79,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-to" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.slug" >
-                    <div id="" class="q-mx-auto team-thumbnail">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </div>
+                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
+                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
                   </router-link>
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -134,14 +132,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.slug" >
-                    <div id="" class="q-mx-auto team-thumbnail">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </div>
+                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
+                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                      <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
                   </router-link>
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
                 </q-td>
                 <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                   <q-linear-progress :value="value.value" class="q-mt-md"

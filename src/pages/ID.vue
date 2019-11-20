@@ -69,6 +69,14 @@ export default {
     }
   },
 
+  watch: {
+    companions () {
+      if (!this.companions.length) {
+        this.$store.commit('setRightDrawer', false)
+      }
+    }
+  },
+
   beforeRouteEnter (to, from, next) {
     // alert('beforeRouteEnter')
     if (from.name === 'player' && to.name === 'player') {
