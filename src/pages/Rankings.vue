@@ -42,14 +42,15 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.slug" >
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-heigh self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                      <q-img :src="value.value.logo" :alt="value.value.name" class="self-cente" />
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </div>
                   </router-link>
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
                 </q-td>
               </q-table>
             </div>
@@ -89,7 +90,7 @@
                   <div id="" class="q-mx-aut  no-decor ellipsis">
                     <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
@@ -123,7 +124,7 @@
                   <div class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
@@ -171,7 +172,7 @@
                   <router-link :to="'/teams/' + value.value.slug" >
                     <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </div>
@@ -208,7 +209,7 @@
                   <div id="" class="q-mx-aut  no-decor ellipsis">
                     <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
@@ -242,7 +243,7 @@
                   <div class="q-mx-aut  no-decor ellipsis">
                     <router-link :to="'/teams/' + value.value.slug" >
                       <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
                           {{value.value.name}}
                         </q-tooltip>
                     </router-link>
