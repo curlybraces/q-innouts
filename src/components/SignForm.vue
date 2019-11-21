@@ -9,7 +9,7 @@
 
     <q-card-section class="q-pa-md" style="">
       <q-form class="q-mb-md" @submit="onSubmit">
-        <q-input dense filled v-model="player" @keyup="search" debounce="600" label="Enter player name" :disable="!remSignCards" />
+        <q-input dense filled v-model="player" debounce="1000" label="Enter player name" :disable="!remSignCards" />
         <div class="q-gutter-md q-mx-auto q-my-sm">
         <q-select
           v-show="hints.length"
@@ -110,6 +110,10 @@ export default {
   watch: {
     'signQuota' () {
       this.remSignCards = this.signQuota
+    },
+
+    'player' () {
+      this.search()
     }
   },
 

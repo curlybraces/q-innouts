@@ -53,18 +53,18 @@
                 </q-item-section>
               </q-item>
             </q-list>
-            <div class="text-caption text-center">Want more still? <router-link to="/purchase-cards"> Here!</router-link></div>
+            <div class="text-caption text-center q-py-sm bg-secondary">Want more still? <router-link to="/purchase-cards"> Here.</router-link></div>
           </q-card>
         </div>
         <div class="col-grow col-md-3  self-center">
           <q-card class="column q-pa-m bg-secondary w-7 q-mx-auto q-mt-md">
               <q-card-section class="text-h6 text-center bg-primary q-pa-sm rounded-borders">
-                <span title="Achievements: You will gain an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
+                <span title="Achievements: you will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
               </q-card-section>
               <q-card-section class="q-pa-md">
                 <div class="text-center q-mb-sm q-pt-sm q-gutter-x-xs">
                   <div v-if="user.level>1">
-                    <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji">
+                    <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 in + 1 out cards">
                       &#127894;
                     </span>
                   </div>
@@ -83,7 +83,7 @@
         <div class="col-sm-2">
           <q-select dense rounded standout v-model="window" :options="windows"
             option-value="id" option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
-            dark bg-color="primary"
+            bg-color="" options-cover options-dense
           />
         </div>
       </div>
@@ -96,11 +96,10 @@
             :data="wanteds"
             :columns="wantedColumns"
             row-key="name"
-            rows-per-page-label="Transfers per page"
-            :rows-per-page-options="[5,10,15]"
+            rows-per-page-label="Players per page"
+            :rows-per-page-options="[5,10,0]"
             color="primary"
             table-header-class="bg-green-2"
-            hide-bottom
           >
             <template v-slot:top>
               <div class="q-table__control">
@@ -115,14 +114,13 @@
                   </router-link>
                 </q-td>
                 <q-td key="team" :props="props">
-                  <router-link :to="'/teams/' + props.row.team.slug" >
-                    <div id="" class="q-mx-auto team-thumbnail">
-                      <q-img :src="props.row.team.logo" :alt="props.row.team.name" class="full-height self-center" />
-                        <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                          {{props.row.team.name}}
-                        </q-tooltip>
-                    </div>
+                  <router-link v-if="props.row.team.league_id" :to="'/teams/' + props.row.team.slug" >
+                    <div class="team-thumbnail q-mx-auto"> <q-img :src="props.row.team.logo" :alt="props.row.team.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{props.row.team.name}}
+                      </q-tooltip>
                   </router-link>
+                  <div v-else class="team-thumbnail q-mx-auto"><q-img :title="props.row.team.name" contain  :src="props.row.team.logo" :alt="props.row.team.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
                 <q-td key="cards" :props="props">
                   {{ props.row.priority }}
@@ -141,11 +139,10 @@
             :data="unwanteds"
             :columns="unwantedColumns"
             row-key="id"
-            rows-per-page-label="Transfers per page"
-            :rows-per-page-options="[5,10,15]"
+            rows-per-page-label="Players per page"
+            :rows-per-page-options="[5,10,0]"
             color="primary"
             table-header-class="bg-red-2"
-            hide-bottom
           >
             <template v-slot:top>
               <div class="q-table__control">

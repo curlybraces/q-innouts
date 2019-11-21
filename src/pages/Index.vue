@@ -161,6 +161,7 @@
               title="Players in Demand"
               :data="wanteds"
               :columns="wantedColumns"
+              :pagination.sync="myPagination"
               row-key="id"
               hide-bottom
               color="primary"
@@ -177,22 +178,22 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                  <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
-                    <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
+                <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                  <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                    <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                       {{value.value.name}}
                     </q-tooltip>
                 </router-link>
-                <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
               </q-td>
               <q-td slot="body-cell-suitor" slot-scope="value" :props="value">
-                <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                  <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
-                    <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
+                <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                  <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                    <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                       {{value.value.name}}
                     </q-tooltip>
                 </router-link>
-                <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                 <q-linear-progress :value="value.value" class="q-mt-md"
@@ -209,10 +210,11 @@
               title="Players for Sale"
               :data="unwanteds"
               :columns="unwantedColumns"
+              :pagination.sync="myPagination"
               row-key="id"
               hide-bottom
               rows-per-page-label="Transfers per page"
-              :rows-per-page-options="[5,10,15]"
+              :rows-per-page-options="[10]"
               color="primary"
               table-header-class="bg-red-2"
             >
@@ -227,13 +229,13 @@
                 </router-link>
               </q-td>
               <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                  <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
-                    <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
+                <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                  <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                    <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                       {{value.value.name}}
                     </q-tooltip>
                 </router-link>
-                <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                 <q-linear-progress :value="value.value" class="q-mt-md"

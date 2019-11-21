@@ -43,14 +43,12 @@
               >
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
-                    <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="self-cente" />
-                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </div>
+                    <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
                   </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
               </q-table>
             </div>
@@ -87,15 +85,13 @@
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </router-link>
-                    <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                  </div>
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
+                  </router-link>
+                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
               </q-table>
             </div>
@@ -169,14 +165,13 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link :to="'/teams/' + value.value.slug" >
-                    <div id="" class="q-mx-aut team-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
-                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </div>
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
                   </router-link>
+                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
               </q-table>
             </div>
@@ -206,15 +201,13 @@
                 </q-td>
 
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <div id="" class="q-mx-aut  no-decor ellipsis">
-                    <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                      <q-img :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                        <q-tooltip :delay="300"    transition-show="scale" transition-hide="scale" >
-                          {{value.value.name}}
-                        </q-tooltip>
-                    </router-link>
-                    <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="full-height team-thumbnail self-cente" />
-                  </div>
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
+                  </router-link>
+                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
               </q-table>
             </div>

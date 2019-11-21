@@ -6,7 +6,7 @@
           <div class="col-sm-2">
             <q-select dense rounded standout v-model="window" :options="windows"
                   option-value="id" option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
-                  dark bg-color="primary"
+                  dark bg-color="primary" options-cover options-dense
             />
           </div>
         </div>
@@ -34,13 +34,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-from" slot-scope="value" :props="value">
-                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                         {{value.value.name}}
                       </q-tooltip>
                   </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -79,13 +79,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-to" slot-scope="value" :props="value">
-                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
                       <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
                         {{value.value.name}}
                       </q-tooltip>
                   </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -132,13 +132,13 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link v-if="value.value.slug" :to="'/teams/' + value.value.slug" >
-                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
-                      <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
-                        {{value.value.name}}
-                      </q-tooltip>
-                  </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" />
+                <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                  <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                    <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                      {{value.value.name}}
+                    </q-tooltip>
+                </router-link>
+                <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" /> </div>
                 </q-td>
                 <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                   <q-linear-progress :value="value.value" class="q-mt-md"

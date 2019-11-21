@@ -60,12 +60,12 @@
         <q-card class="column q-pa-m bg-secondary q-mx-auto">
           <div class="">
             <div class="text-h6 text-center bg-primary rounded-borders bordered q-pa-sm">
-              <span title="Achievements: Users will gain an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
+              <span title="Achievements: fans will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
             </div>
             <div class="q-pa-md">
               <div class="text-center q-mb-sm q-gutter-x-xs">
                 <div v-if="user.level>1">
-                  <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 sign + 1 sell cards">
+                  <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 in + 1 out cards">
                     &#127894;
                   </span>
                 </div>
@@ -80,8 +80,8 @@
     <div class="row justify-center q-my-lg">
       <div class="col-sm-2">
         <q-select dense rounded standout v-model="window" :options="windows"
-          option-value="id" option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
-          dark bg-color="primary"
+          option-value="id" options-dense option-label="name" :display-value="`Window: ${window ? window.name : '*none*'}`"
+          bg-color="secondary" options-cover
         />
       </div>
     </div>
@@ -93,10 +93,9 @@
           title="Ins"
           :data="wanteds"
           :columns="wantedColumns"
-          hide-bottom
           row-key="id"
-          rows-per-page-label="Transfers per page"
-          :rows-per-page-options="[5,10,15]"
+          rows-per-page-label="Players per page"
+          :rows-per-page-options="[5,10,0]"
           color="primary"
           table-header-class="bg-green-2"
         >
@@ -111,14 +110,13 @@
             </router-link>
           </q-td>
           <q-td slot="body-cell-team" slot-scope="value" :props="value">
-            <router-link :to="'/teams/' + value.value.slug" >
-              <div id="" class="q-mx-auto team-thumbnail">
-                <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
-                  <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                    {{value.value.name}}
-                  </q-tooltip>
-              </div>
+            <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+              <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                  {{value.value.name}}
+                </q-tooltip>
             </router-link>
+            <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
           </q-td>
         </q-table>
       </div>
@@ -128,10 +126,9 @@
           title="Outs"
           :data="unwanteds"
           :columns="unwantedColumns"
-          hide-bottom
           row-key="id"
-          rows-per-page-label="Transfers per page"
-          :rows-per-page-options="[5,10,15]"
+          rows-per-page-label="Players per page"
+          :rows-per-page-options="[5,10,0]"
           color="primary"
           table-header-class="bg-red-2"
         >
