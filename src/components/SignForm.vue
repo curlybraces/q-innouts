@@ -1,5 +1,5 @@
 <template>
-  <q-card class="column">
+  <q-card>
     <q-card-section class="text-h6 bg-green-3 text-left">
       <span style="">&#10133;</span> Sign Players
     </q-card-section>
@@ -7,7 +7,7 @@
       {{remSignCards}} sign card(s) remaining (current window)
     </q-card-section>
 
-    <q-card-section class="q-pa-md" style="">
+    <q-card-section class="q-pa-sm" style="">
       <q-form class="q-mb-md" @submit="onSubmit">
         <q-input dense filled v-model="player" debounce="1000" label="Enter player name" :disable="!remSignCards" />
         <div class="q-gutter-md q-mx-auto q-my-sm">
@@ -22,6 +22,7 @@
           @input="push"
           color="teal"
           clearable
+          options-cover
           options-selected-class="text-deep-orange"
           class="q-mx-none"
         >
@@ -29,6 +30,7 @@
             <q-item
               v-bind="scope.itemProps"
               v-on="scope.itemEvents"
+              dense
             >
               <q-item-section avatar>
                 <q-avatar square>
@@ -58,20 +60,9 @@
           <td>{{wanted.player.firstName}} {{wanted.player.lastName}}</td>
           <td>{{wanted.player.team.name}}</td>
           <td>
-            <!-- <q-select dense v-model="wanted.votes" :options="Array(remSignCards+1).fill(0).map((e,i)=>i+1)" label="Card" /> -->
-            <form>
-              <div class>
-                <select
-                  class="form-control form-control-sm"
-                  id="sel1"
-                  name="sellist1"
-                  v-model="wanted.votes"
-                  @change="update"
-                >
-                  <option v-for="opt in (remSignCards+1)" :value="opt" :key="opt" >{{opt}}</option>
-                </select>
-              </div>
-            </form>
+            <q-select dense filled v-model="wanted.votes" :options="Array(remSignCards+1).fill(0).map((e,i)=>i+1)"  @input="update"
+              options-selected-class="text-positive" options-dense options-cover
+            />
           </td>
           <td class="text-center">
             <div @click="remove(wanted)" class>&#10060;</div>

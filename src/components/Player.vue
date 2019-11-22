@@ -97,7 +97,7 @@
             </q-item-section>
             <q-item-section side>
               <q-item-label v-if="player.broadPosition" >{{player.broadPosition}}</q-item-label>
-              <q-item-label v-else >Coach</q-item-label>
+              <q-item-label v-else >Manager</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -197,6 +197,7 @@ export default {
         }
       }
     },
+    color: String
   },
 
   computed: {
@@ -210,6 +211,10 @@ export default {
 
     fullname () {
       return this.player.firstName + ' ' + this.player.lastName
+    },
+
+    teamName () {
+      return this.player.team ? this.player.team.name : ''
     }
   },
 
@@ -218,16 +223,14 @@ export default {
       title: this.player.nickname + ' - Innouts',
 
       meta: {
-        description: { name: 'description', content: this.fullname + ' is a football player from ' + this.player.nationality + ' playing for ' + this.player.team.name + '.' },
-        keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.team.name, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
+        description: { name: 'description', content: this.fullname + ' is a football player from ' + this.player.nationality + ' playing for ' + this.teamName + '.' },
+        keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.teamName, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
       },
     }
   },
 
   created: function () {
-    this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
-    this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
-
+    this.setAge()
     if (this.$q.screen.lt.md) {
       this.playerInfoClass = {
         'q-pa-xs': true
@@ -244,8 +247,7 @@ export default {
 
   watch: {
     'player' () {
-      this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday, 'years')
-      this.birthFormatted = date.formatDate(this.player.birthday, 'DD MMM, YYYY')
+      this.setAge()
       if (this.player.broadPosition) {
         this.entity = 'player'
         this.tab = 'transfers'
@@ -349,6 +351,13 @@ export default {
         })
       }
     },
+
+    setAge () {
+      if (this.player.birthday) {
+        this.age = date.getDateDiff(date.formatDate(this.date, 'YYYY-MM-DD'), this.player.birthday.replace(/\s/, 'T') + 'Z', 'years')
+        this.birthFormatted = date.formatDate(this.player.birthday.replace(/\s/, 'T') + 'Z', 'DD MMM, YYYY')
+      }
+    }
 
     // start () {
     //   this.startTime = new Date()

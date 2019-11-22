@@ -3,7 +3,7 @@
     <div>
       <div id="head" class="row justify-center self-center">
         <div class="col-grow col-sm-10 col-lg-7 col-xl-5">
-          <player :player="activePlayer" />
+          <player :player="activePlayer" :color="person.team.color" />
         </div>
       </div>
       <q-list separator v-if="$q.screen.lt.sm && companions.length" class=" bg-secondary" link bordered dense>
@@ -27,7 +27,7 @@
         side="right"
         elevated
       >
-        <teammates :teammates="companions" :team="person.team.name"/>
+        <teammates :teammates="companions" :team="person.team"/>
       </q-drawer>
     </div>
   </q-page>

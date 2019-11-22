@@ -87,7 +87,7 @@
                               v-model="password"
                               lazy-rules
                               :rules="[
-                                val => val.length >= 6 || 'Please use minimum 6 characters'
+                                val => val.length >= 10 || 'Please use minimum 10 characters'
                               ]"
                             >
                               <template v-slot:append>
@@ -209,7 +209,7 @@
                       <div class="col self-center text-center">
                         Team
                         <q-popup-edit :value="team" :validate="validateTeam" @save="saveTeam" @cancel="cancelTeam" buttons title="Change team" persistent label-set="SAVE">
-                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" option-value="id" label="team" >
+                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" options-dense option-value="id" label="team" >
                             <template v-slot:option="scope">
                               <q-item
                                 v-bind="scope.itemProps"
@@ -217,7 +217,7 @@
                               >
                                 <q-item-section avatar>
                                   <q-avatar square>
-                                    <img :src="scope.opt.logo">
+                                    <q-img contain class="team-thumbnail" :src="scope.opt.logo" />
                                   </q-avatar>
                                 </q-item-section>
                                 <q-item-section>
@@ -235,7 +235,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="delete">
-                <div class="column q-gutter-sm text-subtitle1">
+                <div class="column q-gutter-sm text-subtitle1 q-pa-sm">
                   Pressing the button below, will enlist your account for deletion. You will have a short period to reclaim it by just logging back in.
                   <q-btn @click="confirmDeletion = true"  class="glossy col-auto q-mt-md q-mx-auto" size="sm" rounded color="negative" label="Delete Account" />
                 </div>
@@ -370,7 +370,7 @@ export default {
     },
 
     validatePass: function (val) {
-      return val.length >= 6
+      return val.length >= 10
     },
 
     savePass: function (val, initialVal) {
@@ -386,6 +386,7 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(data => {
+        console.log(this.password)
         if (data === this.password) {
           this.$q.dialog({
             dark: true,
@@ -398,7 +399,8 @@ export default {
             cancel: true,
             persistent: true
           }).onOk(data => {
-            if (data.length >= 6) {
+            if (data.length >= 10) {
+              console.log(this.password)
               this.$axios({ url: 'api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
                 .then(response => {
                   this.$q.notify({
@@ -416,7 +418,7 @@ export default {
                     message: err.response.data.error
                   })
                 })
-              this.password = ''
+              // this.password = ''
             } else {
               this.$q.notify({
                 color: 'red-5',
@@ -428,11 +430,9 @@ export default {
             }
             // console.log('>>>> OK, received', data)
           }).onCancel(() => {
-            console.log('>>>> Cancel')
+            // console.log('>>>> Cancel')
             this.password = ''
-          }).onDismiss(() => {
-            this.password = ''
-          })
+          }).onDismiss(() => {})
         } else {
           this.$q.notify({
             color: 'red-5',
@@ -445,7 +445,7 @@ export default {
       }).onCancel(() => {
         this.password = ''
       }).onDismiss(() => {
-        this.password = ''
+        // gets to run on both confirm and cancel!
       })
     },
 

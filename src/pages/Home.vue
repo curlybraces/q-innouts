@@ -24,7 +24,7 @@
           </p>
         </q-card>
         <div class="col-12 col-md-3 bg-secondar q-pt-s self-center">
-          <q-card class="text-subtitle1 text-cente text-capitalize q-mt-md">
+          <q-card  flat bordered class="text-subtitle1 q-mt-md">
             <q-list>
               <q-item>
                 <q-item-section side>In cards</q-item-section>
@@ -53,7 +53,7 @@
                 </q-item-section>
               </q-item>
             </q-list>
-            <div class="text-caption text-center q-py-sm bg-secondary">Want more still? <router-link to="/purchase-cards"> Here.</router-link></div>
+            <div class="text-caption text-center q-py-sm">Want more still? <router-link to="/purchase-cards"> Here.</router-link></div>
           </q-card>
         </div>
         <div class="col-grow col-md-3  self-center">

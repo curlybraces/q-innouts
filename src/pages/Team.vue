@@ -412,7 +412,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="business">
-        <div class="row justify-center q-gutter-x-md">
+        <div class="row justify-center q-gutter-sm">
           <div class="col-sm-5 col-grow text-center">
             <sign-form :team="team" :user="user" :signList="signList" :signQuota="signQuota"  />
           </div>

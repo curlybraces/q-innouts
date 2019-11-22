@@ -175,8 +175,7 @@ export default {
       ],
       wanteds: [],
       unwanteds: [],
-      info: {},
-      date: new Date()
+      info: {}
     }
   },
 
@@ -261,8 +260,8 @@ export default {
       } else {
         this.headerStyle.minHeight = '375px'
       }
-      this.info.joined = date.formatDate(this.user.created_at, 'MMM, YYYY')
-      this.info.since = date.formatDate(this.user.fanSince, 'MMM, YYYY')
+      this.info.joined = date.formatDate(this.user.created_at.replace(/\s/, 'T') + 'Z', 'MMM, YYYY')
+      this.info.since = date.formatDate(this.user.fanSince.replace(/\s/, 'T') + 'Z', 'MMM, YYYY')
     }
   }
 }

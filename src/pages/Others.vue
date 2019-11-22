@@ -3,7 +3,7 @@
     <div class="row justify-center">
       <div class="col-grow col-lg-6 col-md-7 col-sm-8">
         <q-list class="bg-secondary" dar>
-          <q-item-label header>Major other teams</q-item-label>
+          <q-item-label header>Other Major Teams</q-item-label>
           <q-item v-for="team in teams" :key="team.id" :to="'/teams/'+team.slug">
             <q-item-section avatar>
               <q-avatar square>

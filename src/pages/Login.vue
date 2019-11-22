@@ -63,6 +63,16 @@ export default {
     adminIn: function () {
       return this.$store.getters.adminIn
     },
+
+    loggedIn: function () {
+      return this.$store.getters.loggedIn
+    },
+  },
+
+  mounted () {
+    if (this.loggedIn) {
+      this.$router.go(-1)
+    }
   },
 
   meta () {
@@ -93,7 +103,6 @@ export default {
         .catch(err => {
           this.$q.notify({
             color: 'red-5',
-            // textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
             message: err.response.data.message
           })
@@ -126,7 +135,7 @@ export default {
           message: 'Please enter your email!'
         })
       }
-      console.log('hey')
+      // console.log('hey')
     }
 
   },

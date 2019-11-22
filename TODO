@@ -2,15 +2,17 @@
 Todo:
   ☐ SSR for pages: Player, Article @low
   ☐ avoid bot registeration @low
-  ☐ link to purchasing additional cards @high 
+  ☐ change color of teams if dark @low 
 
 Fix:
   ☐ user profile upload doesn't give feedback on failure @low
-  ☐ player age shows NaN on Safari @low 
   ☐ Josh Davison birtday is not accurate @low 
-  ☐ change password not sending value of new pass @critical 
 
 Archive:
+  ✔ link to purchasing additional cards @high @done(19-11-21 21:56) @project(Todo)
+  ✔ don't allow access to login page for the alreeady authenticated @high @done(19-11-21 21:56) @project(Fix)
+  ✔ player age shows NaN on Safari @low @done(19-11-21 17:52) @project(Fix)
+  ✔ change password not sending value of new pass @critical @done(19-11-21 17:10) @project(Fix)
   ✔ ask for confirmation on user asking to delete account @high @done(19-11-20 02:02) @project(Todo)
   ✔ stadium name should have fixed length and ellipsis! @high @done(19-11-20 00:26) @project(Fix)
   ✔ ability to ban a user @high @done(19-11-19 15:33) @project(Todo)

@@ -7,7 +7,7 @@
         inset-delimiter
         class="bg-secondary"
       >
-      <q-item-label header>{{team}} Squad</q-item-label>
+      <q-item-label header> <q-img class="team-thumbnail q-mr-md" contain :src="team.logo" /> {{team.name}} Squad</q-item-label>
         <div v-for="(mate) in teammates" :key="mate.id">
           <q-item :to="'/players/'+mate.id+'/'+mate.slug" active-class="text-white bg-primary"  clickable v-ripple>
             <q-item-section avatar>
@@ -31,7 +31,7 @@ export default {
 
   props: {
     teammates: Array,
-    team: String,
+    team: Object,
   },
 
 }

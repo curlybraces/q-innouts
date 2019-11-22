@@ -366,10 +366,10 @@ export default {
 
   meta () {
     return {
-      title: 'Innouts | You Come First',
+      title: 'Innouts | Football hub for football fans!',
 
       meta: {
-        description: { name: 'description', content: 'Innouts is a football community for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },
+        description: { name: 'description', content: 'Innouts is a football hub for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },
         keywords: { name: 'keywords', content: ['Innouts', 'football analysis', 'football Innouts', 'football transfers', 'football rumours', 'football rankings', 'best football players', 'best football managers'] },
       },
     }

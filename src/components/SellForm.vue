@@ -8,7 +8,7 @@
     <q-card-section>
           <div class="q-gutter-md">
             <q-select dense filled v-model="selecteds" multiple :options="team.players" option-label="nickname" option-value="id" @input="check"
-              options-selected-class="text-negative" :disable="!remSellCards"
+              options-selected-class="text-negative" :disable="!remSellCards" options-dense
              />
           </div>
 
@@ -26,22 +26,9 @@
               <tr v-for="unwanted in unwanteds" :key="unwanted.id">
                 <td>{{unwanted.player.firstName}} {{unwanted.player.lastName}}</td>
                 <td>
-                  <form action>
-                    <div class>
-                      <select
-                        class="form-control form-control-sm"
-                        id="sel1"
-                        name="sellist1"
-                        v-model="unwanted.votes"
-                        @change="update"
-                      >
-                        <option v-for="opt in (remSellCards+1)" :value="opt" :key="opt" > {{opt}}</option>
-                        <!-- <option :value="2">2</option>
-                        <option :value="3">3</option>
-                        <option :value="4">4</option> -->
-                      </select>
-                    </div>
-                  </form>
+                  <q-select dense filled v-model="unwanted.votes" :options="Array(remSellCards+1).fill(0).map((e,i)=>i+1)"  @input="update"
+                    options-selected-class="text-negative" options-dense options-cover
+                  />
                 </td>
                 <td class="text-center">
                   <div @click="remove(unwanted)" class>&#10060;</div>

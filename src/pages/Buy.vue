@@ -117,8 +117,8 @@
           </div>
           <!-- We'll put the error messages in this element -->
           <div id="card-errors" role="alert"></div>
-          <div class="row justify-cente">
-            <q-btn id="submit" @click="buy" label="Buy" color="positive" size="sm" class="q-mx-auto q-mt-md" />
+          <div class="row q-mt-md">
+            <q-btn id="submit" @click="buy" label="Buy" color="primary" size="sm" class="q-mx-auto q-mt-md" />
           </div>
         </div>
       </div>
@@ -255,7 +255,7 @@ export default {
             this.$q.loading.hide()
             this.$q.notify({
               color: 'green-4',
-              textColor: 'white',
+              textColor: 'primary',
               icon: 'fas fa-check-circle',
               message: 'Purchase complete. An invoice is sent to your email, thanks.'
             })
