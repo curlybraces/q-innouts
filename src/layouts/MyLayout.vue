@@ -104,7 +104,7 @@
       </q-list>
     </q-drawer>
 
-    <q-ajax-bar size="4px" color="warning" />
+    <q-ajax-bar size="3px" color="warning" />
 
     <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated>
       <!-- hey -->

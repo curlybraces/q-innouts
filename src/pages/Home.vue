@@ -11,11 +11,11 @@
         </div>
       </div>
 
-      <div class="row justify-around bg-secondary q-py-sm bordered">
+      <div class="row justify-around bg-primary q-py-sm bordered">
         <q-card class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders q-mt-md">
-          <q-card-section class="text-h5 text-capitalize bg-primary q-pa-sm"><span>&#128221;</span></q-card-section>
+          <q-card-section class="text-h5 text-capitalize bg-secondary bordered q-pa-sm"><span>&#128221;</span></q-card-section>
           <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
-          <p class="text-subtitle1 q-pa-sm text-secondar newsTitle">
+          <p class="text-subtitle1 q-pa-sm newsTitle">
             {{user.intro}}
             <span v-if="!user.intro">Click to write!</span>
             <q-popup-edit buttons :value="user.intro" @save="saveIntro" @cancel="cancelIntro" >
@@ -24,14 +24,14 @@
           </p>
         </q-card>
         <div class="col-12 col-md-3 bg-secondar q-pt-s self-center">
-          <q-card  flat bordered class="text-subtitle1 q-mt-md">
+          <q-card  flat bordered square class="text-subtitle1 q-mt-md">
             <q-list>
               <q-item>
                 <q-item-section side>In cards</q-item-section>
                 <q-item-section>{{user.signCards}}</q-item-section>
               </q-item>
               <q-item>
-                <q-item-section side>Remaining</q-item-section>
+                <q-item-section side>Left</q-item-section>
                 <q-item-section>
                   <div v-if="user.signRemaining">
                     <span v-for="card in user.signRemaining" :key="card" class="emoi">&#128525;</span>
@@ -44,7 +44,7 @@
                 <q-item-section>{{user.sellCards}}</q-item-section>
               </q-item>
               <q-item>
-                <q-item-section side>Remaining</q-item-section>
+                <q-item-section side>Left</q-item-section>
                 <q-item-section>
                   <div v-if="user.sellRemaining">
                     <span v-for="card in user.sellRemaining" :key="card" class="emoi">&#128548;</span>
@@ -56,19 +56,19 @@
             <div class="text-caption text-center q-py-sm">Want more still? <router-link to="/purchase-cards"> Here.</router-link></div>
           </q-card>
         </div>
-        <div class="col-grow col-md-3  self-center">
-          <q-card class="column q-pa-m bg-secondary w-7 q-mx-auto q-mt-md">
-              <q-card-section class="text-h6 text-center bg-primary q-pa-sm rounded-borders">
+        <div class="col-grow col-md-3">
+          <q-card class="column q-pa-m w-7 q-mx-auto q-mt-md">
+              <q-card-section class="text-h6 text-center bg-secondary bordered q-pa-sm rounded-borders">
                 <span title="Achievements: you will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
               </q-card-section>
               <q-card-section class="q-pa-md">
-                <div class="text-center q-mb-sm q-pt-sm q-gutter-x-xs">
+                <div class="q-mb-sm q-pt-sm q-gutter-x-xs text-center">
                   <div v-if="user.level>1">
                     <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 in + 1 out cards">
                       &#127894;
                     </span>
                   </div>
-                  <span v-if="user.level<1" class="emoji" title="Rookie: level under 1">&#129313;</span>
+                  <div v-if="user.level<1" class="emoji" title="Rookie: level under 1">&#129313;</div>
                 </div>
                 <div class="q-mt-md text-center">
                   Till next level ({{Math.floor(user.level)+1}})

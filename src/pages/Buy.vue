@@ -259,6 +259,8 @@ export default {
               icon: 'fas fa-check-circle',
               message: 'Purchase complete. An invoice is sent to your email, thanks.'
             })
+            this.$store.dispatch('getUser', this.$q.cookies.get('token'))
+            this.$router.push('/home')
             // console.log('success')
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback execution
