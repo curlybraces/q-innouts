@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body text-justify">
+      <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body1 text-justify">
         <div class="text-h4 text-center q-my-lg q-py-sm bg-primary text-secondary">Terms of Service</div>
                <h5 class="q-my-md">Your Access</h5>
                <p>

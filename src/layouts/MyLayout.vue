@@ -115,7 +115,7 @@
     </q-page-container>
 
     <q-footer elevated>
-      <div class="row justify-around q-py-lg text-center q-gutter-y-sm">
+      <div class="row justify-around q-py-md text-center q-gutter-y-sm">
         <div class="col-12 q-gutter-x-md text-caption">
           <router-link to="/about" class="no-deco text-grey">About</router-link>
           <router-link to="/guide" class="no-deco text-grey">Guide</router-link>
@@ -130,7 +130,11 @@
             <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
           </a> -->
         </div>
-        <div class="col-12 text-caption text-grey q-mt-lg">Copyright &copy; 2018-2019 Innouts</div>
+        <div class="col-12 text-caption text-grey q-mt-md">
+          <p>&#10077; {{qotd.body}} &#10078; </p>
+          <div class="q-mt-xs">&mdash; {{qotd.from}}, {{qotd.quoteeInfo}} </div>
+        </div>
+        <div class="col-12 text-caption text-grey q-mt-md">Copyright &copy; 2018-2019 Innouts</div>
       </div>
     </q-footer>
 
@@ -153,7 +157,8 @@ export default {
   data: () => {
     return {
       leagues: [],
-      teams: []
+      teams: [],
+      qotd: null,
     }
   },
 
@@ -180,6 +185,13 @@ export default {
       .then(response => {
         this.leagues = response.data.leagues
         this.teams = response.data.teams
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    this.$axios.get('api/qotd')
+      .then(response => {
+        this.qotd = response.data
       })
       .catch(error => {
         console.log(error)

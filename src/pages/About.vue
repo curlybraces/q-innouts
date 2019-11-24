@@ -1,20 +1,13 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body text-justify">
+      <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body1 text-justify ">
         <div class="text-h4 text-center q-my-lg q-py-sm bg-primary text-secondary">About Innouts</div>
         <p>
-            Innouts is a football community, bringing you top football transfers, rumours, news and
+            Innouts is a football hub, bringing you top football transfers, rumours, news and
             more. You can take on an active role in the transfer activity of your favorite club, rate players, managers, transfers
-            and much more. There is the rankings section that reflects fans' opinions (most important to us at Innouts).
+            and more. There is the rankings section that reflects fans' opinions (most important to us at Innouts).
             You can see and compare the popularity of your club against rivals, broken down stats about your club's fans, and more.
-        </p>
-
-        <h5 class="q-my-md">Rankings</h5>
-        <p>
-            The ranking section provides a rather comprehensive ranking of teams, players, fans and managers all based on your valuable ratings.
-            We believe no one is in a better position to rate the football world than those who make it exist and thrive in the first place. As such we are more than confident that
-            our rankings are the most accurate out of competition!
         </p>
 
         <h5 class="q-my-md">Community</h5>
@@ -26,7 +19,7 @@
         <h5 class="q-my-md">It's All About You</h5>
         <p>
             From the very beginning of this project the goal was to create a platform that will be fun and engaging for the football fans and one that gives
-            you what you always deserved; having a truly major role in football world. For us the fans always come first and hopefully you will
+            you what you deserve; having a truly major role in football world. For us the fans always come first and hopefully you will
             see its manifestation throughout!
         </p>
 

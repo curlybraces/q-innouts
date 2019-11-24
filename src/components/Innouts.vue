@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-center">
-      <div class="col-sm-11">
+      <div class="col-sm-12">
         <div class="row justify-center q-pa-md">
           <div class="col-sm-2">
             <q-select dense rounded standout v-model="window" :options="windows"
@@ -16,7 +16,7 @@
             <div>
               <q-table
                 class="my-sticky-header-table"
-                title="In"
+                :title="'In ' + '(€' + inTotal +'m)'"
                 :data="inTransfers"
                 :columns="transferInColumns"
                 :visible-columns="inVisibleColumns"
@@ -35,12 +35,12 @@
                 </q-td>
                 <q-td slot="body-cell-from" slot-scope="value" :props="value">
                   <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
-                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                    <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                         {{value.value.name}}
                       </q-tooltip>
                   </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
+                  <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" /> </div>
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -61,7 +61,7 @@
             <div>
               <q-table
                 class="my-sticky-header-table "
-                title="Out"
+                :title="'Out ' + '(€' + outTotal +'m)'"
                 :data="outTransfers"
                 :columns="transferOutColumns"
                 :visible-columns="outVisibleColumns"
@@ -80,12 +80,12 @@
                 </q-td>
                 <q-td slot="body-cell-to" slot-scope="value" :props="value">
                   <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
-                    <q-img :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
-                      <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                    <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                         {{value.value.name}}
                       </q-tooltip>
                   </router-link>
-                  <q-img v-else :title="value.value.name"  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" />
+                  <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" /> </div>
                 </q-td>
                 <q-td slot="body-cell-rating" slot-scope="value" :props="value">
                   <q-rating
@@ -206,11 +206,14 @@ export default {
           label: 'Player',
           align: 'left',
           field: row => row.player,
-          sortable: true
+          sortable: true,
+          style: 'max-width: 100px',
+          classes: 'bg-grey-2 ellipsis'
         },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (€m)', field: row => row.fee, sortable: true },
+        { name: 'notes', align: 'center', label: 'Notes', field: row => row.notes, style: 'max-width: 100px', classes: 'ellipsis' },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       transferOutColumns: [
@@ -220,11 +223,14 @@ export default {
           label: 'Player',
           align: 'left',
           field: row => row.player,
-          sortable: true
+          sortable: true,
+          style: 'max-width: 100px',
+          classes: 'bg-grey-2 ellipsis'
         },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (m£)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (€m)', field: row => row.fee, sortable: true },
+        { name: 'notes', align: 'center', label: 'Notes', field: row => row.notes, sortable: true, style: 'max-width: 100px', classes: 'ellipsis', title: 'lol' },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
       inVisibleColumns: [],
@@ -263,6 +269,8 @@ export default {
       window: null,
       inTransfers: [],
       outTransfers: [],
+      inTotal: 0,
+      outTotla: 0,
       wanteds: [],
       unwanteds: []
     }
@@ -281,11 +289,11 @@ export default {
   created: function () {
     this.$q.loading.show()
     if (this.$q.platform.is.mobile) {
-      this.inVisibleColumns = ['name', 'from', 'date', 'fee']
-      this.outVisibleColumns = ['name', 'to', 'date', 'fee']
+      this.inVisibleColumns = ['name', 'from', 'date', 'fee', 'notes']
+      this.outVisibleColumns = ['name', 'to', 'date', 'fee', 'notes']
     } else {
-      this.inVisibleColumns = ['name', 'from', 'date', 'fee', 'rating']
-      this.outVisibleColumns = ['name', 'to', 'date', 'fee', 'rating']
+      this.inVisibleColumns = ['name', 'from', 'date', 'fee', 'notes', 'rating']
+      this.outVisibleColumns = ['name', 'to', 'date', 'fee', 'notes', 'rating']
     }
     this.$axios.get('api/windows')
       .then(response => {
@@ -331,6 +339,9 @@ export default {
           this.unwanteds.push(elem)
         }
       })
+
+      this.inTotal = this.countMoney('ins')
+      this.outTotal = this.countMoney('outs')
     },
 
     submitRating: function (value, id, index, inOut) {
@@ -359,6 +370,20 @@ export default {
           message: 'Please login or register to rate.'
         })
       }
+    },
+
+    countMoney (inOut) {
+      let total = 0
+      if (inOut === 'ins') {
+        this.inTransfers.forEach(elem => {
+          total += elem.fee
+        })
+      } else {
+        this.outTransfers.forEach(elem => {
+          total += elem.fee
+        })
+      }
+      return total
     }
   },
 
@@ -370,10 +395,10 @@ export default {
       this.loading = false
     },
 
-    $route () {
-      // alert('route change')
+    'team' () {
       this.windowChange()
     }
+
   }
 }
 </script>

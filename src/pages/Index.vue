@@ -112,36 +112,34 @@
         </q-td>
 
         <q-td slot="body-cell-from" slot-scope="value" :props="value">
-          <router-link :to="'/teams/' + value.value.slug" >
-            <div id="" class="q-mx-auto team-thumbnail">
-              <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-cente" />
-                <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
-                  {{value.value.name}}
-                </q-tooltip>
-            </div>
+          <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+            <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+              <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                {{value.value.name}}
+              </q-tooltip>
           </router-link>
+          <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" /> </div>
         </q-td>
 
         <q-td slot="body-cell-to" slot-scope="value" :props="value">
-          <router-link :to="'/teams/' + value.value.slug" >
-            <div id="" class="q-mx-auto team-thumbnail">
-              <q-img :src="value.value.logo" :alt="value.value.name" class="full-height self-center" />
-                <q-tooltip :delay="300"   transition-show="scale" transition-hide="scale" >
-                  {{value.value.name}}
-                </q-tooltip>
-            </div>
+          <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+            <div class="team-thumbnail q-mx-auto"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+              <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                {{value.value.name}}
+              </q-tooltip>
           </router-link>
+          <div v-else class="team-thumbnail q-mx-auto"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail" /> </div>
         </q-td>
 
         <q-td slot="body-cell-rating" slot-scope="value" :props="value">
           <div class="row">
             <div class="col-10 col-sm-grow">
               <q-rating
-                :style="{color: value.value.color}"
+                color="primary"
                 size="1.5rem"
                 icon="thumb_up"
                 :id="value.value.id"
-                :value="value.value.rating ? value.value.rating : 0"
+                :value="value.value.rating"
                 :max="5"
                 @input="submitRating($event, value.value.id, value.value.__index)"
               />
@@ -266,12 +264,12 @@
                 {{article.title}}
               </q-tooltip>
             </q-item-section>
-            <q-item-section v-if="article.time<1" side >
+            <!-- <q-item-section v-if="article.time<1" side >
               <q-badge color="red" label="today" align="top" floating/>
             </q-item-section>
             <q-item-section v-else-if="article.time<4" side >
               <q-badge color="red-4" text-color="" label="new" align="top" floating/>
-            </q-item-section>
+            </q-item-section> -->
           </q-item>
           <q-separator />
         </div>
@@ -304,7 +302,7 @@
 
 <script>
 import axios from 'axios'
-import { date } from 'quasar'
+// import { date } from 'quasar'
 
 export default {
   name: 'HomePage',
@@ -321,7 +319,7 @@ export default {
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (£m)', field: row => row.fee, sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (€m)', field: row => row.fee, sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row },
       ],
       visibleColumns: ['name', 'from', 'to', 'date', 'fee', 'rating'],
@@ -438,10 +436,10 @@ export default {
       this.slide = this.bulletins.length
       this.articles = response.data.articles
       this.rumours = response.data.rumours
-      this.articles.forEach(element => {
-        let diff = date.getDateDiff(this.date, element.created_at, 'days')
-        element.time = diff
-      })
+      // this.articles.forEach(element => {
+      //   let diff = date.getDateDiff(this.date, element.created_at, 'days')
+      //   element.time = diff
+      // })
       this.wanteds = response.data.wanteds
       this.unwanteds = response.data.unwanteds
     },

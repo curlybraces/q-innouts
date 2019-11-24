@@ -24,9 +24,10 @@
             </div>
             <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
           </div>
-          <div v-if="player.broadPosition" class="row justify-center q-py-sm rounded-borders bordered ">
-            <div class="col text-center text-h5" title="approximate value"> 💷</div>
-            <div class="col text-subtitle2 self-center">{{value}} m</div>
+          <div v-if="player.broadPosition" class="row justify-center q-py-sm rounded-borders bordered text-">
+            <span title="approximate value" class="text-h6 q-mr-sm">€</span> <span class="text-subtitle2 self-center">{{value}} m</span>
+            <!-- <div class="col text-center text-h5" > </div> -->
+            <!-- <div class="col text-subtitle2 self-center"></div> -->
           </div>
         </div>  <!-- children will default to 'col'  -->
       </div>
@@ -121,7 +122,8 @@
               <tr class="text-left">
                 <th>From</th>
                 <th>To</th>
-                <th>Fee (£m)</th>
+                <th>Fee (€m)</th>
+                <th>Notes</th>
                 <th>Date</th>
               </tr>
             </thead>
@@ -129,7 +131,8 @@
               <tr v-for="transfer in transfers" :key="transfer.id">
                 <td>{{ transfer.from.name }}</td>
                 <td>{{ transfer.to.name }}</td>
-                <td>{{ transfer.loan ? 'Loan' : transfer.fee ? transfer.fee : 'Free' }}</td>
+                <td>{{ transfer.fee }}</td>
+                <td>{{ transfer.notes }}</td>
                 <td>{{ transfer.date }}</td>
               </tr>
             </tbody>

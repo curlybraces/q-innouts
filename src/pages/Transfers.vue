@@ -15,9 +15,9 @@
             class="my-sticky-header-table bg-secondary"
             title="Transfers"
             :dense="$q.screen.lt.md"
-            :grid="$q.screen.xs"
             :data="filteredTransfers"
             :columns="columns"
+            :visible-columns="visibleColumns"
             :filter="filter"
             :filter-method="filterMethod"
             row-key="id"
@@ -36,7 +36,7 @@
               </q-input>
             </template>
             <!-- customization for small devices -->
-            <template v-slot:item="props">
+            <!-- <template v-slot:item="props">
               <div
                 class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
                 :style="props.selected ? 'transform: scale(0.95);' : ''"
@@ -76,7 +76,7 @@
                   </q-list>
                 </q-card>
               </div>
-            </template>
+            </template> -->
 
             <q-td slot="body-cell-name" slot-scope="value" :props="value">
               <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
@@ -109,7 +109,7 @@
                 <div class="col-10 col-sm-grow">
                   <q-rating
                     class=""
-                    :style="{color: value.value.color}"
+                    color="primary"
                     size="1.5rem"
                     icon="thumb_up"
                     :id="value.value.id"
@@ -147,9 +147,11 @@ export default {
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },
-        { name: 'fee', align: 'center', label: 'Fee (£m)', field: row => row.loan ? 'Loan' : row.fee ? row.fee : 'Free', sortable: true },
+        { name: 'fee', align: 'center', label: 'Fee (€m)', field: row => row.fee, sortable: true },
+        { name: 'notes', align: 'center', label: 'Notes', field: row => row.notes, sortable: true },
         { name: 'rating', align: 'center', label: 'Rating', field: row => row, sortable: true },
       ],
+      visibleColumns: [],
       transfers: [],
       filteredTransfers: [],
       myPagination: {
@@ -199,6 +201,12 @@ export default {
 
   created: function () {
     this.$store.commit('setRightDrawer', false)
+
+    if (this.$q.platform.is.mobile) {
+      this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes']
+    } else {
+      this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes', 'rating']
+    }
   },
 
   watch: {
