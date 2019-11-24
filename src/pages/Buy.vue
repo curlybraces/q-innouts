@@ -167,6 +167,10 @@ export default {
     }
   },
 
+  created () {
+    this.$store.commit('setRightDrawer', false)
+  },
+
   beforeUpdate () {
     if (!this.stripeSetup) {
       /* eslint-disable */

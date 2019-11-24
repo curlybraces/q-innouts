@@ -7,16 +7,16 @@
             Innouts is a football hub, bringing you top football transfers, rumours, news and
             more. You can take on an active role in the transfer activity of your favorite club, rate players, managers, transfers
             and more. There is the rankings section that reflects fans' opinions (most important to us at Innouts).
-            You can see and compare the popularity of your club against rivals, broken down stats about your club's fans, and more.
+            You can see and compare the popularity of your club against rivals, broken down stats about your club's fans, players and more.
         </p>
 
         <h5 class="q-my-md">Community</h5>
         <p>
-            Here at Innouts we very much fit the definition of a community and as such ask for values which bind a community together to be observed
+            Here at Innouts we very much fit the definition of a community and as such ask for values that bind a community together to be observed
             by all our valuable members.
         </p>
 
-        <h5 class="q-my-md">It's All About You</h5>
+        <h5 class="q-my-md">All About You</h5>
         <p>
             From the very beginning of this project the goal was to create a platform that will be fun and engaging for the football fans and one that gives
             you what you deserve; having a truly major role in football world. For us the fans always come first and hopefully you will

@@ -5,7 +5,7 @@
         arrows
         animated
         infinite
-        :autoplay="8000"
+        :autoplay="10000"
         v-model="slide"
         :height="carouselHeight"
       >

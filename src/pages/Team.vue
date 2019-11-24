@@ -141,8 +141,8 @@
         <div class="row justify-center">
           <q-card class="col-11 col-sm-8 bg-t-darker self-center">
             <div class="row">
-              <div class="column col-grow col-4 col-sm-3 self-center">
-                <q-img :src="team.logo" :alt="team.name" class="img-thumbnail" />
+              <div class="column col-grow col-4 col-sm-3 q-pt-sm">
+                <q-img :src="team.logo" :alt="team.name" contain id="team-thumbnail-mobile" class="q-mx-auto q-mb-lg"/>
                 <div class="text-center text-uppercase" :style="{backgroundColor: team.color}" > {{team.name}} </div>
               </div>
               <div class="col-grow col-8">
@@ -722,10 +722,8 @@ export default {
   th
     // max-width: 3rem;
 
-.trophy img
-  // display: block;
-  // max-width: 100%;
-  // max-height: 100%;
-  // margin: auto;
+#team-thumbnail-mobile
+  width: 100px
+  height: 100px
 
 </style>

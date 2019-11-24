@@ -29,7 +29,7 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {
-    store.commit('setLeftDrawer', false)
+    // store.commit('setLeftDrawer', false)
     if (to.matched.some(record => record.meta.requiresAuth)) {
       // console.log('a route requires auth')
       if (to.name === 'adminPanel') {

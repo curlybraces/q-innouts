@@ -1,21 +1,24 @@
 <template>
   <q-page padding>
     <div class="row justify- q-gutter-y-m">
-      <div class="col-md-8 col offset- bordered rounded-borders" :class="articleClass">
-        <div class="text-capitalize title text-center q-pt-md q-pb-xs bg-primary text-secondary q-px-md" :class="titleClass">
+      <div class="col offset- bordered rounded-borders q-pa-sm" :class="articleClass">
+        <div class="title text-center q-pt-md q-pb-xs bg-primary text-secondary q-px-md" :class="titleClass">
           <span class="newsTitle">{{article.title}}</span>
           <div class="row q-mt-md text-caption text-left">
-            <div class="text-left col"> &#9997;&#127996; {{authorName}}
+            <div class="text-left col text-capitalize ellipsis"> &#9997;&#127996;{{authorName}}
+
+            </div>
+            <div class="text-center col" title="approximate read time"> &#128347;{{minRead}} min read
 
             </div>
             <div class="text-right col inline">
-              &#128347;{{ date }}
+              &#128467;{{ date }}
             </div>
           </div>
         </div>
         <q-img
           :src="article.picture"
-          :ratio="10/7"
+          :ratio="3/2"
           transition="slide-right"
         />
         <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
@@ -107,7 +110,8 @@ export default {
       similarArticles: [],
       articleClass: {},
       titleClass: {},
-      tags: ''
+      tags: '',
+      minRead: 0
     }
   },
 
@@ -140,9 +144,20 @@ export default {
         })
     },
 
+    article () {
+      this.minRead = this.readTime()
+    },
+
     articleCount () {
       if (this.articleCount > 0 && this.$q.platform.is.desktop) {
         this.$store.commit('setRightDrawer', true)
+      }
+      if (this.articleCount > 0) {
+        this.articleClass['col-md-7'] = false
+        this.articleClass['col-md-9'] = true
+      } else {
+        this.articleClass['col-md-9'] = false
+        this.articleClass['col-md-7'] = true
       }
     }
   },
@@ -179,15 +194,18 @@ export default {
   },
 
   created: function () {
-    this.$store.commit('setLeftDrawer', false)
-    // console.log(this.similarArticles)
-    // console.log(this.similarArticles.length)
     this.$store.commit('setRightDrawer', false)
-    if (this.$q.platform.is.desktop) {
+
+    if (this.articleCount > 0) {
       this.articleClass = {
-        'q-ml-xl': true,
-        'q-pa-md': true
+        'col-md-9': true,
       }
+    } else {
+      this.articleClass['col-md-7'] = true
+    }
+    if (this.$q.platform.is.desktop) {
+      this.articleClass['q-ml-xl'] = true
+      this.articleClass['q-pa-md'] = true
       this.titleClass = {
         'text-h5': true
       }
@@ -224,12 +242,13 @@ export default {
           this.similarArticles.push(element)
         }
       })
-      // this.similarArticles = Array.from(new Set(this.similarArticles.concat(response.data.teams_articles)))
-      // this.similarArticles = this.similarArticles.concat(response.data.teams_articles.filter(seccondArrayItem => {
-      //   this.similarArticles.forEach!this.similarArticles.includes(seccondArrayItem)
-      //   }))
-      // this.teamsArticles = response.data.teams_articles
-      // this.playersArticles = response.data.players_articles
+    },
+
+    readTime () {
+      let wordCount = this.article.body.split(' ').length
+      // let mins = wordCount / 200
+      // let secs = Math.round((mins % 1) * 0.60 * 100) / 100 + 0.10
+      return Math.round(wordCount / 200)
     }
   }
 }

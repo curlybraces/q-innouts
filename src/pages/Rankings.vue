@@ -280,7 +280,7 @@ export default {
         { name: 'league', align: 'center', label: 'League Success', field: 'league', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'fanLevel', label: 'Fan Level', field: 'fanLevel', sortable: true },
         { name: 'squadScore', label: 'Squad Score', field: 'squadScore', sortable: true },
-        { name: 'squadValue', label: 'Squad Value (£m)', field: 'squadValue', sortable: true },
+        { name: 'squadValue', label: 'Squad Value (€m)', field: 'squadValue', sortable: true },
       ],
       teams: [],
       managerColumns: [

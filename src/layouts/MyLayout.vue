@@ -20,39 +20,31 @@
     <q-drawer
       :value="leftDrawerOpen"
       :breakpoint="250"
-      :width="220"
+      :width="170"
+      behavior="mobile"
       elevated
       overlay
+      @hide="$store.commit('toggleLeftDrawer')"
       bordered
       content-class="bg-secondary"
     >
       <q-list>
         <q-item clickable tag="a" to="/editorials">
-          <q-item-section avatar>
-            <q-icon name="announcement" />
-          </q-item-section>
           <q-item-section>
             <q-item-label>News</q-item-label>
           </q-item-section>
         </q-item>        <q-item clickable tag="b" to="/transfers">
-          <q-item-section avatar>
-            <q-icon name="compare_arrows" />
-          </q-item-section>
           <q-item-section>
             <q-item-label>Transfers</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="/rumours">
-          <q-item-section avatar>
-            <q-icon name="record_voice_over" />
-          </q-item-section>
           <q-item-section>
             <q-item-label>Rumours</q-item-label>
           </q-item-section>
         </q-item>
       <q-expansion-item
         group="somegroup"
-        icon="group_work"
         label="Leagues"
         default-opene
         header-class="text-primary"
@@ -63,7 +55,7 @@
               <q-avatar :icon="'img:'+league.logo" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{league.name}}</q-item-label>
+              <q-item-label class="ellipsis" :title="league.name">{{league.name}}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item dense to="/leagues/others">
@@ -78,7 +70,6 @@
       </q-expansion-item>
       <q-expansion-item
         group="somegroup"
-        icon="explore"
         label="Teams"
         header-class="text-primary"
       >
@@ -88,15 +79,12 @@
               <q-avatar :icon="'img:'+team.logo" color="secondary" size="2.1rem" text-color="white" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{team.name}}</q-item-label>
+              <q-item-label class="ellipsis" :title="team.name">{{team.name}}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
       </q-expansion-item>
         <q-item clickable tag="a" to="/rankings">
-          <q-item-section avatar>
-            <q-icon name="assessment" />
-          </q-item-section>
           <q-item-section>
             <q-item-label>Rankings</q-item-label>
           </q-item-section>
@@ -106,9 +94,7 @@
 
     <q-ajax-bar size="3px" color="warning" />
 
-    <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated>
-      <!-- hey -->
-    </q-drawer>
+    <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated />
 
     <q-page-container>
       <router-view />
@@ -123,7 +109,7 @@
           <router-link to="/terms" class="no-deco text-grey">Terms of Service</router-link>
         </div>
         <div class="col-grow">
-          <a @click="openURL('https://instagram.com/_innouts.com_')" class="no-decor link q-mx-sm">
+          <a @click="openURL('https://instagram.com/__innouts.com__')" class="no-decor link q-mx-sm">
             <q-icon   name="ion-logo-instagram" size="1.2rem" color="grey"/>
           </a>
           <!-- <a @click="openURL('https://twitter.com/_innouts.com_')" class="no-decor link">
@@ -158,7 +144,7 @@ export default {
     return {
       leagues: [],
       teams: [],
-      qotd: null,
+      qotd: {},
     }
   },
 
