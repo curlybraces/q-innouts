@@ -197,7 +197,6 @@
                       <q-item-label >£ {{stats.totalValue}} m</q-item-label>
                     </q-item-section>
                   </q-item>
-
                   <q-item>
                     <q-item-section>
                       <q-item-label >Major trophies won</q-item-label>
