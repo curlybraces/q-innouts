@@ -326,7 +326,7 @@ export default {
         this.leagues = response.data
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
       })
   },
 
@@ -362,7 +362,7 @@ export default {
             message: 'Email updated!'
           })
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     cancelPass: function (val, initialVal) {
@@ -386,7 +386,6 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(data => {
-        console.log(this.password)
         if (data === this.password) {
           this.$q.dialog({
             dark: true,
@@ -400,7 +399,6 @@ export default {
             persistent: true
           }).onOk(data => {
             if (data.length >= 10) {
-              console.log(this.password)
               this.$axios({ url: 'api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
                 .then(response => {
                   this.$q.notify({
@@ -428,9 +426,7 @@ export default {
               })
               this.password = ''
             }
-            // console.log('>>>> OK, received', data)
           }).onCancel(() => {
-            // console.log('>>>> Cancel')
             this.password = ''
           }).onDismiss(() => {})
         } else {
@@ -467,7 +463,7 @@ export default {
             message: 'Name changed!'
           })
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     cancelCountry: function (val, initialVal) {
@@ -484,7 +480,7 @@ export default {
             message: 'Nationality saved!'
           })
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     cancelBirthday: function (val, initialVal) {
@@ -506,7 +502,7 @@ export default {
             message: 'Birthday saved!'
           })
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     cancelGender: function (val, initialVal) {
@@ -523,7 +519,7 @@ export default {
             message: 'Gender saved!'
           })
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     cancelTeam: function (val, initialVal) {
@@ -552,7 +548,7 @@ export default {
           })
           this.$store.dispatch('getUser', this.$q.cookies.get('token'))
         })
-        .catch(err => console.log(err))
+        .catch(error => this.$q.notify({ message: error.data.message }))
     },
 
     deleteAccount: function () {
@@ -585,18 +581,18 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
       formData.append('_method', 'PUT')
-      console.log(files)
-      console.log(this.$refs.profile.files[0])
-      console.log(formData)
+      // console.log(files)
+      // console.log(this.$refs.profile.files[0])
+      // console.log(formData)
       return new Promise((resolve, reject) => {
         this.$axios.post('api/users/' + this.user.id, formData, headers)
           .then(function (response) {
-            console.log(response)
+            this.$q.notify({ message: response.data.message })
             resolve(files)
           })
-          .catch(function (err) {
-            console.log(err)
-            reject(err)
+          .catch(function (error) {
+            this.$q.notify({ message: error.data.message })
+            reject(error)
           })
       })
     }

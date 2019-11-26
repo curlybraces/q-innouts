@@ -267,7 +267,7 @@ export default {
             this.articles = player.articles
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       } else {
         this.$axios.get('api/managers/' + this.$route.params.manager)
@@ -281,7 +281,7 @@ export default {
             this.articles = player.articles
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       }
     }

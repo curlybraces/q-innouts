@@ -281,9 +281,9 @@ export default {
     saveIntro: function (value, initialValue) {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newIntro: value }, method: 'PUT' })
         .then(response => {
-          console.log(response.data)
+          this.$q.notify({ message: 'Saved!' })
         })
-        .catch(err => console.log(err))
+        .catch(err => this.$q.notify({ message: err.data.message }))
     },
 
     cancelIntro: function (value, initialValue) {
@@ -303,7 +303,7 @@ export default {
               })
               this.$store.dispatch('getUser', this.$q.cookies.get('token'))
             })
-            .catch(err => console.log(err))
+            .catch(err => this.$q.notify({ message: err.data.message }))
         } else {
           this.$q.notify({
             color: 'red-5',
@@ -324,7 +324,7 @@ export default {
               })
               this.$store.dispatch('getUser', this.$q.cookies.get('token'))
             })
-            .catch(err => console.log(err))
+            .catch(err => this.$q.notify({ message: err.data.message }))
         } else {
           this.$q.notify({
             color: 'red-5',

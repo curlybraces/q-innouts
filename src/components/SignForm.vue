@@ -161,7 +161,7 @@ export default {
           .post('api/search', { player: this.player, team: this.team.id })
           .then(response => (this.hints = response.data))
           .catch(function (error) {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       } else {
         this.hints = []

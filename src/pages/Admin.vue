@@ -191,7 +191,7 @@ export default {
           this.players = response.data
         })
         .catch(error => {
-          console.log(error)
+          this.$q.notify({ message: error.data.message })
         })
     },
     'league' () {
@@ -215,7 +215,7 @@ export default {
         this.leagues = response.data
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
       })
   },
 

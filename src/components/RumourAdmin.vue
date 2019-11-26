@@ -202,7 +202,7 @@ export default {
         this.teams = response.data
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -216,7 +216,7 @@ export default {
         this.playerOptions = this.players
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -230,7 +230,7 @@ export default {
         this.managerOptions = this.managers
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -247,7 +247,7 @@ export default {
           this.rumours = response.data
         })
         .catch(error => {
-          console.log(error)
+          this.$q.notify({ message: error.data.message })
           this.$q.notify({
             color: 'red-5',
             textColor: 'white',
@@ -301,7 +301,7 @@ export default {
             this.onRumourReset()
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       } else {
         this.$q.notify({
@@ -324,8 +324,8 @@ export default {
             message: 'rumour deleted!'
           })
         })
-        .catch(err => {
-          console.log(err)
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
         })
     },
 

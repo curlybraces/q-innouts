@@ -540,7 +540,7 @@ export default {
         next()
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         next(false)
       })
   },
@@ -578,7 +578,7 @@ export default {
             this.sellList = response.data.unwanteds
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       }
     },

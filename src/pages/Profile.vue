@@ -193,15 +193,15 @@ export default {
   beforeRouteEnter (to, from, next) {
     axios.get('api/users/' + to.params.user)
       .then(response => {
-        // console.log('here')
+        // this.$q.notify({ message: error.data.message })('here')
         next(vm => {
-          // console.log('here1')
+          // this.$q.notify({ message: error.data.message })('here1')
           vm.setData(response)
           next()
         })
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         next(false)
       })
     // next() // curse on you :)
@@ -217,7 +217,7 @@ export default {
         next()
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         next(false)
       })
   },
@@ -232,7 +232,7 @@ export default {
         this.window = response.data.activeWindow
       })
       .catch(error => {
-        this.error = error
+        this.$q.notify({ message: error.data.message })
       })
   },
 
@@ -244,7 +244,7 @@ export default {
           this.unwanteds = response.data.unwanteds
         })
         .catch(error => {
-          this.error = error
+          this.$q.notify({ message: error.data.message })
         })
     }
   },

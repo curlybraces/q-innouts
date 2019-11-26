@@ -220,7 +220,7 @@ export default {
         this.teamOptions = this.teams
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -234,7 +234,7 @@ export default {
         this.playerOptions = this.players
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -248,7 +248,7 @@ export default {
         this.managerOptions = this.managers
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -261,7 +261,7 @@ export default {
         this.leagues = response.data
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         this.$q.notify({
           color: 'red-5',
           textColor: 'white',
@@ -278,7 +278,7 @@ export default {
           this.articles = response.data
         })
         .catch(error => {
-          console.log(error)
+          this.$q.notify({ message: error.data.message })
           this.$q.notify({
             color: 'red-5',
             textColor: 'white',
@@ -339,7 +339,7 @@ export default {
             this.onArticleReset()
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       } else {
         this.$q.notify({
@@ -362,8 +362,8 @@ export default {
             message: 'article deleted!'
           })
         })
-        .catch(err => {
-          console.log(err)
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
         })
     },
 

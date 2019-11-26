@@ -78,7 +78,7 @@ export default {
       let remember = this.remember
       this.$store.dispatch('adminLogin', { email, password, remember })
         .then(() => this.$router.push({ path: '/admin' }))
-        .catch(err => console.log(err))
+        .catch(err => this.$q.notify({ message: err.data.message }))
     },
 
   },

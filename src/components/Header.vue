@@ -283,7 +283,6 @@ export default {
 
   data () {
     return {
-      // leagues: [],
       email: '',
       password: '',
       remember: false,
@@ -366,7 +365,7 @@ export default {
               this.users = users
             }
           })
-          .catch(err => console.log(err))
+          .catch(err => this.$q.notify({ message: err.data.message }))
       })
     },
 

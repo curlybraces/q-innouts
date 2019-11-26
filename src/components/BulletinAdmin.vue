@@ -116,7 +116,7 @@ export default {
           this.bulletins = response.data
         })
         .catch(error => {
-          console.log(error)
+          this.$q.notify({ message: error.data.message })
           this.$q.notify({
             color: 'red-5',
             textColor: 'white',
@@ -153,7 +153,7 @@ export default {
             this.onBulletinReset()
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
           })
       } else {
         this.$q.notify({
@@ -176,8 +176,8 @@ export default {
             message: 'Bulletin deleted!'
           })
         })
-        .catch(err => {
-          console.log(err)
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
         })
     },
 

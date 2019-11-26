@@ -134,7 +134,7 @@ export default {
           this.setData(response)
         })
         .catch(error => {
-          console.log(error)
+          this.$q.notify({ message: error.data.message })
         })
     },
 

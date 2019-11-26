@@ -146,7 +146,7 @@ export default {
 
     add: function (details) {
       this.selecteds.push(details.value)
-      console.log(details)
+      // console.log(details)
     }
   }
 }

@@ -309,7 +309,7 @@ export default {
         this.$q.loading.hide()
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
       })
   },
 
@@ -406,7 +406,7 @@ export default {
             this.loading = false
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
             this.loading = false
           })
       }

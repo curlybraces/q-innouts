@@ -379,7 +379,7 @@ export default {
         })
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })(error)
         next(false)
       })
   },
@@ -399,7 +399,7 @@ export default {
     this.$store.commit('setLeftDrawer', false)
     if (this.$q.platform.is.mobile) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee']
-      // console.log(this.carouselHeight)
+      // this.$q.notify({ message: error.data.message })(this.carouselHeight)
       this.carouselHeight = '250px'
       this.bulletTitleClass = {
         'text-h6': true
@@ -410,7 +410,7 @@ export default {
       this.fanTransfersRowClass = {
         'q-gutter-y-md': true
       }
-      // console.log(this.carouselHeight)
+      // this.$q.notify({ message: error.data.message })(this.carouselHeight)
     } else {
       this.$store.commit('setRightDrawer', true)
       this.carouselHeight = '700px'

@@ -64,7 +64,7 @@ export default function ({ ssrContext }) {
         state.token = payload.token
         axios({ url: 'api/user', method: 'GET' })
           .then(resp => { state.user = resp.data.user })
-          .catch(err => console.log(err))
+          .catch(error => this.$q.notify({ message: error.data.message }))
       },
 
       authError (state) {
@@ -95,7 +95,7 @@ export default function ({ ssrContext }) {
         state.adminToken = payload.token
         axios({ url: 'api/admin', method: 'GET' })
           .then(resp => { state.admin = resp.data.admin })
-          .catch(err => console.log(err))
+          .catch(error => this.$q.notify({ message: error.data.message }))
       },
 
       setView (state, payload) {
@@ -215,7 +215,7 @@ export default function ({ ssrContext }) {
         return new Promise((resolve, reject) => {
           axios({ url: 'api/user', method: 'GET' })
             .then(resp => { commit('updateUser', { 'user': resp.data.user }) })
-            .catch(err => console.log(err))
+            .catch(error => this.$q.notify({ message: error.data.message }))
           resolve()
         })
       },
@@ -225,7 +225,7 @@ export default function ({ ssrContext }) {
         return new Promise((resolve, reject) => {
           axios({ url: 'api/admin', method: 'GET' })
             .then(resp => { commit('updateAdmin', { 'admin': resp.data.admin }) })
-            .catch(err => console.log(err))
+            .catch(error => this.$q.notify({ message: error.data.message }))
           resolve()
         })
       },

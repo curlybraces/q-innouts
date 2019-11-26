@@ -152,7 +152,7 @@ export default {
         })
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
         next(false)
       })
   },
@@ -183,7 +183,7 @@ export default {
             this.loading = false
           })
           .catch(error => {
-            console.log(error)
+            this.$q.notify({ message: error.data.message })
             this.loading = false
           })
       }

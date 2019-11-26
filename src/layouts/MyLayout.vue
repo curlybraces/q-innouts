@@ -113,9 +113,9 @@
           <a @click="openURL('https://instagram.com/__innouts.com__')" class="no-decor link q-mx-sm">
             <q-icon   name="ion-logo-instagram" size="1.2rem" color="grey"/>
           </a>
-          <!-- <a @click="openURL('https://twitter.com/_innouts.com_')" class="no-decor link">
+          <a @click="openURL('https://twitter.com/__innouts__')" class="no-decor link">
             <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
-          </a> -->
+          </a>
         </div>
         <div class="col-12 text-caption text-grey q-mt-md">
           <p class="q-px-sm">&#10077; {{qotd.body}} &#10078; </p>
@@ -174,14 +174,14 @@ export default {
         this.teams = response.data.teams
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
       })
     this.$axios.get('api/qotd')
       .then(response => {
         this.qotd = response.data
       })
       .catch(error => {
-        console.log(error)
+        this.$q.notify({ message: error.data.message })
       })
   },
 
