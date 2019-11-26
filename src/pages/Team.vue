@@ -224,7 +224,7 @@
       <q-tab v-if="user.team_id == team.id" name="business" label="sign/sell" />
     </q-tabs>
 
-    <q-tab-panels keep-alive v-model="tab" swipeable animated @before-transition="panelChange"
+    <q-tab-panels keep-alive v-model="tab" animated @before-transition="panelChange"
      class="shadow- rounded-borders"
      >
       <q-tab-panel name="home">
@@ -632,7 +632,7 @@ export default {
         }
       })
       if (this.$q.screen.lt.lg) {
-        this.fieldStyle.backgroundColor = '#21BA45'
+        this.fieldStyle.backgroundColor = '#03691b'
         this.fieldStyle.border = '5px solid #1a4870'
         this.headerStyle.minHeight = '200px'
       } else if (this.$q.screen.lt.md) {

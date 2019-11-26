@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col col-md-8">
+      <div class="col col-md-11 col-lg-9">
         <div class="row justify-center q-pa-md">
           <div class="col-sm-3">
             <q-select dense rounded standout v-model="window" :options="windows"
@@ -35,49 +35,6 @@
                 </template>
               </q-input>
             </template>
-            <!-- customization for small devices -->
-            <!-- <template v-slot:item="props">
-              <div
-                class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
-                :style="props.selected ? 'transform: scale(0.95);' : ''"
-              >
-                <q-card class="bg-secondary">
-                  <q-list dense>
-                    <q-item v-for="(col, idx) in props.cols" :key="col.id">
-                      <q-item-section>
-                        <q-item-label>{{ col.label }}</q-item-label>
-                      </q-item-section>
-                      <q-item-section v-if="idx === 0" side>
-                        <router-link :to="'/players/' + col.value.id + '/' + col.value.slug" class="no-decor">
-                          <q-item-label caption>{{ col.value.nickname }}</q-item-label>
-                        </router-link>
-                      </q-item-section>
-                      <q-item-section v-else-if="[3,4].includes(idx)" side>
-                        <q-item-label caption>{{ col.value }}</q-item-label>
-                      </q-item-section>
-                      <q-item-section v-else-if="[1,2].includes(idx)" side>
-                        <router-link :to="'/teams/' + col.value.slug" class="no-decor">
-                          <q-item-label caption>{{ col.value.name }}</q-item-label>
-                        </router-link>
-                      </q-item-section>
-                      <q-item-section v-else side>
-                        <q-rating
-                          class=""
-                          color="primary"
-                          size="1.5rem"
-                          icon="thumb_up"
-                          :id="col.value.id"
-                          :value="col.value.rating"
-                          :max="5"
-                          @input="submitRating($event, col.value.id, col.value.__index)"
-                        />
-                      </q-item-section>
-                    </q-item>
-                  </q-list>
-                </q-card>
-              </div>
-            </template> -->
-
             <q-td slot="body-cell-name" slot-scope="value" :props="value">
               <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
                 {{value.value.nickname}}
@@ -134,7 +91,6 @@
 
 <script>
 import axios from 'axios'
-// import { date } from 'quasar'
 
 export default {
   name: 'Transfers',
@@ -190,6 +146,7 @@ export default {
       .then(response => {
         next(vm => {
           vm.windows = response.data.visibleWindows
+          vm.windows[0] = response.data.lastWindow
           vm.window = vm.windows[0]
           vm.transfers = vm.window.transfers
         })
@@ -205,7 +162,6 @@ export default {
 
     if (this.$q.platform.is.mobile) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes']
-      // this.tableWrapperClass['q-pa-md'] = true
     } else {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes', 'rating']
       this.tableWrapperClass['q-pa-md'] = true
@@ -215,9 +171,22 @@ export default {
   watch: {
     window () {
       this.loading = true
-      this.transfers = this.window.transfers
-      this.filteredTransfers = this.transfers
-      this.loading = false
+      if ('transfers' in this.window) {
+        this.transfers = this.window.transfers
+        this.filteredTransfers = this.transfers
+      } else {
+        axios.get('api/windows/' + this.window.id)
+          .then(response => {
+            this.window.transfers = response.data.data.transfers
+            this.transfers = this.window.transfers
+            this.filteredTransfers = this.transfers
+            this.loading = false
+          })
+          .catch(error => {
+            console.log(error)
+            this.loading = false
+          })
+      }
     },
 
     'filter' () {
@@ -225,7 +194,6 @@ export default {
       if (this.filter.length) {
         this.filteredTransfers = []
         this.transfers.forEach(element => {
-          // console.log(element.player.nickname.toLowerCase().includes(this.filter))
           if (element.player.firstName.toLowerCase().includes(this.filter.toLowerCase()) || element.player.lastName.toLowerCase().includes(this.filter.toLowerCase())) {
             this.filteredTransfers.push(element)
           }
@@ -240,7 +208,6 @@ export default {
   methods: {
     submitRating: function (value, id, index) {
       if (this.loggedIn) {
-        // alert(index)
         axios({ url: 'api/transfers/' + id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.transfers[index].rating = value

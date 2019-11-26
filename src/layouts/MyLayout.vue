@@ -32,7 +32,7 @@
       <q-list>
         <q-item clickable tag="a" to="/editorials">
           <q-item-section>
-            <q-item-label>News</q-item-label>
+            <q-item-label>Editorials</q-item-label>
           </q-item-section>
         </q-item>        <q-item clickable tag="b" to="/transfers">
           <q-item-section>
@@ -93,7 +93,7 @@
       </q-list>
     </q-drawer>
 
-    <q-ajax-bar size="3px" color="warning" />
+    <q-ajax-bar size="2px" color="warning" />
 
     <q-drawer side="right" :value="rightDrawerOpen" no-swipe-open content-class="bg-grey-2" elevated />
 

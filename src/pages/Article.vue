@@ -21,8 +21,8 @@
           :ratio="3/2"
           transition="slide-right"
         />
-        <div id="body" v-html="article.body" class="text-body1 newsBody text-justify text-center q-my-md q-py-sm q-px-xs"/>
-        <div class="row text-caption q-gutter-x-md q-px-sm">
+        <div id="body" v-html="article.body" class="text-body1 newsBody2 text-justify text-center q-my-md q-py-sm q-px-xs"/>
+        <div class="row text-caption q-gutter-sm q-px-sm">
           <!-- Tags: -->
           <router-link :to="'/players/'+player.id+'/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">
             {{player.nickname}}
@@ -37,58 +37,49 @@
             {{league.name}}
           </router-link>
         </div>
-        <social-sharing :url="'https://innouts.com/'+$route.fullPath"
+        <social-sharing :url="'https://innouts.com'+$route.fullPath"
           :title="article.title"
           :description="article.body"
           :hashtags="tags"
           :quote="article.title"
-          twitter-user="innouts"
+          twitter-user="__innouts__"
           class="q-mt-md q-gutter-sm q-px-sm"
           inline-template>
           <div class="q-gutter-sm">
             <q-fab color="primary" push icon="share" direction="right">
-              <!-- <q-fab-action color="primary" @click="onClick" icon="mail" />
-              <q-fab-action color="accent" @click="onClick" icon="alarm" /> -->
               <network network="twitter" class="q-mr-xs">
                 <q-btn round color="blue" icon="ion-logo-twitter" size="xs"/>
-                <!-- <q-icon name="ion-logo-twitter" color="blue" size="1.1rem" /> -->
               </network>
               <network network="facebook" class="q-mr-xs">
                 <q-btn round color="blue-14" icon="ion-logo-facebook" size="xs"/>
-                <!-- <q-icon name="ion-logo-facebook"  color="blue-14" size="1.1rem"/> -->
               </network>
               <network network="reddit" class="q-mr-xs">
-                <!-- <q-icon name="ion-logo-reddit" color="orange" size="1.1rem"/> -->
                 <q-btn round color="orange" icon="ion-logo-reddit" size="xs"/>
               </network>
               <network network="vk" class="q-mr-xs">
                 <q-btn round color="blue-6" icon="ion-logo-vk" size="xs"/>
-                <!-- <q-icon name="ion-logo-vk" color="blue-6" size="1.1rem"/> -->
               </network>
               <network network="email" class="q-mr-xs">
                 <q-btn round color="black" icon="ion-mail" size="xs"/>
-                  <!-- <q-icon name="ion-mail" color="black" size="1.1rem"/> -->
               </network>
               <network network="whatsapp" class="q-mr-xs">
                 <q-btn round color="green-8" icon="ion-logo-whatsapp" size="xs"/>
-                <!-- <q-icon name="ion-logo-whatsapp" color="green-8" size="1.1rem"/> -->
               </network>
             </q-fab>
-            <!-- <q-icon name="share" color="" size="1.1rem" class="q-mt-none" /> -->
           </div>
         </social-sharing>
       </div>
     </div>
     <q-drawer
+      v-if="similarArticles.length"
       :value="rightDrawerOpen"
       :mini="$q.screen.lt.md"
       content-class="bg-blue-grey-3"
-      :breakpoint="600"
-      :width="350"
+      :breakpoint="500"
       side="right"
       elevated
     >
-      <q-list v-if="similarArticles.length" padding link dense class="col" >
+      <q-list padding link dense class="col" >
         <q-item-label header class="bg-primary">Also</q-item-label>
         <div v-for="(article) in similarArticles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple>

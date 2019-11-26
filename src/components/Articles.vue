@@ -7,12 +7,22 @@
             <img :src="article.picture">
           </q-item-section>
 
-          <q-item-section to>
+          <q-item-section>
             <q-item-label header class="newsTitle" :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
-            <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
           </q-item-section>
 
-          <q-item-section v-if="article.time<1" side >
+          <q-item-section side>
+            <div class="text-right">
+              <q-item-label v-if="taggedTeams && article.teams.length && $q.screen.gt.sm" caption lines="3">  {{article.teams[0].name}} </q-item-label>
+              <q-item-label caption>
+                <span v-if="article.time<1">Today</span>
+                <span v-else-if="article.time<4">Recent</span>
+                <span v-else>{{article.created_at.split(' ')[0]}}</span>
+              </q-item-label>
+            </div>
+          </q-item-section>
+
+          <!-- <q-item-section v-if="article.time<1" side >
             <q-badge color="red" label="today" align="top" floating/>
           </q-item-section>
 
@@ -20,8 +30,8 @@
             <q-badge color="secondary" text-color="primary" label="new" align="top" floating/>
           </q-item-section>
           <q-item-section v-else side >
-            <q-badge color="secondary" text-color="primary" :label="article.created_at.split(' ')[0]" align="top" floating/>
-          </q-item-section>
+            <q-badge color="accent"  text-color="secondary" :label="article.created_at.split(' ')[0]" align="top" floating/>
+          </q-item-section> -->
         </q-item>
         <template v-if="remains" v-slot:loading>
           <div class="row justify-center q-my-md">
@@ -56,6 +66,10 @@ export default {
       default: 4
     },
     dense: {
+      type: Boolean,
+      default: false
+    },
+    taggedTeams: {
       type: Boolean,
       default: false
     }
@@ -108,5 +122,5 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
 </style>

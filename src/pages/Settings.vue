@@ -14,7 +14,7 @@
       </q-card>
     </q-dialog>
     <div class="row justify-center">
-      <div class="col col-sm-8 col-md-6">
+      <div class="col col-sm-10 col-md-8 col-lg-6">
         <q-card class="bg-secondary" :class="cardClass">
           <q-card-section class="bg-primary text-white q-mb-md">
             <q-tabs
@@ -26,8 +26,9 @@
               active-color="accent"
             >
               <q-tab name="account" label="Account" />
-              <q-tab name="personal"  label="Personal Details" />
+              <q-tab name="personal"  label="Personal Info" />
               <q-tab name="team"  label="Team" />
+              <q-space/>
               <q-tab name="delete"  label="Delete Account" />
             </q-tabs>
           </q-card-section>
@@ -208,7 +209,7 @@
                       <div class="col self-center text-center">
                         Team
                         <q-popup-edit :value="team" :validate="validateTeam" @save="saveTeam" @cancel="cancelTeam" buttons title="Change team" persistent label-set="SAVE">
-                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Details fields first!']" option-label="name" options-dense option-value="id" label="team" >
+                          <q-select filled v-model="team" :options="teams" lazy-rules :rules="[ val => validateTeam(val) || 'Please fill Personal Info fields first!']" option-label="name" options-dense option-value="id" label="team" >
                             <template v-slot:option="scope">
                               <q-item
                                 v-bind="scope.itemProps"

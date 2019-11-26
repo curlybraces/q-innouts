@@ -9,7 +9,9 @@
 
           <q-item-section>
             <q-item-label header class="newsTitle" :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
-            <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
+          </q-item-section>
+          <q-item-section v-if="article.teams.length" class="text-subtitle1 ellipsis d-block" side>
+            {{article.teams[0].name}}
           </q-item-section>
 
           <q-item-section v-if="article.time<1" side >

@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col-grow col-lg-6 col-md-7 col-sm-8">
+      <div class="col-grow col-sm-10 col-md-8 col-lg-6">
         <div id="title" class="text-center text-h4 q-my-md bg-primary q-pa-md text-white rounded-borders"><!-- &#128301; --> Rumour Mill</div>
           <rumours v-if="rumours.length" :rumours="rumours" :picture="true" :chunk="10" :dense="$q.screen.lt.md" />
       </div>

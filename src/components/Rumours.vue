@@ -14,7 +14,7 @@
             class="border-primary rounded-borders"
           />
         </q-card-section>
-        <q-card-section class="newsBody text-justify" :class="bodyClass" v-html="rumour.body" />
+        <q-card-section class="newsBody3 text-justify" :class="bodyClass" v-html="rumour.body" />
         <q-card-section>
           <div class="row justify-center">
             <div class="col col-sm-1">

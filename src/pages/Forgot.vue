@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col col-sm-8 col-md-6">
+      <div class="col col-sm-10 col-md-8 col-lg-6">
         <q-card class="bg-secondary q-pa-md">
           <q-card-section class="bg-primary text-white q-mb-md">
             <div class="text-h5">Forgot Password</div>
@@ -18,10 +18,9 @@
               lazy-rules
               :rules="[
                 val => val !== '' || 'Please type a valid email',
-                val => val.includes('@') && val.includes('.') || 'Please type a valid email'
+                val => val.includes('@') && val.includes('.') || 'Please type in a valid email'
               ]"
             />
-
             <div class="q-mb-md">
               <q-btn label="Send Reset Link" type="submit" color="primary" />
             </div>
@@ -65,30 +64,7 @@ export default {
             message: error.response.data.message
           })
         })
-      // this.$axios.post('http://innouts.test/api/login', {
-      //   email: this.email,
-      //   password: this.password
-      // })
-      //   .then(response => {
-      //     console.log = response.data.data
-      //     this.$q.notify({
-      //       color: 'green-4',
-      //       textColor: 'white',
-      //       icon: 'fas fa-check-circle',
-      //       message: 'Logged In'
-      //     })
-      //     this.$router.push({ name: 'profile', params: { user: '123' } })
-      //   })
-      //   .catch(error => {
-      //     this.$q.notify({
-      //       color: 'red-5',
-      //       textColor: 'white',
-      //       icon: 'fas fa-exclamation-triangle',
-      //       message: error.response.data.error
-      //     })
-      //   })
     },
-
   },
 
 }

@@ -244,7 +244,8 @@ export default {
           field: row => row.player,
         },
         { name: 'team', align: 'center', label: 'Team', field: row => row.team },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards Assigned', field: row => row.cardRatio, sortable: true },
+        { name: 'total', align: 'center', label: 'Total', field: row => row.cardTotal, sortable: true },
       ],
       wantedPagination: {
         sortBy: 'cards',
@@ -259,7 +260,8 @@ export default {
           field: row => row.player,
         },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards Assigned', field: row => row.cardRatio, sortable: true },
+        { name: 'total', align: 'center', label: 'Total', field: row => row.cardTotal, sortable: true },
       ],
       unwantedPagination: {
         sortBy: 'cards',
@@ -270,7 +272,7 @@ export default {
       inTransfers: [],
       outTransfers: [],
       inTotal: 0,
-      outTotla: 0,
+      outTotal: 0,
       wanteds: [],
       unwanteds: []
     }
@@ -298,6 +300,7 @@ export default {
     this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
+        this.windows[0] = response.data.lastWindow
         this.windows.unshift(response.data.activeWindow)
         this.window = response.data.activeWindow
         this.transfers = this.window.transfers
@@ -306,7 +309,7 @@ export default {
         this.$q.loading.hide()
       })
       .catch(error => {
-        this.error = error
+        console.log(error)
       })
   },
 
@@ -390,9 +393,24 @@ export default {
   watch: {
     window () {
       this.loading = true
-      this.transfers = this.window.transfers
-      this.windowChange()
-      this.loading = false
+      if ('transfers' in this.window) {
+        this.transfers = this.window.transfers
+        this.windowChange()
+        this.loading = false
+      } else {
+        this.$axios.get('api/windows/' + this.window.id)
+          .then(response => {
+            this.window.transfers = response.data.data.transfers
+            this.transfers = this.window.transfers
+            this.windowChange()
+            this.loading = false
+          })
+          .catch(error => {
+            console.log(error)
+            this.loading = false
+          })
+      }
+      // this.loading = false
     },
 
     'team' () {

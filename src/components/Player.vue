@@ -109,11 +109,11 @@
         <q-tab name="rumours" label="Rumours" />
         <q-tab name="editorials" label="Editorials" />
       </q-tabs>
-      <q-tab-panels keep-alive v-model="tab" swipeable animated
+      <q-tab-panels keep-alive v-model="tab" animated
       class="shadow- rounded-borders full-width q-mb-md"
       >
         <q-tab-panel name="transfers" :class="transfersClass">
-          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="q-my-md" >
+          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="q-my-sm" >
             <thead class="bg-primary text-white">
               <tr class="text-left">
                 <th>From</th>
@@ -133,17 +133,17 @@
               </tr>
             </tbody>
           </q-markup-table>
-          <div v-else class="text-subtitle1 text-center text-black q-my-md">
+          <div v-else class="text-subtitle1 text-center text-black q-my-sm">
             No recorded transfers!
           </div>
         </q-tab-panel>
         <q-tab-panel name="rumours">
           <rumours v-if="rumours.length" :rumours="rumours" :chunk="5" btnSize="xs" :dense="true" />
-          <div v-else class="text-subtitle1 text-center q-my-md">No recent rumours!</div>
+          <div v-else class="text-subtitle1 text-center q-my-sm">No recent rumours!</div>
         </q-tab-panel>
         <q-tab-panel name="editorials">
           <articles v-if="articles.length" :articles="articles" :chunk="3" :dense="true" />
-          <div v-else class="text-subtitle1 text-center text-black q-my-md">
+          <div v-else class="text-subtitle1 text-center text-black q-my-sm">
             Nothing to display at this time!
           </div>
         </q-tab-panel>
@@ -357,22 +357,6 @@ export default {
         this.birthFormatted = date.formatDate(this.player.birthday.replace(/\s/, 'T') + 'Z', 'DD MMM, YYYY')
       }
     }
-
-    // start () {
-    //   this.startTime = new Date()
-    // },
-
-    // end () {
-    //   this.endTime = new Date()
-    //   let timeDiff = this.endTime - this.startTime // in ms
-    //   // strip the ms
-    //   // timeDiff /= 1000
-
-    //   // get seconds
-    //   // let diff = date.getDateDiff(this.startTime, this.startTime, 'seconds')
-    //   // let seconds = Math.round(timeDiff)
-    //   console.log(timeDiff + ' milliseconds')
-    // }
   }
 
 }

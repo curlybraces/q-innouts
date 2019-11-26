@@ -1,12 +1,12 @@
 <template>
   <q-page>
     <div class="row bg-secondary">
-      <div class="col-4 col-sm-4 col-md-3 offset-sm-1 self-center" :class="logoColClass">
-        <div :style="logoWrapperStyle">
-          <q-img :alt="league.name" contain :src="league.logo" class="q-mx-aut fit" />
+      <div class="col-4 col-sm-4 col-md-3 col-l offset-sm-1 self-center" :class="logoColClass">
+        <div :style="logoWrapperStyle" class="q-mx-auto">
+          <q-img :alt="league.name" contain :src="league.logo" class="q-mx-auto fit" />
         </div>
       </div>
-      <div class="col col-sm-4 self-center rounded-borders bordered bg-secondary  q-pa-sm">
+      <div class="col col-sm-6 col-md-4 col-lg-4 self-center rounded-borders bordered bg-secondary  q-pa-sm">
         <q-list dark :dense="$q.screen.lt.md" class="bg-primary rounded-borders bordered" >
           <q-item >
             <q-item-section >
@@ -265,7 +265,7 @@ export default {
       this.logoWrapperStyle.width = '140px'
       this.logoWrapperStyle.height = '140px'
     } else {
-      this.logoColClass['q-mr-md'] = true
+      // this.logoColClass['q-mr-md'] = true
       this.statsClass['q-pa-xs'] = true
       this.logoWrapperStyle.width = '280px'
       this.logoWrapperStyle.height = '280px'

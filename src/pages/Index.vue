@@ -255,7 +255,7 @@
       elevated
       no-swipe-open
     >
-      <q-list padding link dense class="col" >
+      <q-list padding link dense class="col q-py-none" >
         <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple dens >
@@ -269,7 +269,7 @@
           <q-separator />
         </div>
       </q-list>
-      <q-list padding link class="col" >
+      <q-list padding link class="col q-py-none" >
         <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
@@ -326,13 +326,15 @@ export default {
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'suitor', align: 'center', label: 'Suitor', field: row => row.suitor },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards Assigned', field: row => row.cardRatio, sortable: true },
+        { name: 'total', align: 'center', label: 'Total', field: row => row.cardTotal, sortable: true },
       ],
       unwantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.team },
         { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
-        { name: 'cards', align: 'center', label: 'Cards', field: row => row.cardRatio, sortable: true },
+        { name: 'cards', align: 'center', label: 'Cards Assigned', field: row => row.cardRatio, sortable: true },
+        { name: 'total', align: 'center', label: 'Total', field: row => row.cardTotal, sortable: true },
       ],
       wanteds: [],
       unwanteds: [],
@@ -359,7 +361,7 @@ export default {
 
   meta () {
     return {
-      title: 'Innouts | Football hub for football fans!',
+      title: 'Innouts | Football hub for active fans!',
 
       meta: {
         description: { name: 'description', content: 'Innouts is a football hub for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },

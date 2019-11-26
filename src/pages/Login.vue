@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row justify-center">
-      <div class="col col-sm-8 col-md-6">
+      <div class="col col-sm-10 col-md-8 col-lg-6">
         <q-card class="bg-secondary q-pa-md">
           <q-card-section class="bg-primary text-white q-mb-md">
             <div class="text-h5">Login</div>
@@ -35,7 +35,7 @@
 
             <q-checkbox v-model="remember" label="Remember Me?" />
 
-            <div class="q-mb-md">
+            <div class="q-mb-md q-gutter-sm">
               <q-btn label="Submit" type="submit" color="primary" />
               <q-btn to="/forgot-password" label="Forgot Password?" type="a" color="primary" class="q-ml-sm" />
               <q-btn @click="resendActivation" label="Resend Activation Link?" type="a" color="info" size="sm" class="float-right" />
