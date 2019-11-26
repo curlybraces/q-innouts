@@ -10,7 +10,7 @@
              />
           </div>
         </div>
-        <div class="q-pa-md">
+        <div :class="tableWrapperClass">
           <q-table
             class="my-sticky-header-table bg-secondary"
             title="Transfers"
@@ -160,6 +160,7 @@ export default {
       loading: false,
       window: null,
       windows: [],
+      tableWrapperClass: {}
     }
   },
 
@@ -204,8 +205,10 @@ export default {
 
     if (this.$q.platform.is.mobile) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes']
+      // this.tableWrapperClass['q-pa-md'] = true
     } else {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee', 'notes', 'rating']
+      this.tableWrapperClass['q-pa-md'] = true
     }
   },
 
@@ -223,7 +226,7 @@ export default {
         this.filteredTransfers = []
         this.transfers.forEach(element => {
           // console.log(element.player.nickname.toLowerCase().includes(this.filter))
-          if (element.player.firstName.toLowerCase().includes(this.filter) || element.player.lastName.toLowerCase().includes(this.filter)) {
+          if (element.player.firstName.toLowerCase().includes(this.filter.toLowerCase()) || element.player.lastName.toLowerCase().includes(this.filter.toLowerCase())) {
             this.filteredTransfers.push(element)
           }
         })

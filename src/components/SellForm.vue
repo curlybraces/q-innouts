@@ -14,7 +14,7 @@
 
         <q-form action method="post" @submit="submit">
 
-          <q-markup-table class="table table-hover q-mb-md" v-if="unwanteds.length">
+          <q-markup-table :dense="$q.screen.lt.md" class="table table-hover q-mb-md" v-if="unwanteds.length">
             <thead>
               <tr>
                 <td>Player</td>

@@ -38,7 +38,6 @@
               animated
               transition-prev="jump-up"
               transition-next="jump-up"
-              @before-transition="panelChange"
               class="bordered"
             >
               <q-tab-panel name="account">
@@ -344,9 +343,9 @@ export default {
   },
 
   methods: {
-    panelChange: () => {
+    // panelChange: () => {
 
-    },
+    // },
 
     cancelEmail: function (val, initialVal) {
       this.user.email = initialVal

@@ -2,13 +2,14 @@
 Todo:
   ☐ SSR for pages: Player, Article @low
   ☐ avoid bot registeration @low
-  ☐ change color of teams if dark @low 
 
 Fix:
   ☐ user profile upload doesn't give feedback on failure @low
   ☐ Josh Davison birtday is not accurate @low 
 
 Archive:
+  ✘ transfers serach not working @high @cancelled(19-11-26 00:53) @project(Fix)
+  ✔ change color of teams if dark @low @done(19-11-26 00:45) @project(Todo)
   ✔ link to purchasing additional cards @high @done(19-11-21 21:56) @project(Todo)
   ✔ don't allow access to login page for the alreeady authenticated @high @done(19-11-21 21:56) @project(Fix)
   ✔ player age shows NaN on Safari @low @done(19-11-21 17:52) @project(Fix)

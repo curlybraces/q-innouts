@@ -345,6 +345,16 @@
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>{{player.firstName}} {{player.lastName}}</q-item-section>
+                <q-item-section v-if="$q.screen.lt.md && $q.screen.gt.xs">
+                  <q-rating
+                    color="orange"
+                    class=""
+                    size="1.5rem"
+                    :value="Math.round(player.rating)"
+                    :max="10"
+                    readonly
+                  />
+                </q-item-section>
                 <q-item-section side>{{player.specificPosition}}</q-item-section>
               </q-item>
               <q-separator />
@@ -396,7 +406,7 @@
         <div class="row justify-center">
           <div class="col-grow col-lg-6 col-md-8 col-sm-10">
             <rumours v-if="team.rumours ? team.rumours.length : false" :rumours="team.rumours" :dense="true" btnSize="xs" />
-            <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
+            <div v-else class="text-subtitle1 text-center q-my-md">No recent rumours!</div>
           </div>
         </div>
       </q-tab-panel>
@@ -405,7 +415,7 @@
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
             <articles v-if="team.articles ? team.articles.length : false" :articles="team.articles" :dense="true" />
-            <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
+            <div v-else class="text-subtitle1 text-center q-my-md">Nothing to display at this time!</div>
           </div>
         </div>
       </q-tab-panel>
@@ -544,15 +554,16 @@ export default {
   created: function () {
     this.$store.commit('setRightDrawer', false)
     this.$q.loading.hide()
-    if (this.$q.screen.lt.md) {
-      this.fieldStyle.backgroundColor = '#21BA45'
-      this.fieldStyle.border = '3px solid white'
-      this.headerStyle.minHeight = '200px'
-      this.headerStyle.display = 'flex'
-    } else {
-      this.headerStyle.minHeight = '375px'
-      this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
-    }
+    // if (this.$q.screen.lt.lg) {
+    //   this.fieldStyle.backgroundColor = '#21BA45'
+    //   this.fieldStyle.border = '3px solid white'
+    //   this.headerStyle.minHeight = '200px'
+    // } else if (this.$q.screen.lt.md) {
+    //   this.headerStyle.display = 'flex'
+    // } else {
+    //   this.headerStyle.minHeight = '375px'
+    //   this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
+    // }
   },
 
   methods: {
@@ -620,10 +631,11 @@ export default {
             break
         }
       })
-      if (this.$q.screen.lt.md) {
+      if (this.$q.screen.lt.lg) {
         this.fieldStyle.backgroundColor = '#21BA45'
-        this.fieldStyle.border = '3px solid white'
+        this.fieldStyle.border = '5px solid #1a4870'
         this.headerStyle.minHeight = '200px'
+      } else if (this.$q.screen.lt.md) {
         this.headerStyle.display = 'flex'
       } else {
         this.headerStyle.minHeight = '375px'

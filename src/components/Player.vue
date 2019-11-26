@@ -8,8 +8,7 @@
               <q-img :alt="player.firstName" :src="player.picture" placeholder-src="statics/images/players/picSoon.png" class="q-mx-auto full-width" />
             </div>
           </div>
-          <div class="row content-center bg-secondary q-mt-sm q-pb-sm">
-            <div class="col-12 col-sm-grow text-center">
+          <div class="row content-center bg-secondary q-mt-sm q-pb-sm relative-position">
               <q-rating
                 v-if="$q.screen.lt.md"
                 color="orange"
@@ -21,13 +20,10 @@
                 @input="submitRating"
               />
               <rating v-else @save="submitRating" :rating="rating" :archived="player.retired ? true : false"  color="orange" size="1.3rem" class="q-mx-auto q-mt-sm"/>
-            </div>
-            <div class="col-grow col-sm-2 q-mt-sm text-overline self-center text-center">{{votes}}</div>
+              <div class="absolute-bottom-right text-caption"><span title="votes">🗳</span>{{votes}}</div>
           </div>
           <div v-if="player.broadPosition" class="row justify-center q-py-sm rounded-borders bordered text-">
             <span title="approximate value" class="text-h6 q-mr-sm">€</span> <span class="text-subtitle2 self-center">{{value}} m</span>
-            <!-- <div class="col text-center text-h5" > </div> -->
-            <!-- <div class="col text-subtitle2 self-center"></div> -->
           </div>
         </div>  <!-- children will default to 'col'  -->
       </div>
@@ -117,7 +113,7 @@
       class="shadow- rounded-borders full-width q-mb-md"
       >
         <q-tab-panel name="transfers" :class="transfersClass">
-          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="" >
+          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="q-my-md" >
             <thead class="bg-primary text-white">
               <tr class="text-left">
                 <th>From</th>
@@ -137,17 +133,17 @@
               </tr>
             </tbody>
           </q-markup-table>
-          <div v-else class="text-subtitle1 text-center text-black">
+          <div v-else class="text-subtitle1 text-center text-black q-my-md">
             No recorded transfers!
           </div>
         </q-tab-panel>
         <q-tab-panel name="rumours">
           <rumours v-if="rumours.length" :rumours="rumours" :chunk="5" btnSize="xs" :dense="true" />
-          <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
+          <div v-else class="text-subtitle1 text-center q-my-md">No recent rumours!</div>
         </q-tab-panel>
         <q-tab-panel name="editorials">
           <articles v-if="articles.length" :articles="articles" :chunk="3" :dense="true" />
-          <div v-else class="text-subtitle1 text-center text-black">
+          <div v-else class="text-subtitle1 text-center text-black q-my-md">
             Nothing to display at this time!
           </div>
         </q-tab-panel>

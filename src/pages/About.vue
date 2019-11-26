@@ -25,8 +25,8 @@
 
         <h5 class="q-my-md">Contact</h5>
         <p>
-            If you have any queries drop us a line at:
-              info@innouts.com
+            If you have any queries drop us a line at: <br>
+              &#128231; info@innouts.com
         </p>
       </div>
     </div>

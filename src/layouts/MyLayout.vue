@@ -20,11 +20,12 @@
     <q-drawer
       :value="leftDrawerOpen"
       :breakpoint="250"
-      :width="170"
+      :width="200"
       behavior="mobile"
       elevated
       overlay
-      @hide="$store.commit('toggleLeftDrawer')"
+      @hide="$store.commit('setLeftDrawer', false)"
+      @show="$store.commit('setLeftDrawer', true)"
       bordered
       content-class="bg-secondary"
     >
@@ -94,7 +95,7 @@
 
     <q-ajax-bar size="3px" color="warning" />
 
-    <q-drawer side="right" :value="rightDrawerOpen" content-class="bg-grey-2" elevated />
+    <q-drawer side="right" :value="rightDrawerOpen" no-swipe-open content-class="bg-grey-2" elevated />
 
     <q-page-container>
       <router-view />
@@ -117,7 +118,7 @@
           </a> -->
         </div>
         <div class="col-12 text-caption text-grey q-mt-md">
-          <p>&#10077; {{qotd.body}} &#10078; </p>
+          <p class="q-px-sm">&#10077; {{qotd.body}} &#10078; </p>
           <div class="q-mt-xs">&mdash; {{qotd.from}}, {{qotd.quoteeInfo}} </div>
         </div>
         <div class="col-12 text-caption text-grey q-mt-md">Copyright &copy; 2018-2019 Innouts</div>

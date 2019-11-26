@@ -52,7 +52,7 @@
       <div class="col-12 col-md-3 bg-secondar text-center q-pt-sm">
         <div v-if="user.intro">
           <p class="emoji text-capitalize q-mb-sm"><span>&#128220;</span></p>
-          <q-separator v-if="$q.platform.is.desktop" color="secondary w-50 q-mx-auto"/>
+          <q-separator color="secondary w-50 q-mx-auto"/>
           <p class="text-subtitle1 q-pa-sm text-secondary newsTitle">{{user.intro}}</p>
         </div>
       </div>

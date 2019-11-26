@@ -83,6 +83,19 @@
                   label="Tagged managers"
                 />
               </div>
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedLeagues"
+                  multiple
+                  :options="leagues"
+                  option-label="name"
+                  option-value="id"
+                  use-chips
+                  stack-label
+                  label="Tagged leagues"
+                />
+              </div>
             </div>
           <div class="q-mt-lg">
             <q-btn label="Submit" type="submit" color="primary" />
@@ -177,7 +190,9 @@ export default {
       remains: true,
       managers: [],
       managerOptions: [],
-      taggedManagers: []
+      taggedManagers: [],
+      taggedLeagues: [],
+      leagues: []
       // articleChunks: [],
       // articleBag: []
     }
@@ -241,6 +256,19 @@ export default {
           message: 'Problem fetching managers!'
         })
       })
+    this.$axios.get('api/leagues')
+      .then(response => {
+        this.leagues = response.data
+      })
+      .catch(error => {
+        console.log(error)
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'fas fa-exclamation-triangle',
+          message: 'Problem fetching managers!'
+        })
+      })
   },
 
   methods: {
@@ -265,6 +293,8 @@ export default {
       this.articleBody = ''
       this.taggedPlayers = []
       this.taggedTeams = []
+      this.taggedManagers = []
+      this.taggedLeagues = []
       this.$refs.article.reset()
     },
 
@@ -273,6 +303,7 @@ export default {
         let taggedPlayersIDs = []
         let taggedTeamsIDs = []
         let taggedManagersIDs = []
+        let taggedLeaguesIDs = []
         this.taggedTeams.forEach(element => {
           taggedTeamsIDs.push(element.id)
         })
@@ -282,6 +313,9 @@ export default {
         this.taggedManagers.forEach(element => {
           taggedManagersIDs.push(element.id)
         })
+        this.taggedLeagues.forEach(element => {
+          taggedLeaguesIDs.push(element.id)
+        })
         let formData = new FormData()
         formData.append('picture', this.$refs.article.files[0])
         formData.append('title', this.articleTitle)
@@ -289,6 +323,7 @@ export default {
         formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
         formData.append('taggedPlayers', JSON.stringify(taggedPlayersIDs))
         formData.append('taggedManagers', JSON.stringify(taggedManagersIDs))
+        formData.append('taggedLeagues', JSON.stringify(taggedLeaguesIDs))
         formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'

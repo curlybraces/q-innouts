@@ -46,7 +46,7 @@
         </q-select>
         </div>
 
-    <q-markup-table class="table table-hover q-mb-md" v-if="this.wantedPlayers.length">
+    <q-markup-table :dense="$q.screen.lt.md" class="table table-hover q-mb-md" v-if="this.wantedPlayers.length">
       <thead>
         <tr>
           <td>Player</td>

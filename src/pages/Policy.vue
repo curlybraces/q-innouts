@@ -144,7 +144,7 @@
             <h5 class="q-my-md">Contact Us</h5>
             <p>If you have any questions about this Privacy Policy, please contact us:</p>
             <ul>
-               <li>By email: info@innouts.com</li>
+               <li>&#128231; info@innouts.com</li>
 
             </ul>
       </div>

@@ -242,7 +242,7 @@ export default {
     } else {
       this.headerStyle.minHeight = '375px'
     }
-
+    this.$store.dispatch('getUser', this.$q.cookies.get('token'))
     this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
@@ -301,6 +301,7 @@ export default {
                 icon: 'fas fa-check-circle',
                 message: 'Changes saved!'
               })
+              this.$store.dispatch('getUser', this.$q.cookies.get('token'))
             })
             .catch(err => console.log(err))
         } else {
@@ -321,6 +322,7 @@ export default {
                 icon: 'fas fa-check-circle',
                 message: 'Changes saved!'
               })
+              this.$store.dispatch('getUser', this.$q.cookies.get('token'))
             })
             .catch(err => console.log(err))
         } else {

@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="bg-secondary">
-    <div class="q-pa-sm q-gutter-y-lg">
+  <q-page padding class="bg-secondar">
+    <div class="q-gutter-y-lg">
       <q-carousel
         arrows
         animated
@@ -253,9 +253,10 @@
       :width="400"
       side="right"
       elevated
+      no-swipe-open
     >
       <q-list padding link dense class="col" >
-        <q-item-label header class="bg-primary"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
+        <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple dens >
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -264,18 +265,12 @@
                 {{article.title}}
               </q-tooltip>
             </q-item-section>
-            <!-- <q-item-section v-if="article.time<1" side >
-              <q-badge color="red" label="today" align="top" floating/>
-            </q-item-section>
-            <q-item-section v-else-if="article.time<4" side >
-              <q-badge color="red-4" text-color="" label="new" align="top" floating/>
-            </q-item-section> -->
           </q-item>
           <q-separator />
         </div>
       </q-list>
       <q-list padding link class="col" >
-        <q-item-label header class="bg-primary"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
+        <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
@@ -315,7 +310,7 @@ export default {
       bulletTitleClass: {},
       bulletBodyClass: {},
       columns: [
-        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
+        { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, style: 'max-width: 100px', classes: 'bg-grey-2 ellipsis', sortable: true },
         { name: 'from', align: 'center', label: 'From', field: row => row.from },
         { name: 'to', align: 'center', label: 'To', field: row => row.to },
         { name: 'date', align: 'center', label: 'Date', field: row => row.date, sortable: true },

@@ -74,7 +74,7 @@
             <h5 class="q-my-md">Contact</h5>
             <div>
               You can reach out to us with any ideas, suggestions, complaints or if you need any help through: <br>
-              <div class="q-mt-sm">&#128231;info@innouts.com</div>
+              <div class="q-mt-sm">&#128231;support@innouts.com</div>
             </div>
             <h5>From your profiles, to the brilliant quotes (if ever noticed!), there is a lot more to Innouts which don't need
                much explanation and we hope you will enjoy them!
