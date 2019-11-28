@@ -82,7 +82,7 @@
                       <q-item-label >Total squad value</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >£ {{stats.totalValue}} m</q-item-label>
+                      <q-item-label >£{{stats.totalValue}}m</q-item-label>
                     </q-item-section>
                   </q-item>
 
@@ -194,7 +194,7 @@
                       <q-item-label >Total squad value</q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-item-label >£ {{stats.totalValue}} m</q-item-label>
+                      <q-item-label >£{{stats.totalValue}}m</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-item>
