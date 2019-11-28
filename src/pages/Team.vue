@@ -341,7 +341,7 @@
               <q-item :to="'/players/'+player.id+'/'+player.slug" clickable v-ripple>
                 <q-item-section avatar>
                   <q-avatar rounded>
-                    <q-img :src="player.picture" placeholder-src="statics/images/picSoon.png" />
+                    <q-img :src="player.picture" placeholder-src="statics/images/picSoon.jpg" />
                   </q-avatar>
                 </q-item-section>
                 <q-item-section>{{player.firstName}} {{player.lastName}}</q-item-section>
@@ -370,7 +370,7 @@
               </q-card-section>
               <q-card-section class="q-mt-sm q-pa-sm">
                 <div style="width: 160px; height: 160px" class="q-mx-auto" >
-                  <q-img :src="team.manager.picture" placeholder-src="statics/images/picSoon.png" :alt="team.manager.nickname" class="img-thumbnail" />
+                  <q-img :src="team.manager.picture" placeholder-src="statics/images/picSoon.jpg" :alt="team.manager.nickname" class="img-thumbnail" />
                 </div>
                 <div class="text-center text-black border-bottom border-dark ellipsis text-weight-bold">
                   <router-link :to="'/managers/' + team.manager.slug" class="no-decor" >
@@ -389,7 +389,7 @@
           <q-item v-else :to="'/managers/'+team.manager.slug" class="col bg-t-dar bordered rounded-borders">
             <q-item-section avatar>
               <q-avatar square>
-                <q-img :src="team.manager.picture" placeholder-src="statics/images/picSoon.png" />
+                <q-img :src="team.manager.picture" placeholder-src="statics/images/picSoon.jpg" />
               </q-avatar>
             </q-item-section>
             <q-item-section>{{team.manager.firstName}} {{team.manager.lastName}}</q-item-section>

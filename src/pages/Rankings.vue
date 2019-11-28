@@ -79,7 +79,7 @@
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <router-link :to="'/managers/' + value.value.slug" class="no-decor" >
                     <div id="" class="row inline person-thumbnail no-decor ellipsis">
-                      <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/picSoon.png" class="full-height self-cente" />
+                      <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/picSoon.jpg" class="full-height self-cente" />
                     </div>
                   </router-link>
                 </q-td>
@@ -196,7 +196,7 @@
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
                     <!-- henlo -->
-                    <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/picSoon.png" class="full-height self-cente" />
+                    <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/picSoon.jpg" class="full-height self-cente" />
                   </div>
                 </q-td>
 

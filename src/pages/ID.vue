@@ -11,7 +11,7 @@
             <q-item v-for="(mate) in companions" :key="mate.id" :to="'/players/'+mate.id + '/' + mate.slug" @click="scrollUp" active-class="text-white bg-primary"  clickable v-ripple dense>
               <q-item-section avatar>
                 <q-avatar rounded>
-                  <q-img :src="mate.picture" placeholder-src="statics/images/picSoon.png" />
+                  <q-img :src="mate.picture" placeholder-src="statics/images/picSoon.jpg" />
                 </q-avatar>
               </q-item-section>
               <q-item-section>{{mate.nickname}}</q-item-section>
