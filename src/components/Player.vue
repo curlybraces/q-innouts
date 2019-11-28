@@ -113,7 +113,7 @@
       class="shadow- rounded-borders full-width q-mb-md"
       >
         <q-tab-panel name="transfers" :class="transfersClass">
-          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="q-my-sm" >
+          <q-markup-table v-if="transfers.length" dense separator="horizontal" bordere class="" >
             <thead class="bg-primary text-white">
               <tr class="text-left">
                 <th>From</th>
@@ -133,17 +133,17 @@
               </tr>
             </tbody>
           </q-markup-table>
-          <div v-else class="text-subtitle1 text-center text-black q-my-sm">
+          <div v-else class="text-subtitle1 text-center text-black">
             No recorded transfers!
           </div>
         </q-tab-panel>
         <q-tab-panel name="rumours">
           <rumours v-if="rumours.length" :rumours="rumours" :chunk="5" btnSize="xs" :dense="true" />
-          <div v-else class="text-subtitle1 text-center q-my-sm">No recent rumours!</div>
+          <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
         </q-tab-panel>
         <q-tab-panel name="editorials">
           <articles v-if="articles.length" :articles="articles" :chunk="3" :dense="true" />
-          <div v-else class="text-subtitle1 text-center text-black q-my-sm">
+          <div v-else class="text-subtitle1 text-center text-black">
             Nothing to display at this time!
           </div>
         </q-tab-panel>
