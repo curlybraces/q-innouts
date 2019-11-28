@@ -5,7 +5,7 @@
         <div class="col-grow col-sm-4 col-md-3 q-mx-auto">
           <div class="row justify-center">
             <div style="width: 200px;">
-              <q-img :alt="player.firstName" :src="player.picture" placeholder-src="statics/images/players/picSoon.png" class="q-mx-auto full-width" />
+              <q-img :alt="player.firstName" :src="player.picture" placeholder-src="statics/images/picSoon.png" class="q-mx-auto full-width" />
             </div>
           </div>
           <div class="row content-center bg-secondary q-mt-sm q-pb-sm relative-position">
