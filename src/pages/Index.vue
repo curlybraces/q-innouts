@@ -195,7 +195,7 @@
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                 <q-linear-progress :value="value.value" class="q-mt-md"
-                color="positive" track-color=""
+                color="positive" track-color="" :title="value.value*100+'%'"
                 />
               </q-td>
             </q-table>
@@ -237,7 +237,7 @@
               </q-td>
               <q-td slot="body-cell-cards" slot-scope="value" :props="value">
                 <q-linear-progress :value="value.value" class="q-mt-md"
-                color="negative" track-color=""
+                color="negative" track-color="" :title="value.value*100+'%'"
                 />
               </q-td>
             </q-table>
