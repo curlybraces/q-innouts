@@ -105,9 +105,9 @@
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
       >
-        <q-tab v-if="player.specificPosition" name="transfers" label="Transfers" />
-        <q-tab name="rumours" label="Rumours" />
         <q-tab name="editorials" label="Editorials" />
+        <q-tab name="rumours" label="Rumours" />
+        <q-tab v-if="player.specificPosition" name="transfers" label="Transfers" />
       </q-tabs>
       <q-tab-panels keep-alive v-model="tab" animated
       class="shadow- rounded-borders full-width q-mb-md"
@@ -172,7 +172,7 @@ export default {
     age: null,
     date: new Date(),
     birthFormatted: null,
-    tab: 'rumours',
+    tab: 'editorials',
     rumours: [],
     articles: [],
     current: 1,
@@ -247,12 +247,13 @@ export default {
   watch: {
     'player' () {
       this.setAge()
+      this.tab = 'editorials'
       if (this.player.broadPosition) {
         this.entity = 'player'
-        this.tab = 'transfers'
+        // this.tab = 'transfers'
       } else {
         this.entity = 'manager'
-        this.tab = 'rumours'
+        // this.tab = 'rumours'
       }
 
       if (this.entity === 'player') {
