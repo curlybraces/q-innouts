@@ -154,7 +154,7 @@
                        <li v-for="team in league.teams" :key="team.id" class="league-team-thumbnail q-mx-auto q-mb-md">
                          <router-link :to="'/teams/' + team.slug" >
                             <q-img class="full-height" contain :alt="team.name" :src="team.logo" />
-                              <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                              <q-tooltip :delay="300"  transition-show="scale" transition-hide="scale" >
                                 {{team.name}}
                               </q-tooltip>
                          </router-link>
