@@ -6,6 +6,11 @@
            <p>
              This page is to help you know what is what in Innouts and provide general help.
            </p>
+            <h5 class="q-my-md">Idea?</h5>
+            <div>
+              Pretty simple! To make fans' voice heard on transfer activity of the teams they unconditionally love. In addition
+              you get to know fellow fans and rate the players, managers, etc which forms the basis of our rankings. You are at the CENTER of it all!
+            </div>
             <h5 class="q-my-md">In and Out Cards</h5>
             <div>
                In each transfer window, a fan of a team, will receive a certain number of In and Out cards, which they can use to add players to their In or Out
