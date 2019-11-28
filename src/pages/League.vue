@@ -100,7 +100,7 @@
                           <q-item-label>Average Player Value</q-item-label>
                         </q-item-section>
                         <q-item-section side>
-                          <q-item-label >£ {{stats.playersAvgValue}} m</q-item-label>
+                          <q-item-label >€{{stats.playersAvgValue}}m</q-item-label>
                         </q-item-section>
                       </q-item>
                       <q-item>

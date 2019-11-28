@@ -381,7 +381,6 @@ export default {
       this.selectedFriend = null
       this.users = []
     }
-
   },
 
 }
