@@ -8,7 +8,8 @@ module.exports = function (ctx) {
 
     boot: [
       'axios',
-      'social'
+      'social',
+      'addressbar-color'
     ],
 
     css: [
@@ -101,7 +102,8 @@ module.exports = function (ctx) {
         'Loading',
         'Dialog',
         'Cookies',
-        'Meta'
+        'Meta',
+        'AddressbarColor'
       ],
 
       // iconSet: 'ionicons-v4'

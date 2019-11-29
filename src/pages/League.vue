@@ -175,7 +175,7 @@
               <div class="row justify-center">
                 <div class="col-grow col-sm-9 col-md-7">
                   <articles v-if="articles.length" :articles="articles" :chunk="7" :dense="true" />
-                  <div v-else class="text-subtitle1 text-center text-black q-my-md">
+                  <div v-else class="text-subtitle1 text-center text-black">
                     Nothing to display at this time!
                   </div>
                 </div>

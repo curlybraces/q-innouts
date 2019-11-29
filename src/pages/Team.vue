@@ -406,7 +406,7 @@
         <div class="row justify-center">
           <div class="col-grow col-lg-6 col-md-8 col-sm-10">
             <rumours v-if="team.rumours ? team.rumours.length : false" :rumours="team.rumours" :dense="true" btnSize="xs" />
-            <div v-else class="text-subtitle1 text-center q-my-md">No recent rumours!</div>
+            <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
           </div>
         </div>
       </q-tab-panel>
@@ -415,7 +415,7 @@
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
             <articles v-if="team.articles ? team.articles.length : false" :articles="team.articles" :dense="true" />
-            <div v-else class="text-subtitle1 text-center q-my-md">Nothing to display at this time!</div>
+            <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
           </div>
         </div>
       </q-tab-panel>
