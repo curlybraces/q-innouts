@@ -9,7 +9,8 @@ module.exports = function (ctx) {
     boot: [
       'axios',
       'social',
-      'addressbar-color'
+      'addressbar-color',
+      'gtm-plugin'
     ],
 
     css: [

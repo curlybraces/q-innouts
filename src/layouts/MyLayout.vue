@@ -168,7 +168,7 @@ export default {
   },
 
   created () {
-    this.$q.addressbarColor.set()
+    // this.$q.addressbarColor.set()
     this.$axios.get('api/leagues-teams')
       .then(response => {
         this.leagues = response.data.leagues
