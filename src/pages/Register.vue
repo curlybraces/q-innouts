@@ -39,7 +39,7 @@
               label="Password *"
               lazy-rules
               :rules="[
-                val => val.length >= 10 || 'Please use minimum 10 characters'
+                val => val.length >= 7 || 'Please use a minimum of 7 characters'
               ]"
             />
 

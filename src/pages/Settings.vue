@@ -87,7 +87,7 @@
                               v-model="password"
                               lazy-rules
                               :rules="[
-                                val => val.length >= 10 || 'Please use minimum 10 characters'
+                                val => val.length >= 7 || 'Please use a minimum of 7 characters'
                               ]"
                             >
                               <template v-slot:append>
@@ -370,7 +370,7 @@ export default {
     },
 
     validatePass: function (val) {
-      return val.length >= 10
+      return val.length >= 7
     },
 
     savePass: function (val, initialVal) {
@@ -398,7 +398,7 @@ export default {
             cancel: true,
             persistent: true
           }).onOk(data => {
-            if (data.length >= 10) {
+            if (data.length >= 7) {
               this.$axios({ url: 'api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
                 .then(response => {
                   this.$q.notify({

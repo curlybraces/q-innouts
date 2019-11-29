@@ -251,7 +251,7 @@ export default {
       /* eslint-disable */
       // Set your publishable key: remember to change this to your live secret key in production
       // See your keys here: https://dashboard.stripe.com/account/apikeys
-      this.stripe = Stripe("pk_test_8CzJJAUKTTpZlI9e71y9gLac00bkyma7F2");
+      this.stripe = Stripe("pk_live_0ioPhILEstTVuzz6TAyFaJ7l00GiR08xFL");
       var elements = this.stripe.elements();
 
       // Set up Stripe.js and Elements to use in checkout form
