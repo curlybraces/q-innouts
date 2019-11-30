@@ -11,21 +11,21 @@
         </div>
       </div>
 
-      <div class="row justify-around bg-primary q-py-sm bordered">
-        <q-card class="col-grow col-md-3 order-sm-first text-center bordere rounded-borders q-mt-md">
-          <q-card-section class="text-h5 text-capitalize bg-secondary bordered q-pa-sm"><span>&#128221;</span></q-card-section>
+      <div class="row justify-around bg-primary q-py-sm">
+        <q-card flat dark class="col-grow col-md-3 order-sm-first text-center q-mt-md bg-primary">
+          <q-card-section class="text-h5 text-capitalize q-pa-sm bg-secondary"><span>&#128221;</span></q-card-section>
           <q-separator v-if="$q.platform.is.desktop" color="secondary"/>
-          <p class="text-subtitle1 q-pa-sm newsTitle">
+          <p class="text-subtitle1 q-pa-sm">
             {{user.intro}}
-            <span v-if="!user.intro">Click to write!</span>
+            <span v-if="!user.intro">click to write!</span>
             <q-popup-edit buttons :value="user.intro" @save="saveIntro" @cancel="cancelIntro" >
               <q-input maxlength="150" type="textarea" v-model="user.intro" dense autofocus counter @keyup.enter.stop />
             </q-popup-edit>
           </p>
         </q-card>
         <div class="col-12 col-md-3 bg-secondar q-pt-s self-center">
-          <q-card  flat bordered square class="text-subtitle1 q-mt-md">
-            <q-list>
+          <q-card flat dark squre class="text-subtitle1 q-mt-md bg-primary">
+            <q-list class="bordered rounded-borders">
               <q-item>
                 <q-item-section side>In cards</q-item-section>
                 <q-item-section>{{user.signCards}}</q-item-section>
@@ -53,11 +53,11 @@
                 </q-item-section>
               </q-item>
             </q-list>
-            <div class="text-caption text-center q-py-sm">Want more still? <router-link to="/purchase-cards"> Here.</router-link></div>
+            <div class="text-caption text-center q-py-sm">Want more still? <router-link to="/purchase-cards" class="text-info"> Here.</router-link></div>
           </q-card>
         </div>
         <div class="col-grow col-md-3">
-          <q-card class="column q-pa-m w-7 q-mx-auto q-mt-md">
+          <q-card flat dark class="column q-pa-m w-7 q-mx-auto q-mt-md bg-primary">
               <q-card-section class="text-h6 text-center bg-secondary bordered q-pa-sm rounded-borders">
                 <span title="Achievements: you will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
               </q-card-section>
@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <div class="row justify-center q-mb-lg q-gutter-md">
+      <div class="row justify-center q-mb-lg" :class="fanTransfersRowClass">
         <div class="col-12 col-md-5">
           <q-table
             class="my-sticky-header-table"
@@ -201,7 +201,8 @@ export default {
       wanteds: [],
       unwanteds: [],
       info: {},
-      date: new Date()
+      date: new Date(),
+      fanTransfersRowClass: {}
     }
   },
 
@@ -234,8 +235,10 @@ export default {
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
       this.headerStyle.display = 'flex'
+      this.fanTransfersRowClass['q-gutter-y-sm'] = true
     } else {
       this.headerStyle.minHeight = '375px'
+      this.fanTransfersRowClass['q-gutter-md'] = true
     }
     this.$store.dispatch('getUser', this.$q.cookies.get('token'))
     this.$axios.get('api/windows')

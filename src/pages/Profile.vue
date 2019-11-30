@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div class="row justify-around bg-primary q-gutter-x-md q-py-md bordered">
-      <q-card class="col-grow col-md-3 order-sm-first self-center bg-secondary bordered rounded-borders">
+    <div class="row justify-around bg-primary q-py-md">
+      <q-card dark flat bordered class="col-grow col-md-3 order-sm-first self-center bg-primary">
         <q-list dense dar >
           <q-item>
             <q-item-section avatar>
@@ -57,20 +57,18 @@
         </div>
       </div>
       <div class="col-grow col-md-3">
-        <q-card class="column q-pa-m q-mx-auto">
-          <div class="">
-            <div class="text-h6 text-center bg-secondary rounded-borders bordered q-pa-sm">
-              <span title="Achievements: fans will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
-            </div>
-            <div class="q-pa-md">
-              <div class="q-mb-sm q-gutter-x-xs text-center">
-                <div v-if="user.level>1">
-                  <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 in + 1 out cards">
-                    &#127894;
-                  </span>
-                </div>
-                <div v-if="user.level<1" class="emoji" title="Rookie: level under 1"> &#129318;&#127996;</div>
+        <q-card flat class="column q-pa-m q-mx-auto bg-primary">
+          <q-card-section class="text-h6 text-center bg-secondary rounded-borders bordered q-pa-sm">
+            <span title="Achievements: fans will receive an extra in and out cards for each medal!" style='font-size:1.7rem;'>&#127942;</span>
+          </q-card-section>
+          <div class="q-pa-md">
+            <div class="q-mb-sm q-gutter-x-xs text-center">
+              <div v-if="user.level>1">
+                <span v-for="el in Math.floor(user.level)" :key="el" color="red" size="2rem" class="emoji" title="1 medal = 1 in + 1 out cards">
+                  &#127894;
+                </span>
               </div>
+              <div v-if="user.level<1" class="emoji" title="Rookie: level under 1"> &#129318;&#127996;</div>
             </div>
           </div>
         </q-card>
@@ -86,7 +84,7 @@
       </div>
     </div>
 
-    <div class="row justify-center q-mb-lg q-gutter-md">
+    <div class="row justify-center q-mb-lg" :class="fanTransfersRowClass">
       <div class="col-12 col-md-5">
         <q-table
           class="my-sticky-header-table"
@@ -175,7 +173,8 @@ export default {
       ],
       wanteds: [],
       unwanteds: [],
-      info: {}
+      info: {},
+      fanTransfersRowClass: {}
     }
   },
 
@@ -257,8 +256,10 @@ export default {
       if (this.$q.screen.lt.md) {
         this.headerStyle.minHeight = '200px'
         this.headerStyle.display = 'flex'
+        this.fanTransfersRowClass['q-gutter-y-sm'] = true
       } else {
         this.headerStyle.minHeight = '375px'
+        this.fanTransfersRowClass['q-gutter-md'] = true
       }
       this.info.joined = date.formatDate(this.user.created_at.replace(/\s/, 'T') + 'Z', 'MMM, YYYY')
       this.info.since = date.formatDate(this.user.fanSince.replace(/\s/, 'T') + 'Z', 'MMM, YYYY')

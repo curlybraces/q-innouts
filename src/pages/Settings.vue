@@ -106,7 +106,7 @@
                       <q-item-section class="text-center">
                         <q-uploader
                           :url="'api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
-                          accept="image/jpg" :max-file-size="500000" field-name="profile" method="PUT"
+                          accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
                           :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
                           ref="profile" :factory="uploadFile"
                         />
