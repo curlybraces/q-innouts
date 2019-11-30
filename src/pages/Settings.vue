@@ -110,6 +110,10 @@
                           :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
                           ref="profile" :factory="uploadFile"
                         />
+                        <form action="/action_page.php">
+                          Select a file: <input type="file" name="myFile"><br><br>
+                          <input type="submit">
+                        </form>
                       </q-item-section>
                     </q-item>
                   </q-list>
