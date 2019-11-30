@@ -84,13 +84,6 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/test',
-    component: () => import('layouts/Test.vue'),
-    // children: [
-    //   { path: '', component: () => import('pages/Index.vue') },
-    // ]
-  },
 
 ]
 

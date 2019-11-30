@@ -20,9 +20,9 @@ const checkConsent = (cookies) => {
  */
 
 export default function ({ ssrContext }) {
-  const cookies = Cookies
-  // ? Cookies.parseSSR(ssrContext)
-  // : Cookies // otherwise we're on client
+  const cookies = process.env.SERVER
+    ? Cookies.parseSSR(ssrContext)
+    : Cookies // otherwise we're on client
 
   const Store = new Vuex.Store({
     // modules: {

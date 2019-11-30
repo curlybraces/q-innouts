@@ -250,10 +250,8 @@ export default {
       this.tab = 'editorials'
       if (this.player.broadPosition) {
         this.entity = 'player'
-        // this.tab = 'transfers'
       } else {
         this.entity = 'manager'
-        // this.tab = 'rumours'
       }
 
       if (this.entity === 'player') {
@@ -306,7 +304,7 @@ export default {
           })
           .catch(error => {
             this.$q.notify({
-              color: 'red-5',
+              color: 'negative',
               textColor: 'white',
               icon: 'fas fa-exclamation-triangle',
               message: error.response.data.error
@@ -314,8 +312,8 @@ export default {
           })
       } else {
         this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
+          color: 'primary',
+          textColor: 'secondary',
           icon: 'fas fa-exclamation-triangle',
           message: 'Please login or register to rate.'
         })
@@ -336,7 +334,7 @@ export default {
           })
           .catch(error => {
             this.$q.notify({
-              color: 'red-5',
+              color: 'negative',
               textColor: 'white',
               icon: 'fas fa-exclamation-triangle',
               message: error.response.data.error
@@ -344,8 +342,8 @@ export default {
           })
       } else {
         this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
+          color: 'primary',
+          textColor: 'secondary',
           icon: 'fas fa-exclamation-triangle',
           message: 'Please login or register to rate.'
         })

@@ -38,7 +38,7 @@
             <div class="q-mb-md q-gutter-sm">
               <q-btn label="Submit" type="submit" color="primary" />
               <q-btn to="/forgot-password" label="Forgot Password?" type="a" color="primary" class="q-ml-sm" />
-              <q-btn @click="resendActivation" label="Resend Activation Link?" type="a" color="info" size="sm" class="float-right" />
+              <q-btn @click="resendActivation" label="Resend Activation Link?" type="a" color="info" text-color="black" size="sm" class="float-right" />
             </div>
           </q-form>
         </q-card>
@@ -102,7 +102,7 @@ export default {
         .then(() => this.$router.push({ name: 'home' }))
         .catch(err => {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             icon: 'fas fa-exclamation-triangle',
             message: err.response.data.message
           })
@@ -114,7 +114,7 @@ export default {
         this.$axios({ url: 'api/resend-activation-link', data: { email: this.email }, method: 'POST' })
           .then(response => {
             this.$q.notify({
-              color: 'green-4',
+              color: 'positive',
               textColor: 'white',
               icon: 'fas fa-check-circle',
               message: response.data.message
@@ -122,7 +122,7 @@ export default {
           })
           .catch(error => {
             this.$q.notify({
-              color: 'red-5',
+              color: 'negative',
               textColor: 'white',
               icon: 'fas fa-exclamation-triangle',
               message: error.response.data.error
@@ -130,12 +130,11 @@ export default {
           })
       } else {
         this.$q.notify({
-          color: 'red-5',
+          color: 'negative',
           icon: 'fas fa-exclamation-triangle',
           message: 'Please enter your email!'
         })
       }
-      // console.log('hey')
     }
 
   },

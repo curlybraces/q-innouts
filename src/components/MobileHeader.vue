@@ -168,7 +168,7 @@ export default {
         .then(() => this.$router.push({ name: 'home' }))
         .catch(err => {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
             message: err.response.data.message

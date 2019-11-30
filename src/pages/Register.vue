@@ -113,7 +113,7 @@ export default {
           .then(() => {
             this.$q.notify({
               timeout: 8000,
-              color: 'warning',
+              color: 'positive',
               textColor: 'black',
               icon: 'fas fa-information-circle',
               message: 'Thanks for signing up! We\'ve sent an activation link to your email. Please confirm it before trying to login.'
@@ -122,7 +122,7 @@ export default {
           })
           .catch(err => {
             this.$q.notify({
-              color: 'red-5',
+              color: 'red-10',
               textColor: 'white',
               icon: 'warning',
               message: err.response.data.message
@@ -130,7 +130,7 @@ export default {
           })
       } else {
         this.$q.notify({
-          color: 'red-5',
+          color: 'red-10',
           textColor: 'white',
           icon: 'warning',
           message: 'Terms not accepted!'

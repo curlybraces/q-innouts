@@ -117,7 +117,7 @@ export default {
           })
           .then(response => {
             this.$q.notify({
-              color: 'green-4',
+              color: 'positive',
               textColor: 'white',
               icon: 'fas fa-check-circle',
               message: response.data.message
@@ -128,7 +128,7 @@ export default {
           })
           .catch(error => {
             this.$q.notify({
-              color: 'red-5',
+              color: 'negative',
               textColor: 'white',
               icon: 'fas fa-exclamation-triangle',
               message: error.response.data.message
@@ -136,7 +136,7 @@ export default {
           })
       } else {
         this.$q.notify({
-          color: 'red-5',
+          color: 'negative',
           textColor: 'white',
           icon: 'fas fa-exclamation-triangle',
           message: 'You have used more cards than you got! fix and retry.'
@@ -146,7 +146,6 @@ export default {
 
     add: function (details) {
       this.selecteds.push(details.value)
-      // console.log(details)
     }
   }
 }

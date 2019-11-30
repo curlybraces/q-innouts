@@ -110,16 +110,16 @@
                   <div class="text-h5 q-pa-sm">Details</div>
                   <div class="row justify q-my-sm q-gutter-x-sm">
                     <div class="col-md-2">
-                      <q-input v-model="fee" label="Fee (m£)" type="number" class="q-mb-sm" />
+                      <q-input v-model="fee" label="Fee (€m)" type="number" class="q-mb-sm" />
+                    </div>
+                    <div class="col-md-2 self-center">
+                      <q-input v-model="notes" label="Notes" type="text" />
                     </div>
                     <div class="col-md-2">
                       <q-input v-model="date" label="Date" type="date" class="q-mb-sm" />
                     </div>
-                    <div class="col-md-2 self-center">
-                      <q-toggle v-model="loan" label="Loan transfer?" />
-                    </div>
                     <div class="col-md-2">
-                      <q-input v-if="loan" v-model="returnDate" label="Return date" type="date" class="q-mb-sm" />
+                      <q-input v-model="returnDate" label="Return date" type="date" class="q-mb-sm" />
                     </div>
                   </div>
                   <div class="q-mt-lg">
@@ -170,7 +170,7 @@ export default {
       targetTeams: [],
       targetTeam: null,
       fee: null,
-      loan: false,
+      notes: '',
       date: null,
       returnDate: null,
 
@@ -236,14 +236,14 @@ export default {
       this.targetTeams = []
       this.targetTeam = null
       this.fee = null
-      this.loan = false
+      this.notes = ''
       this.date = null
       this.returnDate = null
     },
 
     onTransferSubmit () {
       if (this.player && this.targetTeam && this.date) {
-        this.$axios({ url: 'api/transfers', data: { player_id: this.player.id, from: this.team.id, to: this.targetTeam.id, fee: this.fee, date: this.date, loan: this.loan, returnDate: this.returnDate }, method: 'POST' })
+        this.$axios({ url: 'api/transfers', data: { player_id: this.player.id, from: this.team.id, to: this.targetTeam.id, fee: this.fee, date: this.date, notes: this.notes, returnDate: this.returnDate }, method: 'POST' })
           .then(response => {
             this.$q.notify({
               color: 'green-4',

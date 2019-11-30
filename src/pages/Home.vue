@@ -230,11 +230,6 @@ export default {
   },
 
   mounted: function () {
-    // if (this.user) {
-    //   if (!this.user.team_id) {
-    //     this.$router.push({ name: 'settings' })
-    //   }
-    // }
     this.$store.commit('setRightDrawer', false)
     if (this.$q.screen.lt.md) {
       this.headerStyle.minHeight = '200px'
@@ -296,7 +291,7 @@ export default {
           this.$axios({ url: 'api/wanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
-                color: 'green-4',
+                color: 'positive',
                 textColor: 'white',
                 icon: 'fas fa-check-circle',
                 message: 'Changes saved!'
@@ -306,7 +301,7 @@ export default {
             .catch(err => this.$q.notify({ message: err.data.message }))
         } else {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
             message: 'More than a total of ' + this.user.signCards + ' cards used!'
@@ -317,7 +312,7 @@ export default {
           this.$axios({ url: 'api/unwanteds/' + id, data: { userID: this.user.id, newPriority: event }, method: 'PUT' })
             .then(response => {
               this.$q.notify({
-                color: 'green-4',
+                color: 'positive',
                 textColor: 'white',
                 icon: 'fas fa-check-circle',
                 message: 'Changes saved!'
@@ -327,7 +322,7 @@ export default {
             .catch(err => this.$q.notify({ message: err.data.message }))
         } else {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'fas fa-exclamation-triangle',
             message: 'More than a total of ' + this.user.sellCards + ' cards used!'
@@ -364,12 +359,6 @@ export default {
       let sum = this.sumCards('ins')
       return val >= 0 && sum <= this.user.signCards
     },
-
-    // validateSign (val, index) {
-    //   let sum = this.sumCards('ins')
-    //   sum -= this.wanteds[index].priority
-    //   return val >= 0 && val <= this.user.signCards - sum
-    // },
 
     validateSell (val) {
       let sum = this.sumCards('outs')

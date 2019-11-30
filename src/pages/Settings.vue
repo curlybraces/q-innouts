@@ -315,7 +315,7 @@ export default {
       })
       .catch(error => {
         this.$q.notify({
-          color: 'red-5',
+          color: 'negative',
           textColor: 'white',
           icon: 'fas fa-exclamation-triangle',
           message: error.response.data.error
@@ -356,7 +356,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { email: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Email updated!'
@@ -402,7 +402,7 @@ export default {
               this.$axios({ url: 'api/users/' + this.user.id, data: { newPass: this.password, oldPass: data }, method: 'PUT' })
                 .then(response => {
                   this.$q.notify({
-                    color: 'green-4',
+                    color: 'positive',
                     textColor: 'white',
                     icon: 'fas fa-check-circle',
                     message: 'Password updated!'
@@ -410,7 +410,7 @@ export default {
                 })
                 .catch(err => {
                   this.$q.notify({
-                    color: 'red-5',
+                    color: 'negative',
                     textColor: 'white',
                     icon: 'fas fa-check-circle',
                     message: err.response.data.error
@@ -419,7 +419,7 @@ export default {
               // this.password = ''
             } else {
               this.$q.notify({
-                color: 'red-5',
+                color: 'negative',
                 textColor: 'white',
                 icon: 'fas fa-check-circle',
                 message: 'Old password not correct!'
@@ -431,7 +431,7 @@ export default {
           }).onDismiss(() => {})
         } else {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Passwords did not match!'
@@ -457,7 +457,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newName: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Name changed!'
@@ -474,7 +474,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newNationality: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Nationality saved!'
@@ -496,7 +496,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newBirthday: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Birthday saved!'
@@ -513,7 +513,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newGender: val }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Gender saved!'
@@ -541,7 +541,7 @@ export default {
       this.$axios({ url: 'api/users/' + this.user.id, data: { team: val.id }, method: 'PUT' })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: 'Team saved!'
@@ -566,7 +566,7 @@ export default {
         })
         .catch(err => {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: err.response.data.message

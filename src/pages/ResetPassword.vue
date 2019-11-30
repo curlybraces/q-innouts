@@ -29,7 +29,7 @@
               label="New Password"
               lazy-rules
               :rules="[
-                val => val.length >= 6 || 'Please use minimum 6 characters'
+                val => val.length >= 7 || 'Please use a minimum of 7 characters'
               ]"
             />
             <q-input
@@ -80,15 +80,15 @@ export default {
       })
         .then(response => {
           this.$q.notify({
-            color: 'green-4',
+            color: 'positive',
             textColor: 'white',
             icon: 'fas fa-check-circle',
             message: response.data.message
           })
-          this.$router.push({ name: 'login' })
+          this.$router.push({ path: '/login' })
         }, error => {
           this.$q.notify({
-            color: 'red-5',
+            color: 'negative',
             textColor: 'white',
             icon: 'warning',
             message: error.response.data.message
