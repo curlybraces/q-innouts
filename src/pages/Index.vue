@@ -11,7 +11,7 @@
       >
         <q-carousel-slide v-for="(bulletin, idx) in bulletins" :key="bulletin.id" :name="idx" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div class="newsTitle text-capitalize" :class="bulletTitleClass" >{{bulletin.title}}</div>
+            <div class="newsTitle text-capitalize q-mb-sm" :class="bulletTitleClass" >{{bulletin.title}}</div>
             <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body"></div>
           </div>
         </q-carousel-slide>
