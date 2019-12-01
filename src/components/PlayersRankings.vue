@@ -12,12 +12,12 @@
           row-key="name"
           class="bg-secondary"
         >
-          <q-td slot="body-cell-rank" slot-scope="value" :props="value">
+          <!-- <q-td slot="body-cell-rank" slot-scope="value" :props="value">
             <div :style="medalStyle" v-if="value.value===1">&#129351;</div>
             <div :style="medalStyle" v-else-if="value.value===2">&#129352;</div>
             <div :style="medalStyle" v-else-if="value.value===3">&#129353;</div>
             <div v-else>{{value.value}}</div>
-          </q-td>
+          </q-td> -->
           <q-td slot="body-cell-player" slot-scope="value" :props="value">
             <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
               <div v-if="$q.platform.is.desktop" class="q-mx-aut person-thumbnail no-decor ellipsis">
@@ -208,7 +208,7 @@ export default {
         { name: 'value', align: 'left', label: 'value (€m)', field: 'value', sortable: true },
       ],
       overallColumns: [
-        { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
+        // { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'player', required: true, label: 'Player', align: 'left', field: row => row },
         { name: 'nationality', align: 'left', label: 'Nationality', field: 'nationality', sortable: true },
         { name: 'age', align: 'left', label: 'Age', field: 'age', sortable: true },
@@ -218,7 +218,7 @@ export default {
       ],
       pagination: {
         rowsPerPage: 10,
-        sortBy: 'rank',
+        sortBy: 'score',
         descending: false,
       },
       u23Pagination: {

@@ -70,12 +70,12 @@
                 row-key="name"
                 class="bg-secondary"
               >
-                <q-td slot="body-cell-rank" slot-scope="value" :props="value">
+                <!-- <q-td slot="body-cell-rank" slot-scope="value" :props="value">
                   <div :style="medalStyle" v-if="value.value===1">&#129351;</div>
                   <div :style="medalStyle" v-else-if="value.value===2">&#129352;</div>
                   <div :style="medalStyle" v-else-if="value.value===3">&#129353;</div>
                   <div v-else>{{value.value}}</div>
-                </q-td>
+                </q-td> -->
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <router-link :to="'/managers/' + value.value.slug" class="no-decor" >
                     <div id="" class="row inline person-thumbnail no-decor ellipsis">
@@ -195,7 +195,6 @@
               >
                 <q-td slot="body-cell-manager" slot-scope="value" :props="value">
                   <div id="" class="row inline person-thumbnail no-decor ellipsis">
-                    <!-- henlo -->
                     <q-img :src="value.value.picture" :alt="value.value.name" placeholder-src="statics/images/picSoon.jpg" class="full-height self-cente" />
                   </div>
                 </q-td>
@@ -284,7 +283,7 @@ export default {
       ],
       teams: [],
       managerColumns: [
-        { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
+        // { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'manager', required: true, label: 'Manager', align: 'left', field: row => row },
         { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.firstName + ' ' + row.lastName },
         { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
@@ -294,7 +293,7 @@ export default {
       ],
       managersPagination: {
         rowsPerPage: 10,
-        sortBy: 'rank',
+        sortBy: 'score',
         descending: false,
       },
       managers: [],
