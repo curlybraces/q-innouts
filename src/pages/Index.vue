@@ -11,7 +11,7 @@
       >
         <q-carousel-slide v-for="(bulletin, idx) in bulletins" :key="bulletin.id" :name="idx" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
-            <div class="newsTitle" :class="bulletTitleClass" >{{bulletin.title}}</div>
+            <div class="newsTitle text-capitalize" :class="bulletTitleClass" >{{bulletin.title}}</div>
             <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body"></div>
           </div>
         </q-carousel-slide>
@@ -297,7 +297,6 @@
 
 <script>
 import axios from 'axios'
-// import { date } from 'quasar'
 
 export default {
   name: 'HomePage',
@@ -432,10 +431,6 @@ export default {
       this.bulletins = response.data.bulletins
       this.articles = response.data.articles
       this.rumours = response.data.rumours
-      // this.articles.forEach(element => {
-      //   let diff = date.getDateDiff(this.date, element.created_at, 'days')
-      //   element.time = diff
-      // })
       this.wanteds = response.data.wanteds
       this.unwanteds = response.data.unwanteds
     },
