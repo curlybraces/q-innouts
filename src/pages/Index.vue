@@ -9,7 +9,7 @@
         v-model="slide"
         :height="carouselHeight"
       >
-        <q-carousel-slide v-for="bulletin in bulletins" :key="bulletin.id" :name="bulletin.id" :img-src="bulletin.picture">
+        <q-carousel-slide v-for="(bulletin, idx) in bulletins" :key="bulletin.id" :name="idx" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
             <div class="newsTitle" :class="bulletTitleClass" >{{bulletin.title}}</div>
             <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body"></div>
@@ -430,7 +430,6 @@ export default {
     setData: function (response) {
       this.transfers = response.data.transfers
       this.bulletins = response.data.bulletins
-      // this.slide = this.bulletins.length
       this.articles = response.data.articles
       this.rumours = response.data.rumours
       // this.articles.forEach(element => {
