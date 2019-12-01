@@ -27,11 +27,12 @@
             <q-editor v-model="rumourBody" min-height="8rem" />
             <div class="row q-gutter-x-sm">
               <div class="col">
-                <q-uploader
+                <!-- <q-uploader
                   url="" label="Choose appropriate image" hide-upload-btn
                   accept="image/*" :max-file-size="400000"
                   class="q-my-sm" ref="rumour"
-                />
+                /> -->
+              <input type="file" accept="image/*" required ref="rumour">
               </div>
             </div>
             <div class="row q-gutter-x-sm">
@@ -262,7 +263,8 @@ export default {
       this.rumourBody = ''
       this.taggedPlayers = []
       this.taggedTeams = []
-      this.$refs.rumour.reset()
+      // this.$refs.rumour.reset()
+      this.$refs.rumour.value = null
     },
 
     onRumourSubmit () {

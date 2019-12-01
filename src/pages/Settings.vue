@@ -104,15 +104,16 @@
                     </q-item>
                     <q-item class="q-mt-lg">
                       <q-item-section class="text-center">
-                        <q-uploader
+                        <!-- <q-uploader
                           :url="'api/users/'+user.id" no-thumbnail label="Upload Profile Picture" class="q-mx-auto"
                           accept="image/*" :max-file-size="500000" field-name="profile" method="PUT"
                           :headers="[{name: 'Authorization', value: 'Bearer ' + token}, {name: 'Accept', value: 'application/json, text/plain, */*'}]"
                           ref="profile" :factory="uploadFile"
-                        />
-                        <form action="/action_page.php">
-                          Select a file: <input type="file" name="myFile"><br><br>
-                          <input type="submit">
+                        /> -->
+                        <form method="post" @submit.prevent='uploadFile' :action="'/api/users/'+this.user.id" enctype="multipart/form-data">
+                          Upload a profile picture: <input type="file" name="profile" accept="image/*" required ref="profile"><br><br>
+                          <q-btn label="Submit" type="submit" color="primary" size="sm" />
+                          <!-- <input type="submit"> -->
                         </form>
                       </q-item-section>
                     </q-item>
@@ -580,7 +581,7 @@ export default {
 
     uploadFile (files) {
       let formData = new FormData()
-      formData.append('profile', files[0])
+      formData.append('profile', this.$refs.profile.files[0])
       let headers = {
         'Content-Type': 'multipart/form-data'
       }
@@ -588,18 +589,28 @@ export default {
       // console.log(files)
       // console.log(this.$refs.profile.files[0])
       // console.log(formData)
-      return new Promise((resolve, reject) => {
-        this.$axios.post('api/users/' + this.user.id, formData, headers)
-          .then(function (response) {
-            this.$q.notify({ message: response.data.message })
-            resolve(files)
+      // return new Promise((resolve, reject) => {
+      this.$axios.post('api/users/' + this.user.id, formData, headers)
+        .then(response => {
+          this.$q.notify({
+            color: 'positive',
+            textColor: 'secondary',
+            message: response.data.message
           })
-          .catch(function (error) {
-            this.$q.notify({ message: error.data.message })
-            reject(error)
+          // resolve(files)
+          this.$store.dispatch('getUser', this.$q.cookies.get('token'))
+          this.$refs.profile.value = null
+        })
+        .catch(error => {
+          this.$q.notify({
+            color: 'positive',
+            textColor: 'secondary',
+            message: error.data.message
           })
-      })
-    }
+          // reject(error)
+        })
+      // })
+    },
 
   }
 }

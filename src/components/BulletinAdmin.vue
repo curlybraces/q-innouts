@@ -25,11 +25,12 @@
           >
             <q-input v-model="bulletinTitle" label="title" class="q-mb-sm" />
             <q-editor v-model="bulletinBody" min-height="8rem" />
-            <q-uploader
+            <!-- <q-uploader
               url="" label="Choose appropriate image" hide-upload-btn
               style="max-width: 300px" accept="image/*" :max-file-size="800000"
               class="q-my-sm" ref="bulletin"
-            />
+            /> -->
+            <input type="file" accept="image/*" required ref="bulletin">
           <div class="q-mt-lg">
             <q-btn label="Submit" type="submit" color="primary" />
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
@@ -129,7 +130,8 @@ export default {
     onBulletinReset () {
       this.bulletinTitle = ''
       this.bulletinBody = ''
-      this.$refs.bulletin.reset()
+      // this.$refs.bulletin.reset()
+      this.$refs.bulletin.value = null
     },
 
     onBulletinSubmit () {

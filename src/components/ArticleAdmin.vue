@@ -27,11 +27,12 @@
             <q-editor v-model="articleBody" min-height="8rem" />
             <div class="row q-gutter-x-sm">
               <div class="col">
-                <q-uploader
+                <!-- <q-uploader
                   url="" label="Choose appropriate image" hide-upload-btn
                   accept="image/*" :max-file-size="400000"
                   class="q-my-sm" ref="article"
-                />
+                /> -->
+              <input type="file" accept="image/*" required ref="article">
               </div>
             </div>
             <div class="row q-gutter-x-sm">
@@ -295,7 +296,8 @@ export default {
       this.taggedTeams = []
       this.taggedManagers = []
       this.taggedLeagues = []
-      this.$refs.article.reset()
+      // this.$refs.article.reset()
+      this.$refs.article.value = null
     },
 
     onArticleSubmit () {
