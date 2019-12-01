@@ -304,7 +304,7 @@ export default {
 
   data: () => {
     return {
-      slide: 1,
+      slide: 0,
       date: new Date(),
       carouselHeight: '500px',
       bulletTitleClass: {},
@@ -430,7 +430,7 @@ export default {
     setData: function (response) {
       this.transfers = response.data.transfers
       this.bulletins = response.data.bulletins
-      this.slide = this.bulletins.length
+      // this.slide = this.bulletins.length
       this.articles = response.data.articles
       this.rumours = response.data.rumours
       // this.articles.forEach(element => {
