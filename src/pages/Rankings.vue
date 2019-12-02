@@ -286,7 +286,7 @@ export default {
         // { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.__index + 1, sortable: true },
         { name: 'manager', required: true, label: 'Manager', align: 'left', field: row => row },
         { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.firstName + ' ' + row.lastName },
-        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday, 'years'), sortable: true },
+        { name: 'age', align: 'left', label: 'Age', field: row => date.getDateDiff(date.formatDate(new Date(), 'YYYY-MM-DD'), row.birthday.replace(/\s/, 'T') + 'Z', 'years'), sortable: true },
         { name: 'nationality', align: 'left', label: 'Nationality', field: row => row.nationality, sortable: true },
         { name: 'team', align: 'left', label: 'Team', field: row => row.team, sortable: true },
         { name: 'score', align: 'center', label: 'Score', field: 'rating', sortable: true },
