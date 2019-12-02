@@ -1,7 +1,7 @@
 <template>
   <div class="player-card">
     <q-img :src="player.picture" placeholder-src="statics/images/picSoon.jpg" :alt="player.nickname" class="img-thumbnail" />
-    <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold">
+    <div class="text-center bg-t-dark border-bottom border-dark ellipsis text-weight-bold q-pt-xs">
       <router-link :to="'/players/' + player.id + '/' + player.slug" class="no-decor" >
         {{player.nickname}}
         <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
