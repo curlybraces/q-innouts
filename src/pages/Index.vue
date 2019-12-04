@@ -281,7 +281,6 @@
         </div>
       </q-list>
     </q-drawer>
-    <!-- <img alt="Quasar logo" src="~assets/quasar-logo-full.svg"> -->
   </q-page>
 </template>
 
