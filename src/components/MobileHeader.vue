@@ -8,8 +8,8 @@
         <q-icon name="menu" />
       </q-btn>
 
-    <q-avatar clickable link to="/">
-      <img class="bordered" src="~assets/innouts.png">
+    <q-avatar square>
+      <img src="~assets/innouts.png">
     </q-avatar>
 
       <q-toolbar-title>

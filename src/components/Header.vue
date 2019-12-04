@@ -2,8 +2,8 @@
   <div class="row inlin no-wrap shadow-1">
     <q-toolbar class="q-gutter-x-sm">
 
-    <q-avatar clickable link to="/">
-      <img class="bordered" src="~assets/innouts.png">
+    <q-avatar square>
+      <img src="~assets/innouts.png">
     </q-avatar>
 
       <q-toolbar-title>
@@ -169,7 +169,6 @@
           <q-icon name="search" />
         </template>
       </q-select>
-      <!-- <q-space /> -->
       <q-btn-dropdown icon="perm_identity" class="gloss" rounde dens>
         <div v-if="loggedIn" class="row no-wrap q-pa-sm">
           <div class="column">
