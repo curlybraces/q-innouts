@@ -294,7 +294,7 @@ export default {
       managersPagination: {
         rowsPerPage: 10,
         sortBy: 'score',
-        descending: false,
+        descending: true,
       },
       managers: [],
       players: Object,
