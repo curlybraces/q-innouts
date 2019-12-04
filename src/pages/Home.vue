@@ -279,7 +279,12 @@ export default {
     saveIntro: function (value, initialValue) {
       this.$axios({ url: 'api/users/' + this.user.id, data: { newIntro: value }, method: 'PUT' })
         .then(response => {
-          this.$q.notify({ message: 'Saved!' })
+          this.$q.notify({
+            color: 'positive',
+            textColor: 'white',
+            icon: 'fas fa-check-circle',
+            message: 'Saved!'
+          })
         })
         .catch(err => this.$q.notify({ message: err.data.message }))
     },

@@ -219,7 +219,7 @@ export default {
       pagination: {
         rowsPerPage: 10,
         sortBy: 'score',
-        descending: false,
+        descending: true,
       },
       u23Pagination: {
         rowsPerPage: 10,
