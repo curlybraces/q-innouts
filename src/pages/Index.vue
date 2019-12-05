@@ -36,7 +36,7 @@
         <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127996;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id">
           <q-item to="/rumours" class="newsBody1"  clickable v-ripple dense>
-            <q-item-section class="text-subtitle1 text-uppercase ellipsis d-block" no-wrap>
+            <q-item-section class="text-subtitle1 newsBody1 text-uppercase ellipsis d-block" no-wrap>
               {{rumour.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
                 {{rumour.title}}
@@ -359,7 +359,7 @@ export default {
 
   meta () {
     return {
-      title: 'Innouts | Football hub for active fans!',
+      title: 'Innouts | Football Hub for Active Fans',
 
       meta: {
         description: { name: 'description', content: 'Innouts is a football hub for the active fans! Latest news, transfers and rumours from Europe\'s top five leagues are covered.' },
