@@ -3,7 +3,7 @@
     <div class="row justify- q-gutter-y-m">
       <div class="col offset- bordered rounded-borders q-pa-xs" :class="articleClass">
         <div class="title text-center q-pt-sm q-pb-xs bg-primary text-secondary q-px-sm" :class="titleClass">
-          <span class="newsTitle">{{article.title}}</span>
+          <span class="newsTitle text-capitalize">{{article.title}}</span>
           <div class="row q-mt-md text-caption text-left">
             <div class="text-left col text-capitalize ellipsis"> &#9997;&#127996;{{authorName}}
 

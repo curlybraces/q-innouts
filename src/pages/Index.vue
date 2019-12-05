@@ -35,7 +35,7 @@
       <q-list v-if="$q.platform.is.mobile" padding link bordere dense class="col bg-secondary" >
         <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127996;</span> Latest Rumours</q-item-label>
         <div v-for="(rumour) in rumours" :key="rumour.id">
-          <q-item to="/rumours" class="newsTitle"  clickable v-ripple dense>
+          <q-item to="/rumours" class="newsBody1"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 text-uppercase ellipsis d-block" no-wrap>
               {{rumour.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
@@ -259,7 +259,7 @@
         <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128240;</span> Latest Editorials</q-item-label>
         <div v-for="(article) in articles" :key="article.id" class="newsTitle">
           <q-item :to="'/articles/'+article.id+'/'+article.slug"  clickable v-ripple dens >
-            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+            <q-item-section class="text-subtitle1 ellipsis d-block text-uppercase" no-wrap>
               {{article.title}}
               <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
                 {{article.title}}
@@ -271,7 +271,7 @@
       </q-list>
       <q-list padding link class="col q-py-none" >
         <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
-        <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
+        <div v-for="(rumour) in rumours" :key="rumour.id" class="newsBody1">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 text-uppercase ellipsis d-block" no-wrap>
               {{rumour.title}}

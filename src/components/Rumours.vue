@@ -4,7 +4,7 @@
     <div v-for="(rumour, idx) in rumourBag" :key="rumour.id">
       <q-card class="bg-secondary">
         <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" align="top" floating transparent />
-        <div class="newsTitle text-center text-uppercase bg-primary text-secondary q-pa-sm" :class="titleClass" >{{rumour.title}}
+        <div class="newsBody1 text-center text-uppercase bg-primary text-secondary q-pa-sm" :class="titleClass" >{{rumour.title}}
         </div>
         <q-card-section v-if="picture" class="text-center q-py-sm">
           <q-img
