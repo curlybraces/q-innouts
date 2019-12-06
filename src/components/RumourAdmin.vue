@@ -32,7 +32,7 @@
                   accept="image/*" :max-file-size="400000"
                   class="q-my-sm" ref="rumour"
                 /> -->
-              <input type="file" accept="image/*" required ref="rumour">
+              <input type="file" accept="image/*" ref="rumour">
               </div>
             </div>
             <div class="row q-gutter-x-sm">
@@ -268,7 +268,7 @@ export default {
     },
 
     onRumourSubmit () {
-      if (this.rumourTitle.length && this.rumourBody.length && this.$refs.rumour.files[0]) {
+      if (this.rumourTitle.length && this.rumourBody.length) {
         let taggedPlayersIDs = []
         let taggedTeamsIDs = []
         let taggedManagersIDs = []
@@ -282,7 +282,9 @@ export default {
           taggedManagersIDs.push(element.id)
         })
         let formData = new FormData()
-        formData.append('picture', this.$refs.rumour.files[0])
+        if (this.$refs.rumour.files[0]) {
+          formData.append('picture', this.$refs.rumour.files[0])
+        }
         formData.append('title', this.rumourTitle)
         formData.append('body', this.rumourBody)
         formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
