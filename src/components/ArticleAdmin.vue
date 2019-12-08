@@ -419,7 +419,7 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase()
-        this.playerOptions = this.players.filter(v => v.nickname.toLowerCase().indexOf(needle) > -1)
+        this.playerOptions = this.players.filter(v => v.slug.toLowerCase().indexOf(needle) > -1)
       })
     },
 
@@ -433,7 +433,7 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase()
-        this.managerOptions = this.managers.filter(v => v.nickname.toLowerCase().indexOf(needle) > -1)
+        this.managerOptions = this.managers.filter(v => v.slug.toLowerCase().indexOf(needle) > -1)
       })
     },
 

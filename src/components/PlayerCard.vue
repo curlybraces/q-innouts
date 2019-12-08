@@ -74,12 +74,6 @@ export default {
     text-decoration: none;
     color: #000;
 
-  img
-    display: block;
-    width: 180px;
-    height: 180px;
-    margin: auto;
-
   .img-thumbnail
     padding: .25rem;
     background-color: #f5f8fa;

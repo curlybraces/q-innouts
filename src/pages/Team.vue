@@ -228,8 +228,8 @@
      class="shadow- rounded-borders"
      >
       <q-tab-panel name="home">
-        <div class="row justify-center q-mx-auto">
-          <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-11 q-px-sm" :style="fieldStyle">
+        <div class="row justify-center q-mx-auto relative-position">
+          <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-11 q-px-sm" :class="fieldClass" :style="fieldStyle">
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-md-2 col-sm-2 q-px-sm">
@@ -472,6 +472,7 @@ const initialState = () => {
     panel: 'home',
     headerStyle: {},
     fieldStyle: {},
+    fieldClass: {},
     signQuota: null,
     sellQuota: null,
     signList: Function,
@@ -554,16 +555,18 @@ export default {
   created: function () {
     this.$store.commit('setRightDrawer', false)
     this.$q.loading.hide()
-    // if (this.$q.screen.lt.lg) {
-    //   this.fieldStyle.backgroundColor = '#21BA45'
-    //   this.fieldStyle.border = '3px solid white'
-    //   this.headerStyle.minHeight = '200px'
-    // } else if (this.$q.screen.lt.md) {
-    //   this.headerStyle.display = 'flex'
-    // } else {
-    //   this.headerStyle.minHeight = '375px'
-    //   this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
-    // }
+
+    if (this.$q.screen.lt.lg) {
+      this.fieldClass['pitch'] = true
+      this.fieldStyle.backgroundColor = '#03691b'
+      this.fieldStyle.border = '5px solid #1a4870'
+      this.headerStyle.minHeight = '200px'
+    } else if (this.$q.screen.lt.md) {
+      this.headerStyle.display = 'flex'
+    } else {
+      this.headerStyle.minHeight = '375px'
+      this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
+    }
   },
 
   methods: {
@@ -631,16 +634,6 @@ export default {
             break
         }
       })
-      if (this.$q.screen.lt.lg) {
-        this.fieldStyle.backgroundColor = '#03691b'
-        this.fieldStyle.border = '5px solid #1a4870'
-        this.headerStyle.minHeight = '200px'
-      } else if (this.$q.screen.lt.md) {
-        this.headerStyle.display = 'flex'
-      } else {
-        this.headerStyle.minHeight = '375px'
-        this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
-      }
     },
 
     reset () {
@@ -708,12 +701,9 @@ export default {
   margin: auto;
   text-align: center;
   font-family: arial;
-  // margin: 0;
 
   #team-logo-wrapper
       height: 215px;
-      // max-width: 60%;
-      // margin: auto;
 
   h1
     font-size: 2em;
@@ -727,14 +717,32 @@ export default {
 #team-field
   background-size: cover;
 
-#trophy-table
-  // width: auto;
-
-  th
-    // max-width: 3rem;
-
 #team-thumbnail-mobile
   width: 100px
   height: 100px
+
+$yd = 90vh / 130
+// yards
+
+$pitchColor = #008c0e
+.pitch
+  background-color: $pitchColor
+  background-image: repeating-linear-gradient($pitchColor, $pitchColor 10 * $yd, lighten($pitchColor, 2%) 10 * $yd, lighten($pitchColor, 2%) 20 * $yd)
+  box-shadow: 0 0 4 * $yd 4 * $yd $pitchColor
+  left: 0
+  right: 0
+  overflow: hidden
+  // position: absolute
+  top: 0
+  // transform: translate(-50%, -50%)
+  // transition: all 1s ease-in-out
+  // width can be anywhere from 50 to 100 yards
+  // length (height) can be anywhere from 100 to 130 yards
+  &.max
+    height: (130 * $yd)
+    width: (100 * $yd)
+  &.min
+    height: (100 * $yd)
+    width: (50 * $yd)
 
 </style>

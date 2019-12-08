@@ -248,6 +248,7 @@ export default {
         this.window = response.data.activeWindow
       })
       .catch(error => {
+        // fix: this
         this.error = error
       })
   },

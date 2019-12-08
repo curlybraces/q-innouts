@@ -169,7 +169,7 @@
                 :src="league.table"
                 class="bordered"
               />
-              <div class="text-caption q-my-sm">Data from BBC Sports</div>
+              <div class="text-caption q-my-sm">Data from BBC Sports. All times UK.</div>
             </q-tab-panel>
             <q-tab-panel name="editorials" :class="panelClass">
               <div class="row justify-center">
