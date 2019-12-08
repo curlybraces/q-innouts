@@ -17,35 +17,40 @@
         </q-carousel-slide>
       </q-carousel>
 
-      <q-list v-if="$q.platform.is.mobile" padding link bordere dense class="col bg-secondary" >
-        <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
-        <div v-for="(article) in articles" :key="article.id">
-          <q-item :to="'/articles/'+article.id+'/'+article.slug" class="newsTitle"  clickable v-ripple dense>
-            <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
-              {{article.title}}
-              <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
-                {{article.title}}
-              </q-tooltip>
-            </q-item-section>
-          </q-item>
-          <q-separator />
+      <div v-if="$q.screen.lt.md" class="row">
+        <div class="col-grow">
+          <q-list padding link bordere dense class="col bg-secondary" >
+            <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128240;</span> Latest Editorials</q-item-label>
+            <div v-for="(article) in articles" :key="article.id">
+              <q-item :to="'/articles/'+article.id+'/'+article.slug" class="newsTitle"  clickable v-ripple dense>
+                <q-item-section class="text-subtitle1 ellipsis d-block" no-wrap>
+                  {{article.title}}
+                  <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
+                    {{article.title}}
+                  </q-tooltip>
+                </q-item-section>
+              </q-item>
+              <q-separator />
+            </div>
+          </q-list>
         </div>
-      </q-list>
-
-      <q-list v-if="$q.platform.is.mobile" padding link bordere dense class="col bg-secondary" >
-        <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127996;</span> Latest Rumours</q-item-label>
-        <div v-for="(rumour) in rumours" :key="rumour.id">
-          <q-item to="/rumours" class="newsBody1"  clickable v-ripple dense>
-            <q-item-section class="text-subtitle1 newsBody1 text-uppercase ellipsis d-block" no-wrap>
-              {{rumour.title}}
-              <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
-                {{rumour.title}}
-              </q-tooltip>
-            </q-item-section>
-          </q-item>
-          <q-separator />
+        <div class="col col-grow">
+          <q-list padding link bordere dense class="col bg-secondary" >
+            <q-item-label header> <span class="q-icon on-left" style='font-size:20px;'>&#128066;&#127996;</span> Latest Rumours</q-item-label>
+            <div v-for="(rumour) in rumours" :key="rumour.id">
+              <q-item to="/rumours" class="newsBody1"  clickable v-ripple dense>
+                <q-item-section class="text-subtitle1 newsBody1 text-uppercase ellipsis d-block" no-wrap>
+                  {{rumour.title}}
+                  <q-tooltip :delay="550" :offset="[0,20]" anchor="top middle"   transition-show="scale" transition-hide="scale" >
+                    {{rumour.title}}
+                  </q-tooltip>
+                </q-item-section>
+              </q-item>
+              <q-separator />
+            </div>
+          </q-list>
         </div>
-      </q-list>
+      </div>
 
       <q-table
         class="my-sticky-header-table bg-secondary"
@@ -247,10 +252,9 @@
     </div>
     <q-drawer
       :value="rightDrawerOpen"
-      :mini="$q.screen.lt.md"
       content-class="bg-blue-grey-3"
       :breakpoint="600"
-      :width="400"
+      :width="$q.screen.lt.lg ? 300 : 400"
       side="right"
       elevated
       no-swipe-open
@@ -395,9 +399,8 @@ export default {
 
   created: function () {
     this.$store.commit('setLeftDrawer', false)
-    if (this.$q.platform.is.mobile) {
+    if (this.$q.screen.lt.sm) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee']
-      // this.$q.notify({ message: error.data.message })(this.carouselHeight)
       this.carouselHeight = '250px'
       this.bulletTitleClass = {
         'text-h6': true
@@ -408,9 +411,8 @@ export default {
       this.fanTransfersRowClass = {
         'q-gutter-y-md': true
       }
-      // this.$q.notify({ message: error.data.message })(this.carouselHeight)
     } else {
-      this.$store.commit('setRightDrawer', true)
+      // this.$store.commit('setRightDrawer', true)
       this.carouselHeight = '700px'
       this.bulletTitleClass = {
         'text-h4': true

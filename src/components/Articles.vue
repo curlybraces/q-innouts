@@ -4,7 +4,7 @@
       <q-infinite-scroll @load="onLoad" :offset="200">
         <q-item clickable v-for="(article, index) in articleBag" :key="index" :to="'/articles/'+article.id+'/'+article.slug" class="bg-primary" :dense="dense">
           <q-item-section thumbnail class="q-ml-non">
-            <img :src="article.picture" :alt="artilce.title">
+            <img :src="article.picture" :alt="article.title">
           </q-item-section>
 
           <q-item-section>

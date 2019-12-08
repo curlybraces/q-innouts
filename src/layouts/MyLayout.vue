@@ -13,7 +13,7 @@
       </q-card>
     </q-dialog>
     <q-header reveal elevated class="gloss q-pa-xs">
-      <desktop-header v-if="$q.screen.gt.md" :leagues="leagues" :teams="teams" />
+      <desktop-header v-if="$q.screen.gt.sm" :leagues="leagues" :teams="teams" />
       <mobile-header v-else />
     </q-header>
 
@@ -95,7 +95,7 @@
 
     <q-ajax-bar size="2px" color="warning" />
 
-    <q-drawer side="right" :value="rightDrawerOpen" no-swipe-open content-class="bg-grey-2" elevated />
+    <!-- <q-drawer side="right" :value="rightDrawerOpen" no-swipe-open content-class="bg-grey-2" elevated /> -->
 
     <q-page-container>
       <router-view />

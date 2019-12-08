@@ -72,6 +72,17 @@ export default {
     }
   },
 
+  meta () {
+    return {
+      title: 'Submit Rumours - Innouts',
+
+      meta: {
+        description: { name: 'description', content: 'submit your football rumours here.' },
+        keywords: { name: 'keywords', content: ['football rumours', 'submit football rumour', 'your football rumours'] },
+      },
+    }
+  },
+
   created () {
     this.$store.commit('setRightDrawer', false)
     this.$axios.get('api/teams')
