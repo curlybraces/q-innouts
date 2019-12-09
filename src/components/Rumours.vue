@@ -17,16 +17,22 @@
         <q-card-section class="newsBody3 text-justify" :class="bodyClass" v-html="rumour.body" />
         <q-card-section>
           <div class="row justify-center">
-            <div class="col col-sm-1">
-              <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" :size="btnSize" class="float-right q-mr-sm" />
+            <div class="col col-sm-2">
+              <div class="float-right">
+                <span class="text-overline q-mr-sm">{{rumour.upVotes}}</span>
+                <q-btn @click="submitVote(1, rumour.id, idx)" round color="primary" :text-color="rumour.vote === 'up' ?  'green-4' : ''" icon="thumb_up" :size="btnSize" class="float-right q-mr-sm" />
+              </div>
             </div>
             <div class="col-6 col-sm-8">
               <q-linear-progress :value="rumour.upVotes/(rumour.upVotes+rumour.downVotes)" class="q-mt-md"
               color="positive" track-color="negative"
               />
             </div>
-            <div class="col col-sm-1">
-              <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" :size="btnSize" class="q-ml-sm" />
+            <div class="col col-sm-2">
+              <div class="float-left">
+                <q-btn @click="submitVote(-1, rumour.id, idx)" round :text-color="rumour.vote === 'down' ?  'red-4' : ''" color="primary" icon="thumb_down" :size="btnSize" class="q-ml-sm" />
+                <span class="text-overline q-ml-sm">{{rumour.downVotes}}</span>
+              </div>
             </div>
           </div>
         </q-card-section>

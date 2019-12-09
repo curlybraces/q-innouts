@@ -156,7 +156,8 @@
         </q-td>
 
       </q-table>
-      <div class="row" :class="fanTransfersRowClass">
+      <div class="text-h6 bg-primary q-pa-sm text-secondary rounded-borders">🚩Fan Zone</div>
+      <div class="row q-mt-sm" :class="fanTransfersRowClass">
         <div class="col-grow col-md">
           <div>
             <q-table

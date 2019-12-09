@@ -198,7 +198,7 @@
                   <div v-if="user.team">
                     <div class="row justify-center">
                       <div class="col-md-2 col-3">
-                        <q-img :src="user.team.logo" class="full-width" />
+                        <q-img :src="user.team.logo" contain class="full-width league-team-thumbnail" />
                       </div>
                     </div>
                     <div class="row justify-center q-my-md">
