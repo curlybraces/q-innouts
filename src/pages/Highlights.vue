@@ -3,7 +3,7 @@
     <div class="row justify-center">
       <div class="col-grow col-sm-10 col-md-8 col-lg-6">
         <div id="title" class="text-center text-h4 q-my-md bg-primary q-pa-md text-white rounded-borders relative-position">
-          Game Highlights
+          Match Highlights
         </div>
         <iframe src="https://www.scorebat.com/embed/" frameborder="0" height="700" allowfullscreen  allow="autoplay; fullscreen" style="overflow:hidden;display:block;" class="_scorebatEmbeddedPlayer_ full-width"></iframe>
       </div>
