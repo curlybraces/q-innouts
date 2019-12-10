@@ -65,137 +65,149 @@
         >
           <q-tab name="overview" label="Overview" />
           <q-tab name="table" label="Table" />
+          <q-tab name="news" label="News" />
           <q-tab name="editorials" label="Editorials" />
         </q-tabs>
       </div>
     </div>
     <div class="row justify-center">
-      <!-- <div class="col"> -->
-          <q-tab-panels v-model="tab" keep-alive  animated class="col col-lg-11 q-mx-aut">
-            <q-tab-panel name="overview" :class="panelClass">
-              <q-card class="text-subtitle1">
-                <div class="row q-pa-sm bg-secondary">
-                  <div class="col-grow col-sm-6" :class="statsClass">
-                    <q-list dark :dense="$q.screen.lt.md" padding class="rounded-borders bg-primary" bordered>
-                      <q-item>
-                        <q-item-section>
-                          <q-item-label>Internationalization</q-item-label>
-                          <!-- <q-item-label caption >percentage of international players</q-item-label> -->
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >{{stats.inter}}%</q-item-label>
-                        </q-item-section>
-                      </q-item>
-                      <q-item >
-                        <q-item-section>
-                          <q-item-label>Average Player Rating</q-item-label>
-                          <!-- <q-item-label caption >out of 10</q-item-label> -->
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >{{stats.playersAvgRating}}</q-item-label>
-                        </q-item-section>
-                      </q-item>
-                      <q-item >
-                        <q-item-section>
-                          <q-item-label>Average Player Value</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >€{{stats.playersAvgValue}}m</q-item-label>
-                        </q-item-section>
-                      </q-item>
-                      <q-item>
-                        <q-item-section>
-                          <q-item-label >Average Player Age</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >{{stats.playersAvgAge}}</q-item-label>
-                        </q-item-section>
-                      </q-item>
+        <q-tab-panels v-model="tab" keep-alive  animated class="col col-lg-11 q-mx-aut">
+          <q-tab-panel name="overview" :class="panelClass">
+            <q-card class="text-subtitle1">
+              <div class="row q-pa-sm bg-secondary">
+                <div class="col-grow col-sm-6" :class="statsClass">
+                  <q-list dark :dense="$q.screen.lt.md" padding class="rounded-borders bg-primary" bordered>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label>Internationalization</q-item-label>
+                        <!-- <q-item-label caption >percentage of international players</q-item-label> -->
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >{{stats.inter}}%</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item >
+                      <q-item-section>
+                        <q-item-label>Average Player Rating</q-item-label>
+                        <!-- <q-item-label caption >out of 10</q-item-label> -->
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >{{stats.playersAvgRating}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item >
+                      <q-item-section>
+                        <q-item-label>Average Player Value</q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >€{{stats.playersAvgValue}}m</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label >Average Player Age</q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >{{stats.playersAvgAge}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
 
-                      <q-item>
-                        <q-item-section>
-                          <q-item-label >Average Manager Rating</q-item-label>
-                          <!-- <q-item-label caption >out of 10</q-item-label> -->
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >{{stats.managersAvgRating}}</q-item-label>
-                        </q-item-section>
-                      </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label >Average Manager Rating</q-item-label>
+                        <!-- <q-item-label caption >out of 10</q-item-label> -->
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >{{stats.managersAvgRating}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
 
-                      <q-item>
-                        <q-item-section>
-                          <q-item-label >Major European Trophies Won</q-item-label>
-                          <!-- <q-item-label caption >present teams</q-item-label> -->
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label >{{stats.intTrophies}}</q-item-label>
-                        </q-item-section>
-                      </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label >Major European Trophies Won</q-item-label>
+                        <!-- <q-item-label caption >present teams</q-item-label> -->
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label >{{stats.intTrophies}}</q-item-label>
+                      </q-item-section>
+                    </q-item>
 
-                      <q-item>
-                        <q-item-section>
-                          <q-item-label >Record Title Winners</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                          <q-item-label class="team-thumbnail">
-                            <q-img :src="stats.recordWinner.logo" contain :alt="stats.recordWinner.name" class="full-height" />
-                              <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
-                                {{stats.recordWinner.name}}
-                              </q-tooltip>
-                          </q-item-label>
-                          <div class="q-mx-auto">{{stats.recordWinner.trophy_cabinet.ls}}</div>
-                        </q-item-section>
-                      </q-item>
-                    </q-list>
-                  </div>
-                  <div class="col-grow col-sm-6 text-center self-center">
-                    <!-- Teams⚔ -->
-                    <ul id="league-teams" class="q-my-none" :class="panelClass">
-                       <li v-for="team in league.teams" :key="team.id" class="league-team-thumbnail q-mx-auto q-mb-md">
-                         <router-link :to="'/teams/' + team.slug" >
-                            <q-img class="full-height" contain :alt="team.name" :src="team.logo" />
-                              <q-tooltip :delay="300"  transition-show="scale" transition-hide="scale" >
-                                {{team.name}}
-                              </q-tooltip>
-                         </router-link>
-                       </li>
-                    </ul>
-                  </div>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label >Record Title Winners</q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label class="team-thumbnail">
+                          <q-img :src="stats.recordWinner.logo" contain :alt="stats.recordWinner.name" class="full-height" />
+                            <q-tooltip :delay="300" :offset="[0, 3]"   transition-show="scale" transition-hide="scale" >
+                              {{stats.recordWinner.name}}
+                            </q-tooltip>
+                        </q-item-label>
+                        <div class="q-mx-auto">{{stats.recordWinner.trophy_cabinet.ls}}</div>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
                 </div>
-              </q-card>
-            </q-tab-panel>
-            <q-tab-panel name="table" :class="panelClass">
-              <q-img
-                :src="league.table"
-                class="bordered"
-              />
-              <div class="text-caption q-my-sm">Data from BBC Sports. All times UK.</div>
-            </q-tab-panel>
-            <q-tab-panel name="editorials" :class="panelClass">
-              <div class="row justify-center">
-                <div class="col-grow col-sm-9 col-md-7">
-                  <articles v-if="articles.length" :articles="articles" :chunk="7" :dense="true" />
-                  <div v-else class="text-subtitle1 text-center text-black">
-                    Nothing to display at this time!
-                  </div>
+                <div class="col-grow col-sm-6 text-center self-center">
+                  <!-- Teams⚔ -->
+                  <ul id="league-teams" class="q-my-none" :class="panelClass">
+                      <li v-for="team in league.teams" :key="team.id" class="league-team-thumbnail q-mx-auto q-mb-md">
+                        <router-link :to="'/teams/' + team.slug" >
+                          <q-img class="full-height" contain :alt="team.name" :src="team.logo" />
+                            <q-tooltip :delay="300"  transition-show="scale" transition-hide="scale" >
+                              {{team.name}}
+                            </q-tooltip>
+                        </router-link>
+                      </li>
+                  </ul>
                 </div>
               </div>
-            </q-tab-panel>
-          </q-tab-panels>
-        </div>
-    <!-- </div> -->
+            </q-card>
+          </q-tab-panel>
+          <q-tab-panel name="table" :class="panelClass">
+            <q-img
+              :src="league.table"
+              class="bordered"
+            />
+            <div class="text-caption q-my-sm">Data from BBC Sports. All times UK.</div>
+          </q-tab-panel>
+          <q-tab-panel name="news" :class="panelClass">
+            <div class="row justify-center">
+              <div class="col-grow col-sm-9 col-md-7">
+                <news :news="news" />
+                <div class="text-caption text-center">News from ESPN</div>
+              </div>
+            </div>
+          </q-tab-panel>
+          <q-tab-panel name="editorials" :class="panelClass">
+            <div class="row justify-center">
+              <div class="col-grow col-sm-9 col-md-7">
+                <articles v-if="articles.length" :articles="articles" :chunk="7" :dense="true" />
+                <div v-else class="text-subtitle1 text-center text-black">
+                  Nothing to display at this time!
+                </div>
+              </div>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
   </q-page>
 </template>
 
 <script>
 import axios from 'axios'
 const Articles = () => import('components/Articles.vue')
+const News = () => import('components/News.vue')
+
+const Parser = require('rss-parser')
+const parser = new Parser()
 
 export default {
   name: 'League',
 
   components: {
     Articles,
+    News
   },
 
   data () {
@@ -236,8 +248,8 @@ export default {
       title: this.league.name + ' - Innouts',
 
       meta: {
-        description: { name: 'description', content: this.league.name + ' is the first tier of football in ' + this.league.country + '. See interesting stats right here!' },
-        keywords: { name: 'keywords', content: [this.league.name, this.league.name + ' ' + this.league.country, this.league.name + ' teams', this.league.name + ' champions'].concat(this.teamNames) },
+        description: { name: 'description', content: this.league.name + ' is the first tier of football in ' + this.league.country + '. Find the table, news, analysis and interesting stats right here!' },
+        keywords: { name: 'keywords', content: [this.league.name, this.league.name + ' ' + this.league.country, this.league.name + ' teams', this.league.name + ' champions', this.league.name + ' table', this.league.name + ' news', this.league.name + ' analysis', this.league.name + ' stats'].concat(this.teamNames) },
       },
     }
   },
@@ -265,7 +277,6 @@ export default {
       this.logoWrapperStyle.width = '140px'
       this.logoWrapperStyle.height = '140px'
     } else {
-      // this.logoColClass['q-mr-md'] = true
       this.statsClass['q-pa-xs'] = true
       this.logoWrapperStyle.width = '280px'
       this.logoWrapperStyle.height = '280px'
@@ -288,6 +299,14 @@ export default {
     setData (response) {
       this.league = response.data.league
       this.stats = response.data.stats
+      let CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
+      parser.parseURL(CORS_PROXY + this.league.feed)
+        .then(feed => {
+          this.news = feed.items
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+        })
       this.articles = response.data.articles
       this.tab = 'overview'
     }

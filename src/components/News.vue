@@ -1,67 +1,26 @@
 <template>
-  <div class="row justify-center">
-    <div class="col-grow col-sm-9 col-md-7 bg-primar text-white border-primary rounded-borders">
-      <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
-        <q-item clickable v-for="article in articles" :key="article.id" :to="'/articles/'+article.id" class="bg-primary">
-          <q-item-section to thumbnail class="q-ml-non">
-            <img :src="article.picture">
-          </q-item-section>
-
-          <q-item-section top>
-            <q-item-label header class="text-h5" >{{article.title}}</q-item-label>
-            <!-- <q-item-label lines="1" caption>Chelsea Consider Signing Goloving From Monaco less than 10 months after initial failing. It is believed the negotiations are already at an advanced stage</q-item-label> -->
-          </q-item-section>
-
-          <q-item-section side >
-            <q-item-label caption>11:56</q-item-label>
-            <q-item-label caption>share</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-      <div v-else class="text-subtitle1 text-center text-black">
-        Nothing to display at this time! You can contribute one if you wish!
-      </div>
-    </div>
-  </div>
+  <q-list :dense="$q.screen.lt.md" bordered padding separator dark>
+      <q-item clickable v-for="(article, index) in news" :key="index" @click="openURL(article.link)" :dense="$q.screen.lt.md">
+        <q-item-section class="q-ml-non bordered">
+          <q-item-label header class="newsTitle text-h6 bg-primary"> {{article.title}} </q-item-label>
+          <q-item-label class="text-caption newsBody3 bordere q-pa-sm text-black of-hidden" v-html="article.contentSnippet" >{{article.contentSnippet}}</q-item-label>
+        </q-item-section>
+      </q-item>
+  </q-list>
 </template>
 
 <script>
+import { openURL } from 'quasar'
+
 export default {
   name: 'News',
 
-  // props: {
-  //   articles: Array
-  // },
-
-  data () {
-    return {
-      articles: Array,
-    }
-  },
-
-  created: function () {
-    this.setData()
-  },
-
-  watch: {
-    $route () {
-      // alert('change')
-      this.setData()
-    }
+  props: {
+    news: Array
   },
 
   methods: {
-    setData: function () {
-      this.$q.loading.show()
-      this.$axios.get('http://innouts.test/api/articles/teams/' + this.$route.params.team)
-        .then(response => {
-          this.articles = response.data
-          this.$q.loading.hide()
-        })
-        .catch(error => {
-          this.error = error
-        })
-    }
+    openURL
   }
 }
 </script>

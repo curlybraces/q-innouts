@@ -12,6 +12,8 @@
         </router-link>
       </q-toolbar-title>
 
+      <q-btn to="/highlights" no-caps  label="Highlights" />
+      <q-btn to="/news" no-caps  label="News" />
       <q-btn to="/editorials" no-caps  label="Editorials" />
 
       <q-btn-dropdown no-caps label="Transfers">

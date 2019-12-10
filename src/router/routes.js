@@ -22,6 +22,12 @@ const routes = [
         path: '/rumours', component: () => import('pages/Rumours.vue')
       },
       {
+        path: '/highlights', component: () => import('pages/Highlights.vue')
+      },
+      {
+        path: '/news', component: () => import('pages/News.vue')
+      },
+      {
         path: '/submit-rumour', component: () => import('pages/UserCreateRumour.vue'), meta: { requiresAuth: true }
       },
       {
