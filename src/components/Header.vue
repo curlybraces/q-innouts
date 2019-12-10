@@ -118,10 +118,7 @@
 
         </div>
       </q-btn-dropdown>
-
       <q-btn to="/rankings" no-caps class="" color="" label="Rankings"  />
-
-      <q-space />
       <q-space />
       <q-select
         dark

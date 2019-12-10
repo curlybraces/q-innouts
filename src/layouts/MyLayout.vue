@@ -30,11 +30,22 @@
       content-class="bg-secondary"
     >
       <q-list>
+        <q-item clickable tag="a" to="/highlights">
+          <q-item-section>
+            <q-item-label>Highlights</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" to="/news">
+          <q-item-section>
+            <q-item-label>News</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable tag="a" to="/editorials">
           <q-item-section>
             <q-item-label>Editorials</q-item-label>
           </q-item-section>
-        </q-item>        <q-item clickable tag="b" to="/transfers">
+        </q-item>
+        <q-item clickable tag="b" to="/transfers">
           <q-item-section>
             <q-item-label>Transfers</q-item-label>
           </q-item-section>
