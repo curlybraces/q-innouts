@@ -73,13 +73,10 @@ export default {
   name: 'Rumours',
   data () {
     return {
-      // current: 1,
       bodyClass: {},
       titleClass: {},
       rumourChunks: [],
       rumourBag: [],
-      // paginationSize: '14px'
-      // remains: true,
       picStyle: {
         height: '90px',
         maxWidth: '145px'
@@ -125,7 +122,6 @@ export default {
     this.rumourChunks = chunk(this.rumours, this.chunk)
     this.rumourBag = this.rumourChunks[0]
     if (this.dense) {
-      // this.paginationSize = '10px'
       this.picStyle = {
         height: '65px',
         maxWidth: '105px'
@@ -200,11 +196,6 @@ export default {
 
   },
 
-  // watch: {
-  //   current () {
-  //     this.scrollToElement(document.getElementById('title'))
-  //   }
-  // }
 }
 </script>
 
