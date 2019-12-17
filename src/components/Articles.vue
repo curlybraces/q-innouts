@@ -21,17 +21,6 @@
               </q-item-label>
             </div>
           </q-item-section>
-
-          <!-- <q-item-section v-if="article.time<1" side >
-            <q-badge color="red" label="today" align="top" floating/>
-          </q-item-section>
-
-          <q-item-section v-else-if="article.time<4" side >
-            <q-badge color="secondary" text-color="primary" label="new" align="top" floating/>
-          </q-item-section>
-          <q-item-section v-else side >
-            <q-badge color="accent"  text-color="secondary" :label="article.created_at.split(' ')[0]" align="top" floating/>
-          </q-item-section> -->
         </q-item>
         <template v-if="remains" v-slot:loading>
           <div class="row justify-center q-my-md">

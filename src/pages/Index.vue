@@ -276,7 +276,7 @@
       </q-list>
       <q-list padding link class="col q-py-none" >
         <q-item-label header class="bg-primary text-uppercase"><span class="q-icon on-left emoji" >&#128066;&#127996;</span> Latest Rumours</q-item-label>
-        <div v-for="(rumour) in rumours" :key="rumour.id" class="newsBody1">
+        <div v-for="(rumour) in rumours" :key="rumour.id" class="newsTitle">
           <q-item to="/rumours"  clickable v-ripple dense>
             <q-item-section class="text-subtitle1 text-uppercase ellipsis d-block" no-wrap>
               {{rumour.title}}

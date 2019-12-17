@@ -165,11 +165,30 @@
             </q-card>
           </q-tab-panel>
           <q-tab-panel name="table" :class="panelClass">
-            <q-img
-              :src="league.table"
-              class="bordered"
-            />
-            <div class="text-caption q-my-sm">Data from BBC Sports. All times UK.</div>
+              <q-table
+                :data="league.standings"
+                :columns="columns"
+                :dense="$q.screen.lt.md"
+                :rows-per-page-options="[10,20,0]"
+                hide-bottom
+                row-key="name"
+                class="bg-secondary"
+              >
+                <q-td slot="body-cell-change" slot-scope="value" :props="value">
+                  <span v-if="value.value.position > value.value.previous_position">hi</span>
+                  <span v-else>bye</span>
+                </q-td>
+                <q-td slot="body-cell-team" slot-scope="value" :props="value">
+                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                    <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
+                      <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
+                        {{value.value.name}}
+                      </q-tooltip>
+                  </router-link>
+                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
+                </q-td>
+              </q-table>
+            <div class="text-caption q-my-sm">All times UK</div>
           </q-tab-panel>
           <q-tab-panel name="news" :class="panelClass">
             <div class="row justify-center">
@@ -227,7 +246,21 @@ export default {
       logoWrapperStyle: {},
       logoColClass: {},
       statsClass: {},
-      articles: []
+      articles: [],
+      columns: [
+        { name: 'rank', required: true, align: 'left', field: row => row.position },
+        { name: 'change', required: true, align: 'left', field: row => row },
+        { name: 'team', required: true, label: 'Team', align: 'left', field: row => row.team },
+        { name: 'played', align: 'center', label: 'Played', field: 'played', sortable: true },
+        { name: 'won', align: 'center', label: 'Won', field: 'won', sortable: true },
+        { name: 'lost', align: 'center', label: 'Lost', field: 'lost', sortable: true },
+        { name: 'drawn', align: 'center', label: 'Drawn', field: row => row.played - (row.won - row.lost), sortable: true },
+        { name: 'for', align: 'center', label: 'For', field: 'for', sortable: true },
+        { name: 'against', align: 'center', label: 'Against', field: 'against', sortable: true },
+        { name: 'difference', align: 'center', label: 'Goal Difference', field: row => row.for - row.against, sortable: true },
+        { name: 'points', label: 'Points', field: 'points', sortable: true },
+        { name: 'form', label: 'Form', field: 'form' },
+      ],
     }
   },
 
