@@ -118,9 +118,14 @@ export default {
     }
   },
 
+  watch: {
+    'rumours' () {
+      this.setData()
+    }
+  },
+
   created () {
-    this.rumourChunks = chunk(this.rumours, this.chunk)
-    this.rumourBag = this.rumourChunks[0]
+    this.setData()
     if (this.dense) {
       this.picStyle = {
         height: '65px',
@@ -154,6 +159,10 @@ export default {
     //   let duration = 1000
     //   setScrollPosition(target, offset, duration)
     // },
+    setData () {
+      this.rumourChunks = chunk(this.rumours, this.chunk)
+      this.rumourBag = this.rumourChunks[0]
+    },
 
     submitVote: function (val, key, index) {
       if (this.loggedIn) {

@@ -89,14 +89,7 @@ export default {
   },
 
   created () {
-    this.timedArticles = this.articles
-    this.timedArticles.forEach(element => {
-      let diff = date.getDateDiff(this.date, element.created_at, 'days')
-      element.time = diff
-    })
-    this.articleChunks = chunk(this.timedArticles, this.chunk)
-    this.articleBag = this.articleChunks[0]
-
+    this.setData()
     if (this.dense) {
       this.ArticleHeaderClass = {
         'text-subtitle1': true
@@ -106,7 +99,22 @@ export default {
     }
   },
 
+  watch: {
+    articles () {
+      this.setData()
+    }
+  },
+
   methods: {
+    setData () {
+      this.timedArticles = this.articles
+      this.timedArticles.forEach(element => {
+        let diff = date.getDateDiff(this.date, element.created_at, 'days')
+        element.time = diff
+      })
+      this.articleChunks = chunk(this.timedArticles, this.chunk)
+      this.articleBag = this.articleChunks[0]
+    },
     onLoad (index, done) {
       setTimeout(() => {
         if (this.articleChunks[index]) {

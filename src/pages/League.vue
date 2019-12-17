@@ -299,6 +299,7 @@ export default {
     setData (response) {
       this.league = response.data.league
       this.stats = response.data.stats
+      this.articles = response.data.articles
       let CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
       parser.parseURL(CORS_PROXY + this.league.feed)
         .then(feed => {
@@ -307,7 +308,6 @@ export default {
         .catch(error => {
           this.$q.notify({ message: error.data.message })
         })
-      this.articles = response.data.articles
       this.tab = 'overview'
     }
   }
