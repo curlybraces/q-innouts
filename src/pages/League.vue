@@ -175,8 +175,9 @@
                 class="bg-secondary"
               >
                 <q-td slot="body-cell-change" slot-scope="value" :props="value">
-                  <span v-if="value.value.position > value.value.previous_position">hi</span>
-                  <span v-else>bye</span>
+                  <q-icon v-if="value.value.position < value.value.previous_position" name="arrow_drop_up" size="md" class="text-positive" />
+                  <span v-else-if="value.value.position === value.value.previous_position"></span>
+                  <q-icon v-else name="arrow_drop_down" size="md" class="text-negative" />
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
@@ -186,6 +187,13 @@
                       </q-tooltip>
                   </router-link>
                   <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
+                </q-td>
+                <q-td slot="body-cell-form" class="text-caption" slot-scope="value" :props="value">
+                  <div v-for="(char, idx) in value.value" :key="idx" class="q-mr-xs inline" style="width: 10px; height: 10px;">
+                    <span v-if="value.value.charAt(idx) === 'W'" class="bg-positive q-pa-xs text-white" >W</span>
+                    <span v-else-if="value.value.charAt(idx) === 'L'" class="bg-negative q-pa-xs text-white">L</span>
+                    <span v-else class="bg-grey q-pa-xs text-white">D</span>
+                  </div>
                 </q-td>
               </q-table>
             <div class="text-caption q-my-sm">All times UK</div>
@@ -259,7 +267,7 @@ export default {
         { name: 'against', align: 'center', label: 'Against', field: 'against', sortable: true },
         { name: 'difference', align: 'center', label: 'Goal Difference', field: row => row.for - row.against, sortable: true },
         { name: 'points', label: 'Points', field: 'points', sortable: true },
-        { name: 'form', label: 'Form', field: 'form' },
+        { name: 'form', align: 'center', label: 'Form', field: 'form' },
       ],
     }
   },
