@@ -186,7 +186,7 @@
                 <q-td slot="body-cell-change" slot-scope="value" :props="value">
                   <q-icon v-if="value.value.position < value.value.previous_position" name="arrow_drop_up" size="sm" class="text-positive" />
                   <span v-else-if="value.value.position === value.value.previous_position"></span>
-                  <q-icon v-else name="arrow_drop_down" size="md" class="text-negative" />
+                  <q-icon v-else name="arrow_drop_down" size="sm" class="text-negative" />
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
                   <router-link :to="'/teams/' + value.value.slug" >
