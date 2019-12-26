@@ -1,12 +1,12 @@
 <template>
   <q-page>
     <div class="row bg-secondary">
-      <div class="col-4 col-sm-4 col-md-3 col-l offset-sm-1 self-center" :class="logoColClass">
+      <div class="col-grow col-4 col-sm-4 col-md-3 col-l offset-sm-1 self-center" :class="logoColClass">
         <div :style="logoWrapperStyle" class="q-mx-auto">
           <q-img :alt="league.name" contain :src="league.logo" class="q-mx-auto fit" />
         </div>
       </div>
-      <div class="col col-sm-6 col-md-4 col-lg-4 self-center rounded-borders bordered bg-secondary  q-pa-sm">
+      <div class="col-grow col-sm-6 col-md-4 col-lg-4 self-center rounded-borders bordered bg-secondary  q-pa-sm">
         <q-list dark :dense="$q.screen.lt.md" class="bg-primary rounded-borders bordered" >
           <q-item >
             <q-item-section >
@@ -173,7 +173,7 @@
                 :pagination.sync="pagination"
                 hide-bottom
                 row-key="name"
-                class="bg-secondary"
+                class="bg-secondary newsTitle"
               >
                 <q-td slot="body-cell-change" slot-scope="value" :props="value">
                   <q-icon v-if="value.value.position < value.value.previous_position" name="arrow_drop_up" size="md" class="text-positive" />
@@ -189,13 +189,16 @@
                   </router-link>
                 </q-td>
                 <q-td slot="body-cell-form" class="text-caption" slot-scope="value" :props="value">
-                    <span v-for="(char, idx) in value.value" :key="idx" v-text="char"
-                      class="q-mr-x text-white q-pa-xs fit"
+                  <div class="row no-wrap justify-center" style="height: 19px;">
+                    <div v-for="(char, idx) in value.value" :key="idx" v-text="char"
+                      class="text-white q-pa-x col-auto"
+                      style="width: 19px;"
                       :class="{'bg-positive': char === 'W', 'bg-negative': char==='L', 'bg-grey': char==='D'}"
                     />
+                  </div>
                 </q-td>
               </q-table>
-            <div class="text-caption q-my-md">Last update: {{league.standingsLastUpdated}}</div>
+            <div class="text-caption q-my-md">Last update: {{league.standingsLastUpdated}}, UK time</div>
           </q-tab-panel>
           <q-tab-panel name="news" :class="panelClass">
             <div class="row justify-center">
