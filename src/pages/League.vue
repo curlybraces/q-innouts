@@ -175,8 +175,16 @@
                 row-key="name"
                 class="bg-secondary newsTitle"
               >
+                <q-td slot="body-cell-state" slot-scope="value" :props="value">
+                  <span v-if="league.CL_spots.includes(''+value.value)" title="Champions League spot"><q-icon name="ion-key" size="xs" color="green-10"/> </span>
+                  <span v-if="league.CL_qualifiers.includes(''+value.value)" title="Champions League qualifiers"> <q-icon name="lock" size="xs" color="green-10"/> </span>
+                  <span v-if="league.EL_spots.includes(''+value.value)" title="Europa League spot"> <q-icon name="ion-key" size="xs" color="green-5"/> </span>
+                  <span v-if="league.EL_qualifiers.includes(''+value.value)" title="Europa League qualifiers"> <q-icon name="lock" size="xs" color="green-5"/> </span>
+                  <span v-if="league.relegation_playoff.includes(''+value.value)" title="relegation play-off">☢</span>
+                  <span v-if="league.relegation.includes(''+value.value)" title="relegation">☠</span>
+                </q-td>
                 <q-td slot="body-cell-change" slot-scope="value" :props="value">
-                  <q-icon v-if="value.value.position < value.value.previous_position" name="arrow_drop_up" size="md" class="text-positive" />
+                  <q-icon v-if="value.value.position < value.value.previous_position" name="arrow_drop_up" size="sm" class="text-positive" />
                   <span v-else-if="value.value.position === value.value.previous_position"></span>
                   <q-icon v-else name="arrow_drop_down" size="md" class="text-negative" />
                 </q-td>
@@ -258,6 +266,7 @@ export default {
       statsClass: {},
       articles: [],
       columns: [
+        { name: 'state', required: true, align: 'left', field: row => row.position },
         { name: 'rank', required: true, align: 'left', field: row => row.position },
         { name: 'change', required: true, align: 'left', field: row => row },
         { name: 'team', required: true, label: 'Team', align: 'left', field: row => row.team },
