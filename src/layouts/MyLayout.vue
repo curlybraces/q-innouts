@@ -124,7 +124,7 @@
           <a @click="openURL('https://instagram.com/__innouts.com__')" class="no-decor link q-mx-sm">
             <q-icon   name="ion-logo-instagram" size="1.2rem" color="grey"/>
           </a>
-          <a @click="openURL('https://twitter.com/__innouts__')" class="no-decor link">
+          <a @click="openURL('https://twitter.com/innouts1')" class="no-decor link">
             <q-icon  name="ion-logo-twitter" size="1.2rem" color="grey"/>
           </a>
         </div>

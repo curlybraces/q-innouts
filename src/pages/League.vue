@@ -170,6 +170,7 @@
                 :columns="columns"
                 :dense="$q.screen.lt.md"
                 :rows-per-page-options="[10,20,0]"
+                :pagination.sync="pagination"
                 hide-bottom
                 row-key="name"
                 class="bg-secondary"
@@ -180,23 +181,21 @@
                   <q-icon v-else name="arrow_drop_down" size="md" class="text-negative" />
                 </q-td>
                 <q-td slot="body-cell-team" slot-scope="value" :props="value">
-                  <router-link v-if="value.value.league_id" :to="'/teams/' + value.value.slug" >
+                  <router-link :to="'/teams/' + value.value.slug" >
                     <div class="team-thumbnail"> <q-img :src="value.value.logo" :alt="value.value.name" contain class="mh-100" /> </div>
                       <q-tooltip :delay="300" :offset="[0,3]"  transition-show="scale" transition-hide="scale" >
                         {{value.value.name}}
                       </q-tooltip>
                   </router-link>
-                  <div v-else class="team-thumbnail"><q-img :title="value.value.name" contain  :src="value.value.logo" :alt="value.value.name" class="team-thumbnail self-cente" /> </div>
                 </q-td>
                 <q-td slot="body-cell-form" class="text-caption" slot-scope="value" :props="value">
-                  <div v-for="(char, idx) in value.value" :key="idx" class="q-mr-xs inline" style="width: 10px; height: 10px;">
-                    <span v-if="value.value.charAt(idx) === 'W'" class="bg-positive q-pa-xs text-white" >W</span>
-                    <span v-else-if="value.value.charAt(idx) === 'L'" class="bg-negative q-pa-xs text-white">L</span>
-                    <span v-else class="bg-grey q-pa-xs text-white">D</span>
-                  </div>
+                    <span v-for="(char, idx) in value.value" :key="idx" v-text="char"
+                      class="q-mr-x text-white q-pa-xs fit"
+                      :class="{'bg-positive': char === 'W', 'bg-negative': char==='L', 'bg-grey': char==='D'}"
+                    />
                 </q-td>
               </q-table>
-            <div class="text-caption q-my-sm">All times UK</div>
+            <div class="text-caption q-my-md">Last update: {{league.standingsLastUpdated}}</div>
           </q-tab-panel>
           <q-tab-panel name="news" :class="panelClass">
             <div class="row justify-center">
@@ -269,6 +268,11 @@ export default {
         { name: 'points', label: 'Points', field: 'points', sortable: true },
         { name: 'form', align: 'center', label: 'Form', field: 'form' },
       ],
+      pagination: {
+        sortBy: 'points',
+        descending: true,
+        rowsPerPage: 20,
+      },
     }
   },
 
