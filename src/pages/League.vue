@@ -267,7 +267,7 @@ export default {
       articles: [],
       columns: [
         { name: 'state', required: true, align: 'left', field: row => row.position },
-        { name: 'rank', required: true, label: 'Rank', align: 'left', field: row => row.position, sortable: true },
+        { name: 'rank', required: true, align: 'left', field: row => row.position },
         { name: 'change', required: true, align: 'left', field: row => row },
         { name: 'team', required: true, label: 'Team', align: 'left', field: row => row.team },
         { name: 'played', align: 'center', label: 'Played', field: 'played', sortable: true },
@@ -281,8 +281,8 @@ export default {
         { name: 'form', align: 'center', label: 'Form', field: 'form' },
       ],
       pagination: {
-        sortBy: 'rank',
-        descending: false,
+        sortBy: 'points',
+        descending: true,
         rowsPerPage: 20,
       },
     }
