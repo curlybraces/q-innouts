@@ -162,7 +162,7 @@ export default {
 
       meta: {
         description: { name: 'description', content: this.article.body },
-        keywords: { name: 'keywords', content: [this.tags] },
+        keywords: { name: 'keywords', content: [this.article.title].concat(this.tags) },
       },
     }
   },
@@ -242,7 +242,7 @@ export default {
       let wordCount = this.article.body.split(' ').length
       // let mins = wordCount / 200
       // let secs = Math.round((mins % 1) * 0.60 * 100) / 100 + 0.10
-      return Math.round(wordCount / 200)
+      return Math.round(wordCount / 200 + 0.17)
     }
   }
 }

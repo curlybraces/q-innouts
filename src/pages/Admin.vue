@@ -34,10 +34,10 @@
           class="bg-primar"
         >
           <q-tab name="overview" label="overview" />
-          <q-tab name="bulletins" label="Bulletins" />
-          <q-tab name="articles" label="Articles" />
-          <q-tab name="rumours" label="rumours" />
-          <q-tab name="transfers" label="transfers" />
+          <q-tab v-if="admin.access >= 3" name="bulletins" label="Bulletins" />
+          <q-tab v-if="admin.access >= 2" name="articles" label="Articles" />
+          <q-tab v-if="admin.access >= 1" name="rumours" label="rumours" />
+          <q-tab v-if="admin.access >= 4" name="transfers" label="transfers" />
         </q-tabs>
       </template>
 

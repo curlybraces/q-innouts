@@ -29,13 +29,25 @@ export default {
     }
   },
 
+  computed: {
+    rumourTitles () {
+      let x = []
+      if (this.rumours.length) {
+        this.rumours.forEach(element => {
+          x.push(element.title)
+        })
+      }
+      return x
+    }
+  },
+
   meta () {
     return {
       title: 'Rumours - Innouts',
 
       meta: {
         description: { name: 'description', content: 'Major football transfer rumours, covering the Premier League, La Liga, Serie A, Bundesliga and Ligue1.' },
-        keywords: { name: 'keywords', content: ['football rumours', 'transfer rumours', 'transfer gossip', 'rumour mill', 'Innouts rumours'] },
+        keywords: { name: 'keywords', content: ['football rumours', 'transfer rumours', 'transfer gossip', 'rumour mill', 'Innouts rumours'].concat(this.rumourTitles) },
       },
     }
   },
