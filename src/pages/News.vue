@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-grow col-sm-10 col-md-8 col-lg-7">
-        <div class="text-center text-h4 q-my-md bg-primary q-pa-md text-white rounded-borders">
+        <div class="text-center text-h5 bg-primary q-pa-md text-white rounded-borders">
           Latest News
         </div>
         <news :news="news"/>

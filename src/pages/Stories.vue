@@ -3,9 +3,9 @@
     <div class="row justify-center">
       <div class="col-grow col-sm-10 col-md-9 col-lg-8 bg-primar text-white border-primary rounded-borders">
         <div id="title" class="text-center text-h5 q-my-md bg-primary q-pa-md text-white rounded-borders">
-          Latest Editorials
+          Latest Stories
         </div>
-        <articles v-if="articles.length" :articles="articles" :chunk="10" :dense="$q.screen.lt.md" :taggedTeams="true" />
+        <articles v-if="articles.length" :articles="articles" :chunk="10" :dense="$q.screen.lt.md" :taggedTeams="true" links="stories"  />
         <div v-else class="text-subtitle1 text-center text-black">
           Nothing to display at this time!
         </div>
@@ -35,17 +35,17 @@ export default {
 
   meta () {
     return {
-      title: 'Editorials - Innouts',
+      title: 'Stories - Innouts',
 
       meta: {
-        description: { name: 'description', content: 'Latest football analysis of top five European leagues.' },
-        keywords: { name: 'keywords', content: ['football analysis', 'football news', 'football talk', 'premier league analysis', 'football world', 'European football'] },
+        description: { name: 'description', content: 'Latest football stories of top European leagues and teams as they unfold.' },
+        keywords: { name: 'keywords', content: ['football stories', 'football news', 'football talk', 'football reports', 'premier league analysis', 'football world', 'European football'] },
       },
     }
   },
 
   beforeRouteEnter (to, from, next) {
-    axios.get('api/articles')
+    axios.get('api/bulletins')
       .then(response => {
         next(vm => {
           vm.setData(response)

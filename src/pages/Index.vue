@@ -12,7 +12,8 @@
         <q-carousel-slide v-for="(bulletin, idx) in bulletins" :key="bulletin.id" :name="idx" :img-src="bulletin.picture">
           <div class="absolute-bottom custom-caption">
             <div class="newsTitle text-capitalize q-mb-sm" :class="bulletTitleClass" >{{bulletin.title}}</div>
-            <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body"></div>
+            <div class="newsBody" :class="bulletBodyClass" v-html="bulletin.body" />
+            <router-link v-if="bulletin.extended" :to="'/stories/'+bulletin.id+'/'+bulletin.slug" class="text-caption no-decor text-white">Full Story</router-link>
           </div>
         </q-carousel-slide>
       </q-carousel>

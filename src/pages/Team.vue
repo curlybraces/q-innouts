@@ -219,8 +219,9 @@
     >
       <q-tab name="home" label="Team" />
       <q-tab name="innouts" label="Innouts" />
-      <q-tab name="rumours" label="Rumours" />
       <q-tab name="articles" label="Editorials" />
+      <q-tab name="stories" label="Stories" />
+      <q-tab name="rumours" label="Rumours" />
       <q-tab v-if="user.team_id == team.id" name="business" label="sign/sell" />
     </q-tabs>
 
@@ -407,6 +408,15 @@
           <div class="col-grow col-lg-6 col-md-8 col-sm-10">
             <rumours v-if="team.rumours ? team.rumours.length : false" :rumours="team.rumours" :dense="true" btnSize="xs" />
             <div v-else class="text-subtitle1 text-center">No recent rumours!</div>
+          </div>
+        </div>
+      </q-tab-panel>
+
+      <q-tab-panel name="stories">
+        <div class="row justify-center">
+          <div class="col-lg-6 col-md-8 col-sm-10">
+            <articles v-if="team.stories ? team.stories.length : false" :articles="team.stories" :dense="true" links="stories" />
+            <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
           </div>
         </div>
       </q-tab-panel>

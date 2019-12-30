@@ -24,13 +24,74 @@
             class="q-gutter-sm"
           >
             <q-input v-model="bulletinTitle" label="title" class="q-mb-sm" />
+            <div class="q-mt-lg text-bold">Short body</div>
             <q-editor v-model="bulletinBody" min-height="8rem" />
-            <!-- <q-uploader
-              url="" label="Choose appropriate image" hide-upload-btn
-              style="max-width: 300px" accept="image/*" :max-file-size="800000"
-              class="q-my-sm" ref="bulletin"
-            /> -->
             <input type="file" accept="image/*" required ref="bulletin">
+            <div class="q-mt-lg text-bold">Extended Body (optional)</div>
+            <q-editor v-model="bulletinExtended" min-height="8rem" />
+            <div class="row q-gutter-x-sm">
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedTeams"
+                  multiple
+                  :options="teamOptions"
+                  option-label="name"
+                  option-value="id"
+                  use-input
+                  input-debounce="100"
+                  @filter="filterTeams"
+                  use-chips
+                  stack-label
+                  label="Tagged teams"
+                />
+              </div>
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedPlayers"
+                  multiple
+                  :options="playerOptions"
+                  option-label="slug"
+                  option-value="id"
+                  use-input
+                  input-debounce="100"
+                  @filter="filterFn"
+                  use-chips
+                  stack-label
+                  label="Tagged players"
+                />
+              </div>
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedManagers"
+                  multiple
+                  :options="managerOptions"
+                  option-label="nickname"
+                  option-value="id"
+                  use-input
+                  input-debounce="100"
+                  @filter="filterManagers"
+                  use-chips
+                  stack-label
+                  label="Tagged managers"
+                />
+              </div>
+              <div class="col">
+                <q-select
+                  filled
+                  v-model="taggedLeagues"
+                  multiple
+                  :options="leagues"
+                  option-label="name"
+                  option-value="id"
+                  use-chips
+                  stack-label
+                  label="Tagged leagues"
+                />
+              </div>
+            </div>
           <div class="q-mt-lg">
             <q-btn label="Submit" type="submit" color="primary" />
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
@@ -41,25 +102,20 @@
           <q-markup-table dense >
           <thead>
             <tr class="text-left">
-              <!-- <th>Img</th> -->
+              <th>Img</th>
               <th>Title</th>
               <th>Body</th>
+              <th>Extended Body?</th>
             </tr>
           </thead>
-          </q-markup-table>
-          <q-list
-            no-border
-            inset-delimiter
-            class=""
-          >
-            <div v-for="(bullet, idx) in bulletins" :key="bullet.id">
-              <q-item active-class="text-white bg-primary">
-                <q-item-section avatar>
+          <tbody>
+            <tr v-for="(bullet, idx) in bulletins" :key="bullet.id">
+                <td avatar>
                   <q-avatar rounded size="3rem">
                     <img :src="bullet.picture">
                   </q-avatar>
-                </q-item-section>
-                <q-item-section>
+                </td>
+                <td>
                   <div v-html="bullet.title"></div>
                   <q-popup-edit :value="bullet.title" @save="saveTitle" @input="cancelTitle($event, idx)" buttons title="Update" persistent>
                     <q-input
@@ -70,18 +126,21 @@
                       label="Title"
                     />
                   </q-popup-edit>
-                </q-item-section>
-                <q-item-section>
+                </td>
+                <td>
                   <q-editor v-model="bullet.body" min-height="5rem" />
-                </q-item-section>
-                <q-item-section side class="q-gutter-y-sm">
+                </td>
+                <td v-if="bullet.extended">
+                  <q-editor v-model="bullet.extended" min-height="5rem" />
+                </td>
+                <td v-else></td>
+                <td class="q-gutter-y-sm">
+                  <q-btn color="green" class="q-mr-xs" text-color="white" label="Save" @click="save(idx)" size="sm" v-close-popup />
                   <q-btn color="red" text-color="white" label="Delete" @click="remove(bullet.id)" size="xs" v-close-popup />
-                  <q-btn color="green" class="full-width" text-color="white" label="Save" @click="save(idx)" size="sm" v-close-popup />
-                </q-item-section>
-              </q-item>
-              <q-separator />
-            </div>
-          </q-list>
+                </td>
+            </tr>
+            </tbody>
+          </q-markup-table>
         </q-tab-panel>
       </q-tab-panels>
   </div>
@@ -96,7 +155,19 @@ export default {
       bullTab: 'create',
       bulletinTitle: '',
       bulletinBody: '',
-      bulletins: []
+      bulletinExtended: '',
+      bulletins: [],
+      teams: [],
+      teamOptions: [],
+      taggedTeams: [],
+      players: [],
+      playerOptions: [],
+      taggedPlayers: [],
+      managers: [],
+      managerOptions: [],
+      taggedManagers: [],
+      taggedLeagues: [],
+      leagues: []
     }
   },
 
@@ -125,21 +196,103 @@ export default {
             message: 'Problem fetching the bulletins!'
           })
         })
+      this.$axios.get('api/teams')
+        .then(response => {
+          this.teams = response.data
+          this.teamOptions = this.teams
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'Problem fetching teams!'
+          })
+        })
+      this.$axios.get('api/players')
+        .then(response => {
+          this.players = response.data
+          this.playerOptions = this.players
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'Problem fetching players!'
+          })
+        })
+      this.$axios.get('api/managers')
+        .then(response => {
+          this.managers = response.data
+          this.managerOptions = this.managers
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'Problem fetching managers!'
+          })
+        })
+      this.$axios.get('api/leagues')
+        .then(response => {
+          this.leagues = response.data
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'fas fa-exclamation-triangle',
+            message: 'Problem fetching managers!'
+          })
+        })
     },
 
     onBulletinReset () {
       this.bulletinTitle = ''
       this.bulletinBody = ''
-      // this.$refs.bulletin.reset()
+      this.bulletinExtended = ''
+      this.taggedPlayers = []
+      this.taggedTeams = []
+      this.taggedManagers = []
+      this.taggedLeagues = []
       this.$refs.bulletin.value = null
     },
 
     onBulletinSubmit () {
       if (this.bulletinTitle.length && this.bulletinBody.length && this.$refs.bulletin.files[0]) {
+        let taggedPlayersIDs = []
+        let taggedTeamsIDs = []
+        let taggedManagersIDs = []
+        let taggedLeaguesIDs = []
+        this.taggedTeams.forEach(element => {
+          taggedTeamsIDs.push(element.id)
+        })
+        this.taggedPlayers.forEach(element => {
+          taggedPlayersIDs.push(element.id)
+        })
+        this.taggedManagers.forEach(element => {
+          taggedManagersIDs.push(element.id)
+        })
+        this.taggedLeagues.forEach(element => {
+          taggedLeaguesIDs.push(element.id)
+        })
         let formData = new FormData()
         formData.append('picture', this.$refs.bulletin.files[0])
         formData.append('title', this.bulletinTitle)
         formData.append('body', this.bulletinBody)
+        if (this.bulletinExtended.length > 20) {
+          formData.append('extended', this.bulletinExtended)
+        }
+        formData.append('taggedTeams', JSON.stringify(taggedTeamsIDs))
+        formData.append('taggedPlayers', JSON.stringify(taggedPlayersIDs))
+        formData.append('taggedManagers', JSON.stringify(taggedManagersIDs))
+        formData.append('taggedLeagues', JSON.stringify(taggedLeaguesIDs))
         formData.append('admin_id', this.admin.id)
         let headers = {
           'Content-Type': 'multipart/form-data'
@@ -193,14 +346,14 @@ export default {
 
     save (idx) {
       let bullet = this.bulletins[idx]
-      this.$axios({ url: 'api/bulletins/' + bullet.id, data: { title: bullet.title, body: bullet.body }, method: 'PUT' })
+      this.$axios({ url: 'api/bulletins/' + bullet.id, data: { title: bullet.title, body: bullet.body, extended: bullet.extended }, method: 'PUT' })
         .then(response => {
           this.fetchData()
           this.$q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'fas fa-check-circle',
-            message: 'Bulletind updated!'
+            message: 'Bulletin updated!'
           })
         })
         .catch(error => {
@@ -211,7 +364,49 @@ export default {
             message: error.response.data.error
           })
         })
-    }
+    },
+
+    filterTeams (val, update) {
+      if (val === '') {
+        update(() => {
+          this.teamOptions = this.teams
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.teamOptions = this.teams.filter(v => v.name.toLowerCase().indexOf(needle) > -1)
+      })
+    },
+
+    filterFn (val, update) {
+      if (val === '') {
+        update(() => {
+          this.playerOptions = this.players
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.playerOptions = this.players.filter(v => v.slug.toLowerCase().indexOf(needle) > -1)
+      })
+    },
+
+    filterManagers (val, update) {
+      if (val === '') {
+        update(() => {
+          this.managerOptions = this.managers
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.managerOptions = this.managers.filter(v => v.slug.toLowerCase().indexOf(needle) > -1)
+      })
+    },
   }
 }
 </script>

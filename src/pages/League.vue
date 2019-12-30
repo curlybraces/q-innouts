@@ -65,8 +65,9 @@
         >
           <q-tab name="overview" label="Overview" />
           <q-tab name="table" label="Table" />
-          <q-tab name="news" label="News" />
           <q-tab name="editorials" label="Editorials" />
+          <q-tab name="stories" label="Stories" />
+          <q-tab name="news" label="News" />
         </q-tabs>
       </div>
     </div>
@@ -226,6 +227,16 @@
               </div>
             </div>
           </q-tab-panel>
+          <q-tab-panel name="stories" :class="panelClass">
+            <div class="row justify-center">
+              <div class="col-grow col-sm-9 col-md-7">
+                <articles v-if="stories.length" :articles="stories" :chunk="7" :dense="true" links="stories" />
+                <div v-else class="text-subtitle1 text-center text-black">
+                  Nothing to display at this time!
+                </div>
+              </div>
+            </div>
+          </q-tab-panel>
         </q-tab-panels>
       </div>
   </q-page>
@@ -265,6 +276,7 @@ export default {
       logoColClass: {},
       statsClass: {},
       articles: [],
+      stories: [],
       columns: [
         { name: 'state', required: true, align: 'left', field: row => row.position },
         { name: 'rank', required: true, align: 'left', field: row => row.position },
@@ -357,6 +369,7 @@ export default {
       this.league = response.data.league
       this.stats = response.data.stats
       this.articles = response.data.articles
+      this.stories = response.data.stories
       let CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
       parser.parseURL(CORS_PROXY + this.league.feed)
         .then(feed => {

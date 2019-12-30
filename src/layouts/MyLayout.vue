@@ -35,14 +35,19 @@
             <q-item-label>Highlights</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" to="/news">
+        <q-item clickable tag="a" to="/stories">
           <q-item-section>
-            <q-item-label>News</q-item-label>
+            <q-item-label>Stories</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" to="/editorials">
           <q-item-section>
             <q-item-label>Editorials</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" to="/news">
+          <q-item-section>
+            <q-item-label>News</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="b" to="/transfers">
@@ -58,7 +63,6 @@
       <q-expansion-item
         group="somegroup"
         label="Leagues"
-        default-opene
         header-class="text-primary"
       >
         <q-list >

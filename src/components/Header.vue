@@ -13,8 +13,26 @@
       </q-toolbar-title>
 
       <q-btn to="/highlights" no-caps  label="Highlights" />
-      <q-btn to="/news" no-caps  label="News" />
-      <q-btn to="/editorials" no-caps  label="Editorials" />
+
+      <q-btn-dropdown no-caps label="Latest">
+        <q-list dark dense class="bg-primary">
+          <q-item clickable v-close-popup to="/stories" active-class="text-accent">
+            <q-item-section>
+              <q-item-label>Stories</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup to="/editorials" active-class="text-accent">
+            <q-item-section>
+              <q-item-label>Editorials</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup to="/news" active-class="text-accent">
+            <q-item-section>
+              <q-item-label>News</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
 
       <q-btn-dropdown no-caps label="Transfers">
         <q-list dark dense class="bg-primary">

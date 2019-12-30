@@ -58,7 +58,7 @@
                   v-model="taggedPlayers"
                   multiple
                   :options="playerOptions"
-                  option-label="nickname"
+                  option-label="slug"
                   option-value="id"
                   use-input
                   input-debounce="100"

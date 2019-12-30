@@ -37,6 +37,12 @@ const routes = [
         path: '/teams/:team', component: () => import('pages/Team.vue')
       },
       {
+        path: '/stories', component: () => import('pages/Stories.vue')
+      },
+      {
+        path: '/stories/:story/:slug', component: () => import('pages/Story.vue')
+      },
+      {
         path: '/articles/:article/:slug', component: () => import('pages/Article.vue')
       },
       {
