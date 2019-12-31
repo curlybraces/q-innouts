@@ -219,8 +219,8 @@
     >
       <q-tab name="home" label="Team" />
       <q-tab name="innouts" label="Innouts" />
-      <q-tab name="articles" label="Editorials" />
       <q-tab name="stories" label="Stories" />
+      <q-tab name="articles" label="Editorials" />
       <q-tab name="rumours" label="Rumours" />
       <q-tab v-if="user.team_id == team.id" name="business" label="sign/sell" />
     </q-tabs>

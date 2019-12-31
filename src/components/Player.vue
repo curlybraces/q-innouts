@@ -105,6 +105,7 @@
         v-model="tab" dense inline-label
         class="bg-primary text-white shadow-2 full-width"
       >
+        <q-tab name="stories" label="Stories" />
         <q-tab name="editorials" label="Editorials" />
         <q-tab name="rumours" label="Rumours" />
         <q-tab v-if="player.specificPosition" name="transfers" label="Transfers" />
@@ -147,6 +148,12 @@
             Nothing to display at this time!
           </div>
         </q-tab-panel>
+        <q-tab-panel name="stories">
+          <articles v-if="stories.length" :articles="stories" :chunk="3" :dense="true" links="stories" :showBody="true" />
+          <div v-else class="text-subtitle1 text-center text-black">
+            Nothing to display at this time!
+          </div>
+        </q-tab-panel>
       </q-tab-panels>
     </div>
   </div>
@@ -172,9 +179,10 @@ export default {
     age: null,
     date: new Date(),
     birthFormatted: null,
-    tab: 'editorials',
+    tab: 'stories',
     rumours: [],
     articles: [],
+    stories: [],
     current: 1,
     playerInfoClass: {},
     transfersClass: {},
@@ -247,7 +255,7 @@ export default {
   watch: {
     'player' () {
       this.setAge()
-      this.tab = 'editorials'
+      this.tab = 'stories'
       if (this.player.broadPosition) {
         this.entity = 'player'
       } else {
@@ -264,6 +272,7 @@ export default {
             this.transfers = player.transfers
             this.rumours = player.rumours
             this.articles = player.articles
+            this.stories = player.stories
           })
           .catch(error => {
             this.$q.notify({ message: error.data.message })
@@ -278,6 +287,7 @@ export default {
             this.transfers = []
             this.rumours = player.rumours
             this.articles = player.articles
+            this.stories = player.stories
           })
           .catch(error => {
             this.$q.notify({ message: error.data.message })
@@ -297,7 +307,6 @@ export default {
         if (this.$q.screen.lt.md) {
           value *= 2
         }
-        // console.log(value)
         this.$axios({ url: url + this.player.id, data: { userId: this.user.id, value: value }, method: 'PUT' })
           .then(response => {
             this.rating = value

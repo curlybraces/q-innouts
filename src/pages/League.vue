@@ -65,8 +65,8 @@
         >
           <q-tab name="overview" label="Overview" />
           <q-tab name="table" label="Table" />
-          <q-tab name="editorials" label="Editorials" />
           <q-tab name="stories" label="Stories" />
+          <q-tab name="editorials" label="Editorials" />
           <q-tab name="news" label="News" />
         </q-tabs>
       </div>
