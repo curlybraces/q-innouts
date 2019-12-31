@@ -141,9 +141,9 @@
         <div class="row justify-center">
           <q-card class="col-11 col-sm-8 bg-t-darker self-center">
             <div class="row">
-              <div class="column col-grow col-4 col-sm-3 q-pt-sm">
-                <q-img :src="team.logo" :alt="team.name" contain id="team-thumbnail-mobile" class="q-mx-auto q-mb-lg"/>
-                <div class="text-center text-uppercase" :style="{backgroundColor: team.color}" > {{team.name}} </div>
+              <div class="column col-grow col-4 col-sm-3 q-pt-sm relative-position">
+                <q-img :src="team.logo" :alt="team.name" contain id="team-thumbnail-mobile" class="q-mx-auto q-mt-sm"/>
+                <div class="text-center text-uppercase absolute-bottom" :style="{backgroundColor: team.color}" > {{team.name}} </div>
               </div>
               <div class="col-grow col-8">
                 <q-list dense dark class="text-subtitle2 text-capitalize">
@@ -415,7 +415,7 @@
       <q-tab-panel name="stories">
         <div class="row justify-center">
           <div class="col-lg-6 col-md-8 col-sm-10">
-            <articles v-if="team.stories ? team.stories.length : false" :articles="team.stories" :dense="true" links="stories" />
+            <articles v-if="team.stories ? team.stories.length : false" :articles="team.stories" :dense="true" links="stories" :showBody="true" />
             <div v-else class="text-subtitle1 text-center">Nothing to display at this time!</div>
           </div>
         </div>

@@ -403,7 +403,7 @@ export default {
     this.$store.commit('setLeftDrawer', false)
     if (this.$q.screen.lt.sm) {
       this.visibleColumns = ['name', 'from', 'to', 'date', 'fee']
-      this.carouselHeight = '250px'
+      this.carouselHeight = '300px'
       this.bulletTitleClass = {
         'text-h6': true
       }

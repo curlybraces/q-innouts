@@ -5,7 +5,7 @@
         <div id="title" class="text-center text-h5 q-my-md bg-primary q-pa-md text-white rounded-borders">
           Latest Stories
         </div>
-        <articles v-if="articles.length" :articles="articles" :chunk="10" :dense="$q.screen.lt.md" :taggedTeams="true" links="stories"  />
+        <articles v-if="articles.length" :articles="articles" :chunk="10" :dense="$q.screen.lt.md" :taggedTeams="true" links="stories" :showBody="true" />
         <div v-else class="text-subtitle1 text-center text-black">
           Nothing to display at this time!
         </div>

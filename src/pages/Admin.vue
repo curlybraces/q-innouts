@@ -12,7 +12,7 @@
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSyb_bl2yTpKhgn__vbbP9_2hPU8AfzvyhH16xZnK1l1zH3MxaP">
             </q-avatar>
 
-            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize text-white">{{admin.firstname}} {{admin.lastname}}</div>
+            <div class="text-subtitle1 q-mt-md q-mb-xs text-capitalize newsTitle text-white">{{admin.firstname}} {{admin.lastname}}</div>
 
             <q-btn
               color="secondary"
@@ -49,14 +49,28 @@
           transition-next="jump-down"
         >
           <q-tab-panel name="overview">
-            <div class="column">
-              # of users
-              <div class="row">
-                <div class="col-md-2 text-h6">overall: </div>
-                <div class="col-md-2 text-h6">month: </div>
-                <div class="col-md-2 text-h6">week: </div>
-                <div class="col-md-2 text-h6">yesterday: </div>
-                <div class="col-md-2 text-h6">today: </div>
+            <div class="text-h6 q-mb-md newsTitle">Welcome back {{admin.firstname}}</div>
+            <hr>
+            <div class="column ">
+              #️⃣of users
+              <div class="row text-bold">
+                <div class="col-md-2">Total: {{info.all}}</div>
+                <div class="col-md-2">month: {{info.month}}</div>
+                <div class="col-md-2">week: {{info.week}}</div>
+                <div class="col-md-2">today: {{info.today}}</div>
+              </div>
+              &#9997;&#127996;Your Contributions
+              <div class="row text-bold">
+                <div class="col-md-2">Headlines (stories): {{info.bulletinsCount}}</div>
+                <div class="col-md-2">Editorials: {{info.articlesCount}}</div>
+                <div class="col-md-2">Rumours: {{info.rumoursCount}}</div>
+              </div>
+              <div class="row justify-center q-my-md">
+                <GChart
+                  type="LineChart"
+                  :data="chartData"
+                  :options="chartOptions"
+                />
               </div>
             </div>
           </q-tab-panel>
@@ -139,6 +153,8 @@
 </template>
 
 <script>
+import { GChart } from 'vue-google-charts'
+
 const BulletinAdmin = () => import('components/BulletinAdmin.vue')
 const ArticleAdmin = () => import('components/ArticleAdmin.vue')
 const RumourAdmin = () => import('components/RumourAdmin.vue')
@@ -149,7 +165,8 @@ export default {
   components: {
     BulletinAdmin,
     ArticleAdmin,
-    RumourAdmin
+    RumourAdmin,
+    GChart
   },
 
   data () {
@@ -173,7 +190,28 @@ export default {
       notes: '',
       date: null,
       returnDate: null,
-
+      info: {},
+      chartData: [],
+      chartOptions: {
+        hAxis: {
+          title: 'Weeks ago'
+        },
+        vAxis: {
+          title: 'New users'
+        },
+        colors: ['#097138'],
+        animation: {
+          duration: 5
+        },
+        title: 'New Users By Week',
+        subtitle: 'in millions of dollars (USD)',
+        width: 800,
+        height: 400,
+        backgroundColor: 'transparent',
+        fontColor: 'white',
+        legend: { },
+      },
+      weeklyUsers: [],
     }
   },
 
@@ -202,21 +240,27 @@ export default {
     'targetLeague' () {
       this.targetTeams = this.targetLeague.teams
       this.targetTeam = null
+    },
+    'info' () {
+      this.chartData = [
+        ['week', 'new users'],
+        ['one', this.info.week],
+        ['two', this.info.twoWeeks],
+        ['three', this.info.threeWeeks],
+        ['four', this.info.fourWeeks],
+        ['five', this.info.fiveWeeks],
+        ['six', this.info.sixWeeks],
+        ['seven', this.info.sevenWeeks]
+      ]
+    },
+    'admin' () {
+      this.setData()
     }
   },
 
   created () {
     this.$store.commit('setRightDrawer', false)
-
     this.$store.dispatch('getAdmin', this.$q.cookies.get('adminToken'))
-
-    this.$axios.get('api/leagues')
-      .then(response => {
-        this.leagues = response.data
-      })
-      .catch(error => {
-        this.$q.notify({ message: error.data.message })
-      })
   },
 
   methods: {
@@ -270,6 +314,23 @@ export default {
         })
       }
     },
+
+    setData () {
+      this.$axios.get('api/leagues')
+        .then(response => {
+          this.leagues = response.data
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+        })
+      this.$axios.get('api/admin-panel-info', { params: { admin_id: this.admin.id } })
+        .then(response => {
+          this.info = response.data
+        })
+        .catch(error => {
+          this.$q.notify({ message: error.data.message })
+        })
+    }
   }
 
 }

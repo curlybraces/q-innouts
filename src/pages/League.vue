@@ -230,7 +230,7 @@
           <q-tab-panel name="stories" :class="panelClass">
             <div class="row justify-center">
               <div class="col-grow col-sm-9 col-md-7">
-                <articles v-if="stories.length" :articles="stories" :chunk="7" :dense="true" links="stories" />
+                <articles v-if="stories.length" :articles="stories" :chunk="7" :dense="true" links="stories" :showBody="true" />
                 <div v-else class="text-subtitle1 text-center text-black">
                   Nothing to display at this time!
                 </div>
