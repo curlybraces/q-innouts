@@ -5,14 +5,10 @@
         <div class="row justify-center">
           <div class="col-lg-8 col-md-9 col-sm-10">
             <div  v-if="rumours.length">
-              <!-- <h4 class="text-center q-my-md bg-primary q-pa-md text-white rounded-borders">&#128225; Rumour Mill</h4> -->
               <div v-for="(rumour, idx) in rumours.slice((current-1)*5, current*5)" :key="rumour.id">
                 <q-card class="bg-secondary">
                   <q-badge color="accent" text-color="white" :label="rumour.created_at.split(' ')[0]" align="top" floating transparent />
                   <div class="text-subtitle1 text-center text-uppercase bg-primary text-secondary q-pa-sm q-my-sm">{{rumour.title}}</div>
-                  <!-- <q-card-section class="text-center">
-                    <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
-                  </q-card-section> -->
                   <q-card-section class="text-body1 text-justify" v-html="rumour.body" >
                     <img :src="rumour.picture" :alt="rumour.title" class="border-primary" width="145" height="90">
 
@@ -85,7 +81,6 @@ export default {
       this.scrollToElement(document.getElementById('title'))
     },
     $route () {
-      // alert('change')
       this.setData()
     }
   },
@@ -129,7 +124,6 @@ export default {
     },
 
     setData () {
-      // alert('inside setData() ' + this.$route.params.team)
       this.$q.loading.show()
       this.$axios.get('http://innouts.test/api/rumours/teams/' + this.$route.params.team)
         .then(response => {

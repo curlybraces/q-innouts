@@ -55,7 +55,7 @@
 
       <q-table
         class="my-sticky-header-table bg-secondary"
-        title="Biggest Transfers of Last Window"
+        :title="transfers.length ? 'Biggest Transfers - ' +  transfers[0].window.name : 'Biggest transfers of latest window'"
         :dense="$q.screen.lt.md"
         :data="transfers"
         :columns="columns"
