@@ -68,49 +68,6 @@
         color="primary"
         table-header-class="bg-primary text-white"
       >
-        <!-- customization for small devices -->
-        <template v-slot:item="props">
-          <div
-            class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
-            :style="props.selected ? 'transform: scale(0.95);' : ''"
-          >
-            <q-card class="bg-secondary">
-              <q-list dense>
-                <q-item v-for="(col, idx) in props.cols" :key="col.id">
-                  <q-item-section>
-                    <q-item-label>{{ col.label }}</q-item-label>
-                  </q-item-section>
-                  <q-item-section v-if="idx === 0" side>
-                    <router-link :to="'/players/' + col.value.id + '/' + col.value.slug " class="no-decor">
-                      <q-item-label caption>{{ col.value.nickname }}</q-item-label>
-                    </router-link>
-                  </q-item-section>
-                  <q-item-section v-else-if="[3,4].includes(idx)" side>
-                    <q-item-label caption>{{ col.value }}</q-item-label>
-                  </q-item-section>
-                  <q-item-section v-else-if="[1,2].includes(idx)" side>
-                    <router-link :to="'/teams/' + col.value.slug" class="no-decor">
-                      <q-item-label caption>{{ col.value.name }}</q-item-label>
-                    </router-link>
-                  </q-item-section>
-                  <q-item-section v-else side>
-                    <q-rating
-                      class=""
-                      color="primary"
-                      size="1.5rem"
-                      icon="thumb_up"
-                      :id="col.value.id"
-                      :value="col.value.rating"
-                      :max="5"
-                      @input="submitRating($event, col.value.id, col.value.__index)"
-                    />
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-card>
-          </div>
-        </template>
-
         <q-td slot="body-cell-name" slot-scope="value" :props="value">
           <router-link :to="'/players/' + value.value.id + '/' + value.value.slug" class="no-decor" >
             {{value.value.nickname}}
@@ -145,7 +102,7 @@
                 size="1.5rem"
                 icon="thumb_up"
                 :id="value.value.id"
-                :value="value.value.rating"
+                :value="Math.round(value.value.rating)"
                 :max="5"
                 @input="submitRating($event, value.value.id, value.value.__index)"
               />

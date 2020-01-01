@@ -70,7 +70,7 @@
                     size="1.5rem"
                     icon="thumb_up"
                     :id="value.value.id"
-                    :value="value.value.rating"
+                    :value="Math.round(value.value.rating)"
                     :max="5"
                     @input="submitRating($event, value.value.id, value.value.__index)"
                     :readonly="window.rateArchived"
@@ -146,7 +146,7 @@ export default {
       .then(response => {
         next(vm => {
           vm.windows = response.data.visibleWindows
-          vm.windows[0] = response.data.lastWindow
+          vm.windows[0] = response.data.latestWindow
           vm.window = vm.windows[0]
           vm.transfers = vm.window.transfers
         })
