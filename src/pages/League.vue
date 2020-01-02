@@ -293,8 +293,8 @@ export default {
         { name: 'form', align: 'center', label: 'Form', field: 'form' },
       ],
       pagination: {
-        sortBy: 'points',
-        descending: true,
+        sortBy: 'rank',
+        descending: false,
         rowsPerPage: 20,
       },
     }

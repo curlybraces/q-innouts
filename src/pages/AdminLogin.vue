@@ -37,7 +37,6 @@
 
             <div class="q-mb-md">
               <q-btn label="Submit" type="submit" color="primary" />
-              <q-btn label="Forgot Password?" type="a" color="primary" class="q-ml-sm" />
             </div>
           </q-form>
         </q-card>
