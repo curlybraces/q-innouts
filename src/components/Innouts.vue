@@ -300,8 +300,10 @@ export default {
     this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
-        this.windows[0] = response.data.lastWindow
-        this.windows.unshift(response.data.activeWindow)
+        this.windows[0] = response.data.latestWindow
+        if (this.windows[0].name !== response.data.activeWindow.name) {
+          this.windows.unshift(response.data.activeWindow)
+        }
         this.window = response.data.activeWindow
         this.transfers = this.window.transfers
         // this.windowChange()

@@ -127,6 +127,7 @@ export default {
 
   methods: {
     setData () {
+      this.remains = true
       this.timedArticles = this.articles
       this.timedArticles.forEach(element => {
         let diff = date.getDateDiff(this.date, element.created_at, 'days')
