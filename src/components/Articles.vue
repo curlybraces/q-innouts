@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-list v-if="articles.length" :dense="$q.screen.lt.md" bordered padding separato dark>
-      <q-infinite-scroll @load="onLoad" :offset="200">
+      <q-infinite-scroll ref="infiniteScroll" @load="onLoad" :offset="200">
         <div v-for="(article, index) in articleBag" :key="index">
         <q-item v-if="article.slug" clickable  :to="'/' + links + '/'+article.id+'/'+article.slug" class="bg-primary" :dense="dense">
           <q-item-section thumbnail class="q-ml-non">
@@ -121,6 +121,7 @@ export default {
 
   watch: {
     articles () {
+      this.$refs.infiniteScroll.reset()
       this.setData()
     }
   },

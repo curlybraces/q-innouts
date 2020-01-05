@@ -333,17 +333,21 @@ export default {
         }
       })
 
-      this.window.wanteds.forEach(elem => {
-        if (elem.suitor.id === parseInt(this.team.id)) {
-          this.wanteds.push(elem)
-        }
-      })
+      if ('wanteds' in this.window) {
+        this.window.wanteds.forEach(elem => {
+          if (elem.suitor.id === parseInt(this.team.id)) {
+            this.wanteds.push(elem)
+          }
+        })
+      }
 
-      this.window.unwanteds.forEach(elem => {
-        if (elem.player.team_id === parseInt(this.team.id)) {
-          this.unwanteds.push(elem)
-        }
-      })
+      if ('unwanteds' in this.window) {
+        this.window.unwanteds.forEach(elem => {
+          if (elem.player.team_id === parseInt(this.team.id)) {
+            this.unwanteds.push(elem)
+          }
+        })
+      }
 
       this.inTotal = this.countMoney('ins')
       this.outTotal = this.countMoney('outs')

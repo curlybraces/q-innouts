@@ -230,7 +230,7 @@
      >
       <q-tab-panel name="home">
         <div class="row justify-center q-mx-auto relative-position">
-          <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-11 q-px-sm" :class="fieldClass" :style="fieldStyle">
+          <div v-if="$q.screen.gt.sm" id="team-field" class="col-md-10 col-lg-11 q-px-sm" :class="fieldClass" :style="fieldStyle">
             <!-- Goalkeepers -->
             <div class="row justify-center q-my-lg q-mx-none">
               <div v-for="player in gks" :key="player.id" class="col-lg-1 col-md-2 col-sm-2 q-px-sm">
@@ -529,6 +529,12 @@ export default {
     }
   },
 
+  watch: {
+    $route () {
+      this.setDisplay()
+    }
+  },
+
   beforeRouteEnter (to, from, next) {
     axios.get('api/teams/' + to.params.team)
       .then(response => {
@@ -565,18 +571,7 @@ export default {
   created: function () {
     this.$store.commit('setRightDrawer', false)
     this.$q.loading.hide()
-
-    if (this.$q.screen.lt.lg) {
-      this.fieldClass['pitch'] = true
-      this.fieldStyle.backgroundColor = '#03691b'
-      this.fieldStyle.border = '5px solid #1a4870'
-      this.headerStyle.minHeight = '200px'
-    } else if (this.$q.screen.lt.md) {
-      this.headerStyle.display = 'flex'
-    } else {
-      this.headerStyle.minHeight = '375px'
-      this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
-    }
+    this.setDisplay()
   },
 
   methods: {
@@ -644,6 +639,20 @@ export default {
             break
         }
       })
+    },
+
+    setDisplay () {
+      if (this.$q.screen.lt.lg) {
+        this.fieldClass['pitch'] = true
+        // this.fieldStyle.backgroundColor = '#03691b'
+        this.fieldStyle.border = '5px solid #1a4870'
+        this.headerStyle.minHeight = '200px'
+      } else if (this.$q.screen.lt.md) {
+        this.headerStyle.display = 'flex'
+      } else {
+        this.headerStyle.minHeight = '375px'
+        this.fieldStyle.backgroundImage = 'url(/statics/images/pitch.png)'
+      }
     },
 
     reset () {
@@ -738,7 +747,7 @@ $pitchColor = #008c0e
 .pitch
   background-color: $pitchColor
   background-image: repeating-linear-gradient($pitchColor, $pitchColor 10 * $yd, lighten($pitchColor, 2%) 10 * $yd, lighten($pitchColor, 2%) 20 * $yd)
-  box-shadow: 0 0 4 * $yd 4 * $yd $pitchColor
+  // box-shadow: 0 0 4 * $yd 4 * $yd $pitchColor
   left: 0
   right: 0
   overflow: hidden
