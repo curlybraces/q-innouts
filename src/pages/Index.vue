@@ -266,7 +266,6 @@ export default {
   data: () => {
     return {
       slide: 0,
-      date: new Date(),
       carouselHeight: '500px',
       bulletTitleClass: {},
       bulletBodyClass: {},

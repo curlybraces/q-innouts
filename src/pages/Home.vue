@@ -244,7 +244,9 @@ export default {
     this.$axios.get('api/windows')
       .then(response => {
         this.windows = response.data.visibleWindows
-        this.windows.unshift(response.data.activeWindow)
+        if (this.windows[0].name !== response.data.activeWindow.name) {
+          this.windows.unshift(response.data.activeWindow)
+        }
         this.window = response.data.activeWindow
       })
       .catch(error => {

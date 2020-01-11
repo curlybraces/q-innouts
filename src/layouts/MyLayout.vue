@@ -136,7 +136,7 @@
           <p class="q-px-sm">&#10077; {{qotd.body}} &#10078; </p>
           <div class="q-mt-xs">&mdash; {{qotd.from}}, {{qotd.quoteeInfo}} </div>
         </div>
-        <div class="col-12 text-caption text-grey q-mt-md">Copyright &copy; 2018-2019 Innouts</div>
+        <div class="col-12 text-caption text-grey q-mt-md">Copyright &copy; 2018-{{year}} Innouts</div>
       </div>
     </q-footer>
 
@@ -146,7 +146,7 @@
 <script>
 import DesktopHeader from 'components/Header.vue'
 const MobileHeader = () => import('components/MobileHeader.vue')
-import { openURL } from 'quasar'
+import { openURL, date } from 'quasar'
 
 export default {
   name: 'MyLayout',
@@ -158,6 +158,8 @@ export default {
 
   data: () => {
     return {
+      date: new Date(),
+      year: null,
       leagues: [],
       teams: [],
       qotd: {},
@@ -183,6 +185,7 @@ export default {
   },
 
   created () {
+    this.year = date.formatDate(this.date, 'YYYY')
     this.$axios.get('api/leagues-teams')
       .then(response => {
         this.leagues = response.data.leagues
