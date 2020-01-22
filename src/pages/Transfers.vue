@@ -111,7 +111,9 @@ export default {
       transfers: [],
       filteredTransfers: [],
       myPagination: {
-        rowsPerPage: 10
+        rowsPerPage: 10,
+        sortBy: 'fee',
+        descending: true,
       },
       loading: false,
       window: null,
