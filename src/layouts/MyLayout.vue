@@ -118,6 +118,9 @@
 
     <q-footer elevated>
       <div class="row justify-around q-py-md text-center q-gutter-y-sm">
+        <div class="col-grow text-subtitle2 text-warning">
+          ☝️We need good writers and content editors. If interested get in touch through email or social media.
+        </div>
         <div class="col-12 q-gutter-x-md text-caption">
           <router-link to="/about" class="no-deco text-grey">About</router-link>
           <router-link to="/guide" class="no-deco text-grey">Guide</router-link>

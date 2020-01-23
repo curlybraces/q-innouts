@@ -110,7 +110,7 @@
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
                   <router-link :to="'/' + value.value.id + '/' + value.value.slug" class="no-decor" >
-                    <div class="row inline person-thumbnail no-decor ellipsis">
+                    <div class="row inline person-thumbnail no-decor ellipsis rounded-borders">
                       <q-img :src="value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
                   </router-link>
@@ -217,7 +217,7 @@
               >
                 <q-td slot="body-cell-fan" slot-scope="value" :props="value">
                   <router-link :to="'/' + value.value.id + '/' + value.value.slug" class="no-decor" >
-                    <div class="row inline person-thumbnail no-decor ellipsis">
+                    <div class="row inline person-thumbnail no-decor ellipsis rounded-borders">
                       <q-img :src=" value.value.picture" :alt="value.value.name" class="full-height self-cente" />
                     </div>
                   </router-link>

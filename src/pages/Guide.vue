@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-grow col-lg-6 col-md-7 col-sm-8 text-body1 text-justify">
-        <div class="text-h4 text-center q-my-md q-py-sm bg-primary text-secondary">Innouts Guide</div>
+        <div class="text-h4 text-center q-my-md q-py-sm bg-primary text-secondary">Guide</div>
            <p>
              This page is to help you know what is what in Innouts and provide general help.
            </p>
@@ -13,7 +13,7 @@
             </div>
             <h5 class="q-my-md">In and Out Cards</h5>
             <div>
-               In each transfer window, a fan of a team, will receive a certain number of In and Out cards, which they can use to add players to their In or Out
+               In each transfer window, a fan of a team, will receive a certain number of <i>In</i> and <i>Out</i> cards, which they can use to add players to their <i>In</i> or <i>Out</i>
                lists respectively. The formula by which your cards are calculated is as follows: <br>
                <div class="text-weight-medium q-my-md"> # of In/Out cards = 4 + user level (rounded down) + purchased In/Out cards (optional) </div>
                Each card can be allocated to a different player or more than 1 card to a single player should you see fit.
