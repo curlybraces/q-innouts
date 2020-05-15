@@ -274,7 +274,7 @@ export default {
 
   methods: {
     fetchData () {
-      this.$axios.get('api/articles')
+      this.$axios.get('api/articles', { params: { amount: 10 } })
         .then(response => {
           this.articles = response.data
         })
