@@ -100,7 +100,6 @@
               <q-rating
                 color="primary"
                 size="1.5rem"
-                icon="thumb_up"
                 :id="value.value.id"
                 :value="Math.round(value.value.rating)"
                 :max="5"
@@ -292,7 +291,6 @@ export default {
       unwantedColumns: [
         { name: 'name', required: true, label: 'Player', align: 'left', field: row => row.player, sortable: true },
         { name: 'team', align: 'center', label: 'Team', field: row => row.team },
-        { name: 'position', align: 'center', label: 'Position', field: row => row.player.broadPosition },
         { name: 'cards', align: 'center', label: 'Cards Assigned', field: row => row.cardRatio, sortable: true },
         { name: 'total', align: 'center', label: 'Total', field: row => row.cardTotal, sortable: true },
       ],

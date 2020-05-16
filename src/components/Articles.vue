@@ -9,8 +9,12 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label header class="newsTitle" :class="ArticleHeaderClass" >{{article.title}}</q-item-label>
+            <q-item-label header class="newsTitle" :class="ArticleHeaderClass" > {{article.title}}</q-item-label>
             <q-item-label v-if="showBody && $q.screen.gt.sm" class="newsBody1 text-caption" v-html="article.body" />
+          </q-item-section>
+
+          <q-item-section v-if="article.extended" side>
+            &#128270;
           </q-item-section>
 
           <q-item-section side>
