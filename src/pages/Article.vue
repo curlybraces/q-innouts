@@ -21,7 +21,7 @@
           :ratio="3/2"
           transition="slide-right"
         />
-        <div id="body" v-html="article.body" class="text-body1 newsBody2 text-justify text-center q-my-md q-py-sm q-px-xs"/>
+        <div id="body" v-html="article.body" class="text-body1 text-justify text-center q-my-md q-py-sm q-px-xs"/>
         <div class="row text-caption q-gutter-sm q-px-sm">
           <!-- Tags: -->
           <router-link :to="'/players/'+player.id+'/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in article.players" :key="player.id">

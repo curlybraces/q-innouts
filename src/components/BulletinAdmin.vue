@@ -24,11 +24,76 @@
             class="q-gutter-sm"
           >
             <q-input v-model="bulletinTitle" label="title" class="q-mb-sm" />
-            <div class="q-mt-lg text-bold">Short body</div>
+            <div class="q-mt-lg text-bold">Short Body</div>
             <q-editor v-model="bulletinBody" min-height="8rem" />
             <input type="file" accept="image/*" required ref="bulletin">
             <div class="q-mt-lg text-bold">Extended Body (optional)</div>
-            <q-editor v-model="bulletinExtended" min-height="8rem" />
+            <q-editor v-model="bulletinExtended" min-height="8rem" toolbar-bg="secondary" :toolbar="[
+                [
+                  {
+                    label: $q.lang.editor.align,
+                    icon: $q.iconSet.editor.align,
+                    fixedLabel: true,
+                    list: 'only-icons',
+                    options: ['left', 'center', 'right', 'justify']
+                  },
+                  {
+                    label: $q.lang.editor.formatting,
+                    icon: $q.iconSet.editor.formatting,
+                    list: 'no-icons',
+                    options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6']
+                  },
+                  {
+                    label: $q.lang.editor.defaultFont,
+                    icon: $q.iconSet.editor.font,
+                    fixedIcon: true,
+                    list: 'no-icons',
+                    options: [
+                      'default_font',
+                      'archivo',
+                      'arial',
+                      'arial_black',
+                      'comic_sans',
+                      'courier_new',
+                      'frank',
+                      'impact',
+                      'lato',
+                      'lucida_grande',
+                      'oswald',
+                      'saira',
+                      'times_new_roman',
+                      'verdana'
+                    ]
+                  },
+                  {
+                    label: $q.lang.editor.fontSize,
+                    icon: $q.iconSet.editor.fontSize,
+                    fixedLabel: true,
+                    fixedIcon: true,
+                    list: 'no-icons',
+                    options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6']
+                  },
+                ],
+                ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                [ 'unordered', 'ordered', 'quote', 'link', 'hr'],
+                ['undo', 'redo', 'fullscreen']
+              ]"
+              :fonts="{
+                arial: 'Arial',
+                arial_black: 'Arial Black',
+                comic_sans: 'Comic Sans MS',
+                courier_new: 'Courier New',
+                impact: 'Impact',
+                lucida_grande: 'Lucida Grande',
+                times_new_roman: 'Times New Roman',
+                verdana: 'Verdana',
+                lato: 'Lato',
+                oswald: 'Oswald',
+                frank: 'Frank Ruhl Libre',
+                archivo: 'Archivo Narrow',
+                saira: 'Saira Semi Condensed'
+              }"
+            />
             <div class="row q-gutter-x-sm">
               <div class="col">
                 <q-select

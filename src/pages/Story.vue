@@ -22,7 +22,7 @@
           transition="slide-right"
         />
         <div id="body" v-html="story.body" class="text-body1 newsBody2 text-justify text-center q-mt-md q-py-sm q-px-xs"/>
-        <div v-html="story.extended" class="text-body2 newsBody2 text-justify text-center q-mb-md q-mt-sm q-py-sm q-px-xs"/>
+        <div v-html="story.extended" class="text-body2 text-justify text-center q-mb-md q-mt-sm q-py-sm q-px-xs"/>
         <div class="row text-caption q-gutter-sm q-px-sm">
           <!-- Tags: -->
           <router-link :to="'/players/'+player.id+'/'+player.slug" class="no-decor text-primary  bg-secondary rounded-borders q-pa-xs" v-for="player in story.players" :key="player.id">
