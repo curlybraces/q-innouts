@@ -231,7 +231,7 @@ export default {
 
       meta: {
         description: { name: 'description', content: this.fullname + ' is a football player from ' + this.player.nationality + ' playing for ' + this.teamName + '.' },
-        keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.teamName, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age'] },
+        keywords: { name: 'keywords', content: [this.player.nickname, this.fullname, this.player.teamName, this.fullname + ' transfers', this.fullname + ' rumours', this.fullname + ' height', this.fullname + ' age', this.fullname + ' profile'] },
       },
     }
   },
