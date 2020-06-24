@@ -207,7 +207,7 @@
                   </div>
                 </q-td>
               </q-table>
-            <div class="text-caption q-my-md">Last update: {{league.standingsLastUpdated}}, UK time</div>
+            <div class="text-caption q-my-md">Last update: {{league.standingsLastUpdated}}, UTC time</div>
           </q-tab-panel>
           <q-tab-panel name="news" :class="panelClass">
             <div class="row justify-center">
