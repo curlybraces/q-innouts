@@ -5,8 +5,8 @@
         <div class="text-center text-h5 bg-primary q-pa-md text-white rounded-borders">
           Latest News
         </div>
+        <div class="text-caption text-center text-dark">From BBC Sports</div>
         <news :news="news"/>
-        <div to="/submit-rumour" class="text-caption text-center">News from BBC Sports</div>
       </div>
     </div>
   </q-page>

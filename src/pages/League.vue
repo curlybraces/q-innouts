@@ -212,8 +212,8 @@
           <q-tab-panel name="news" :class="panelClass">
             <div class="row justify-center">
               <div class="col-grow col-sm-9 col-md-7">
+                <div class="text-caption text-center">From ESPN</div>
                 <news :news="news" />
-                <div class="text-caption text-center">News from ESPN</div>
               </div>
             </div>
           </q-tab-panel>
