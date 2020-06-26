@@ -637,6 +637,19 @@ export default {
           case 'CF':
             this.cfs.push(element)
             break
+          case null:
+            switch (element.broadPosition) {
+              case 'Defender':
+                this.cbs.push(element)
+                break
+              case 'Midfielder':
+                this.cms.push(element)
+                break
+              case 'Attacker':
+                this.sss.push(element)
+                break
+            }
+            break
         }
       })
     },
